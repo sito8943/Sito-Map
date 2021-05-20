@@ -1,0 +1,2 @@
+rootProject.name = "Trinidad Patrimonial"
+include ':app'
