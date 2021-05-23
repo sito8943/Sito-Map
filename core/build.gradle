@@ -52,7 +52,7 @@ dependencies {
     api 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     // Testing
-    testApi "junit:junit:$rootProject.junitVersion"
-    androidTestApi "androidx.test.ext:junit:$rootProject.junitExtVersion"
-    androidTestApi "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
 }

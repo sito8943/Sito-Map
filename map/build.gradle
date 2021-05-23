@@ -1,7 +1,8 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.secrets_gradle_plugin' version '0.6'
 }
 
 android {
@@ -13,13 +14,13 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.inmersoft.trinidadpatrimonial"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -39,5 +40,9 @@ android {
 
 dependencies {
 
-    implementation project(":map")
+    api project(":core")
+
+    // Google Maps SDK
+    implementation "com.google.android.gms:play-services-maps:$rootProject.googleMapsVersion"
+    implementation "com.google.maps.android:maps-ktx:$rootProject.mapsKtxVersion"
 }
