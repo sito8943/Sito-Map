@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qr_graph"
+    app:startDestination="@id/qr_scanner_fragment">
+
+    <fragment
+        android:id="@+id/qr_scanner_fragment"
+        android:name="com.inmersoft.trinidadpatrimonial.qr.ui.QrScannerFragment"
+        android:label="@string/qr_scanner_fragment_title"
+        tools:layout="@layout/qr_scanner_fragment">
+        <deepLink app:uri="@string/qr_scanner_deeplink_uri" />
+    </fragment>
+
+</navigation>

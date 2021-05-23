@@ -2,8 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/map_graph">
+    app:startDestination="@id/home_graph">
 
-    <include app:graph="@navigation/map_graph"/>
+    <include app:graph="@navigation/home_graph" />
+    <include app:graph="@navigation/map_graph" />
+    <include app:graph="@navigation/qr_graph" />
 
 </navigation>
