@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    api "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
+    api "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+    api "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
+
+    // Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+
+    // Lifecycle
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+
+    // Navigation
+    api 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    api 'androidx.navigation:navigation-ui-ktx:2.3.5'
+
+    // Testing
+    testApi "junit:junit:$rootProject.junitVersion"
+    androidTestApi "androidx.test.ext:junit:$rootProject.junitExtVersion"
+    androidTestApi "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+}
