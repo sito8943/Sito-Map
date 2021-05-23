@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
     id 'com.google.secrets_gradle_plugin' version '0.6'
 }
 
@@ -44,6 +45,10 @@ dependencies {
     implementation project(":home")
     implementation project(":map")
     implementation project(":qr")
+
+    // Dagger Hilt (DI)
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
 
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
