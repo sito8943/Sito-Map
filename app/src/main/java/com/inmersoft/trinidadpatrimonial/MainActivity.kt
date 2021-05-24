@@ -45,10 +45,7 @@ class MainActivity : AppCompatActivity() {
             window.statusBarColor = Color.TRANSPARENT
             window.navigationBarColor = Color.TRANSPARENT
         }
-
-
     }
-
 
     private fun setWindowFlag(bits: Int, on: Boolean) {
         val win: Window = window
