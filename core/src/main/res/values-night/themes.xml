@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TrinidadPatrimonial" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/trinidadColorPrimary</item>
+        <item name="colorPrimaryVariant">@color/trinidadColorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/trinidadColorOnPrimary</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/trinidadColorSecondary</item>
+        <item name="colorSecondaryVariant">@color/trinidadColorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/trinidadColorOnSecondary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+    </style>
+
+    <style name="Theme.TrinidadPatrimonial.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TrinidadPatrimonial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TrinidadPatrimonial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.SplashScreen" parent="Theme.TrinidadPatrimonial">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+</resources>

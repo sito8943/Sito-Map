@@ -46,9 +46,12 @@ dependencies {
     implementation project(":map")
     implementation project(":qr")
 
+
     // Dagger Hilt (DI)
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
+
+
 
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
