@@ -11,7 +11,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.maps.android.ktx.awaitMap
 import com.inmersoft.trinidadpatrimonial.map.R
 import com.inmersoft.trinidadpatrimonial.map.databinding.MapFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MapFragment : Fragment() {
     private var googleMap: GoogleMap? = null
 

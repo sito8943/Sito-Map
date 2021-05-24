@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -52,9 +53,16 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     api "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
 
+    // Fragment
+    api "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+
     // Navigation
     api "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     api "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+
+    // Dagger Hilt (DI)
+    implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
 
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
