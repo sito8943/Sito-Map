@@ -19,9 +19,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
-import com.google.mlkit.vision.barcode.Barcode
-import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.inmersoft.trinidadpatrimonial.qr.databinding.QrScannerFragmentBinding
+import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -32,6 +31,7 @@ class QrScannerFragment : Fragment() {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraExecutor: ExecutorService
     private var camera: Camera? = null
+    private lateinit var qrProcessor: QrProcessor
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +41,7 @@ class QrScannerFragment : Fragment() {
         val binding = QrScannerFragmentBinding.inflate(inflater, container, false)
         cameraPreview = binding.cameraView
         cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        qrProcessor = QrProcessor(binding.cameraOverlay)
 
         if (isPermissionGranted())
             startCamera()
@@ -71,13 +72,7 @@ class QrScannerFragment : Fragment() {
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
 
-        imageAnalysis.setAnalyzer(cameraExecutor, ImageAnalysis.Analyzer { image ->
-            val rotationDegrees = image.imageInfo.rotationDegrees
-            // insert your code here.
-            val options = BarcodeScannerOptions.Builder()
-                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
-                .build()
-        })
+        imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(requireContext()), qrProcessor)
 
         val cameraSelector: CameraSelector = CameraSelector.Builder()
             .requireLensFacing(CameraSelector.LENS_FACING_BACK)
