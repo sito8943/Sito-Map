@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.home
+package com.inmersoft.trinidadpatrimoniald.qr
 
 import org.junit.Test
 

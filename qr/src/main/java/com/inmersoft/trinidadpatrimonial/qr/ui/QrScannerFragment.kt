@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.qr.ui
+package com.inmersoft.trinidadpatrimoniald.qr.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -20,7 +20,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
 import com.inmersoft.trinidadpatrimonial.qr.databinding.QrScannerFragmentBinding
-import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
+import com.inmersoft.trinidadpatrimoniald.qr.qrdetection.QrProcessor
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors

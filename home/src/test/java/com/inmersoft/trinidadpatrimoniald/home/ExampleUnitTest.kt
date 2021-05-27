@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.map
+package com.inmersoft.trinidadpatrimoniald.home
 
 import org.junit.Test
 

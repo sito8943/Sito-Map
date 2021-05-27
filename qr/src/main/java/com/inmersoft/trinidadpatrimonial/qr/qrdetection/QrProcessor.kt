@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.qr.qrdetection
+package com.inmersoft.trinidadpatrimoniald.qr.qrdetection
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -7,8 +7,8 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.common.InputImage
-import com.inmersoft.trinidadpatrimonial.qr.camera.CameraReticleAnimator
-import com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
+import com.inmersoft.trinidadpatrimoniald.qr.camera.CameraReticleAnimator
+import com.inmersoft.trinidadpatrimoniald.qr.camera.GraphicOverlay
 
 class QrProcessor(private val graphicOverlay: GraphicOverlay) : ImageAnalysis.Analyzer {
     private val cameraReticleAnimator = CameraReticleAnimator(graphicOverlay)

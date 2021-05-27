@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.qr.camera
+package com.inmersoft.trinidadpatrimoniald.qr.camera
 
 import android.content.Context
 import android.graphics.Canvas

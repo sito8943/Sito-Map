@@ -3,5 +3,7 @@ apply plugin: 'kotlin-android'
 
 dependencies {
 
-
+    api "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+    api "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
 }

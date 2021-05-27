@@ -1,9 +1,9 @@
-package com.inmersoft.trinidadpatrimonial.qr.qrdetection
+package com.inmersoft.trinidadpatrimoniald.qr.qrdetection
 
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import com.inmersoft.trinidadpatrimonial.qr.R
-import com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
+import com.inmersoft.trinidadpatrimoniald.qr.camera.GraphicOverlay
 
 internal abstract class QrGraphicBase(overlay: GraphicOverlay) : GraphicOverlay.Graphic(overlay) {
 

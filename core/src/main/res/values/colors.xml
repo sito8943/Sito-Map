@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="trinidadColorPrimary">#AC3501</color>
-    <color name="trinidadColorPrimaryVariant">@color/trinidadColorPrimary</color>
-    <color name="trinidadColorSecondary">#4DAC3501</color>
+    <color name="trinidadColorPrimaryVariant">@color/trinidadColorSecondary</color>
+    <color name="trinidadColorSecondary">#DA4E11</color>
     <color name="trinidadColorSecondaryVariant">#FF018786</color>
     <color name="trinidadColorOnSecondary">#FF000000</color>
     <color name="trinidadColorOnPrimary">#FFFFFFFF</color>
+    <color name="statusBarTranslucent">#33000000</color>
     <color name="trinidadMainBackground">#F2F2F2</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.home.ui.fragments
+package com.inmersoft.trinidadpatrimoniald.home.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.home.databinding.HomeFragmentBinding
-import com.inmersoft.trinidadpatrimonial.home.ui.viewmodels.HomeViewModel
-import com.inmersoft.trinidadpatrimonial.ui.home.RecycleMainAdapter
+import com.inmersoft.trinidadpatrimoniald.home.ui.viewmodels.HomeViewModel
+import com.inmersoft.trinidadpatrimoniald.ui.home.RecycleMainAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,13 +27,16 @@ class HomeFragment : Fragment() {
 
         val recycleTestView: RecyclerView = binding.mainRecycleview
 
+        //TODO ( ESTE ADAPTER ES SOLO PARA MOSTRARLE LA APP A JOSE Y TENER UNA IDEA DE COMO VA A QUEDAR )
+        val adapter = RecycleMainAdapter()
 
-        val adapter = RecycleMainAdapter(
+        adapter.setData(
             listOf(
                 "dqwefwef", "wefwef", "wefwef", "wefwef", "wefwef", "wefwef",
                 "wefwef"
             )
         )
+
         recycleTestView.adapter = adapter
 
         return binding.root

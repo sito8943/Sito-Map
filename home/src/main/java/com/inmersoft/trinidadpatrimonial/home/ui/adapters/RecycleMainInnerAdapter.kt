@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.home
+package com.inmersoft.trinidadpatrimoniald.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.home.R
 
-class RecycleMainInnerAdapter(
-    private val test: List<String>
-) : RecyclerView.Adapter<RecycleMainInnerAdapter.SearchListViewHolder>() {
+class RecycleMainInnerAdapter :
+    RecyclerView.Adapter<RecycleMainInnerAdapter.SearchListViewHolder>() {
+
+    //TODO ( Se puede usar este adapte como base pero es solo para mostrar la lista en pantalla )
+    /***
+     *   ESTE ADAPTER ES DE PRUEBA     *
+     */
+
     inner class SearchListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    }
+
+    private val dataInnerList = mutableListOf<String>()
+
+
+    fun setDataList(newDataList: List<String>) {
+        dataInnerList.clear()
+        dataInnerList.addAll(newDataList)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
@@ -29,6 +43,6 @@ class RecycleMainInnerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return test.size
+        return dataInnerList.size
     }
 }

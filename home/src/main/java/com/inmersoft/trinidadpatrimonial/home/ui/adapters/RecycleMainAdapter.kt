@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.home
+package com.inmersoft.trinidadpatrimoniald.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.home.R
 
-class RecycleMainAdapter(
-    private val test: List<String>
-) : RecyclerView.Adapter<RecycleMainAdapter.RecycleMainAdapterViewHolder>() {
+class RecycleMainAdapter : RecyclerView.Adapter<RecycleMainAdapter.RecycleMainAdapterViewHolder>() {
+
+    private val dataList = mutableListOf<String>()
+
     inner class RecycleMainAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val innerRecyclerView: RecyclerView =
             itemView.findViewById<RecyclerView>(R.id.main_inner_recycleview)
@@ -25,18 +26,28 @@ class RecycleMainAdapter(
         )
     }
 
+    fun setData(mainDataList: List<String>) {
+        dataList.clear()
+        dataList.addAll(mainDataList)
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: RecycleMainAdapterViewHolder, position: Int) {
 
-        val adapter = RecycleMainInnerAdapter(
+        val adapter = RecycleMainInnerAdapter()
+
+        //TODO (Este adapter es para mostrarle la app a JOSE)
+        adapter.setDataList(
             listOf(
                 "dqwefwef", "wefwef", "wefwef", "wefwef", "wefwef", "wefwef",
                 "wefwef"
             )
         )
+
         holder.innerRecyclerView.adapter = adapter
     }
 
     override fun getItemCount(): Int {
-        return test.size
+        return dataList.size
     }
 }

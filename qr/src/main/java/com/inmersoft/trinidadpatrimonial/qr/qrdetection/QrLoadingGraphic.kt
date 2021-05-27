@@ -1,11 +1,11 @@
-package com.inmersoft.trinidadpatrimonial.qr.qrdetection
+package com.inmersoft.trinidadpatrimoniald.qr.qrdetection
 
 import android.animation.ValueAnimator
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.Point
 import android.graphics.PointF
-import com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
+import com.inmersoft.trinidadpatrimoniald.qr.camera.GraphicOverlay
 import kotlin.math.abs
 
 internal class QrLoadingGraphic(

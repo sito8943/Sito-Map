@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
                         or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION), false
             )
-            window.statusBarColor = Color.TRANSPARENT
+            window.statusBarColor = resources.getColor(R.color.statusBarTranslucent)
             window.navigationBarColor = Color.TRANSPARENT
         }
     }

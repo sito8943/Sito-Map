@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.home.ui.viewmodels
+package com.inmersoft.trinidadpatrimoniald.home.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

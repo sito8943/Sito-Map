@@ -1,9 +1,9 @@
-package com.inmersoft.trinidadpatrimonial.qr.qrdetection
+package com.inmersoft.trinidadpatrimoniald.qr.qrdetection
 
 import android.graphics.Canvas
 import android.graphics.Path
 import com.google.mlkit.vision.barcode.Barcode
-import com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
+import com.inmersoft.trinidadpatrimoniald.qr.camera.GraphicOverlay
 
 internal class QrConfirmingGraphic(overlay: GraphicOverlay, private val barcode: Barcode) :
     QrGraphicBase(overlay) {

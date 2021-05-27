@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.qr.camera
+package com.inmersoft.trinidadpatrimoniald.qr.camera
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator

@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.map
+package com.inmersoft.trinidadpatrimoniald.map
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.qr.qrdetection
+package com.inmersoft.trinidadpatrimoniald.qr.qrdetection
 
 import android.graphics.RectF
 import com.google.mlkit.vision.barcode.Barcode
@@ -6,7 +6,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.inmersoft.trinidadpatrimonial.qr.R
-import com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
+import com.inmersoft.trinidadpatrimoniald.qr.camera.GraphicOverlay
 
 object QrUtils {
 
