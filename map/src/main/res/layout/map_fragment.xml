@@ -51,6 +51,7 @@
             app:boxCornerRadiusTopStart="8dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
+            android:focusable="false"
             app:endIconMode="clear_text"
             app:hintTextColor="@color/trinidadColorOnSecondary"
             app:layout_constraintEnd_toEndOf="parent"
