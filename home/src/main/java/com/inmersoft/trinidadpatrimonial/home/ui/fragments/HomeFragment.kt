@@ -25,6 +25,8 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
 
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+
         val recycleTestView: RecyclerView = binding.mainRecycleview
 
         //TODO ( ESTE ADAPTER ES SOLO PARA MOSTRARLE LA APP A JOSE Y TENER UNA IDEA DE COMO VA A QUEDAR )
@@ -42,10 +44,5 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }
