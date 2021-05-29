@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.home.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimoniald.home.ui.viewmodels.HomeViewModel
-import com.inmersoft.trinidadpatrimoniald.ui.home.RecycleMainAdapter
+import com.inmersoft.trinidadpatrimonial.home.ui.adapters.MainSectionsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         val recycleTestView: RecyclerView = binding.mainRecycleview
 
         //TODO ( ESTE ADAPTER ES SOLO PARA MOSTRARLE LA APP A JOSE Y TENER UNA IDEA DE COMO VA A QUEDAR )
-        val adapter = RecycleMainAdapter()
+        val adapter = MainSectionsAdapter()
 
         adapter.setData(
             listOf(

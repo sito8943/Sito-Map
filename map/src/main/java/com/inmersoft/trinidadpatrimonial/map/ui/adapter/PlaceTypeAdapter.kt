@@ -1,27 +1,26 @@
 package com.inmersoft.trinidadpatrimonial.map.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
-import com.inmersoft.trinidadpatrimonial.data.entity.PlaceType
-import com.inmersoft.trinidadpatrimonial.map.R
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.map.databinding.ItemPlaceTypeBinding
 
 class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
-    RecyclerView.Adapter<PlaceTypeAdapter.ViewHolder>() {
+    RecyclerView.Adapter<PlaceTypeViewHolder>() {
 
     private var placeTypeList = mutableListOf<PlaceType>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_place_type, parent, false)
+    ): PlaceTypeViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemPlaceTypeBinding.inflate(inflater, parent, false)
+
+        return PlaceTypeViewHolder(
+            binding, imageLoader
         )
     }
 
@@ -31,7 +30,7 @@ class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PlaceTypeViewHolder, position: Int) {
         holder.bindData(placeTypeList[position])
     }
 
@@ -39,20 +38,6 @@ class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
         return placeTypeList.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val placeTypeImage: ImageView = itemView.findViewById(R.id.place_type_image)
-        private val placeTypeName: TextView = itemView.findViewById(R.id.place_type_text)
 
-        fun bindData(itemPlaceType: PlaceType) {
-            placeTypeName.text = itemPlaceType.name
-            imageLoader.loadImage(
-                itemPlaceType.imgUrl,
-                placeTypeImage,
-                R.drawable.place_holder_error,
-                R.drawable.place_holder_error
-            )
-        }
-
-    }
 
 }

@@ -3,7 +3,7 @@ package com.inmersoft.trinidadpatrimonial.map.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.inmersoft.trinidadpatrimonial.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
 
 class MapFragmentViewModel : ViewModel() {
 

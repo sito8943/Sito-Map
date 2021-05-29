@@ -90,7 +90,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/header_guide_line"
-            tools:listitem="@layout/main_places_card_view" />
+            tools:listitem="@layout/main_places_sections" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/header_guide_line"
