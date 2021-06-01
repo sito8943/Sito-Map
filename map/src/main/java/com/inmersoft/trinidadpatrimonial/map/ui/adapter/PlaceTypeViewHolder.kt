@@ -1,7 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.map.ui.adapter
 
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
@@ -18,7 +17,7 @@ class PlaceTypeViewHolder(
     fun bindData(itemPlaceType: PlaceType) {
         binding.placeType = itemPlaceType
         imageLoader.loadImage(
-            itemPlaceType.imgUrl,
+            itemPlaceType.icon,
             placeTypeImage,
             R.drawable.place_holder_error,
             R.drawable.place_holder_error

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.core.data.entity.TypeTranslation
 
 class MapFragmentViewModel : ViewModel() {
 
@@ -16,11 +17,36 @@ class MapFragmentViewModel : ViewModel() {
 
     fun getAllPlaceType(): List<PlaceType> {
         return listOf(
-            PlaceType("Hotel", "url_Image"),
-            PlaceType("CasaColonial Santa Ana", "url_Image"),
-            PlaceType("Restaurant", "url_Image"),
-            PlaceType("Playas", "url_Image"),
-            PlaceType("Playas", "url_Image"),
+            PlaceType(
+                0,
+                "Hotel",
+                "url_Image",
+                listOf<TypeTranslation>(TypeTranslation("es", "hbwefi"))
+            ),
+            PlaceType(
+                0,
+                "Hotel",
+                "url_Image",
+                listOf<TypeTranslation>(TypeTranslation("es", "hbwefi"))
+            ),
+            PlaceType(
+                0,
+                "Hotel",
+                "url_Image",
+                listOf<TypeTranslation>(TypeTranslation("es", "hbwefi"))
+            ),
+            PlaceType(
+                0,
+                "Hotel",
+                "url_Image",
+                listOf<TypeTranslation>(TypeTranslation("es", "hbwefi"))
+            ),
+            PlaceType(
+                0,
+                "Hotel",
+                "url_Image",
+                listOf<TypeTranslation>(TypeTranslation("es", "hbwefi"))
+            ),
         )
     }
 

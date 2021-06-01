@@ -3,8 +3,8 @@ package com.inmersoft.trinidadpatrimonial.map.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.map.databinding.ItemPlaceTypeBinding
 
 class PlaceTypeAdapter(private val imageLoader: ImageLoader) :

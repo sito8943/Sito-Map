@@ -52,7 +52,7 @@
                 android:fadingEdgeLength="150dp"
                 android:maxLines="1"
                 android:requiresFadingEdge="horizontal"
-                android:text="@{placeType.name}"
+                android:text="@{placeType.type}"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/place_type_cardview"
                 app:layout_constraintStart_toEndOf="@+id/place_type_cardview"

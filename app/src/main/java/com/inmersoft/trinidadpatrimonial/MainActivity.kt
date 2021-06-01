@@ -3,14 +3,17 @@ package com.inmersoft.trinidadpatrimonial
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +25,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         initUi()
+
+        val database = AppDatabase.getDatabase(this, this.lifecycleScope)
+
+        database.placesDao().getAllPlaces().observe(this@MainActivity, { it ->
+            it.forEach { placeItem ->
+                Log.d("TAG", "DATABASE-TRINIDAD: ${placeItem.place_name} - ${placeItem.id}  ")
+            }
+        })
+
+
     }
 
     private fun initUi() {
