@@ -27,7 +27,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Place::class, Route::class, PlaceType::class, PlaceTypesAndPlacesCrossRef::class, RoutesAndPlacesCrossRef::class],
+    entities = [Place::class, Route::class, PlaceType::class,PlaceTypesAndPlacesCrossRef::class, RoutesAndPlacesCrossRef::class],
     version = 1,
     exportSchema = true
 )

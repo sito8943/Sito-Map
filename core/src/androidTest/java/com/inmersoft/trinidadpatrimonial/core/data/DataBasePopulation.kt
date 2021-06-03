@@ -21,4 +21,14 @@ class DataBasePopulation {
         Assert.assertTrue(resultPlace!!.places.isNotEmpty())
     }
 
+    @Test
+    fun isProcessPlacesTypeCorrectly() {
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory())
+            .build()
+        val strJSON = readJSONFromAsset(InstrumentationRegistry.getInstrumentation().context)
+        val trinidadAdapter: JsonAdapter<Trinidad> = moshi.adapter(Trinidad::class.java)
+        val resultPlace = trinidadAdapter.fromJson(strJSON)
+        Assert.assertTrue(resultPlace!!.place_type.isNotEmpty())
+    }
+
 }

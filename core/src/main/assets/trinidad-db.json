@@ -2,6 +2,8 @@
   "places": [
     {
       "place_id": 0,
+      "place_type": [0,1,2],
+      "routes_id": [0,1,2],
       "place_name": "Casa Granda",
       "place_description": "asdfsdfsd",
       "header_images": [
@@ -40,6 +42,7 @@
   "routes": [
     {
       "route_id": 0,
+      "places_id": [0,1,2],
       "route_name": "Ruta del Plazuela del Jigüe",
       "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
       "header_images": [
@@ -65,6 +68,7 @@
   "place_type": [
     {
       "place_type_id": 0,
+      "places_id": [0,1,2],
       "type": "Hotel",
       "icon": "url- del a imagen",
       "type_translation": [
