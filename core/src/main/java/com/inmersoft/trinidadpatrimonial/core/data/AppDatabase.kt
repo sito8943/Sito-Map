@@ -20,8 +20,8 @@ import com.inmersoft.trinidadpatrimonial.core.utils.readJSONFromAsset
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Database(
@@ -41,8 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(
-            context: Context,
-            scope: CoroutineScope
+            context: Context
         ): AppDatabase {
             return INSTANCE
                 ?: synchronized(this) {
@@ -53,8 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
                     ).fallbackToDestructiveMigration()
                         .addCallback(
                             TrinidadDatabaseCallback(
-                                context,
-                                scope
+                                context
                             )
                         )
                         .build()
@@ -65,12 +63,11 @@ abstract class AppDatabase : RoomDatabase() {
 
         private class TrinidadDatabaseCallback(
             private val context: Context,
-            private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
                 INSTANCE?.let { database ->
-                    scope.launch(Dispatchers.IO) {
+                    GlobalScope.launch(Dispatchers.IO) {
                         val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory())
                             .build()
                         val strJSON = readJSONFromAsset(context)

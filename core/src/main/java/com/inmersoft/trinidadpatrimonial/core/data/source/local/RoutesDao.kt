@@ -16,7 +16,7 @@ interface RoutesDao {
     suspend fun update(route: Route)
 
     @Query("SELECT * FROM routes")
-    fun getAllPlaces(): LiveData<List<Route>>
+    fun getAllRoutes(): LiveData<List<Route>>
 
     @Query("DELETE FROM routes")
     suspend fun deleteAll()

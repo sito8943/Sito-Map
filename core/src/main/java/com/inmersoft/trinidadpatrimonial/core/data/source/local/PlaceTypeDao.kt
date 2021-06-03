@@ -16,7 +16,7 @@ interface PlaceTypeDao {
     suspend fun update(placeType: PlaceType)
 
     @Query("SELECT * FROM place_types")
-    fun getAllPlaces(): LiveData<List<PlaceType>>
+    fun getAllPlacesType(): LiveData<List<PlaceType>>
 
     @Query("DELETE FROM place_types")
     suspend fun deleteAll()

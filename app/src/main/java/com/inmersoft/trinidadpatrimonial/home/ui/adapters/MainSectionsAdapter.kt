@@ -3,11 +3,12 @@ package com.inmersoft.trinidadpatrimonial.home.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.MainPlacesSectionsBinding
 
 class MainSectionsAdapter : RecyclerView.Adapter<MainSectionsViewHolder>() {
 
-    private val mainSectionData = mutableListOf<String>()
+    private val mainSectionData = mutableListOf<Place>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -21,7 +22,7 @@ class MainSectionsAdapter : RecyclerView.Adapter<MainSectionsViewHolder>() {
         )
     }
 
-    fun setData(mainDataList: List<String>) {
+    fun setData(mainDataList: List<Place>) {
         mainSectionData.clear()
         mainSectionData.addAll(mainDataList)
         notifyDataSetChanged()
@@ -38,6 +39,8 @@ class MainSectionsAdapter : RecyclerView.Adapter<MainSectionsViewHolder>() {
                 "wefwef"
             )
         )
+
+        holder.bindData(mainSectionData[position])
 
         holder.innerRecyclerView.adapter = subSectionsAdapter
     }

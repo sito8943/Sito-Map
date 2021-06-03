@@ -20,18 +20,20 @@ import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
         super.onCreate(savedInstanceState)
         setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         initUi()
-
-        val database = AppDatabase.getDatabase(this, this.lifecycleScope)
 
         database.placesDao().getAllPlaces().observe(this@MainActivity, { it ->
             it.forEach { placeItem ->

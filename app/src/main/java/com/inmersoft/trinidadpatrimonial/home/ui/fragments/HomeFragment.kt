@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.MainSectionsAdapter
-import com.inmersoft.trinidadpatrimoniald.home.ui.viewmodels.HomeViewModel
+import com.inmersoft.trinidadpatrimonial.home.ui.viewmodels.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,9 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
 
-    private lateinit var viewModel: HomeViewModel
+    private val homeViewModel: HomeFragmentViewModel by viewModels()
+
+    private val mainAdapter = MainSectionsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,21 +27,12 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
         val recycleTestView: RecyclerView = binding.mainRecycleview
+        recycleTestView.adapter = mainAdapter
 
-        //TODO ( ESTE ADAPTER ES SOLO PARA MOSTRARLE LA APP A JOSE Y TENER UNA IDEA DE COMO VA A QUEDAR )
-        val adapter = MainSectionsAdapter()
-
-        adapter.setData(
-            listOf(
-                "dqwefwef", "wefwef", "wefwef", "wefwef", "wefwef", "wefwef",
-                "wefwef"
-            )
-        )
-
-        recycleTestView.adapter = adapter
+        homeViewModel.allPlaces.observe(viewLifecycleOwner, { placeList ->
+            mainAdapter.setData(placeList)
+        })
 
         return binding.root
     }
