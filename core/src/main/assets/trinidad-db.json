@@ -1,105 +1,13 @@
 {
   "places": [
     {
-      "id": 0,
-      "place_type": [
-        0,
-        1,
-        2
-      ],
-      "header_images": [
-        "URL-IMAGES",
-        "URL-IMAGES",
-        "URL-IMAGES",
-        "URL-IMAGES"
-      ],
+      "place_id": 0,
       "place_name": "Casa Granda",
       "place_description": "asdfsdfsd",
-      "map_icon": "url",
-      "location": {
-        "latitude": 21.8055678,
-        "longitude": -79.985233
-      },
-      "web": "url",
-      "video_promo": "url",
-      "pano": [
-        "url",
-        "url",
-        "url"
-      ],
-      "model3d": "url-modelContent",
-      "place_translations": [
-        {
-          "lang": "en",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        },
-        {
-          "lang": "fr",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "place_type": [
-        0,
-        1,
-        2
-      ],
       "header_images": [
-        "URL-IMAGES",
-        "URL-IMAGES",
         "URL-IMAGES",
         "URL-IMAGES"
       ],
-      "place_name": "Los Portales",
-      "place_description": "asdfsdfsd",
-      "map_icon": "url",
-      "location": {
-        "latitude": 21.8055678,
-        "longitude": -79.985233
-      },
-      "web": "url",
-      "video_promo": "url",
-      "pano": [
-        "url",
-        "url",
-        "url"
-      ],
-      "model3d": "url-modelContent",
-      "place_translations": [
-        {
-          "lang": "en",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        },
-        {
-          "lang": "fr",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        }
-      ]
-    },{
-      "id": 2,
-      "place_type": [
-        0,
-        1,
-        2
-      ],
-      "header_images": [
-        "URL-IMAGES",
-        "URL-IMAGES",
-        "URL-IMAGES",
-        "URL-IMAGES"
-      ],
-      "place_name": "Enramadas",
-      "place_description": "asdfsdfsd",
       "map_icon": "url",
       "location": {
         "latitude": 21.8055678,
@@ -131,35 +39,12 @@
   ],
   "routes": [
     {
-      "id": 0,
+      "route_id": 0,
+      "route_name": "Ruta del Plazuela del Jigüe",
+      "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
       "header_images": [
         "images/headers/plazuela_jigue_header.png"
       ],
-      "route_name": "Ruta del Plazuela del Jigüe",
-      "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
-      "video_promo": "url",
-      "route_translations": [
-        {
-          "lang": "en",
-          "route_name": "Jigüe Square",
-          "video_promo": "url",
-          "route_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        },
-        {
-          "lang": "fr",
-          "route_name": "Jigüe Square",
-          "video_promo": "url",
-          "route_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "header_images": [
-        "images/headers/plazuela_jigue_header.png"
-      ],
-      "route_name": "Ruta del Plazuela del Jigüe",
-      "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
       "video_promo": "url",
       "route_translations": [
         {
@@ -179,7 +64,7 @@
   ],
   "place_type": [
     {
-      "id": 0,
+      "place_type_id": 0,
       "type": "Hotel",
       "icon": "url- del a imagen",
       "type_translation": [
@@ -190,36 +75,6 @@
         {
           "lang": "fr",
           "type": "Hotelie"
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "type": "Restaurante",
-      "icon": "url- del a imagen",
-      "type_translation": [
-        {
-          "lang": "en",
-          "type": "Restaurant"
-        },
-        {
-          "lang": "fr",
-          "type": "Alquier Home"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "type": "Museo",
-      "icon": "url- del a imagen",
-      "type_translation": [
-        {
-          "lang": "en",
-          "type": "Museum"
-        },
-        {
-          "lang": "fr",
-          "type": "sdfsdg"
         }
       ]
     }

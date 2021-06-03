@@ -3,6 +3,8 @@ package com.inmersoft.trinidadpatrimonial.core.data.source.local
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlacesWithPlaceType
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlacesWithRoutes
 
 @Dao
 interface PlaceDao {
@@ -22,4 +24,11 @@ interface PlaceDao {
     @Query("DELETE FROM places ")
     suspend fun deleteAll()
 
+    @Transaction
+    @Query("SELECT * FROM places")
+    suspend fun getPlacesWithPlaceType(): List<PlacesWithPlaceType>
+
+    @Transaction
+    @Query("SELECT * FROM places")
+    suspend fun getPlaceWithRoutes(): List<PlacesWithRoutes>
 }

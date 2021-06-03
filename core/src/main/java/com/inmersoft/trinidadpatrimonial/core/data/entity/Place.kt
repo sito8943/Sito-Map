@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "places")
 @JsonClass(generateAdapter = true)
 data class Place(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val place_id: Int,
     val header_images: List<String>,
     @Embedded
     val location: Location,
@@ -18,7 +18,6 @@ data class Place(
     val place_description: String,
     val place_name: String,
     val place_translations: List<PlaceTranslation>,
-    val place_type: List<Int>,
     val video_promo: String,
     val web: String
 )

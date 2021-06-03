@@ -12,6 +12,8 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Route
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Trinidad
+import com.inmersoft.trinidadpatrimonial.core.data.entity.cross_refrences.PlaceTypesAndPlacesCrossRef
+import com.inmersoft.trinidadpatrimonial.core.data.entity.cross_refrences.RoutesAndPlacesCrossRef
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceTypeDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.RoutesDao
@@ -25,7 +27,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = [Place::class, Route::class, PlaceType::class],
+    entities = [Place::class, Route::class, PlaceType::class, PlaceTypesAndPlacesCrossRef::class, RoutesAndPlacesCrossRef::class],
     version = 1,
     exportSchema = true
 )

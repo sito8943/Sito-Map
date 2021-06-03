@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "routes")
 @JsonClass(generateAdapter = true)
 data class Route(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val route_id: Int = 0,
     val header_images: List<String>,
     val route_description: String,
     val route_name: String,

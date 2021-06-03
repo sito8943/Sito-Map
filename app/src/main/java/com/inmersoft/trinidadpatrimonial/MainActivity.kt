@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         database.placesDao().getAllPlaces().observe(this@MainActivity, { it ->
             it.forEach { placeItem ->
-                Log.d("TAG", "DATABASE-TRINIDAD: ${placeItem.place_name} - ${placeItem.id}  ")
+                Log.d("TAG", "DATABASE-TRINIDAD: ${placeItem.place_name} - ${placeItem.place_id}  ")
             }
         })
 

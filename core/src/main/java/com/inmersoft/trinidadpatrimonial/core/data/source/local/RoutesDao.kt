@@ -3,6 +3,7 @@ package com.inmersoft.trinidadpatrimonial.core.data.source.local
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Route
+import com.inmersoft.trinidadpatrimonial.core.data.entity.RoutesWithPlaces
 
 @Dao
 interface RoutesDao {
@@ -20,4 +21,8 @@ interface RoutesDao {
 
     @Query("DELETE FROM routes")
     suspend fun deleteAll()
+
+    @Transaction
+    @Query("SELECT * FROM routes")
+    fun getRouteWithPlaces(): List<RoutesWithPlaces>
 }
