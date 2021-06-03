@@ -38,6 +38,4 @@ class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
         return placeTypeList.size
     }
 
-
-
 }

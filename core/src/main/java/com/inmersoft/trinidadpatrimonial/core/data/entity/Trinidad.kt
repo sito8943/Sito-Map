@@ -1,8 +1,10 @@
 package com.inmersoft.trinidadpatrimonial.core.data.entity
 
-data class Trinidad(
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
+data class Trinidad(
+    val place_type: List<PlaceType>,
     val places: List<Place>,
-    val routes: List<Route>,
-    val placeType: List<PlaceType>
+    val routes: List<Route>
 )

@@ -14,8 +14,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.core.data.entity.TypeTranslation
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,7 +39,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-
+        lifecycleScope.launch(Dispatchers.IO) {
+            val p = PlaceType(
+                0, "url", Random.nextInt(100, 300).toString(), listOf<TypeTranslation>(
+                    TypeTranslation("ex", "GAS")
+                )
+            )
+            database.placesTypeDao().insert(p)
+        }
     }
 
     private fun initUi() {

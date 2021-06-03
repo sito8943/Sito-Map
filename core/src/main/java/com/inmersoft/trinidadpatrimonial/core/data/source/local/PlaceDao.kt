@@ -10,13 +10,16 @@ interface PlaceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(place: Place)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(place: List<Place>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(place: Place)
 
     @Query("SELECT * FROM places")
     fun getAllPlaces(): LiveData<List<Place>>
 
-    @Query("DELETE FROM places")
+    @Query("DELETE FROM places ")
     suspend fun deleteAll()
 
 }

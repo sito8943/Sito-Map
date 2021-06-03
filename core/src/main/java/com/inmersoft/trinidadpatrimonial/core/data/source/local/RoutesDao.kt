@@ -9,6 +9,9 @@ interface RoutesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(route: Route)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(place: List<Route>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(route: Route)
 

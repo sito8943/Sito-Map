@@ -15,19 +15,19 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Trinidad
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceTypeDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.RoutesDao
+import com.inmersoft.trinidadpatrimonial.core.utils.DATABASE_NAME
+import com.inmersoft.trinidadpatrimonial.core.utils.readJSONFromAsset
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.InputStream
-import java.lang.reflect.Type
 
 @Database(
     entities = [Place::class, Route::class, PlaceType::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
@@ -44,14 +44,12 @@ abstract class AppDatabase : RoomDatabase() {
             context: Context,
             scope: CoroutineScope
         ): AppDatabase {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database
             return INSTANCE
                 ?: synchronized(this) {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        "trinidad-db.db"
+                        DATABASE_NAME
                     ).fallbackToDestructiveMigration()
                         .addCallback(
                             TrinidadDatabaseCallback(
@@ -71,17 +69,14 @@ abstract class AppDatabase : RoomDatabase() {
         ) : RoomDatabase.Callback() {
             override fun onOpen(db: SupportSQLiteDatabase) {
                 super.onOpen(db)
-                // If you want to keep the data through app restarts,
-                // comment out the following line.
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        val moshi = Moshi.Builder().build()
-                        val type: Type = Types.newParameterizedType(
-                            String::class.java,
-                            Trinidad::class.java,
-                        )
-                        val trinidadAdapter: JsonAdapter<Trinidad> = moshi.adapter(type)
+                        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory())
+                            .build()
                         val strJSON = readJSONFromAsset(context)
+                        val trinidadAdapter: JsonAdapter<Trinidad> =
+                            moshi.adapter(Trinidad::class.java)
+                        Log.d("DATABASE-TRINIDAD", "onOpen: PROCESS DATABASE-TRINIDAD CALLBACK")
                         val resultTrinidadFromJson = trinidadAdapter.fromJson(strJSON)
                         populateDatabase(
                             database,
@@ -92,49 +87,29 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        suspend fun populateDatabase(database: AppDatabase, infoFromJsonAsset: Trinidad) {
+        private suspend fun populateDatabase(database: AppDatabase, infoFromJsonAsset: Trinidad) {
             val placesDao = database.placesDao()
             val routesDao = database.routesDao()
             val placesTypeDao = database.placesTypeDao()
+            Log.d("DATABASE-TRINIDAD", "populateDatabase: populateDatabase START")
 
-            placesDao.deleteAll()
-            routesDao.deleteAll()
-            placesTypeDao.deleteAll()
+            database.clearAllTables()
 
             try {
-                val placesList = infoFromJsonAsset.places
-                placesList?.forEach { placeItem ->
-                    placesDao.insert(placeItem)
-                }
 
-                val routesList = infoFromJsonAsset.routes
-                routesList?.forEach { routesItem ->
-                    routesDao.insert(routesItem)
-                }
+                placesDao.insertAll(infoFromJsonAsset.places)
 
-                val placeTypeList = infoFromJsonAsset.placeType
-                placeTypeList?.forEach { placeTypeListItem ->
-                    placesTypeDao.insert(placeTypeListItem)
-                }
+                routesDao.insertAll(infoFromJsonAsset.routes)
+
+                placesTypeDao.insertAll(infoFromJsonAsset.place_type)
+
             } catch (ex: java.lang.Exception) {
-                Log.e("ERROR", "populateDatabase: ${ex.printStackTrace()}")
+                Log.d(
+                    "DATABASE-TRINIDAD",
+                    "populateDatabaseERROR: populateDatabase ${ex.printStackTrace()}"
+                )
+
             }
         }
-
-        fun readJSONFromAsset(context: Context): String {
-            val json: String
-            try {
-                val inputStream: InputStream = context.assets.open("trinidad-db.json")
-                json = inputStream.bufferedReader().use {
-                    it.readText()
-                }
-            } catch (ex: Exception) {
-                ex.localizedMessage
-                Log.e("APP-Database", "readJSONFromAsset: ${ex.localizedMessage}")
-                return ""
-            }
-            return json
-        }
-
     }
 }

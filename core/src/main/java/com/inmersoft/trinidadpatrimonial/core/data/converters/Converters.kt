@@ -121,6 +121,7 @@ class Converters {
         return adapter.fromJson(json)
     }
 
+
     @TypeConverter
     fun stringToTypeTranslation(json: String?): TypeTranslation? {
         val moshi = Moshi.Builder().build()
@@ -140,7 +141,7 @@ class Converters {
     @TypeConverter
     fun stringToTypeTranslationList(json: String?): List<TypeTranslation>? {
         val moshi = Moshi.Builder().build()
-        val type: Type = Types.newParameterizedType(String::class.java, TypeTranslation::class.java)
+        val type: Type = Types.newParameterizedType(List::class.java, TypeTranslation::class.java)
         val adapter: JsonAdapter<List<TypeTranslation>> = moshi.adapter(type)
         return adapter.fromJson(json)
     }
@@ -148,7 +149,7 @@ class Converters {
     @TypeConverter
     fun typeTranslationListToString(typeTranslation: List<TypeTranslation>?): String? {
         val moshi = Moshi.Builder().build()
-        val type: Type = Types.newParameterizedType(String::class.java, TypeTranslation::class.java)
+        val type: Type = Types.newParameterizedType(List::class.java, TypeTranslation::class.java)
         val adapter: JsonAdapter<List<TypeTranslation>> = moshi.adapter(type)
         return adapter.toJson(typeTranslation)
     }
@@ -156,7 +157,7 @@ class Converters {
     @TypeConverter
     fun stringToIntList(json: String?): List<Int>? {
         val moshi = Moshi.Builder().build()
-        val type: Type = Types.newParameterizedType(String::class.java, Int::class.java)
+        val type: Type = Types.newParameterizedType(List::class.java, Int::class.javaObjectType)
         val adapter: JsonAdapter<List<Int>> = moshi.adapter(type)
         return adapter.fromJson(json)
     }
@@ -164,10 +165,11 @@ class Converters {
     @TypeConverter
     fun intListToString(intList: List<Int>?): String? {
         val moshi = Moshi.Builder().build()
-        val type: Type = Types.newParameterizedType(String::class.java, Int::class.java)
+        val type: Type = Types.newParameterizedType(List::class.java, Int::class.javaObjectType)
         val adapter: JsonAdapter<List<Int>> = moshi.adapter(type)
         return adapter.toJson(intList)
     }
+
 
     @TypeConverter
     fun stringToTrinidad(trinidad: String): Trinidad? {

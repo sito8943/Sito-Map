@@ -9,6 +9,9 @@ interface PlaceTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(placeType: PlaceType)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(place: List<PlaceType>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(placeType: PlaceType)
 
