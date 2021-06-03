@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="placeType"
+            type="com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="3dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/place_type_cardview"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="6dp"
+                android:elevation="0dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/place_type_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/place_holder_error" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/place_type_text"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fadingEdge="horizontal"
+                android:fadingEdgeLength="150dp"
+                android:maxLines="1"
+                android:requiresFadingEdge="horizontal"
+                android:text="@{placeType.type}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/place_type_cardview"
+                app:layout_constraintStart_toEndOf="@+id/place_type_cardview"
+                app:layout_constraintTop_toTopOf="@+id/place_type_cardview"
+                tools:text="Hotel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

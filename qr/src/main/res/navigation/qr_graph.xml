@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/qr_scanner_fragment"
-        android:name="com.inmersoft.trinidadpatrimoniald.qr.ui.QrScannerFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.qr.ui.QrScannerFragment"
         android:label="@string/qr_scanner_fragment_title"
         tools:layout="@layout/qr_scanner_fragment">
         <deepLink app:uri="@string/qr_scanner_deeplink_uri" />

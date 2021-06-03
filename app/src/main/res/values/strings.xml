@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trinidad Patrimonial</string>
+    <string name="home_fragment_title">Inicio</string>
+    <string name="map_fragment_title">Mapa</string>
+    <string name="qr_scanner_fragment_title">Escaner QR</string>
+    <string name="search_elements">Buscar...</string>
 </resources>

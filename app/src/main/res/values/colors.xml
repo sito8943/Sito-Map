@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="trinidadColorPrimary">#DA4E11</color>
     <color name="trinidadColorPrimaryVariant">@color/trinidadColorSecondary</color>
     <color name="trinidadColorSecondary">#DA4E11</color>
@@ -8,4 +9,9 @@
     <color name="trinidadColorOnPrimary">#FFFFFFFF</color>
     <color name="statusBarTranslucent">#33000000</color>
     <color name="trinidadMainBackground">#F2F2F2</color>
+
+    <color name="reticle_ripple">#AC3501</color>
+    <color name="qr_reticle_background">#99000000</color>
+    <color name="qr_reticle_stroke">#40000000</color>
+
 </resources>

@@ -2,10 +2,10 @@ package com.inmersoft.trinidadpatrimonial.map.ui.adapter
 
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
-import com.inmersoft.trinidadpatrimonial.map.R
-import com.inmersoft.trinidadpatrimonial.map.databinding.ItemPlaceTypeBinding
+import com.inmersoft.trinidadpatrimonial.databinding.ItemPlaceTypeBinding
 
 class PlaceTypeViewHolder(
     private val binding: ItemPlaceTypeBinding,

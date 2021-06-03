@@ -2,10 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/home_graph">
+    app:startDestination="@id/nav_home">
 
-    <include app:graph="@navigation/home_graph" />
-    <include app:graph="@navigation/map_graph" />
-    <include app:graph="@navigation/qr_graph" />
 
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.inmersoft.trinidadpatrimonial.map.ui.MapFragment"
+        android:label="MapFragment" />
+    <fragment
+        android:id="@+id/nav_qr"
+        android:name="com.inmersoft.trinidadpatrimonial.qr.ui.QrScannerFragment"
+        android:label="QrScannerFragment" />
 </navigation>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.inmersoft.trinidadpatrimoniald.home.ui.fragments.HomeFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragment"
         android:label="@string/home_fragment_title"
         tools:layout="@layout/home_fragment">
         <deepLink app:uri="@string/home_deeplink_uri" />

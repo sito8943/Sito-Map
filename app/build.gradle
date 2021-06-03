@@ -42,16 +42,29 @@ android {
 
 dependencies {
 
-    implementation project(":home")
-    implementation project(":map")
-    implementation project(":qr")
+    api project(":core")
 
+    // Google Maps SDK
+    implementation "com.google.android.gms:play-services-maps:$rootProject.googleMapsVersion"
+    implementation "com.google.maps.android:maps-ktx:$rootProject.mapsKtxVersion"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    // CameraX
+    implementation "androidx.camera:camera-core:$rootProject.cameraxVersion"
+    implementation "androidx.camera:camera-camera2:$rootProject.cameraxVersion"
+    implementation "androidx.camera:camera-lifecycle:$rootProject.cameraxVersion"
+    implementation "androidx.camera:camera-view:$rootProject.cameraxViewVersion"
+
+    // ML Kit Barcode Scanning
+    implementation "com.google.mlkit:barcode-scanning:$rootProject.mlkitBarcodeVersion"
 
     // Dagger Hilt (DI)
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
-
-
+ 
 
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"
