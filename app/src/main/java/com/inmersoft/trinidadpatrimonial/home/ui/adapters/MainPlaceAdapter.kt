@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
-import com.inmersoft.trinidadpatrimonial.home.ui.adapters.MainSubSectionsViewHolder
 
-class MainSubSectionsAdapter :
-    RecyclerView.Adapter<MainSubSectionsViewHolder>() {
+class MainPlaceAdapter :
+    RecyclerView.Adapter<MainPlaceViewHolder>() {
 
     //TODO ( Se puede usar este adapte como base pero es solo para mostrar la lista en pantalla )
     /***
@@ -28,17 +27,17 @@ class MainSubSectionsAdapter :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MainSubSectionsViewHolder {
+    ): MainPlaceViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemMainPlacesSubsectionsBinding.inflate(inflater, parent, false)
 
-        return MainSubSectionsViewHolder(
+        return MainPlaceViewHolder(
             binding
         )
     }
 
-    override fun onBindViewHolder(holder: MainSubSectionsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainPlaceViewHolder, position: Int) {
 
         holder.bindData(subSectionsData[position])
     }

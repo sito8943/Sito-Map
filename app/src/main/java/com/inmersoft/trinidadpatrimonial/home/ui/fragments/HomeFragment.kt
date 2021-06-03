@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
-import com.inmersoft.trinidadpatrimonial.home.ui.adapters.MainSectionsAdapter
+import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.home.ui.viewmodels.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeFragmentViewModel by viewModels()
 
-    private val mainAdapter = MainSectionsAdapter()
+    private val mainAdapter = HomePlaceTypeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

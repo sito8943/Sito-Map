@@ -6,18 +6,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.MainPlacesSectionsBinding
 
-class MainSectionsAdapter : RecyclerView.Adapter<MainSectionsViewHolder>() {
+class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
 
     private val mainSectionData = mutableListOf<Place>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MainSectionsViewHolder {
+    ): HomePlaceTypeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = MainPlacesSectionsBinding.inflate(inflater, parent, false)
 
-        return MainSectionsViewHolder(
+        return HomePlaceTypeViewHolder(
             binding
         )
     }
@@ -28,9 +28,9 @@ class MainSectionsAdapter : RecyclerView.Adapter<MainSectionsViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: MainSectionsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomePlaceTypeViewHolder, position: Int) {
 
-        val subSectionsAdapter = MainSubSectionsAdapter()
+        val subSectionsAdapter = MainPlaceAdapter()
 
         //TODO (Este adapter es para mostrarle la app a JOSE)
         subSectionsAdapter.setDataList(
