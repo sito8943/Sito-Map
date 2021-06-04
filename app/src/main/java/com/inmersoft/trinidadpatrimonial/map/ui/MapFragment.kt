@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -30,9 +30,7 @@ class MapFragment : Fragment() {
     private lateinit var placesTypeAdapter: PlaceTypeAdapter
 
 
-    private val mapFragmentViewModel: MapFragmentViewModel by lazy {
-        ViewModelProvider(this@MapFragment).get(MapFragmentViewModel::class.java)
-    }
+    private val mapFragmentViewModel: MapFragmentViewModel by viewModels()
 
     private val callback = OnMapReadyCallback { googleMap ->
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )
