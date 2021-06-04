@@ -1,7 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.core.data
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -13,21 +12,11 @@ import com.inmersoft.trinidadpatrimonial.core.data.converters.Converters
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Route
-import com.inmersoft.trinidadpatrimonial.core.data.entity.Trinidad
 import com.inmersoft.trinidadpatrimonial.core.data.entity.cross_refrences.PlaceTypesAndPlacesCrossRef
 import com.inmersoft.trinidadpatrimonial.core.data.entity.cross_refrences.RoutesAndPlacesCrossRef
-import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceDao
-import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceTypeDao
-import com.inmersoft.trinidadpatrimonial.core.data.source.local.RoutesDao
+import com.inmersoft.trinidadpatrimonial.core.data.source.local.*
 import com.inmersoft.trinidadpatrimonial.core.utils.DATABASE_NAME
-import com.inmersoft.trinidadpatrimonial.core.utils.readJSONFromAsset
 import com.inmersoft.trinidadpatrimonial.core.workers.SeedDatabaseWorker
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @Database(
     entities = [Place::class, Route::class, PlaceType::class,PlaceTypesAndPlacesCrossRef::class, RoutesAndPlacesCrossRef::class],
@@ -40,6 +29,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun placesDao(): PlaceDao
     abstract fun routesDao(): RoutesDao
     abstract fun placesTypeDao(): PlaceTypeDao
+
+    abstract fun routesAndPlacesCrossDao(): RoutesAndPlacesCrossDao
+    abstract fun placeTypesAndPlacesCrossDao(): PlaceTypesAndPlacesCrossDao
 
     companion object {
         @Volatile
