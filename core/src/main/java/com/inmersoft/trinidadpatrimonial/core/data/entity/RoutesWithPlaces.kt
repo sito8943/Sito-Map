@@ -12,5 +12,5 @@ data class RoutesWithPlaces(
         entityColumn = "place_id",
         associateBy = Junction(RoutesAndPlacesCrossRef::class)
     )
-    val placesList: List<Place>
+    val placesList: List<Place> = emptyList()
 )

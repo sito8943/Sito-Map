@@ -9,17 +9,16 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class PlaceType(
     @PrimaryKey val place_type_id: Int,
+    @Ignore
+    val places_id: List<Int>,
     val icon: String,
     val type: String,
-    val type_translation: List<TypeTranslation>,
-    @Ignore
-    val places_id: List<Int>
+    val type_translation: List<TypeTranslation>
 ) {
     constructor(
         place_type_id: Int,
         icon: String,
         type: String,
         type_translation: List<TypeTranslation>
-
-    ) : this(0, "", "", emptyList(), emptyList())
+    ) : this(0, emptyList(), "mptyList()", "", emptyList())
 }

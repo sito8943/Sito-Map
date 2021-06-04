@@ -12,7 +12,7 @@ data class PlaceTypeWithPlaces(
         entityColumn = "place_id",
         associateBy = Junction(PlaceTypesAndPlacesCrossRef::class)
     )
-    val placesList: List<Place>
+    val placesList: List<Place> = emptyList()
 )
 
 

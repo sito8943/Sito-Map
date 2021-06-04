@@ -48,7 +48,7 @@ data class Place(
         "",
         emptyList(),
         "0.0",
-        "0",
+        "EmptyData",
         emptyList(),
         "",
         "",

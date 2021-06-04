@@ -7,7 +7,7 @@ import java.io.InputStream
 fun readJSONFromAsset(context: Context): String {
     val json: String
     try {
-        val inputStream: InputStream = context.assets.open("trinidad-db.json")
+        val inputStream: InputStream = context.assets.open(DATABASE_JSON_ASSET_FILE)
         json = inputStream.bufferedReader().use {
             it.readText()
         }
