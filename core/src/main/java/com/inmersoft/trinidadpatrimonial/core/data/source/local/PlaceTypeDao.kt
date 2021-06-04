@@ -24,6 +24,6 @@ interface PlaceTypeDao {
 
     @Transaction
     @Query("SELECT * FROM place_types")
-    fun getPlaceTypeWithPlaces(): List<PlaceTypeWithPlaces>
+    fun getPlaceTypeWithPlaces(): LiveData<List<PlaceTypeWithPlaces>>
 
 }

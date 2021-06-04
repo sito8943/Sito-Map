@@ -3,15 +3,15 @@ package com.inmersoft.trinidadpatrimonial.home.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 
 class MainPlaceAdapter :
     RecyclerView.Adapter<MainPlaceViewHolder>() {
 
-    private val subSectionsData = mutableListOf<String>()
+    private val subSectionsData = mutableListOf<Place>()
 
-
-    fun setDataList(newDataList: List<String>) {
+    fun setDataList(newDataList: List<Place>) {
         subSectionsData.clear()
         subSectionsData.addAll(newDataList)
         notifyDataSetChanged()

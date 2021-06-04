@@ -30,8 +30,8 @@ class HomeFragment : Fragment() {
         val recycleTestView: RecyclerView = binding.mainRecycleview
         recycleTestView.adapter = mainAdapter
 
-        homeViewModel.allPlaceType.observe(viewLifecycleOwner, { placeTypeList ->
-            mainAdapter.setData(placeTypeList)
+        homeViewModel.allPlaceTypeWithRoutes.observe(viewLifecycleOwner, { placeTypeWithPlacesList ->
+            mainAdapter.setData(placeTypeWithPlacesList)
         })
 
         return binding.root

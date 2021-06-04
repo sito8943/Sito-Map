@@ -17,6 +17,7 @@ class HomeFragmentViewModel @Inject constructor(private val dataRepository: Data
 
     var allPlaces = dataRepository.allPlaces
     var allPlaceType = dataRepository.allPlacesType
+    var allPlaceTypeWithRoutes = dataRepository.allPlacesTypeWithRoutes
     var allRoutes = dataRepository.allRoutes
 
     val text: LiveData<String> = _text
