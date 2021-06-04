@@ -8,13 +8,6 @@ import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBi
 class MainPlaceAdapter :
     RecyclerView.Adapter<MainPlaceViewHolder>() {
 
-    //TODO ( Se puede usar este adapte como base pero es solo para mostrar la lista en pantalla )
-    /***
-     *   ESTE ADAPTER ES DE PRUEBA
-     *   *
-     */
-
-
     private val subSectionsData = mutableListOf<String>()
 
 

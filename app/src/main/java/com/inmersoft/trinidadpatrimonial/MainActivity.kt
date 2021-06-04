@@ -3,25 +3,18 @@ package com.inmersoft.trinidadpatrimonial
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
-import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
-import com.inmersoft.trinidadpatrimonial.core.data.entity.TypeTranslation
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,21 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         initUi()
-
-        database.placesDao().getAllPlaces().observe(this@MainActivity, { it ->
-            it.forEach { placeItem ->
-                Log.d("TAG", "DATABASE-TRINIDAD: ${placeItem.place_name} - ${placeItem.place_id}  ")
-            }
-        })
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            val p = PlaceType(
-                0, "url", Random.nextInt(100, 300).toString(), listOf<TypeTranslation>(
-                    TypeTranslation("ex", "GAS")
-                )
-            )
-            database.placesTypeDao().insert(p)
-        }
     }
 
     private fun initUi() {

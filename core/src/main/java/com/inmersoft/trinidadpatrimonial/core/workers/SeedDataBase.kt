@@ -22,7 +22,6 @@ class SeedDatabaseWorker(
             runCatching {
 
                 val database = AppDatabase.getDatabase(applicationContext)
-
                 val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
                 val jsonReader = readJSONFromAsset(context = applicationContext)
                 val trinidadAdapter: JsonAdapter<Trinidad> =
@@ -37,7 +36,7 @@ class SeedDatabaseWorker(
                 resultTrinidadFromJson?.let { placesDao.insertAll(it.places) }
                 resultTrinidadFromJson?.let { routesDao.insertAll(it.routes) }
                 resultTrinidadFromJson?.let { placesTypeDao.insertAll(it.place_type) }
-
+                Log.d(TAG, "doWork: Called")
                 Result.success()
             }
         } catch (ex: Exception) {

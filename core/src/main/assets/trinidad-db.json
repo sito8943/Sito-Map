@@ -118,6 +118,86 @@
           "type": "Hotelie"
         }
       ]
+    },
+    {
+      "place_type_id": 1,
+      "places_id": [
+        0,
+        1,
+        2
+      ],
+      "type": "Restaurante",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Restaurant"
+        },
+        {
+          "lang": "fr",
+          "type": "Retourie"
+        }
+      ]
+    },
+    {
+      "place_type_id": 2,
+      "places_id": [
+        0,
+        1,
+        2
+      ],
+      "type": "Local",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Restaurant"
+        },
+        {
+          "lang": "fr",
+          "type": "Retourie"
+        }
+      ]
+    },
+    {
+      "place_type_id": 3,
+      "places_id": [
+        0,
+        1,
+        2
+      ],
+      "type": "Transporte",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Restaurant"
+        },
+        {
+          "lang": "fr",
+          "type": "Retourie"
+        }
+      ]
+    },
+    {
+      "place_type_id": 4,
+      "places_id": [
+        0,
+        1,
+        2
+      ],
+      "type": "Iglesias",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Restaurant"
+        },
+        {
+          "lang": "fr",
+          "type": "Retourie"
+        }
+      ]
     }
   ]
 }

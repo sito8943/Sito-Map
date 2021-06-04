@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
 import com.inmersoft.trinidadpatrimonial.databinding.MainPlacesSectionsBinding
 
 class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
 
-    private val mainSectionData = mutableListOf<Place>()
+    private val mainSectionData = mutableListOf<PlaceType>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -22,7 +23,7 @@ class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
         )
     }
 
-    fun setData(mainDataList: List<Place>) {
+    fun setData(mainDataList: List<PlaceType>) {
         mainSectionData.clear()
         mainSectionData.addAll(mainDataList)
         notifyDataSetChanged()
