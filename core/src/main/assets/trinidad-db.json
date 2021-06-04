@@ -2,7 +2,7 @@
   "places": [
     {
       "place_id": 0,
-      "place_type": [0,1,2],
+      "place_type_id": [0,1,2],
       "routes_id": [0,1,2],
       "place_name": "Casa Granda",
       "place_description": "asdfsdfsd",
@@ -39,7 +39,7 @@
       ]
     },{
       "place_id": 1,
-      "place_type": [0,1,2],
+      "place_type_id": [0,1,2],
       "routes_id": [0,1,2],
       "place_name": "Casa Granda",
       "place_description": "asdfsdfsd",
