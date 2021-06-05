@@ -109,6 +109,41 @@
           "place_description": "La Canchánchara house and inn Known as the home of the local historian Marín Villafuerte, as indicated by the plaque placed on its façade during the 1920s, this building is considered to be one of the oldest in the city. Although the first documentary evidence, which records ownership in the name of Nicolás Pablo-Vélez, dates back to 1756, the type of the construction and the techniques used suggest a much earlier date. Initially one of the most important buildings in the area, it now contains two independent sections, both of exceptional merit. The first of these, preserved as a family residence, contains a horizontal façade with projecting iron grilles over large woodenframed windows. Inside, the original roof of first bay has been preserved with its double coffering of corbels and billeted wall-plates. This is not the case of the second section, where the original slabs have been replaced by concrete. This section, which currently accommodates the Taberna la Canchánchara inn, has a verandah supported by wooden props resting on carved stone bases.\n\nAn outstanding interior feature is the paving made from small pebbles and traditional mortar. The system of wooden pivots has been preserved for the doors and the cupboards have panels, a feature of great archaeological significance in the study of Trinidad architecture. One of the stone walls of the first bay contains a niche and recipient for holy water, which suggests that the building was used for religious events. The style of the roof is in keeping with the previous section, the most outstanding architectural element being the original single tie-beams with double billeted wall-plates."
         }
       ]
+    },
+    {
+      "place_id": 3,
+      "place_type_id": [
+        20,15,10,
+        1
+      ],
+      "routes_id": [
+        0,
+        1
+      ],
+      "place_name": "Hotel casa granda",
+      "place_description": "Conocida como la casa donde vivió el historiador trinitario Marín Villafuerte, según reza en una placa colocada en su fachada en la década de 1920, es considerada uno de los edificios más antiguos de la ciudad. Su primera referencia documental aparece a nombre de Nicolás PabloVélez, en una imposición del año 1756, aunque la tipología y técnicas constructivas que la caracterizan inducen a pensar que la construcción es mucho más antigua. En un inicio, era uno de los inmuebles más notables del área; actualmente forma dos núcleos independientes, ambos de excepcionales valores.\nEl primero, conservado como casa de familia, posee una fachada apaisada con rejas de hierro voladas que protegen grandes ventanas de madera. En el interior, la primera crujía conserva su cubierta original de doble estribado con canes, solera y solerillas abilletadas, no siendo así en la segunda nave, que otrora fuera de losa por tabla, y posteriormente, se sustituyó por hormigón. El segundo núcleo es un colgadizo sustentado por horcones que descansan sobre bases de piedra labrada, donde se ubica actualmente la Taberna la Canchánchara.\nEn él se destacan sus pavimentos de pequeños cantos rodados y de mortero tradicional en el recinto interior. Las puertas conservan el sistema de pivotes de madera y en las alacenas se aprecian puertas de cuarterones, exponentes de alta significación arqueológica para el estudio de la arquitectura trinitaria. En uno de los muros de mampuesto de la primera crujía aparece una hornacina y un depósito empotrado para agua bendita, lo que hace suponer que este local se dedicara a actividades religiosas. La cubierta mantiene unidad de estilo con el núcleo anterior; en ella poseen singular importancia arquitectónica los tirantes simples con doble solera abilletada que aún se conservan.",
+      "header_images": [
+        "images/headers/casa_real_jigue_90_header.png"
+      ],
+      "map_icon": "image/marker/marker_plazas.png",
+      "location": {
+        "latitude": 21.8062476,
+        "longitude": -79.9859264
+      },
+      "web": "https://www.linkedin.com/company/inmersoft",
+      "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
+      "pano": [
+        "images/sections/casa_real_jigue_69_360"
+      ],
+      "model3d": "model/timefly.glb",
+      "place_translations": [
+        {
+          "lang": "en",
+          "place_name": "House at Real del Jigüe 90",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
+          "place_description": "La Canchánchara house and inn Known as the home of the local historian Marín Villafuerte, as indicated by the plaque placed on its façade during the 1920s, this building is considered to be one of the oldest in the city. Although the first documentary evidence, which records ownership in the name of Nicolás Pablo-Vélez, dates back to 1756, the type of the construction and the techniques used suggest a much earlier date. Initially one of the most important buildings in the area, it now contains two independent sections, both of exceptional merit. The first of these, preserved as a family residence, contains a horizontal façade with projecting iron grilles over large woodenframed windows. Inside, the original roof of first bay has been preserved with its double coffering of corbels and billeted wall-plates. This is not the case of the second section, where the original slabs have been replaced by concrete. This section, which currently accommodates the Taberna la Canchánchara inn, has a verandah supported by wooden props resting on carved stone bases.\n\nAn outstanding interior feature is the paving made from small pebbles and traditional mortar. The system of wooden pivots has been preserved for the doors and the cupboards have panels, a feature of great archaeological significance in the study of Trinidad architecture. One of the stone walls of the first bay contains a niche and recipient for holy water, which suggests that the building was used for religious events. The style of the roof is in keeping with the previous section, the most outstanding architectural element being the original single tie-beams with double billeted wall-plates."
+        }
+      ]
     }
   ],
   "routes": [
@@ -503,7 +538,7 @@
       "place_type_id": 18,
       "places_id": [
         0,
-        1
+        2
       ],
       "type": "Alquiler de coches",
       "icon": "url- del a imagen",
@@ -521,8 +556,7 @@
     {
       "place_type_id": 19,
       "places_id": [
-        0,
-        1
+        0
       ],
       "type": "Aparcamientos",
       "icon": "url- del a imagen",
@@ -541,7 +575,8 @@
       "place_type_id": 20,
       "places_id": [
         0,
-        1
+        3,
+        2
       ],
       "type": "Populares",
       "icon": "url- del a imagen",

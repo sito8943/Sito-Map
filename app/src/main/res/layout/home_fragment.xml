@@ -65,8 +65,7 @@
             android:id="@+id/trinidad_scroll_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="150dp"
+            android:clipToPadding="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -124,7 +123,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/main_recycleview"
                     android:layout_width="match_parent"
-                    android:layout_height="450dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
                     android:background="@color/trinidadMainBackground"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -22,18 +22,16 @@ class SeedDatabaseWorker(
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result = coroutineScope {
-        try {
-            runCatching {
 
-                val database = AppDatabase.getDatabase(applicationContext)
-                val placesDao = database.placesDao()
-                val routesDao = database.routesDao()
-                val placesTypeDao = database.placesTypeDao()
+            val database = AppDatabase.getDatabase(applicationContext)
+            val placesDao = database.placesDao()
+            val routesDao = database.routesDao()
+            val placesTypeDao = database.placesTypeDao()
 
-                val placeTypesAndPlacesCrossDao = database.placeTypesAndPlacesCrossDao()
-                val routesAndPlacesCrossDao = database.routesAndPlacesCrossDao()
+            val placeTypesAndPlacesCrossDao = database.placeTypesAndPlacesCrossDao()
+            val routesAndPlacesCrossDao = database.routesAndPlacesCrossDao()
 
-                val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
                 val jsonReader = readJSONFromAsset(context = applicationContext)
 
@@ -74,19 +72,15 @@ class SeedDatabaseWorker(
                     }
                 }
 
-                resultTrinidadFromJson?.let { placesDao.insertAll(it.places) }
-                resultTrinidadFromJson?.let { routesDao.insertAll(it.routes) }
-                resultTrinidadFromJson?.let { placesTypeDao.insertAll(it.place_type) }
+            resultTrinidadFromJson?.let { placesDao.insertAll(it.places) }
+            resultTrinidadFromJson?.let { routesDao.insertAll(it.routes) }
+            resultTrinidadFromJson?.let { placesTypeDao.insertAll(it.place_type) }
 
-                Log.d(TAG, "doWork: Called")
-                Result.success()
-            }
-        } catch (ex: Exception) {
-            Log.e(TAG, "Error seeding database", ex)
-            Result.failure()
-        }
-    } as Result
+            Log.d(TAG, "doWork: Called")
+            Result.success()
 
+
+    }
 
     companion object {
         private const val TAG = "SeedDatabaseWorker"

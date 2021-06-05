@@ -9,26 +9,19 @@
         android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrinidadPatrimonial"
         tools:ignore="AllowBackup">
-        <activity
-            android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/Theme.TrinidadPatrimonial.NoActionBar"></activity>
-        <activity
-            android:name=".TrinidadHome"
-            android:label="@string/title_activity_trinidad_home"
-            android:theme="@style/Theme.TrinidadPatrimonial.NoActionBar" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
