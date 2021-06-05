@@ -2,38 +2,40 @@
   "places": [
     {
       "place_id": 0,
-      "place_type_id": [0,1],
-      "routes_id": [0,1,2],
-      "place_name": "Casa Granda",
-      "place_description": "asdfsdfsd",
-      "header_images": [
-        "URL-IMAGES",
-        "URL-IMAGES"
+      "place_type_id": [
+        0,
+        1
       ],
-      "map_icon": "url",
+      "routes_id": [
+        0
+      ],
+      "place_name": "Plazuela del Jigüe",
+      "place_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
+      "header_images": [
+        "images/headers/plazuela_jigue_header.png"
+      ],
+      "map_icon": "image/marker/marker_plazas.png",
       "location": {
         "latitude": 21.8055678,
         "longitude": -79.985233
       },
-      "web": "url",
-      "video_promo": "url",
+      "web": "https://www.linkedin.com/company/inmersoft",
+      "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
       "pano": [
-        "url",
-        "url",
-        "url"
+        "images/sections/plazuela_jigue_360.jpg"
       ],
-      "model3d": "url-modelContent",
+      "model3d": "model/timefly.glb",
       "place_translations": [
         {
           "lang": "en",
           "place_name": "Jigüe Square",
-          "video_promo": "url",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
           "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
         },
         {
           "lang": "fr",
           "place_name": "Jigüe Square",
-          "video_promo": "url",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
           "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
         }
       ]
@@ -49,37 +51,28 @@
         1,
         2
       ],
-      "place_name": "Melia  Granda",
-      "place_description": "asdfsdfsd",
+      "place_name": "Casa en Real del Jigüe 69",
+      "place_description": "Conocida como la casa donde vivió el historiador trinitario Marín Villafuerte, según reza en una placa colocada en su fachada en la década de 1920, es considerada uno de los edificios más antiguos de la ciudad. Su primera referencia documental aparece a nombre de Nicolás PabloVélez, en una imposición del año 1756, aunque la tipología y técnicas constructivas que la caracterizan inducen a pensar que la construcción es mucho más antigua. En un inicio, era uno de los inmuebles más notables del área; actualmente forma dos núcleos independientes, ambos de excepcionales valores.\nEl primero, conservado como casa de familia, posee una fachada apaisada con rejas de hierro voladas que protegen grandes ventanas de madera. En el interior, la primera crujía conserva su cubierta original de doble estribado con canes, solera y solerillas abilletadas, no siendo así en la segunda nave, que otrora fuera de losa por tabla, y posteriormente, se sustituyó por hormigón. El segundo núcleo es un colgadizo sustentado por horcones que descansan sobre bases de piedra labrada, donde se ubica actualmente la Taberna la Canchánchara.\nEn él se destacan sus pavimentos de pequeños cantos rodados y de mortero tradicional en el recinto interior. Las puertas conservan el sistema de pivotes de madera y en las alacenas se aprecian puertas de cuarterones, exponentes de alta significación arqueológica para el estudio de la arquitectura trinitaria. En uno de los muros de mampuesto de la primera crujía aparece una hornacina y un depósito empotrado para agua bendita, lo que hace suponer que este local se dedicara a actividades religiosas. La cubierta mantiene unidad de estilo con el núcleo anterior; en ella poseen singular importancia arquitectónica los tirantes simples con doble solera abilletada que aún se conservan.",
       "header_images": [
-        "URL-IMAGES",
-        "URL-IMAGES"
+        "images/headers/casa_real_jigue_69_header.png"
       ],
-      "map_icon": "url",
+      "map_icon": "image/marker/marker_plazas.png",
       "location": {
-        "latitude": 21.8055678,
-        "longitude": -79.985233
+        "latitude": 21.805763,
+        "longitude": -79.9861212
       },
-      "web": "url",
-      "video_promo": "url",
+      "web": "https://www.linkedin.com/company/inmersoft",
+      "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
       "pano": [
-        "url",
-        "url",
-        "url"
+        "images/sections/casa_real_jigue_69_360"
       ],
-      "model3d": "url-modelContent",
+      "model3d": "model/timefly.glb",
       "place_translations": [
         {
           "lang": "en",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        },
-        {
-          "lang": "fr",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
+          "place_name": "House at Real del Jigüe 69",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
+          "place_description": "La Canchánchara house and inn Known as the home of the local historian Marín Villafuerte, as indicated by the plaque placed on its façade during the 1920s, this building is considered to be one of the oldest in the city. Although the first documentary evidence, which records ownership in the name of Nicolás Pablo-Vélez, dates back to 1756, the type of the construction and the techniques used suggest a much earlier date. Initially one of the most important buildings in the area, it now contains two independent sections, both of exceptional merit. The first of these, preserved as a family residence, contains a horizontal façade with projecting iron grilles over large woodenframed windows. Inside, the original roof of first bay has been preserved with its double coffering of corbels and billeted wall-plates. This is not the case of the second section, where the original slabs have been replaced by concrete. This section, which currently accommodates the Taberna la Canchánchara inn, has a verandah supported by wooden props resting on carved stone bases.\n\nAn outstanding interior feature is the paving made from small pebbles and traditional mortar. The system of wooden pivots has been preserved for the doors and the cupboards have panels, a feature of great archaeological significance in the study of Trinidad architecture. One of the stone walls of the first bay contains a niche and recipient for holy water, which suggests that the building was used for religious events. The style of the roof is in keeping with the previous section, the most outstanding architectural element being the original single tie-beams with double billeted wall-plates."
         }
       ]
     },
@@ -92,37 +85,28 @@
         0,
         1
       ],
-      "place_name": "Melia  Granda",
-      "place_description": "asdfsdfsd",
+      "place_name": "Casa en Real del Jigüe 90",
+      "place_description": "Conocida como la casa donde vivió el historiador trinitario Marín Villafuerte, según reza en una placa colocada en su fachada en la década de 1920, es considerada uno de los edificios más antiguos de la ciudad. Su primera referencia documental aparece a nombre de Nicolás PabloVélez, en una imposición del año 1756, aunque la tipología y técnicas constructivas que la caracterizan inducen a pensar que la construcción es mucho más antigua. En un inicio, era uno de los inmuebles más notables del área; actualmente forma dos núcleos independientes, ambos de excepcionales valores.\nEl primero, conservado como casa de familia, posee una fachada apaisada con rejas de hierro voladas que protegen grandes ventanas de madera. En el interior, la primera crujía conserva su cubierta original de doble estribado con canes, solera y solerillas abilletadas, no siendo así en la segunda nave, que otrora fuera de losa por tabla, y posteriormente, se sustituyó por hormigón. El segundo núcleo es un colgadizo sustentado por horcones que descansan sobre bases de piedra labrada, donde se ubica actualmente la Taberna la Canchánchara.\nEn él se destacan sus pavimentos de pequeños cantos rodados y de mortero tradicional en el recinto interior. Las puertas conservan el sistema de pivotes de madera y en las alacenas se aprecian puertas de cuarterones, exponentes de alta significación arqueológica para el estudio de la arquitectura trinitaria. En uno de los muros de mampuesto de la primera crujía aparece una hornacina y un depósito empotrado para agua bendita, lo que hace suponer que este local se dedicara a actividades religiosas. La cubierta mantiene unidad de estilo con el núcleo anterior; en ella poseen singular importancia arquitectónica los tirantes simples con doble solera abilletada que aún se conservan.",
       "header_images": [
-        "URL-IMAGES",
-        "URL-IMAGES"
+        "images/headers/casa_real_jigue_90_header.png"
       ],
-      "map_icon": "url",
+      "map_icon": "image/marker/marker_plazas.png",
       "location": {
-        "latitude": 21.8055678,
-        "longitude": -79.985233
+        "latitude": 21.8062476,
+        "longitude": -79.9859264
       },
-      "web": "url",
-      "video_promo": "url",
+      "web": "https://www.linkedin.com/company/inmersoft",
+      "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
       "pano": [
-        "url",
-        "url",
-        "url"
+        "images/sections/casa_real_jigue_69_360"
       ],
-      "model3d": "url-modelContent",
+      "model3d": "model/timefly.glb",
       "place_translations": [
         {
           "lang": "en",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        },
-        {
-          "lang": "fr",
-          "place_name": "Jigüe Square",
-          "video_promo": "url",
-          "place_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
+          "place_name": "House at Real del Jigüe 90",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
+          "place_description": "La Canchánchara house and inn Known as the home of the local historian Marín Villafuerte, as indicated by the plaque placed on its façade during the 1920s, this building is considered to be one of the oldest in the city. Although the first documentary evidence, which records ownership in the name of Nicolás Pablo-Vélez, dates back to 1756, the type of the construction and the techniques used suggest a much earlier date. Initially one of the most important buildings in the area, it now contains two independent sections, both of exceptional merit. The first of these, preserved as a family residence, contains a horizontal façade with projecting iron grilles over large woodenframed windows. Inside, the original roof of first bay has been preserved with its double coffering of corbels and billeted wall-plates. This is not the case of the second section, where the original slabs have been replaced by concrete. This section, which currently accommodates the Taberna la Canchánchara inn, has a verandah supported by wooden props resting on carved stone bases.\n\nAn outstanding interior feature is the paving made from small pebbles and traditional mortar. The system of wooden pivots has been preserved for the doors and the cupboards have panels, a feature of great archaeological significance in the study of Trinidad architecture. One of the stone walls of the first bay contains a niche and recipient for holy water, which suggests that the building was used for religious events. The style of the roof is in keeping with the previous section, the most outstanding architectural element being the original single tie-beams with double billeted wall-plates."
         }
       ]
     }
@@ -132,9 +116,10 @@
       "route_id": 0,
       "places_id": [
         0,
-        1
+        1,
+        2
       ],
-      "route_name": "Ruta del Plazuela del Jigüe",
+      "route_name": "Ruta de la Fundación",
       "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
       "header_images": [
         "images/headers/plazuela_jigue_header.png"
@@ -143,14 +128,29 @@
       "route_translations": [
         {
           "lang": "en",
-          "route_name": "Jigüe Square",
-          "video_promo": "url",
+          "route_name": "Foundation Route",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
           "route_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
-        },
+        }
+      ]
+    },
+    {
+      "route_id": 1,
+      "places_id": [
+        1,
+        2
+      ],
+      "route_name": "Sendero de los Ingenios",
+      "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
+      "header_images": [
+        "images/headers/plazuela_jigue_header.png"
+      ],
+      "video_promo": "url",
+      "route_translations": [
         {
-          "lang": "fr",
-          "route_name": "Jigüe Square",
-          "video_promo": "url",
+          "lang": "en",
+          "route_name": "Path of the Sugar Mills",
+          "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
           "route_description": "This is situated in the heart of the Old Town at the intersection of the streets Boca and Real del Jigue in a genuinely colonial area with buildings constructed during the 18th and 19th centuries. According to local tradition, this was the place chosen by the “Adelantado” (lit. Chief Justice) Diego Velázquez de Cuellar as the site of the first mass held in December 1513.\n\nIt owes its name to the jigue tree that provided shelter for this important event. On one side of the square it is possible to see a wooden cross on a wall, a symbol of the Stations of the Cross for the Holy Week procession."
         }
       ]
@@ -163,16 +163,16 @@
         0,
         1
       ],
-      "type": "Hotel",
+      "type": "Restaurantes",
       "icon": "url- del a imagen",
       "type_translation": [
         {
           "lang": "en",
-          "type": "Hotel"
+          "type": "Restaurants"
         },
         {
           "lang": "fr",
-          "type": "Hotelie"
+          "type": "Restaurants"
         }
       ]
     },
@@ -182,16 +182,377 @@
         0,
         1
       ],
-      "type": "Restaurante",
+      "type": "Bares",
       "icon": "url- del a imagen",
       "type_translation": [
         {
           "lang": "en",
-          "type": "Restaurant"
+          "type": "Bars"
         },
         {
           "lang": "fr",
-          "type": "Retourie"
+          "type": "bars"
+        }
+      ]
+    },
+    {
+      "place_type_id": 2,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Cafeterías",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "cafés"
+        },
+        {
+          "lang": "fr",
+          "type": "cafés"
+        }
+      ]
+    },
+    {
+      "place_type_id": 3,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Parques",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Parks"
+        },
+        {
+          "lang": "fr",
+          "type": "parcs"
+        }
+      ]
+    },
+    {
+      "place_type_id": 4,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Gimnasios",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Gyms"
+        },
+        {
+          "lang": "fr",
+          "type": "gymnases"
+        }
+      ]
+    },
+    {
+      "place_type_id": 5,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Arte",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Art"
+        },
+        {
+          "lang": "fr",
+          "type": "art"
+        }
+      ]
+    },
+    {
+      "place_type_id": 6,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Museos",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Museums"
+        },
+        {
+          "lang": "fr",
+          "type": "musées"
+        }
+      ]
+    },
+    {
+      "place_type_id": 7,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Bibliotecas",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Libraries"
+        },
+        {
+          "lang": "fr",
+          "type": "bibliothèques"
+        }
+      ]
+    },
+    {
+      "place_type_id": 8,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Vida Nocturna",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Nightlife"
+        },
+        {
+          "lang": "fr",
+          "type": "vie nocturne"
+        }
+      ]
+    },
+    {
+      "place_type_id": 9,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Supermercados",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Supermarkets"
+        },
+        {
+          "lang": "fr",
+          "type": "supermarchés"
+        }
+      ]
+    },
+    {
+      "place_type_id": 10,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Centros comerciales",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Shopping centers"
+        },
+        {
+          "lang": "fr",
+          "type": "centres commerciaux"
+        }
+      ]
+    },
+    {
+      "place_type_id": 11,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Belleza",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Beauty"
+        },
+        {
+          "lang": "fr",
+          "type": "beauté"
+        }
+      ]
+    },
+    {
+      "place_type_id": 12,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Electrónica",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Electronics"
+        },
+        {
+          "lang": "fr",
+          "type": "électronique"
+        }
+      ]
+    },
+    {
+      "place_type_id": 13,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Ropa",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Clothing"
+        },
+        {
+          "lang": "fr",
+          "type": "vêtements"
+        }
+      ]
+    },
+    {
+      "place_type_id": 14,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Hoteles",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Hotels"
+        },
+        {
+          "lang": "fr",
+          "type": "hôtels"
+        }
+      ]
+    },
+    {
+      "place_type_id": 15,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Gasolineras",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Gas stations"
+        },
+        {
+          "lang": "fr",
+          "type": "stations-service"
+        }
+      ]
+    },
+    {
+      "place_type_id": 16,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Cajeros",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "ATMs"
+        },
+        {
+          "lang": "fr",
+          "type": "guichets automatiques"
+        }
+      ]
+    },
+    {
+      "place_type_id": 17,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Hospitales",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Hospitals"
+        },
+        {
+          "lang": "fr",
+          "type": "hôpitaux"
+        }
+      ]
+    },
+    {
+      "place_type_id": 18,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Alquiler de coches",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Car rental"
+        },
+        {
+          "lang": "fr",
+          "type": "location de voitures"
+        }
+      ]
+    },
+    {
+      "place_type_id": 19,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Aparcamientos",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "Parking"
+        },
+        {
+          "lang": "fr",
+          "type": "parking"
+        }
+      ]
+    },
+    {
+      "place_type_id": 20,
+      "places_id": [
+        0,
+        1
+      ],
+      "type": "Populares",
+      "icon": "url- del a imagen",
+      "type_translation": [
+        {
+          "lang": "en",
+          "type": "popular"
+        },
+        {
+          "lang": "fr",
+          "type": "populaire"
         }
       ]
     }
