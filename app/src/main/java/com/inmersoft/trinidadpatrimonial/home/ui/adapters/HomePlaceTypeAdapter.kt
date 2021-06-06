@@ -24,7 +24,9 @@ class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
 
     fun setData(mainDataList: List<PlaceTypeWithPlaces>) {
         mainSectionData.clear()
-        mainSectionData.addAll(mainDataList)
+        val listItemsNotEmpty =
+            mainDataList.filter { placeTypeWithPlaces -> placeTypeWithPlaces.placesList.isNotEmpty() }
+        mainSectionData.addAll(listItemsNotEmpty)
         notifyDataSetChanged()
     }
 

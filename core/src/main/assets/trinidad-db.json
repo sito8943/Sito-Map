@@ -113,7 +113,7 @@
     {
       "place_id": 3,
       "place_type_id": [
-        20,15,10,
+        20,15,10,2,3,
         1
       ],
       "routes_id": [
@@ -123,9 +123,9 @@
       "place_name": "Hotel casa granda",
       "place_description": "Conocida como la casa donde vivió el historiador trinitario Marín Villafuerte, según reza en una placa colocada en su fachada en la década de 1920, es considerada uno de los edificios más antiguos de la ciudad. Su primera referencia documental aparece a nombre de Nicolás PabloVélez, en una imposición del año 1756, aunque la tipología y técnicas constructivas que la caracterizan inducen a pensar que la construcción es mucho más antigua. En un inicio, era uno de los inmuebles más notables del área; actualmente forma dos núcleos independientes, ambos de excepcionales valores.\nEl primero, conservado como casa de familia, posee una fachada apaisada con rejas de hierro voladas que protegen grandes ventanas de madera. En el interior, la primera crujía conserva su cubierta original de doble estribado con canes, solera y solerillas abilletadas, no siendo así en la segunda nave, que otrora fuera de losa por tabla, y posteriormente, se sustituyó por hormigón. El segundo núcleo es un colgadizo sustentado por horcones que descansan sobre bases de piedra labrada, donde se ubica actualmente la Taberna la Canchánchara.\nEn él se destacan sus pavimentos de pequeños cantos rodados y de mortero tradicional en el recinto interior. Las puertas conservan el sistema de pivotes de madera y en las alacenas se aprecian puertas de cuarterones, exponentes de alta significación arqueológica para el estudio de la arquitectura trinitaria. En uno de los muros de mampuesto de la primera crujía aparece una hornacina y un depósito empotrado para agua bendita, lo que hace suponer que este local se dedicara a actividades religiosas. La cubierta mantiene unidad de estilo con el núcleo anterior; en ella poseen singular importancia arquitectónica los tirantes simples con doble solera abilletada que aún se conservan.",
       "header_images": [
-        "images/headers/casa_real_jigue_90_header.png"
+        "images/headers/casa_real_jigue_90_header"
       ],
-      "map_icon": "image/marker/marker_plazas.png",
+      "map_icon": "image/marker/marker_plazas",
       "location": {
         "latitude": 21.8062476,
         "longitude": -79.9859264

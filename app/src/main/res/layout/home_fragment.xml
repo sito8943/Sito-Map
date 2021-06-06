@@ -147,5 +147,7 @@
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@drawable/ic_baseline_expand_more_24"
             app:tint="@color/trinidadColorOnPrimary" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>
