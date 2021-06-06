@@ -60,6 +60,8 @@ dependencies {
     implementation "androidx.camera:camera-view:$rootProject.cameraxViewVersion"
 
 
+    //Easy Permisions
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
 
     // ML Kit Barcode Scanning
