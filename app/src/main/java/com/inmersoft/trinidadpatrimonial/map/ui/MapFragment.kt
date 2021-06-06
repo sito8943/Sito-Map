@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.imageloader.GlideImageLoader
@@ -27,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MapFragment : Fragment() {
 
+    private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
 
     private lateinit var binding: MapFragmentBinding
 
@@ -80,6 +83,9 @@ class MapFragment : Fragment() {
         placesTypeAdapter =
             PlaceTypeAdapter(imageLoader)
 
+        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
+        bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+
         binding.placeTypeList.adapter = placesTypeAdapter
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
@@ -87,7 +93,6 @@ class MapFragment : Fragment() {
         })
 
         //AutoComplete
-
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, {
 
             val arrayPlacesName = it.map { place -> place.place_name }.toList()
