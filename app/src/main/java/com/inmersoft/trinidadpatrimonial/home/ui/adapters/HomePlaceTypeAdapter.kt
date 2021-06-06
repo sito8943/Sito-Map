@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.MainPlacesSectionsBinding
+import com.inmersoft.trinidadpatrimonial.home.ui.utils.PlaceTypeFilter
 
 class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
 
@@ -24,9 +25,7 @@ class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
 
     fun setData(mainDataList: List<PlaceTypeWithPlaces>) {
         mainSectionData.clear()
-        val listItemsNotEmpty =
-            mainDataList.filter { placeTypeWithPlaces -> placeTypeWithPlaces.placesList.isNotEmpty() }
-        mainSectionData.addAll(listItemsNotEmpty)
+        mainSectionData.addAll(PlaceTypeFilter.filterNotEmptyPlaces(mainDataList))
         notifyDataSetChanged()
     }
 

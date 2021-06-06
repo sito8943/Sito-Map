@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.ItemPlaceTypeBinding
+import com.inmersoft.trinidadpatrimonial.home.ui.utils.PlaceTypeFilter
 
 class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
     RecyclerView.Adapter<PlaceTypeViewHolder>() {
 
-    private var placeTypeList = mutableListOf<PlaceType>()
+    private var placeTypeList = mutableListOf<PlaceTypeWithPlaces>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,9 +26,9 @@ class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
         )
     }
 
-    fun setData(newPlaceTypeList: List<PlaceType>) {
+    fun setData(newPlaceTypeList: List<PlaceTypeWithPlaces>) {
         placeTypeList.clear()
-        placeTypeList.addAll(newPlaceTypeList)
+        placeTypeList.addAll(PlaceTypeFilter.filterNotEmptyPlaces(newPlaceTypeList))
         notifyDataSetChanged()
     }
 

@@ -38,10 +38,17 @@ class MapFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )
         val trinidadGPS = LatLng(21.796282222968483, -79.98046886229075)
+        val trinidadGPS2 = LatLng(21.800735, -79.984793)
         googleMap.addMarker(
             MarkerOptions().position(trinidadGPS)
                 //.icon(BitmapDescriptorFactory.fromResource(R.drawable.splash_screen_icon))
                 .title("Trinidad")
+        )
+
+        googleMap.addMarker(
+            MarkerOptions().position(trinidadGPS2)
+                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.splash_screen_icon))
+                .title("Plaza Carillo")
         )
         val cameraPosition = CameraPosition.Builder()
             .target(trinidadGPS)
@@ -74,7 +81,7 @@ class MapFragment : Fragment() {
 
         binding.placeTypeList.adapter = placesTypeAdapter
 
-        mapFragmentViewModel.allPlaceType.observe(viewLifecycleOwner, { placesTypeList ->
+        mapFragmentViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
             placesTypeAdapter.setData(placesTypeList)
         })
 
