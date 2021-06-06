@@ -20,6 +20,7 @@ import com.inmersoft.trinidadpatrimonial.core.imageloader.GlideImageLoader
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.PlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -33,7 +34,7 @@ class MapFragment : Fragment() {
 
     private lateinit var placesTypeAdapter: PlaceTypeAdapter
 
-    private val mapFragmentViewModel: MapFragmentViewModel by viewModels()
+    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
     private val callback = OnMapReadyCallback { googleMap ->
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )
@@ -81,13 +82,13 @@ class MapFragment : Fragment() {
 
         binding.placeTypeList.adapter = placesTypeAdapter
 
-        mapFragmentViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
+        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
             placesTypeAdapter.setData(placesTypeList)
         })
 
         //AutoComplete
 
-        mapFragmentViewModel.allPlaces.observe(viewLifecycleOwner, {
+        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, {
 
             val arrayPlacesName = it.map { place -> place.place_name }.toList()
 

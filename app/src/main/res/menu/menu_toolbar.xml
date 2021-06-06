@@ -9,7 +9,7 @@
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_menu_utils_vert_24"
-        android:title="@string/search_text"
+        android:title="@string/action_settings"
         app:showAsAction="ifRoom" />
 
 </menu>

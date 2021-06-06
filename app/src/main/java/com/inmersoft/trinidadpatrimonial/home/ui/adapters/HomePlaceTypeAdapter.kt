@@ -7,7 +7,8 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.MainPlacesSectionsBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.utils.PlaceTypeFilter
 
-class HomePlaceTypeAdapter : RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
+class HomePlaceTypeAdapter :
+    RecyclerView.Adapter<HomePlaceTypeViewHolder>() {
 
     private val mainSectionData = mutableListOf<PlaceTypeWithPlaces>()
 

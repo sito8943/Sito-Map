@@ -29,12 +29,15 @@ object AppModules {
     fun provideDatabase(@ApplicationContext appContext: Context) =
         AppDatabase.getDatabase(appContext)
 
+    @Singleton
     @Provides
     fun providePlaceDao(database: AppDatabase): PlaceDao = database.placesDao()
 
+    @Singleton
     @Provides
     fun provideRoutesDao(database: AppDatabase): RoutesDao = database.routesDao()
 
+    @Singleton
     @Provides
     fun providePlaceTypeDao(database: AppDatabase): PlaceTypeDao = database.placesTypeDao()
 
@@ -45,6 +48,7 @@ object AppModules {
         routesDao: RoutesDao,
         placeTypeDao: PlaceTypeDao
     ) = DataRepository(placeDao, routesDao, placeTypeDao)
+
 
 
 }

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 
-class MainPlaceAdapter :
+class MainPlaceAdapter:
     RecyclerView.Adapter<MainPlaceViewHolder>() {
 
     private val subSectionsData = mutableListOf<Place>()
@@ -31,7 +31,6 @@ class MainPlaceAdapter :
     }
 
     override fun onBindViewHolder(holder: MainPlaceViewHolder, position: Int) {
-
         holder.bindData(subSectionsData[position])
     }
 

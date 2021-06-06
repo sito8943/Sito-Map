@@ -7,11 +7,10 @@ buildscript {
         minSdkVersion = 21
         targetSdkVersion = 30
 
-
         // App dependencies
         appCompatVersion = "1.3.0"
         cameraxVersion = "1.0.0"
-        cameraxViewVersion = "1.0.0-SNAPSHOT"
+        cameraxViewVersion = "1.0.0-alpha25"
         constraintLayoutVersion = "2.0.4"
         coreKtxVersion = "1.5.0"
         coroutinesVersion = "1.4.3"

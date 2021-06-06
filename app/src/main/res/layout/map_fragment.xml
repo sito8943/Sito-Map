@@ -73,7 +73,7 @@
             android:id="@+id/place_type_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layoutAnimation="@anim/map_chips_layout_animation"
+            android:layoutAnimation="@anim/recycleview_layout_animation"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"

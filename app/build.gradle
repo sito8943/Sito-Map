@@ -13,7 +13,6 @@ android {
 
     buildFeatures {
         dataBinding true
-        viewBinding true
     }
 
     defaultConfig {
@@ -45,13 +44,19 @@ dependencies {
 
     api project(":core")
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
+    implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+
+    //Some dependencies
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
     // Google Maps SDK
     implementation "com.google.android.gms:play-services-maps:$rootProject.googleMapsVersion"
     implementation "com.google.maps.android:maps-ktx:$rootProject.mapsKtxVersion"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
 
     // CameraX
     implementation "androidx.camera:camera-core:$rootProject.cameraxVersion"
@@ -60,18 +65,22 @@ dependencies {
     implementation "androidx.camera:camera-view:$rootProject.cameraxViewVersion"
 
 
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+
+
     //Easy Permisions
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
-
 
     // ML Kit Barcode Scanning
     implementation "com.google.mlkit:barcode-scanning:$rootProject.mlkitBarcodeVersion"
 
     // Dagger Hilt (DI)
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"

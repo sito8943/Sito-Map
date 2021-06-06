@@ -20,7 +20,7 @@ class DataRepository @Inject constructor(
     val allPlaces: LiveData<List<Place>> = placeDao.getAllPlaces()
     val allRoutes: LiveData<List<Route>> = routesDao.getAllRoutes()
     val allPlacesType: LiveData<List<PlaceType>> = placeTypeDao.getAllPlacesType()
-    val allPlacesTypeWithRoutes: LiveData<List<PlaceTypeWithPlaces>> =
+    val allPlacesTypeWithPlaces: LiveData<List<PlaceTypeWithPlaces>> =
         placeTypeDao.getPlaceTypeWithPlaces()
 
 }

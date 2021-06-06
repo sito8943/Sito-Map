@@ -11,7 +11,6 @@
         <item name="colorOnSecondary">@color/trinidadColorOnSecondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-
     </style>
 
     <style name="Theme.TrinidadPatrimonial.NoActionBar">
@@ -30,4 +29,5 @@
     <style name="TextAppearance.Trinidad.Toolbar.Text" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">@color/trinidadColorOnPrimary</item>
     </style>
+
 </resources>

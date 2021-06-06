@@ -4,17 +4,36 @@
     android:id="@+id/app_navigation"
     app:startDestination="@id/nav_home">
 
-
     <fragment
         android:id="@+id/nav_home"
         android:name="com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_nav_home_to_detailsPlaceFragment"
+            app:destination="@id/detailsPlaceFragment" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/nav_map"
         android:name="com.inmersoft.trinidadpatrimonial.map.ui.MapFragment"
-        android:label="MapFragment" />
+        android:label="MapFragment">
+        <action
+            android:id="@+id/action_nav_map_to_detailsPlaceFragment"
+            app:destination="@id/detailsPlaceFragment" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/nav_qr"
         android:name="com.inmersoft.trinidadpatrimonial.qr.ui.QrScannerFragment"
-        android:label="QrScannerFragment" />
+        android:label="QrScannerFragment">
+        <action
+            android:id="@+id/action_nav_qr_to_detailsPlaceFragment"
+            app:destination="@id/detailsPlaceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsPlaceFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.details.ui.fragments.DetailsPlaceFragment"
+        android:label="DetailsPlaceFragment" />
 </navigation>

@@ -2,16 +2,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorSurface"
         android:fitsSystemWindows="true"
-        tools:context="com.google.samples.apps.sunflower.GardenActivity"
-        tools:ignore="MergeRootFrame">
+        tools:context=".MainActivity"
+        tools:openDrawer="start">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorSurface"
+            android:fitsSystemWindows="true"
+            tools:context="com.google.samples.apps.sunflower.GardenActivity"
+            tools:ignore="MergeRootFrame">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="278dp"
             android:animateLayoutChanges="true"
@@ -52,6 +60,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@android:color/transparent"
                     app:contentInsetStartWithNavigation="0dp"
+
                     app:layout_collapseMode="pin"
                     app:menu="@menu/menu_toolbar"
                     app:navigationIcon="@drawable/ic_menu_drawer_24"
@@ -148,6 +157,16 @@
             app:srcCompat="@drawable/ic_baseline_expand_more_24"
             app:tint="@color/trinidadColorOnPrimary" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_drawer_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header_home_drawer"
+            app:itemTextColor="@color/colorPrimary"
+            app:menu="@menu/home_fragment_drawer_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
