@@ -87,6 +87,8 @@ class MapFragment : Fragment() {
 */
         binding.placeTypeList.adapter = placesTypeAdapter
 
+        bottomSheet.setHasOptionsMenu(true)
+
         binding.openTestBottomSheet.setOnClickListener {
             bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
         }
