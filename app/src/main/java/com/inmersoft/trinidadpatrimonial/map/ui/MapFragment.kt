@@ -83,9 +83,9 @@ class MapFragment : Fragment() {
         placesTypeAdapter =
             PlaceTypeAdapter(imageLoader)
 
-        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
+        /*bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
         bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-
+*/
         binding.placeTypeList.adapter = placesTypeAdapter
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->

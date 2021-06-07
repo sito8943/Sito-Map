@@ -2,20 +2,13 @@ package com.inmersoft.trinidadpatrimonial.home.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.os.bundleOf
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.MaterialToolbar
-import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
+import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,9 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var mDrawerToggle: ActionBarDrawerToggle
-    private lateinit var mDrawer: DrawerLayout
-    private lateinit var mToolbar: MaterialToolbar
+
     private lateinit var binding: HomeFragmentBinding
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
@@ -39,6 +30,14 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
 
+        binding.fab.setOnClickListener {
+
+            val bottomSheet = BottomSheet()
+
+            bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
+
+
+        }
         val recycleTestView: RecyclerView = binding.mainRecycleview
         recycleTestView.adapter = mainAdapter
 
@@ -73,15 +72,5 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // The action bar home/up action should open or close the drawer.
-        when (item.itemId) {
-            android.R.id.home -> {
-                mDrawer.openDrawer(GravityCompat.START)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 }

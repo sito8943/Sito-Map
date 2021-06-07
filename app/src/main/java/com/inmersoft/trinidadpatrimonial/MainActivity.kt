@@ -11,22 +11,24 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
+import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
+import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),OnBottomSheetDetailShowListener {
 
-    @Inject
-    lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
         super.onCreate(savedInstanceState)
         setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         initUi()
+
     }
 
     private fun initUi() {
@@ -59,5 +61,9 @@ class MainActivity : AppCompatActivity() {
             winParams.flags = winParams.flags and bits.inv()
         }
         win.attributes = winParams
+    }
+
+    override fun showDetails(fragmentsList: List<ViewPagerDetailFragment>) {
+
     }
 }
