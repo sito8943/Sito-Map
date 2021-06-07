@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -15,12 +14,12 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.imageloader.GlideImageLoader
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
+import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.PlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MapFragment : Fragment() {
 
-    private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
+    private val bottomSheet by lazy { BottomSheet() }
 
     private lateinit var binding: MapFragmentBinding
 
@@ -87,6 +86,10 @@ class MapFragment : Fragment() {
         bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
 */
         binding.placeTypeList.adapter = placesTypeAdapter
+
+        binding.openTestBottomSheet.setOnClickListener {
+            bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
+        }
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
             placesTypeAdapter.setData(placesTypeList)

@@ -9,7 +9,9 @@ import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.LayoutBottomSheetBinding
 import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailAdapter
 import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BottomSheet : SuperBottomSheetFragment() {
     private lateinit var binding: LayoutBottomSheetBinding
     private val detailsAdapter by lazy {

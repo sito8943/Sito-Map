@@ -20,13 +20,8 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="false"
-                app:collapsedTitleGravity="center"
-                app:collapsedTitleTextAppearance="@style/TextAppearance.Trinidad.Toolbar.Text"
-                app:contentScrim="@color/trinidadColorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:statusBarScrim="@color/trinidadColorPrimary"
-                app:title="Trinidad"
+                  app:collapsedTitleGravity="center"
+                  app:title="Trinidad"
                 app:titleEnabled="true"
                 app:toolbarId="@id/toolbar">
 

@@ -22,7 +22,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),OnBottomSheetDetailShowListener {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
         super.onCreate(savedInstanceState)
