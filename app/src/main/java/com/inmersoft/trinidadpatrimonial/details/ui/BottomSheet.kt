@@ -1,10 +1,10 @@
 package com.inmersoft.trinidadpatrimonial.details.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.LayoutBottomSheetBinding
@@ -48,4 +48,18 @@ class BottomSheet : SuperBottomSheetFragment() {
     override fun getStatusBarColor() =
         resources.getColor(R.color.trinidadColorPrimary)
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("BOTTOM_SHEET", "onStart: START BOTTOM SHEET FRAGMENT ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("BOTTOM_SHEET", "onStop: STOP BOTTOM SHEET FRAGMENT ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("BOTTOM_SHEET", "onDestroy: DESTROY BOTTOM SHEET FRAGMENT ")
+    }
 }

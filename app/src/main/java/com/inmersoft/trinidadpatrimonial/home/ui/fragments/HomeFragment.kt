@@ -17,8 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    //TODO( Agregr DI )
-    private val bottomSheet by lazy { BottomSheet() }
 
     private lateinit var binding: HomeFragmentBinding
 
@@ -34,6 +32,7 @@ class HomeFragment : Fragment() {
 
         binding.fab.setOnClickListener {
 
+            val bottomSheet = BottomSheet()
             bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
 
         }

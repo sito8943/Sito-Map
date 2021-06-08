@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),OnBottomSheetDetailShowListener {
+class MainActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
@@ -62,7 +62,5 @@ class MainActivity : AppCompatActivity(),OnBottomSheetDetailShowListener {
         win.attributes = winParams
     }
 
-    override fun showDetails(fragmentsList: List<ViewPagerDetailFragment>) {
 
-    }
 }

@@ -18,9 +18,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.transition.MaterialFadeThrough
 import com.google.common.util.concurrent.ListenableFuture
 import com.inmersoft.trinidadpatrimonial.databinding.QrScannerFragmentBinding
+import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
 import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
@@ -51,6 +51,15 @@ class QrScannerFragment : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+
+        binding.openTestBottomSheet.setOnClickListener {
+            val bottomSheet = BottomSheet()
+            bottomSheet.setHasOptionsMenu(true)
+            bottomSheet.show(
+                requireActivity().supportFragmentManager,
+                "TrinidadDetailsBottomSheet2"
+            )
+        }
         return binding.root
     }
 

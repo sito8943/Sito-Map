@@ -27,9 +27,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
-
-    private val bottomSheet by lazy { BottomSheet() }
-
     private lateinit var binding: MapFragmentBinding
 
     private lateinit var imageLoader: ImageLoader
@@ -82,15 +79,15 @@ class MapFragment : Fragment() {
         placesTypeAdapter =
             PlaceTypeAdapter(imageLoader)
 
-        /*bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
-        bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-*/
         binding.placeTypeList.adapter = placesTypeAdapter
 
-        bottomSheet.setHasOptionsMenu(true)
-
         binding.openTestBottomSheet.setOnClickListener {
-            bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
+            val bottomSheet by lazy { BottomSheet() }
+            bottomSheet.setHasOptionsMenu(true)
+            bottomSheet.show(
+                requireActivity().supportFragmentManager,
+                "TrinidadDetailsBottomSheet2"
+            )
         }
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
