@@ -44,7 +44,6 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner,
             { placeTypeWithPlacesList ->
                 mainAdapter.setData(placeTypeWithPlacesList)
-
             })
 
         return binding.root
