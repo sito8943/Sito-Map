@@ -14,10 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrinidadPatrimonial"
         tools:ignore="AllowBackup">
-        <activity
-            android:name=".delete"
-            android:label="@string/title_activity_delete"
-            android:theme="@style/Theme.TrinidadPatrimonial.NoActionBar"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

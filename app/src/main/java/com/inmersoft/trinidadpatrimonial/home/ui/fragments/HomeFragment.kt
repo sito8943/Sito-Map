@@ -40,28 +40,6 @@ class HomeFragment : Fragment() {
         val recycleTestView: RecyclerView = binding.mainRecycleview
         recycleTestView.adapter = mainAdapter
 
-/*
-        val appBarConfiguration =
-            AppBarConfiguration(findNavController().graph, binding.drawerLayout)
-*/
-
-        /*  mToolbar = binding.toolbar
-          val activity = activity as AppCompatActivity?
-          activity!!.setSupportActionBar(mToolbar)
-
-          activity!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true);
-
-          mDrawer = binding.drawerLayout
-          mDrawerToggle = ActionBarDrawerToggle(
-              getActivity(), mDrawer, R.string.drawer_open, R.string.drawer_close
-          )
-
-          // Where do I put this?
-
-          // Where do I put this?
-          mDrawerToggle.syncState()*/
-
-
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
             viewLifecycleOwner,
             { placeTypeWithPlacesList ->

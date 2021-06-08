@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
 import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.LayoutBottomSheetBinding
 import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailAdapter
 import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
 class BottomSheet : SuperBottomSheetFragment() {
     private lateinit var binding: LayoutBottomSheetBinding
-    private val detailsAdapter by lazy {
-        ViewPagerDetailAdapter(requireActivity().supportFragmentManager, lifecycle)
-    }
 
 
     override fun onCreateView(
@@ -27,17 +24,16 @@ class BottomSheet : SuperBottomSheetFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = LayoutBottomSheetBinding.inflate(inflater, container, false)
 
-        binding.detailsContent.adapter = detailsAdapter
+        val detailsAdapter =
+            ViewPagerDetailAdapter(listOf(
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+            ),requireActivity().supportFragmentManager, lifecycle)
 
-        detailsAdapter.setFragments(
-            listOf(
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-            )
-        )
+        binding.detailsContent.adapter = detailsAdapter
 
         return binding.root
     }
