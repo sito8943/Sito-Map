@@ -52,7 +52,6 @@ class QrScannerFragment : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-
         binding.openTestBottomSheet.setOnClickListener {
 
             val listOfDetails = listOf(
