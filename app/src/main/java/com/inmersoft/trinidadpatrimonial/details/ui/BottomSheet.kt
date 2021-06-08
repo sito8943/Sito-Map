@@ -24,6 +24,12 @@ class BottomSheet(
         super.onCreateView(inflater, container, savedInstanceState)
         binding = LayoutBottomSheetBinding.inflate(inflater, container, false)
 
+        binding.toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24)
+        binding.toolbar.setNavigationOnClickListener {
+            this@BottomSheet.dismiss()
+        }
+
+
         val detailsAdapter =
             ViewPagerDetailAdapter(
                 listOfPagesDetails,

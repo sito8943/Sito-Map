@@ -31,6 +31,11 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
 
+        binding.toolbar.setNavigationOnClickListener {
+            binding.drawerLayout.open()
+        }
+
+
         binding.fab.setOnClickListener {
 
             val listDetails = listOf(
