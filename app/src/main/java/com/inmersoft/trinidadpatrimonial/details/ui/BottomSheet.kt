@@ -12,10 +12,10 @@ import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailAdapt
 import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
 
 
-class BottomSheet : SuperBottomSheetFragment() {
+class BottomSheet(
+    private val listOfPagesDetails: List<ViewPagerDetailFragment>
+) : SuperBottomSheetFragment() {
     private lateinit var binding: LayoutBottomSheetBinding
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,13 +25,11 @@ class BottomSheet : SuperBottomSheetFragment() {
         binding = LayoutBottomSheetBinding.inflate(inflater, container, false)
 
         val detailsAdapter =
-            ViewPagerDetailAdapter(listOf(
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-            ),requireActivity().supportFragmentManager, lifecycle)
+            ViewPagerDetailAdapter(
+                listOfPagesDetails,
+                requireActivity().supportFragmentManager,
+                lifecycle
+            )
 
         binding.detailsContent.adapter = detailsAdapter
 

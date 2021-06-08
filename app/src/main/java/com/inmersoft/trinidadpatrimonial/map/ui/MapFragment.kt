@@ -20,6 +20,7 @@ import com.inmersoft.trinidadpatrimonial.core.imageloader.GlideImageLoader
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
+import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.PlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,7 +83,17 @@ class MapFragment : Fragment() {
         binding.placeTypeList.adapter = placesTypeAdapter
 
         binding.openTestBottomSheet.setOnClickListener {
-            val bottomSheet by lazy { BottomSheet() }
+
+            val listOfDetails = listOf(
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+            )
+            val bottomSheet = BottomSheet(
+                listOfDetails
+            )
             bottomSheet.setHasOptionsMenu(true)
             bottomSheet.show(
                 requireActivity().supportFragmentManager,

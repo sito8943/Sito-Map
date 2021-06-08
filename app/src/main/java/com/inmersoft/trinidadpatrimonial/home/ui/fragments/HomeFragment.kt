@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
+import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,14 @@ class HomeFragment : Fragment() {
 
         binding.fab.setOnClickListener {
 
-            val bottomSheet = BottomSheet()
+            val listDetails = listOf(
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+                ViewPagerDetailFragment(),
+            )
+            val bottomSheet = BottomSheet(listDetails)
             bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
 
         }
