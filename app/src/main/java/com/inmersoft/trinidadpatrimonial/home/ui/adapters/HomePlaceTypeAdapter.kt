@@ -39,5 +39,4 @@ class HomePlaceTypeAdapter(private val imageLoader: ImageLoader) :
         return mainSectionData.size
     }
 
-
 }

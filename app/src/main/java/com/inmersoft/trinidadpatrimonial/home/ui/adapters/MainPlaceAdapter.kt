@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
+import javax.inject.Inject
 
 class MainPlaceAdapter(private val imageLoader: ImageLoader) :
     RecyclerView.Adapter<MainPlaceViewHolder>() {

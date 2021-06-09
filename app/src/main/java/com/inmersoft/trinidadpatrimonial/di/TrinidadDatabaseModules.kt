@@ -6,11 +6,11 @@ import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceTypeDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.RoutesDao
-import com.inmersoft.trinidadpatrimonial.core.imageloader.GlideImageLoader
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
+import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.home.ui.adapters.MainPlaceAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
