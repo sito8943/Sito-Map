@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -16,19 +18,20 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.core.imageloader.GlideImageLoader
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.PlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
     private lateinit var binding: MapFragmentBinding
 
-    private lateinit var imageLoader: ImageLoader
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     private lateinit var placesTypeAdapter: PlaceTypeAdapter
 
@@ -73,15 +76,14 @@ class MapFragment : Fragment() {
             android.R.layout.simple_dropdown_item_1line
         )
 
-        imageLoader = GlideImageLoader(requireContext())
-
         placesTypeAdapter =
             PlaceTypeAdapter(imageLoader)
 
         binding.placeTypeList.adapter = placesTypeAdapter
 
         binding.openTestBottomSheet.setOnClickListener {
-
+            val args = bundleOf("placeId" to 0)
+            findNavController().navigate(R.id.action_nav_map_to_viewPagerDetailFragment, args)
         }
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->

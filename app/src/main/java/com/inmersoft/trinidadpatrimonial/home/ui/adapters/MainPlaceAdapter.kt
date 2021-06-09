@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 
-class MainPlaceAdapter:
+class MainPlaceAdapter(private val imageLoader: ImageLoader) :
     RecyclerView.Adapter<MainPlaceViewHolder>() {
 
     private val subSectionsData = mutableListOf<Place>()
@@ -26,6 +27,7 @@ class MainPlaceAdapter:
         val binding = ItemMainPlacesSubsectionsBinding.inflate(inflater, parent, false)
 
         return MainPlaceViewHolder(
+            imageLoader,
             binding
         )
     }

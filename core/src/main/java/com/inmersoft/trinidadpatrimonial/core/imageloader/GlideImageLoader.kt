@@ -4,8 +4,11 @@ import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class GlideImageLoader(private val context: Context) : ImageLoader {
+class GlideImageLoader @Inject constructor(@ApplicationContext private val context: Context) :
+    ImageLoader {
 
     override fun loadImage(imageUrl: String?, imageView: ImageView) {
         Glide.with(context)

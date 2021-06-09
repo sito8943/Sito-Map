@@ -23,7 +23,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/im_card_header"
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:scaleType="centerCrop"
@@ -33,7 +33,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_card_header_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -48,11 +48,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/im_card_header"
                     tools:text="@tools:sample/lorem/random" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/tv_card_subtitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -63,10 +63,10 @@
                     android:requiresFadingEdge="vertical"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView3"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_card_header_title"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/textView3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintStart_toStartOf="@+id/tv_card_header_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_card_header_title"
                     app:layout_constraintVertical_bias="0.0"
                     tools:text="@tools:sample/lorem/random" />
 

@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
 import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -20,9 +22,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
 
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
-    private val mainAdapter by lazy { HomePlaceTypeAdapter() }
+    private val mainAdapter by lazy { HomePlaceTypeAdapter(imageLoader) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
