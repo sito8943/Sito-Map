@@ -7,17 +7,11 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
-import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
-import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity()  {

@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.details.ui
+package com.inmersoft.trinidadpatrimonial.details.bottomsheet
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,7 @@ import com.andrefrsousa.superbottomsheet.SuperBottomSheetFragment
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.LayoutBottomSheetBinding
 import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailAdapter
-import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
+import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
 
 
 class BottomSheet(
@@ -23,13 +23,10 @@ class BottomSheet(
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = LayoutBottomSheetBinding.inflate(inflater, container, false)
-
         binding.toolbar.setNavigationIcon(R.drawable.ic_outline_arrow_back_24)
         binding.toolbar.setNavigationOnClickListener {
             this@BottomSheet.dismiss()
         }
-
-
         val detailsAdapter =
             ViewPagerDetailAdapter(
                 listOfPagesDetails,

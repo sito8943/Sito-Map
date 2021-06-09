@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.details.ui.adapter
+package com.inmersoft.trinidadpatrimonial.details.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import com.inmersoft.trinidadpatrimonial.databinding.ViewPagerDetailFragmentBinding
 
 
-class ViewPagerDetailFragment : Fragment() {
+class ViewPagerDetailFragment() : Fragment() {
 
     private lateinit var binding: ViewPagerDetailFragmentBinding
+
 
 
     override fun onCreateView(

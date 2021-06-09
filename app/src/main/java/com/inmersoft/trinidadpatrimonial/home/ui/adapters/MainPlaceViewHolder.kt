@@ -11,7 +11,6 @@ class MainPlaceViewHolder(
     val binding: ItemMainPlacesSubsectionsBinding
 ) :
     RecyclerView.ViewHolder(binding.root) {
-
     // Funcion para unir lso datos con la UI
     fun bindData(place: Place) {
         binding.textView3.text = place.place_name

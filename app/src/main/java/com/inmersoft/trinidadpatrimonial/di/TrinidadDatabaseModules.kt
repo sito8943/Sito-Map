@@ -6,7 +6,6 @@ import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceTypeDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.RoutesDao
-import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -18,8 +17,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModules {
+object TrinidadDatabaseModules {
 
+    @Singleton
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder().addLast(
         KotlinJsonAdapterFactory()

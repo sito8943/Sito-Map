@@ -71,10 +71,9 @@ dependencies {
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
 
     //WorkManager
-    api "androidx.work:work-runtime-ktx:2.6.0-alpha02"
-
+    api "androidx.work:work-runtime-ktx:2.6.0-beta01"
     // optional - Test helpers
-    androidTestImplementation "androidx.work:work-testing:2.6.0-alpha02"
+    androidTestImplementation "androidx.work:work-testing:2.6.0-beta01"
 
     // Testing
     testImplementation "junit:junit:$rootProject.junitVersion"

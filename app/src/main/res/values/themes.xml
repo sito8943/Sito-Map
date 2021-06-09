@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/trinidadColorOnSecondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:colorEdgeEffect">@color/trinidadColorPrimary</item>
     </style>
 
     <style name="Theme.TrinidadPatrimonial.NoActionBar">

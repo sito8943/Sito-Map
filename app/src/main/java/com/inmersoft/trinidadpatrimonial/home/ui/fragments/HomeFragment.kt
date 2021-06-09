@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
-import com.inmersoft.trinidadpatrimonial.details.ui.BottomSheet
-import com.inmersoft.trinidadpatrimonial.details.ui.adapter.ViewPagerDetailFragment
+import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
+import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,10 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-
     private lateinit var binding: HomeFragmentBinding
 
-    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
     private val mainAdapter by lazy { HomePlaceTypeAdapter() }
 
