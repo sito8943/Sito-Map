@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.home.ui.utils
+package com.inmersoft.trinidadpatrimonial.utils
 
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 

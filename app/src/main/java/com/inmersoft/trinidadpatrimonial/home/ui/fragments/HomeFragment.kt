@@ -1,12 +1,14 @@
 package com.inmersoft.trinidadpatrimonial.home.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
@@ -33,12 +35,38 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
 
+        binding.toolbar.menu.findItem(R.id.action_search)
+            .setOnMenuItemClickListener {
+                Log.d("TAG", "onCreateView: CLICKED")
+                true
+            }
         binding.toolbar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
 
+        /*  val searchView = binding.toolbar.searget(1) as androidx.appcompat.widget.SearchView
+          searchView.setOnClickListener {
+              Log.d("TAG", "userSearch: TESSSTS")
+          }*/
+/*
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                Toast.makeText(requireContext(), "User search: $query", Toast.LENGTH_SHORT).show()
+
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                Log.d("TAG", "userSearch: $query")
+                return true
+            }
+        })
+*/
 
         binding.fab.setOnClickListener {
 
@@ -65,5 +93,5 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-
 }
+
