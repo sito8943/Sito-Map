@@ -20,7 +20,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
-import com.inmersoft.trinidadpatrimonial.map.ui.adapter.PlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class MapFragment : Fragment() {
     @Inject
     lateinit var imageLoader: ImageLoader
 
-    private lateinit var placesTypeAdapter: PlaceTypeAdapter
+    private lateinit var placesTypeAdapter: MapPlaceTypeAdapter
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
@@ -75,9 +75,12 @@ class MapFragment : Fragment() {
             requireContext(),
             android.R.layout.simple_dropdown_item_1line
         )
-
+        val autoCompleteTextView: AutoCompleteTextView?
+        val textInputLayout: TextInputLayout = binding.searchField
+        autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
+        autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
         placesTypeAdapter =
-            PlaceTypeAdapter(imageLoader)
+            MapPlaceTypeAdapter(imageLoader)
 
         binding.placeTypeList.adapter = placesTypeAdapter
 
@@ -91,15 +94,8 @@ class MapFragment : Fragment() {
         })
 
         //AutoComplete
-        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, {
-
-            val arrayPlacesName = it.map { place -> place.place_name }.toList()
-
-            autoCompletePlacesNameAdapter.addAll(arrayPlacesName)
-            val autoCompleteTextView: AutoCompleteTextView?
-            val textInputLayout: TextInputLayout = binding.searchField
-            autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
-            autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
+        trinidadDataViewModel.allPlacesName.observe(viewLifecycleOwner, { placeNamesList ->
+            autoCompletePlacesNameAdapter.addAll(placeNamesList)
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
 

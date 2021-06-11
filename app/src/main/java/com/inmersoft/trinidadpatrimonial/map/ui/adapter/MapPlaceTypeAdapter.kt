@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
-import com.inmersoft.trinidadpatrimonial.databinding.ItemPlaceTypeBinding
+import com.inmersoft.trinidadpatrimonial.databinding.MapItemPlaceTypeBinding
+
 import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter
 
-class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
+class MapPlaceTypeAdapter(private val imageLoader: ImageLoader) :
     RecyclerView.Adapter<PlaceTypeViewHolder>() {
 
     private var placeTypeList = mutableListOf<PlaceTypeWithPlaces>()
@@ -18,7 +19,7 @@ class PlaceTypeAdapter(private val imageLoader: ImageLoader) :
         viewType: Int
     ): PlaceTypeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemPlaceTypeBinding.inflate(inflater, parent, false)
+        val binding = MapItemPlaceTypeBinding.inflate(inflater, parent, false)
 
         return PlaceTypeViewHolder(
             binding, imageLoader
