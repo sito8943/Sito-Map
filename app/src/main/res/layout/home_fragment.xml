@@ -127,7 +127,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/main_recycleview"
+                        android:id="@+id/home_list_recycleview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="8dp"
@@ -136,7 +136,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/plant_watering"
-                        tools:listitem="@layout/main_places_sections" />
+                        tools:listitem="@layout/home_places_item" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 

@@ -18,8 +18,8 @@ interface PlaceDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun update(place: Place)
 
-    @Query("SELECT * FROM places")
-    fun getAllPlaces(): LiveData<List<Place>>
+    @Query("SELECT place_name FROM places")
+    fun getAllPlacesName(): LiveData<List<String>>
 
     @Query("DELETE FROM places ")
     suspend fun deleteAll()

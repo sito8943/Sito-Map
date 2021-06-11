@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
-import com.inmersoft.trinidadpatrimonial.databinding.ItemPlaceTypeBinding
+import com.inmersoft.trinidadpatrimonial.databinding.MapItemPlaceTypeBinding
 
 class PlaceTypeViewHolder(
-    private val binding: ItemPlaceTypeBinding,
+    private val binding: MapItemPlaceTypeBinding,
     private val imageLoader: ImageLoader
 ) :
     RecyclerView.ViewHolder(binding.root) {

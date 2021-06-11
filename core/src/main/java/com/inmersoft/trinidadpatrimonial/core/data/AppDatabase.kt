@@ -22,7 +22,7 @@ import com.inmersoft.trinidadpatrimonial.core.workers.SeedDatabaseWorker
 @Database(
     entities = [Place::class, Route::class, PlaceType::class,PlaceTypesAndPlacesCrossRef::class, RoutesAndPlacesCrossRef::class],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

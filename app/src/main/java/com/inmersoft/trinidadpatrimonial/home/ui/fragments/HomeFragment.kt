@@ -13,8 +13,7 @@ import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
 import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
-import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
-import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter
+import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,12 +29,9 @@ class HomeFragment : Fragment() {
 
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
-    val mainAdapter: HomePlaceTypeAdapter by lazy {
-        HomePlaceTypeAdapter(
-            imageLoader
-        )
+    private val homeListAdapter: HomeListAdapter by lazy {
+        HomeListAdapter(imageLoader)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,17 +84,15 @@ class HomeFragment : Fragment() {
 
         }
 
-        binding.mainRecycleview.setHasFixedSize(true)
-        binding.mainRecycleview.adapter = mainAdapter
+        binding.homeListRecycleview.adapter = homeListAdapter
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
-            requireActivity(),
+            viewLifecycleOwner,
             { placeTypeWithPlacesList ->
-                val placesFilter = PlaceTypeFilter.filterNotEmptyPlaces(placeTypeWithPlacesList)
-                mainAdapter.setData(placesFilter)
+                homeListAdapter.setData(placeTypeWithPlacesList)
             })
 
-        binding.mainRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.homeListRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(1)) {

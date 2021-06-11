@@ -8,7 +8,7 @@
         motion:duration="1000">
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@id/main_recycleview"
+            app:touchAnchorId="@id/home_list_recycleview"
             app:touchAnchorSide="top" />
     </Transition>
     <ConstraintSet android:id="@+id/start">
@@ -19,7 +19,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             app:layout_editor_absoluteY="219dp"
-            motion:layout_constraintBottom_toTopOf="@+id/main_recycleview"
+            motion:layout_constraintBottom_toTopOf="@+id/home_list_recycleview"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/main_toolbar"
             motion:layout_constraintVertical_bias="0.060000002">
@@ -71,7 +71,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:translationY="50dp"
-            motion:layout_constraintBottom_toTopOf="@+id/main_recycleview"
+            motion:layout_constraintBottom_toTopOf="@+id/home_list_recycleview"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/trinidad_headers_image_view"
