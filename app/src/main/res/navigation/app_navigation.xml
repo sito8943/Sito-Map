@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/onboardingFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -22,10 +23,19 @@
 
     <fragment
         android:id="@+id/nav_qr"
-        android:name="com.inmersoft.trinidadpatrimonial.qr.ui.QrScannerFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.qr.fragments.QrScannerFragment"
         android:label="QrScannerFragment" />
     <fragment
         android:id="@+id/viewPagerDetailFragment"
         android:name="com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment"
         android:label="ViewPagerDetailFragment" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.onboarding.ui.fragments.OnboardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>

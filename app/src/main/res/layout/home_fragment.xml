@@ -26,8 +26,7 @@
                 android:fitsSystemWindows="true"
                 android:stateListAnimator="@animator/show_toolbar"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
-                >
+     >
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:id="@+id/toolbar_layout"
@@ -87,7 +86,7 @@
                         android:layout_marginEnd="8dp"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center_horizontal"
+                        android:gravity="left"
                         android:text="Por los senderos del saber"
                         android:textAppearance="?attr/textAppearanceHeadline5"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +101,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
-                        android:gravity="center_horizontal"
+                        android:gravity="left"
                         android:text="Lo mas hermoso en ciudad trinidad"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"

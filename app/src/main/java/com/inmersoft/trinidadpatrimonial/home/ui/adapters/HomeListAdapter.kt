@@ -10,12 +10,13 @@ import com.inmersoft.trinidadpatrimonial.databinding.HomePlacesItemBinding
 class HomeListAdapter(private val imageLoader: ImageLoader) :
     RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
-    private val mainPlaceAdapter by lazy { MainPlaceAdapter(imageLoader) }
-
     private val mainSectionData = mutableListOf<PlaceTypeWithPlaces>()
 
     inner class ViewHolder(private val binding: HomePlacesItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        private val mainPlaceAdapter by lazy { MainPlaceAdapter(imageLoader) }
+
         init {
             binding.mainPlacesRecycleview.adapter = mainPlaceAdapter
         }

@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.qr.ui
+package com.inmersoft.trinidadpatrimonial.qr.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager

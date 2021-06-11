@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
@@ -92,14 +91,14 @@ class HomeFragment : Fragment() {
                 homeListAdapter.setData(placeTypeWithPlacesList)
             })
 
-        binding.homeListRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    Log.d("LOAD-TRINIDAD", "onScrolled: LOAD MORE...")
-                }
-            }
-        })
+        /* binding.homeListRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                 super.onScrolled(recyclerView, dx, dy)
+                 if (!recyclerView.canScrollVertically(1)) {
+                     Log.d("LOAD-TRINIDAD", "onScrolled: LOAD MORE...")
+                 }
+             }
+         })*/
 
         return binding.root
     }
