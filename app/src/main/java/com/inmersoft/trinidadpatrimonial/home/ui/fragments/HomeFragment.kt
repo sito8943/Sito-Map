@@ -30,7 +30,12 @@ class HomeFragment : Fragment() {
 
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
-    private val mainAdapter by lazy { HomePlaceTypeAdapter(imageLoader) }
+    val mainAdapter: HomePlaceTypeAdapter by lazy {
+        HomePlaceTypeAdapter(
+            imageLoader
+        )
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,10 +88,11 @@ class HomeFragment : Fragment() {
 
         }
 
+        binding.mainRecycleview.setHasFixedSize(true)
         binding.mainRecycleview.adapter = mainAdapter
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
-            viewLifecycleOwner,
+            requireActivity(),
             { placeTypeWithPlacesList ->
                 val placesFilter = PlaceTypeFilter.filterNotEmptyPlaces(placeTypeWithPlacesList)
                 mainAdapter.setData(placesFilter)
