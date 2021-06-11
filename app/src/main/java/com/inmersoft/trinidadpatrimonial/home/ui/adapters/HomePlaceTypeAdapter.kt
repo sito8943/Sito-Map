@@ -27,7 +27,7 @@ class HomePlaceTypeAdapter(private val imageLoader: ImageLoader) :
 
     fun setData(mainDataList: List<PlaceTypeWithPlaces>) {
         mainSectionData.clear()
-        mainSectionData.addAll(PlaceTypeFilter.filterNotEmptyPlaces(mainDataList))
+        mainSectionData.addAll(mainDataList)
         notifyDataSetChanged()
     }
 

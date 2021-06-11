@@ -18,24 +18,24 @@ import kotlinx.coroutines.coroutineScope
 
 
 class SeedDatabaseWorker(
-    context: Context,
+    private val context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result = coroutineScope {
 
-            val database = AppDatabase.getDatabase(applicationContext)
-            val placesDao = database.placesDao()
-            val routesDao = database.routesDao()
-            val placesTypeDao = database.placesTypeDao()
+        val database = AppDatabase.getDatabase(context = context)
+        val placesDao = database.placesDao()
+        val routesDao = database.routesDao()
+        val placesTypeDao = database.placesTypeDao()
 
-            val placeTypesAndPlacesCrossDao = database.placeTypesAndPlacesCrossDao()
-            val routesAndPlacesCrossDao = database.routesAndPlacesCrossDao()
+        val placeTypesAndPlacesCrossDao = database.placeTypesAndPlacesCrossDao()
+        val routesAndPlacesCrossDao = database.routesAndPlacesCrossDao()
 
-            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
-                val jsonReader = readJSONFromAsset(context = applicationContext)
+        val jsonReader = readJSONFromAsset(context = applicationContext)
 
-                val trinidadAdapter: JsonAdapter<Trinidad> =
+        val trinidadAdapter: JsonAdapter<Trinidad> =
                     moshi.adapter(Trinidad::class.java)
 
                 val resultTrinidadFromJson =
@@ -72,14 +72,12 @@ class SeedDatabaseWorker(
                     }
                 }
 
-            resultTrinidadFromJson?.let { placesDao.insertAll(it.places) }
-            resultTrinidadFromJson?.let { routesDao.insertAll(it.routes) }
-            resultTrinidadFromJson?.let { placesTypeDao.insertAll(it.place_type) }
+        resultTrinidadFromJson?.let { placesDao.insertAll(it.places) }
+        resultTrinidadFromJson?.let { routesDao.insertAll(it.routes) }
+        resultTrinidadFromJson?.let { placesTypeDao.insertAll(it.place_type) }
 
-            Log.d(TAG, "doWork: Called")
-            Result.success()
-
-
+        Log.d(TAG, "doWork: Called")
+        Result.success()
     }
 
     companion object {

@@ -12,9 +12,9 @@
             "place_name": "Plazuela del Jigüe",
             "place_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
             "header_images": [
-                "images/headers/plazuela_jigue_header.png"
+                "images/headers/plazuela_jigue_header"
             ],
-            "map_icon": "image/marker/marker_plazas.png",
+            "map_icon": "image/marker/marker_plazas",
             "location": {
                 "latitude": 21.8055678,
                 "longitude": -79.985233
@@ -22,7 +22,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/plazuela_jigue_360.jpg"
+                "images/sections/plazuela_jigue_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -54,9 +54,9 @@
             "place_name": "Casa en Real del Jigüe 69",
             "place_description": "Conocida como la casa donde vivió el historiador trinitario Marín Villafuerte, según reza en una placa colocada en su fachada en la década de 1920, es considerada uno de los edificios más antiguos de la ciudad. Su primera referencia documental aparece a nombre de Nicolás PabloVélez, en una imposición del año 1756, aunque la tipología y técnicas constructivas que la caracterizan inducen a pensar que la construcción es mucho más antigua. En un inicio, era uno de los inmuebles más notables del área; actualmente forma dos núcleos independientes, ambos de excepcionales valores.\nEl primero, conservado como casa de familia, posee una fachada apaisada con rejas de hierro voladas que protegen grandes ventanas de madera. En el interior, la primera crujía conserva su cubierta original de doble estribado con canes, solera y solerillas abilletadas, no siendo así en la segunda nave, que otrora fuera de losa por tabla, y posteriormente, se sustituyó por hormigón. El segundo núcleo es un colgadizo sustentado por horcones que descansan sobre bases de piedra labrada, donde se ubica actualmente la Taberna la Canchánchara.\nEn él se destacan sus pavimentos de pequeños cantos rodados y de mortero tradicional en el recinto interior. Las puertas conservan el sistema de pivotes de madera y en las alacenas se aprecian puertas de cuarterones, exponentes de alta significación arqueológica para el estudio de la arquitectura trinitaria. En uno de los muros de mampuesto de la primera crujía aparece una hornacina y un depósito empotrado para agua bendita, lo que hace suponer que este local se dedicara a actividades religiosas. La cubierta mantiene unidad de estilo con el núcleo anterior; en ella poseen singular importancia arquitectónica los tirantes simples con doble solera abilletada que aún se conservan.",
             "header_images": [
-                "images/headers/casa_real_jigue_69_header.png"
+                "images/headers/casa_real_jigue_69_header"
             ],
-            "map_icon": "image/marker/marker_plazas.png",
+            "map_icon": "image/marker/marker_plazas",
             "location": {
                 "latitude": 21.805763,
                 "longitude": -79.9861212
@@ -88,9 +88,9 @@
             "place_name": "Casa en Real del Jigüe 90",
             "place_description": "Conocida como la casa donde vivió el historiador trinitario Marín Villafuerte, según reza en una placa colocada en su fachada en la década de 1920, es considerada uno de los edificios más antiguos de la ciudad. Su primera referencia documental aparece a nombre de Nicolás PabloVélez, en una imposición del año 1756, aunque la tipología y técnicas constructivas que la caracterizan inducen a pensar que la construcción es mucho más antigua. En un inicio, era uno de los inmuebles más notables del área; actualmente forma dos núcleos independientes, ambos de excepcionales valores.\nEl primero, conservado como casa de familia, posee una fachada apaisada con rejas de hierro voladas que protegen grandes ventanas de madera. En el interior, la primera crujía conserva su cubierta original de doble estribado con canes, solera y solerillas abilletadas, no siendo así en la segunda nave, que otrora fuera de losa por tabla, y posteriormente, se sustituyó por hormigón. El segundo núcleo es un colgadizo sustentado por horcones que descansan sobre bases de piedra labrada, donde se ubica actualmente la Taberna la Canchánchara.\nEn él se destacan sus pavimentos de pequeños cantos rodados y de mortero tradicional en el recinto interior. Las puertas conservan el sistema de pivotes de madera y en las alacenas se aprecian puertas de cuarterones, exponentes de alta significación arqueológica para el estudio de la arquitectura trinitaria. En uno de los muros de mampuesto de la primera crujía aparece una hornacina y un depósito empotrado para agua bendita, lo que hace suponer que este local se dedicara a actividades religiosas. La cubierta mantiene unidad de estilo con el núcleo anterior; en ella poseen singular importancia arquitectónica los tirantes simples con doble solera abilletada que aún se conservan.",
             "header_images": [
-                "images/headers/casa_real_jigue_90_header.png"
+                "images/headers/casa_real_jigue_90_header"
             ],
-            "map_icon": "image/marker/marker_plazas.png",
+            "map_icon": "image/marker/marker_plazas",
             "location": {
                 "latitude": 21.8062476,
                 "longitude": -79.9859264
@@ -137,7 +137,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_real_jigue_93_360.jpg"
+                "images/sections/casa_real_jigue_93_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -494,7 +494,7 @@
             "place_name": "Casa en Cristo 66",
             "place_description": "Conocida por los trinitarios como la casa Proveyer, por haber sido éste el apellido de su última propietaria, esta casa tiene una marcada apariencia dieciochesca. Con el paso del tiempo la fachada ha sufrido evidentes transformaciones formales, como la sustitución de su alero de torna punta, siendo posible aún su lectura original. El inmueble mantiene sus ventanas protegidas con balaustres de madera torneados y el acceso se produce a través de un arco rebajado guarnecido por pilastras adosadas al muro que se insertan en la parte superior en un friso moldurado.\nAdemás del acceso principal posee dos entradas secundarias, una de menores dimensiones que rompe la simetría bilateral de la fachada y se cierra con una puerta a la española, y la otra que se corresponde con un acceso lateral de comunicación directa con el patio, utilizado antiguamente como corredor de servicios. La cubierta actual del edificio es de madera a dos vertientes y su planta se estructura por la clásica repetición de dos crujías paralelas a la calle, estableciéndose la comunicación entre la sala y saleta mediante un arco mixtilíneo; estas habitaciones conservan sus pavimentos de losa bremesa.",
             "header_images": [
-                "images/headers/casa_cristo_66_header.png"
+                "images/headers/casa_cristo_66_header"
             ],
             "map_icon": "image/marker/marker_plazas",
             "location": {
@@ -877,7 +877,8 @@
                     "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
                     "place_description": "Regarded as one of the oldest houses in the city, this building is outstanding for the modesty of its architecture. The ground plan is structured around two bays running parallel to the street, a verandah resting on wooden posts and a wing that extends towards the rear of the plot. The reception room and living room are connected by means of two semi-circular arches. As a result of successive transformations, the beams of the truss beneath the Spanish-tiled roof are devoid of both grooves and mouldings, although traces of the inlaid patterns in the wood of the original ceiling can still be seen.\n\nThe Bremen-style tiled paving has been preserved in the main rooms, as have the clay tiles in the courtyard. Some of the interior mud walls and the brick walls of the perimeter have also been preserved. The outstanding feature of the façade is the singleleaf Spanish door with wooden jambs. This is flanked on each side by a window protected by an iron grille and French shutters, evidence of the building's transition to the 19th century."
                 }
-           ,
+            ]
+        },
            {
             "place_id": 27,
             "place_type_id": [
@@ -998,7 +999,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_cristo_29_360.jpg"
+                "images/sections/casa_cristo_29_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1031,7 +1032,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_alameda_178_360.jpg"
+                "images/sections/casa_alameda_178_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1064,7 +1065,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_alameda_213_360.jpg"
+                "images/sections/casa_alameda_213_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1097,7 +1098,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_alameda_217_360.jpg"
+                "images/sections/casa_alameda_217_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1130,7 +1131,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_alameda_217_360.jpg"
+                "images/sections/casa_alameda_217_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1163,7 +1164,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_alameda_217_360.jpg"
+                "images/sections/casa_alameda_217_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1196,7 +1197,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_amargura_31_360.jpg"
+                "images/sections/casa_amargura_31_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1229,7 +1230,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_santana_591_360.jpg"
+                "images/sections/casa_santana_591_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1262,7 +1263,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_medialuna_14_360.jpg"
+                "images/sections/casa_medialuna_14_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1295,7 +1296,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/palacio_borrell_360.jpg"
+                "images/sections/palacio_borrell_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1328,7 +1329,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/casa_medialuna_19_360.jpg"
+                "images/sections/casa_medialuna_19_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1361,7 +1362,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/antigua_casa_monjas_360.jpg"
+                "images/sections/antigua_casa_monjas_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1394,7 +1395,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "images/sections/antigua_casa_monjas_360.jpg"
+                "images/sections/antigua_casa_monjas_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [
@@ -1418,7 +1419,7 @@
             "route_name": "Ruta de la Fundación",
             "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
             "header_images": [
-                "images/headers/plazuela_jigue_header.png"
+                "images/headers/plazuela_jigue_header"
             ],
             "video_promo": "url",
             "route_translations": [
@@ -1439,7 +1440,7 @@
             "route_name": "Sendero de los Ingenios",
             "route_description": "Se ubica en el corazón del Centro Histórico, en la intersección de las calles de Boca y Real del Jigüe y en un entorno puramente colonial caracterizado por edificios construidos en los siglos XVIII y XIX; es el lugar escogido, según afirma la tradición oral, por el “Adelantado” don Diego Velázquez de Cuéllar como sede de la primera misa en diciembre del año de 1513. Su nombre se debe a la presencia de un árbol del jigüe que sirviera de cobija para tan importante acontecimiento. A un costado de la plaza se aprecia una cruz de madera adosada a un muro como representación de las estaciones del Vía Crucis durante la procesión de la Semana Santa.",
             "header_images": [
-                "images/headers/plazuela_jigue_header.png"
+                "images/headers/plazuela_jigue_header"
             ],
             "video_promo": "url",
             "route_translations": [

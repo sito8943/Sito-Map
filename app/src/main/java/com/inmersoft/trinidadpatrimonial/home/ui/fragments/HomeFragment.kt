@@ -14,6 +14,7 @@ import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
 import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomePlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -81,14 +82,24 @@ class HomeFragment : Fragment() {
             bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
 
         }
-        val recycleTestView: RecyclerView = binding.mainRecycleview
-        recycleTestView.adapter = mainAdapter
+
+        binding.mainRecycleview.adapter = mainAdapter
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
             viewLifecycleOwner,
             { placeTypeWithPlacesList ->
-                mainAdapter.setData(placeTypeWithPlacesList)
+                val placesFilter = PlaceTypeFilter.filterNotEmptyPlaces(placeTypeWithPlacesList)
+                mainAdapter.setData(placesFilter)
             })
+
+        binding.mainRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(1)) {
+                    Log.d("LOAD-TRINIDAD", "onScrolled: LOAD MORE...")
+                }
+            }
+        })
 
         return binding.root
     }

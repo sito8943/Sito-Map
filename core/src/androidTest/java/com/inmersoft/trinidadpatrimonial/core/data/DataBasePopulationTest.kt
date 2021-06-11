@@ -11,11 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class DataBasePopulation {
-
-    private fun getAssetJSON(): String {
-        return readJSONFromAsset(InstrumentationRegistry.getInstrumentation().context)
-    }
+class DataBasePopulationTest {
 
     @Test
     fun testConvertJsonToTrinidadClass() {

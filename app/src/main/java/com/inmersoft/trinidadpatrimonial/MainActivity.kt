@@ -3,6 +3,7 @@ package com.inmersoft.trinidadpatrimonial
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -10,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity()  {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity()  {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
-    setAppBarTranslucent()
+        setAppBarTranslucent()
     }
 
     private fun setAppBarTranslucent() {

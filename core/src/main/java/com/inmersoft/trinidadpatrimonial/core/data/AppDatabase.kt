@@ -1,6 +1,7 @@
 package com.inmersoft.trinidadpatrimonial.core.data
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -51,6 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
                     object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
+                            Log.d("DATABASE-X255", "onCreate: CALLED SEED DATABASE")
                             val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
                             WorkManager.getInstance(context).enqueue(request)
                         }

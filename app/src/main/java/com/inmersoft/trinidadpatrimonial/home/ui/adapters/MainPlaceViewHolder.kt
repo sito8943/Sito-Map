@@ -1,5 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.home.ui.adapters
 
+import android.net.Uri
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,7 @@ class MainPlaceViewHolder(
         binding.tvCardHeaderTitle.text = place.place_name
         binding.tvCardSubtitle.text = place.place_description
         imageLoader.loadImage(
-            place.header_images[0],
+            Uri.parse("file:///android_asset/${place.header_images[0]}.jpg").toString(),
             binding.imCardHeader,
             R.drawable.placeholder_error,
             R.drawable.placeholder_error
