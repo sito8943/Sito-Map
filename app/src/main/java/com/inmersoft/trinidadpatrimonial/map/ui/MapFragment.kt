@@ -18,20 +18,15 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
     private lateinit var binding: MapFragmentBinding
-
-    @Inject
-    lateinit var imageLoader: ImageLoader
 
     private lateinit var placesTypeAdapter: MapPlaceTypeAdapter
 
@@ -80,7 +75,7 @@ class MapFragment : Fragment() {
         autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
         autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
         placesTypeAdapter =
-            MapPlaceTypeAdapter(imageLoader)
+            MapPlaceTypeAdapter()
 
         binding.placeTypeList.adapter = placesTypeAdapter
 

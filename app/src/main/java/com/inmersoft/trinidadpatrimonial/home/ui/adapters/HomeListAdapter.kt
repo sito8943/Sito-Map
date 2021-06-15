@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
-import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.HomePlacesItemBinding
 
-class HomeListAdapter(private val imageLoader: ImageLoader) :
+class HomeListAdapter() :
     RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
     private val mainSectionData = mutableListOf<PlaceTypeWithPlaces>()
@@ -15,7 +14,7 @@ class HomeListAdapter(private val imageLoader: ImageLoader) :
     inner class ViewHolder(private val binding: HomePlacesItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val mainPlaceAdapter by lazy { MainPlaceAdapter(imageLoader) }
+        private val mainPlaceAdapter by lazy { MainPlaceAdapter() }
 
         init {
             binding.mainPlacesRecycleview.adapter = mainPlaceAdapter

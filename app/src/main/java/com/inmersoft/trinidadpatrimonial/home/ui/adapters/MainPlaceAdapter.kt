@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.core.imageloader.ImageLoader
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 
-class MainPlaceAdapter(private val imageLoader: ImageLoader) :
+class MainPlaceAdapter() :
     RecyclerView.Adapter<MainPlaceAdapter.ViewHolder>() {
 
     private val subSectionsData = mutableListOf<Place>()
@@ -44,12 +44,13 @@ class MainPlaceAdapter(private val imageLoader: ImageLoader) :
         fun bindData(place: Place) {
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
-            imageLoader.loadImage(
-                Uri.parse("file:///android_asset/${place.header_images[0]}.jpg").toString(),
-                binding.imCardHeader,
-                R.drawable.placeholder_error,
-                R.drawable.placeholder_error
-            )
+
+            Glide.with(binding.root.context)
+                .load(Uri.parse("file:///android_asset/${place.header_images[0]}.jpg"))
+                .error(R.drawable.placeholder_error)
+                .placeholder(R.drawable.placeholder_error)
+                .into(binding.imCardHeader)
+
             itemView.setOnClickListener {
                 val args = bundleOf("placeId" to place.place_id)
                 Navigation.findNavController(itemView)
