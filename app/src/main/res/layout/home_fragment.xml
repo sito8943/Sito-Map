@@ -109,7 +109,7 @@
                         app:layout_constraintTop_toBottomOf="@id/trinidad_header_title" />
 
                     <TextView
-                        android:id="@+id/plant_watering"
+                        android:id="@+id/trinidad_desctiption_txt"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="8dp"
@@ -125,20 +125,20 @@
                         app:layout_constraintTop_toBottomOf="@id/trinidad_header_subtitle" />
 
 
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/home_list_recycleview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_marginTop="8dp"
                         android:background="@color/trinidadMainBackground"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/plant_watering"
+                        app:layout_constraintTop_toBottomOf="@+id/trinidad_desctiption_txt"
                         tools:listitem="@layout/home_places_item" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 style="@style/Widget.MaterialComponents.FloatingActionButton"

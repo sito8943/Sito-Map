@@ -22,6 +22,16 @@ class OnboardingFragment : Fragment() {
         binding.skipOnboarding.setOnClickListener {
             findNavController().navigate(R.id.action_onboardingFragment_to_nav_home)
         }
+
+        binding.viewPageWallpaper.adapter = wallpaperAdapter
+
+        wallpaperViewModel.allWallpapers.observe(viewLifecycleOwner, { listChanges ->
+            wallpaperAdapter.setData(listChanges)
+        })
+
+
+        binding.viewPageWallpaper.setPageTransformer(WallpaperTransformer())
+
         return binding.root
     }
 

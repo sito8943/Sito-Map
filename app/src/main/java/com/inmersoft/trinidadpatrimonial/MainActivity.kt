@@ -3,7 +3,6 @@ package com.inmersoft.trinidadpatrimonial
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -11,9 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
+import com.inmersoft.trinidadpatrimonial.utils.showComponentWithEffect
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -29,8 +27,27 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.onboardingFragment -> hideBottomNav(navView)
+                else -> showBottomNav(navView)
+            }
+        }
         setAppBarTranslucent()
     }
+
+
+    private fun showBottomNav(navView: BottomNavigationView) {
+        navView.visibility = View.VISIBLE
+        showComponentWithEffect(navView)
+    }
+
+    private fun hideBottomNav(navView: BottomNavigationView) {
+        navView.visibility = View.GONE
+        supportActionBar?.hide();
+    }
+
 
     private fun setAppBarTranslucent() {
         if (Build.VERSION.SDK_INT >= 21) {
