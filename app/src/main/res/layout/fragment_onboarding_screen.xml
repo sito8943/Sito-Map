@@ -9,12 +9,13 @@
 
         <ImageView
             android:id="@+id/image_view_parallax_effect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:scaleType="centerInside"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/image_guide_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/image_guide_right"
+            app:layout_constraintStart_toStartOf="@+id/image_guide_left"
+            app:layout_constraintTop_toTopOf="@+id/image_guide_top"
             tools:src="@drawable/ic_onboarding_page_1" />
 
         <TextView
@@ -22,15 +23,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
 
+            android:textAlignment="center"
+            android:layout_marginEnd="32dp"
             android:maxLines="3"
             android:requiresFadingEdge="horizontal"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_parallax_effect"
+            app:layout_constraintTop_toTopOf="@+id/image_guide_bottom"
             tools:text="@tools:sample/lorem" />
 
         <TextView
@@ -40,6 +43,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
+            android:textAlignment="center"
             android:ellipsize="none"
             android:fadingEdge="vertical"
             android:fadingEdgeLength="10dp"
@@ -51,6 +55,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="@tools:sample/lorem/random" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/image_guide_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/image_guide_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/image_guide_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/image_guide_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.60" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
