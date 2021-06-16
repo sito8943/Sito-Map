@@ -23,8 +23,8 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/onboarding_page_position_container"
-            android:layout_width="150dp"
-            android:layout_height="10dp"
+            android:layout_width="160dp"
+            android:layout_height="8dp"
             android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             app:layout_constraintBottom_toTopOf="@+id/onboarding_start_button"
