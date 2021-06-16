@@ -14,6 +14,7 @@ import com.inmersoft.trinidadpatrimonial.databinding.FragmentOnboardingBinding
 import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.transformer.OnboardingViewPagerTransformer
+import com.inmersoft.trinidadpatrimonial.utils.showComponentWithEffect
 
 class OnboardingFragment : Fragment() {
 
@@ -82,12 +83,20 @@ class OnboardingFragment : Fragment() {
     }
 
     private fun setOnboardingPoint(index: Int) {
-        for (i in 0 until binding.onboardingPagePositionContainer.size) {
+        val max = binding.onboardingPagePositionContainer.size
+        for (i in 0 until max) {
             val imv = binding.onboardingPagePositionContainer.getChildAt(i) as ImageView
             if (i == index)
                 imv.setImageResource(R.drawable.onboarding_item_selected)
             else
                 imv.setImageResource(R.drawable.onboarding_item_unselected)
+        }
+
+        if (index == max - 1) {
+            binding.onboardingStartButton.visibility = View.VISIBLE
+            showComponentWithEffect(binding.onboardingStartButton)
+        } else {
+            binding.onboardingStartButton.visibility = View.INVISIBLE
         }
     }
 }
