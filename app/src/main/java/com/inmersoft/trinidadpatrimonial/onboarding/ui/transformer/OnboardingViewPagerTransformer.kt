@@ -6,17 +6,6 @@ import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.inmersoft.trinidadpatrimonial.R
 
-
-/****
- * TODO
- *    TERMINAR LA PANTALLA ONBOARDING USANDO TRANSFOPRMER
- *
- *
- *
- *
- */
-
-
 class OnboardingViewPagerTransformer : ViewPager2.PageTransformer {
     override fun transformPage(page: View, position: Float) {
         val pageWidth = page.width

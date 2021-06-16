@@ -23,8 +23,8 @@ class OnBoardingAdapter(private val onboardingData: List<OnBoardingData>) :
     }
 
     override fun onBindViewHolder(holder: OnBoardingViewHolder, position: Int) {
-        val currentWallpaperItem = onboardingData[position]
-        holder.bindData(currentWallpaperItem)
+        val currentOnboardingItem = onboardingData[position]
+        holder.bindData(currentOnboardingItem)
     }
 
     override fun getItemCount(): Int {
