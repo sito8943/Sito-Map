@@ -36,6 +36,8 @@
         tools:layout="@layout/fragment_onboarding" >
         <action
             android:id="@+id/action_onboardingFragment_to_nav_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

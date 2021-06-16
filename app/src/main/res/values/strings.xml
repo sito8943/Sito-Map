@@ -23,6 +23,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="see_more">ver más</string>
+    <string name="onboarding_start_button">Comenzar</string>
+    <string name="onboarding_title_page1">Trinidad Patrimonial</string>
+    <string name="onboarding_subtitle_page1">Una guia de viajeros con consejos para ahorrar y optimizar tu tiempo.</string>
+    <string name="onboarding_title_page2">Actividades, rutas y visitas guiadas accesibles en un solo lugar.</string>
+    <string name="onboarding_subtitle_page2" />
+    <string name="onboarding_title_page3">Pues a disfrutar que el tiempo vuela...</string>
+    <string name="onboarding_subtitle_page3" />
 
 
 </resources>

@@ -4,35 +4,30 @@ package com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentOnboardingScreenBinding
+import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 
 
-class OnBoardingAdapter : RecyclerView.Adapter<OnBoardingViewHolder>() {
-
-    private val onboardingImages = mutableListOf<Wallpaper>()
+class OnBoardingAdapter(private val onboardingData: List<OnBoardingData>) :
+    RecyclerView.Adapter<OnBoardingViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): OnBoardingViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FragmentWallpaperScreenBinding.inflate(inflater, parent, false)
+        val binding = FragmentOnboardingScreenBinding.inflate(inflater, parent, false)
         return OnBoardingViewHolder(
-            binding, androidApiCalls, imageLoader
+            binding
         )
     }
 
-    fun setData(newWallsList: List<Wallpaper>) {
-        wallpaperItems.clear()
-        wallpaperItems.addAll(newWallsList)
-        notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: OnBoardingViewHolder, position: Int) {
-        val currentWallpaperItem = wallpaperItems[position]
-        holder.bindData(currentWallpaperItem, wallpaperItems.size, position)
+        val currentWallpaperItem = onboardingData[position]
+        holder.bindData(currentWallpaperItem)
     }
 
     override fun getItemCount(): Int {
-        return wallpaperItems.size
+        return onboardingData.size
     }
 }
