@@ -18,13 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  */
 
 
-
-
-
-
-
-
-
 class OnboardingViewPagerTransformer : ViewPager2.PageTransformer {
     override fun transformPage(page: View, position: Float) {
         val pageWidth = page.width

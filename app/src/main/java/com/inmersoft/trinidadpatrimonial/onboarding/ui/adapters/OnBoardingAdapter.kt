@@ -1,21 +1,14 @@
 package com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters
-/*
+
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingViewHolder
-import com.ondev.wallpaper.data.database.Wallpaper
-import com.ondev.wallpaper.databinding.FragmentWallpaperScreenBinding
-import com.ondev.wallpaper.fragments.IAndroidApi
-import com.ondev.wallpaper.imageloader.ImageLoader
 
 
-class OnBoardingAdapter(
-    private val androidApiCalls: IAndroidApi, private val imageLoader: ImageLoader
-) : RecyclerView.Adapter<OnBoardingViewHolder>() {
+class OnBoardingAdapter : RecyclerView.Adapter<OnBoardingViewHolder>() {
 
-    private val wallpaperItems = mutableListOf<Wallpaper>()
+    private val onboardingImages = mutableListOf<Wallpaper>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -42,4 +35,4 @@ class OnBoardingAdapter(
     override fun getItemCount(): Int {
         return wallpaperItems.size
     }
-}*/
+}
