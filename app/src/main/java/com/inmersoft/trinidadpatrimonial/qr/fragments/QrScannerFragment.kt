@@ -13,6 +13,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.lifecycle.ProcessCameraProvider.getInstance
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -42,7 +43,7 @@ class QrScannerFragment : Fragment() {
     ): View {
         val binding = QrScannerFragmentBinding.inflate(inflater, container, false)
         cameraPreview = binding.cameraView
-        cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture = getInstance(requireContext())
         qrProcessor = QrProcessor(binding.cameraOverlay)
 
         if (isPermissionGranted())
@@ -75,7 +76,7 @@ class QrScannerFragment : Fragment() {
 
     private fun startCamera() {
         val fragmentContext = requireContext()
-        cameraProviderFuture = ProcessCameraProvider.getInstance(fragmentContext)
+        cameraProviderFuture = getInstance(fragmentContext)
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
             bindUseCases(cameraProvider)

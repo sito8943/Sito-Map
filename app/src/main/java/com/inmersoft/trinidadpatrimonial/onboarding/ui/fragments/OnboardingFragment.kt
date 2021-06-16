@@ -14,6 +14,7 @@ import com.inmersoft.trinidadpatrimonial.databinding.FragmentOnboardingBinding
 import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.transformer.OnboardingViewPagerTransformer
+import com.inmersoft.trinidadpatrimonial.utils.hideComponentWithEffect
 import com.inmersoft.trinidadpatrimonial.utils.showComponentWithEffect
 
 class OnboardingFragment : Fragment() {
@@ -84,9 +85,9 @@ class OnboardingFragment : Fragment() {
 
     private fun setOnboardingPoint(index: Int) {
         val max = binding.onboardingPagePositionContainer.size
-        for (i in 0 until max) {
-            val imv = binding.onboardingPagePositionContainer.getChildAt(i) as ImageView
-            if (i == index)
+        (0 until max).forEach { currentPoint ->
+            val imv = binding.onboardingPagePositionContainer.getChildAt(currentPoint) as ImageView
+            if (currentPoint == index)
                 imv.setImageResource(R.drawable.onboarding_item_selected)
             else
                 imv.setImageResource(R.drawable.onboarding_item_unselected)
@@ -95,7 +96,13 @@ class OnboardingFragment : Fragment() {
         if (index == max - 1) {
             binding.onboardingStartButton.visibility = View.VISIBLE
             showComponentWithEffect(binding.onboardingStartButton)
+            hideComponentWithEffect(binding.onboardingPagePositionContainer)
+            binding.onboardingPagePositionContainer.visibility = View.INVISIBLE
         } else {
+            if (binding.onboardingPagePositionContainer.visibility == View.INVISIBLE) {
+                binding.onboardingPagePositionContainer.visibility = View.VISIBLE
+                showComponentWithEffect(binding.onboardingPagePositionContainer)
+            }
             binding.onboardingStartButton.visibility = View.INVISIBLE
         }
     }

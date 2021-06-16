@@ -23,8 +23,7 @@ internal class QrReticleGraphic(
         ripplePaint.style = Paint.Style.STROKE
         ripplePaint.color = ContextCompat.getColor(context, R.color.reticle_ripple)
         rippleSizeOffset = resources.getDimensionPixelOffset(R.dimen.qr_reticle_ripple_size_offset)
-        rippleStrokeWidth =
-            resources.getDimensionPixelOffset(R.dimen.qr_reticle_ripple_stroke_width)
+        rippleStrokeWidth =resources.getDimensionPixelOffset(R.dimen.qr_reticle_ripple_stroke_width)
         rippleAlpha = ripplePaint.alpha
     }
 

@@ -3,6 +3,7 @@ package com.inmersoft.trinidadpatrimonial.qr.qrdetection
 import android.annotation.SuppressLint
 import android.util.Log
 import android.util.Size
+import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -38,8 +39,7 @@ class QrProcessor(private val graphicOverlay: GraphicOverlay) : ImageAnalysis.An
                     when (barcodeInCenter) {
                         null -> addReticleGraphic()
                         else -> {
-                            Log.d(TAG, "Barcode: ${barcodeInCenter.displayValue}")
-                            addReticleGraphic()
+                            processScan(barcodeInCenter.rawValue)
                         }
                     }
 
@@ -47,6 +47,10 @@ class QrProcessor(private val graphicOverlay: GraphicOverlay) : ImageAnalysis.An
                 }
                 .addOnCompleteListener { imageProxy.close() }
         }
+    }
+
+    private fun processScan(qrValue: String?) {
+        Log.d(TAG, "processScan: QR-VALUE: $qrValue")
     }
 
     private fun addReticleGraphic() {

@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.inmersoft.trinidadpatrimonial.utils.showComponentWithEffect
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun showBottomNav(navView: BottomNavigationView) {
         navView.visibility = View.VISIBLE
-        showComponentWithEffect(navView)
     }
 
     private fun hideBottomNav(navView: BottomNavigationView) {

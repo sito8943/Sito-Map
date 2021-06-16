@@ -10,8 +10,7 @@ internal abstract class QrGraphicBase(overlay: GraphicOverlay) : GraphicOverlay.
     private val boxPaint: Paint = Paint().apply {
         color = ContextCompat.getColor(context, R.color.qr_reticle_stroke)
         style = Paint.Style.STROKE
-        strokeWidth =
-            context.resources.getDimensionPixelOffset(R.dimen.qr_reticle_stroke_width).toFloat()
+        strokeWidth = context.resources.getDimensionPixelOffset(R.dimen.qr_reticle_stroke_width).toFloat()
     }
 
     private val scrimPaint: Paint = Paint().apply {
@@ -23,8 +22,7 @@ internal abstract class QrGraphicBase(overlay: GraphicOverlay) : GraphicOverlay.
         xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     }
 
-    val boxCornerRadius: Float =
-        context.resources.getDimensionPixelOffset(R.dimen.qr_reticle_corner_radius).toFloat()
+    val boxCornerRadius: Float = context.resources.getDimensionPixelOffset(R.dimen.qr_reticle_corner_radius).toFloat()
 
     val pathPaint: Paint = Paint().apply {
         color = Color.WHITE
