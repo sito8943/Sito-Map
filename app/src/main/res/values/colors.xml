@@ -8,6 +8,8 @@
     <color name="trinidadColorOnSecondary">#FF000000</color>
     <color name="trinidadColorOnPrimary">#FFFFFFFF</color>
     <color name="statusBarTranslucent">#33000000</color>
+    <color name="trinidadOnBoardingTitleTextColor">#0B0026</color>
+    <color name="trinidadOnBoardingSubTitleTextColor">#808080</color>
     <color name="trinidadMainBackground">#F2F2F2</color>
     <color name="reticle_ripple">@color/trinidadColorPrimary</color>
     <color name="onboarding_item_selected">@color/trinidadColorPrimary</color>
