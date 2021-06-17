@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.transition.MaterialFadeThrough
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
@@ -31,6 +32,7 @@ class MapFragment : Fragment() {
     private lateinit var placesTypeAdapter: MapPlaceTypeAdapter
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )

@@ -130,6 +130,8 @@
                         android:id="@+id/home_list_recycleview"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:transitionName="shared_place_container"
+
                         android:layout_marginTop="8dp"
                         android:background="@color/trinidadMainBackground"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.inmersoft.trinidadpatrimonial.R
@@ -41,7 +42,6 @@ class MainPlaceAdapter() :
         val binding: ItemMainPlacesSubsectionsBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        // Funcion para unir lso datos con la UI
         fun bindData(place: Place) {
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
@@ -53,12 +53,19 @@ class MainPlaceAdapter() :
                 .placeholder(R.drawable.placeholder_error)
                 .into(binding.imCardHeader)
 
-            itemView.setOnClickListener {
 
+
+            itemView.setOnClickListener {
+                val extras =
+                    FragmentNavigatorExtras(
+                          binding.imCardHeader to "shared_place_image_header",
+                        binding.tvCardHeaderTitle to "shared_place_title",
+                        binding.tvCardSubtitle to "shared_place_subtitle"
+                    )
                 val action =
                     HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = place.place_id)
                 Navigation.findNavController(itemView)
-                    .navigate(action)
+                    .navigate(action, extras)
             }
         }
     }
