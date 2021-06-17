@@ -3,13 +3,14 @@ package com.inmersoft.trinidadpatrimonial.home.ui.adapters
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
+import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
+import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
 
 class MainPlaceAdapter() :
     RecyclerView.Adapter<MainPlaceAdapter.ViewHolder>() {
@@ -44,17 +45,20 @@ class MainPlaceAdapter() :
         fun bindData(place: Place) {
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
+            binding.imCardHeader.transitionName = place.place_name
 
             Glide.with(binding.root.context)
-                .load(Uri.parse("file:///android_asset/${place.header_images[0]}.jpg"))
+                .load(Uri.parse("$ASSETS_FOLDER/${place.header_images[0]}.jpg"))
                 .error(R.drawable.placeholder_error)
                 .placeholder(R.drawable.placeholder_error)
                 .into(binding.imCardHeader)
 
             itemView.setOnClickListener {
-                val args = bundleOf("placeId" to place.place_id)
+
+                val action =
+                    HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = place.place_id)
                 Navigation.findNavController(itemView)
-                    .navigate(R.id.action_nav_map_to_viewPagerDetailFragment, args)
+                    .navigate(action)
             }
         }
     }

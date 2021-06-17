@@ -1,0 +1,3 @@
+package com.inmersoft.trinidadpatrimonial.utils
+
+const val ASSETS_FOLDER = "file:///android_asset"

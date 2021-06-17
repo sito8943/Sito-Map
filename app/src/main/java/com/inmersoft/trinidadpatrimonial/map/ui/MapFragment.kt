@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
+import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,8 +80,9 @@ class MapFragment : Fragment() {
         binding.placeTypeList.adapter = placesTypeAdapter
 
         binding.openTestBottomSheet.setOnClickListener {
-            val args = bundleOf("placeId" to 0)
-            findNavController().navigate(R.id.action_nav_map_to_viewPagerDetailFragment, args)
+            val action =
+                HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = 1)
+            findNavController().navigate(action)
         }
 
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->

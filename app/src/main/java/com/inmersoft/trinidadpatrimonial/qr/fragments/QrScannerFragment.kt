@@ -21,8 +21,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
 import com.inmersoft.trinidadpatrimonial.databinding.QrScannerFragmentBinding
-import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
-import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
@@ -55,21 +53,8 @@ class QrScannerFragment : Fragment() {
 
         binding.openTestBottomSheet.setOnClickListener {
 
-            val listOfDetails = listOf(
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-            )
-            val bottomSheet = BottomSheet(
-                listOfDetails
-            )
-            bottomSheet.setHasOptionsMenu(true)
-            bottomSheet.show(
-                requireActivity().supportFragmentManager,
-                "TrinidadDetailsBottomSheet2"
-            )
+
+
         }
         return binding.root
     }

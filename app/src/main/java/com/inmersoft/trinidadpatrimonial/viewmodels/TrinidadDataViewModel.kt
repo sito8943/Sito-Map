@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlacesWithPlaceType
 import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -22,5 +23,7 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
         }
     }
     var allRoutes = dataRepository.allRoutes
+    var allPlaces = dataRepository.allPlaces
+
 
 }

@@ -5,12 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialElevationScale
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
-import com.inmersoft.trinidadpatrimonial.details.bottomsheet.BottomSheet
-import com.inmersoft.trinidadpatrimonial.details.ui.fragments.ViewPagerDetailFragment
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +44,7 @@ class HomeFragment : Fragment() {
             binding.drawerLayout.open()
         }
 
+
         /*  val searchView = binding.toolbar.searget(1) as androidx.appcompat.widget.SearchView
           searchView.setOnClickListener {
               Log.d("TAG", "userSearch: TESSSTS")
@@ -66,15 +68,6 @@ class HomeFragment : Fragment() {
 
         binding.fab.setOnClickListener {
 
-            val listDetails = listOf(
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-                ViewPagerDetailFragment(),
-            )
-            val bottomSheet = BottomSheet(listDetails)
-            bottomSheet.show(requireActivity().supportFragmentManager, "TrinidadDetailsBottomSheet")
 
         }
 

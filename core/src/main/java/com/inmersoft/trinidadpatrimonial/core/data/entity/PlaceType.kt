@@ -1,7 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.core.data.entity
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.squareup.moshi.JsonClass
 
