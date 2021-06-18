@@ -3,11 +3,12 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:transitionName="shared_view_container"
+        >
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/detailViewPager2Content"
-            android:transitionName="shared_place_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

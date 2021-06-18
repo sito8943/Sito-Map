@@ -12,6 +12,7 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
+import kotlin.random.Random
 
 class MainPlaceAdapter() :
     RecyclerView.Adapter<MainPlaceAdapter.ViewHolder>() {
@@ -46,6 +47,8 @@ class MainPlaceAdapter() :
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
             binding.imCardHeader.transitionName = place.place_name
+            binding.cardContainer.transitionName =
+                "shared_view_content${place.place_id + Random.nextInt(0, 1000)}"
 
             Glide.with(binding.root.context)
                 .load(Uri.parse("$ASSETS_FOLDER/${place.header_images[0]}.jpg"))
@@ -58,9 +61,7 @@ class MainPlaceAdapter() :
             itemView.setOnClickListener {
                 val extras =
                     FragmentNavigatorExtras(
-                          binding.imCardHeader to "shared_place_image_header",
-                        binding.tvCardHeaderTitle to "shared_place_title",
-                        binding.tvCardSubtitle to "shared_place_subtitle"
+                        binding.cardContainer to "shared_view_container"
                     )
                 val action =
                     HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = place.place_id)

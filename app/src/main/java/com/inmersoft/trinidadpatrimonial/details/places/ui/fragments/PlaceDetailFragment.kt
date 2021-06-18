@@ -2,12 +2,12 @@ package com.inmersoft.trinidadpatrimonial.details.places.ui.fragments
 
 import android.net.Uri
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
@@ -20,9 +20,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val animation=TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = animation
-        sharedElementReturnTransition=animation
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true)
     }
 
     override fun onCreateView(

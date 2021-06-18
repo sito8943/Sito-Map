@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:transitionName="shared_view_container"
+
+    >
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/end_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:transitionName="shared_view_container"
-
-        >
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/place_header"
@@ -71,4 +75,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/place_header2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

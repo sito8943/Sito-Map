@@ -1,14 +1,13 @@
 package com.inmersoft.trinidadpatrimonial.details
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.databinding.DetailsFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.places.ui.adapter.ViewPagerDetailAdapter
 import com.inmersoft.trinidadpatrimonial.details.places.ui.fragments.PlaceDetailFragment
@@ -24,9 +23,7 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val animation= TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = animation
-        sharedElementReturnTransition=animation
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true)
     }
 
     override fun onCreateView(
