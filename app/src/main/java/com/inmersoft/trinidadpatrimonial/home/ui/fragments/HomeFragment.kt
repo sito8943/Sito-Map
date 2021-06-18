@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
@@ -26,6 +27,10 @@ class HomeFragment : Fragment() {
         HomeListAdapter()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

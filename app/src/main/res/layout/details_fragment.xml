@@ -6,7 +6,6 @@
         android:layout_height="match_parent"
         android:transitionName="shared_view_container"
         >
-
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/detailViewPager2Content"
             android:layout_width="match_parent"

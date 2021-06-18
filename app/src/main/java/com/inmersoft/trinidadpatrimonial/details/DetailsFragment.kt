@@ -38,7 +38,6 @@ class DetailsFragment : Fragment() {
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPLaces ->
             val fragmentList = mutableListOf<PlaceDetailFragment>()
-
             for (index in allPLaces.indices) {
                 val currentPlace = allPLaces[index]
                 if (safeArgs.placeID == currentPlace.place_id) {
@@ -55,6 +54,7 @@ class DetailsFragment : Fragment() {
                     lifecycle
                 )
             binding.detailViewPager2Content.adapter = adapter
+            binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(3))
         })
         return binding.root
     }

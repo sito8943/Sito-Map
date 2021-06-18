@@ -31,6 +31,8 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment() {
         binding = PlaceDetailsFragmentBinding.inflate(layoutInflater, container, false)
         binding.placeName.text = placeData.place_name
         binding.placeDescription.text = placeData.place_description
+
+
         Glide.with(requireContext())
             .load(
                 Uri.parse("$ASSETS_FOLDER/${placeData.header_images[0]}.jpg")

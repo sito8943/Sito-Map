@@ -12,7 +12,7 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
-import kotlin.random.Random
+import java.util.*
 
 class MainPlaceAdapter() :
     RecyclerView.Adapter<MainPlaceAdapter.ViewHolder>() {
@@ -38,7 +38,6 @@ class MainPlaceAdapter() :
         )
     }
 
-
     inner class ViewHolder(
         val binding: ItemMainPlacesSubsectionsBinding
     ) :
@@ -46,17 +45,14 @@ class MainPlaceAdapter() :
         fun bindData(place: Place) {
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
-            binding.imCardHeader.transitionName = place.place_name
-            binding.cardContainer.transitionName =
-                "shared_view_content${place.place_id + Random.nextInt(0, 1000)}"
+            // generamos un uuid diferente para cada item
+            binding.cardContainer.transitionName = UUID.randomUUID().toString()
 
             Glide.with(binding.root.context)
                 .load(Uri.parse("$ASSETS_FOLDER/${place.header_images[0]}.jpg"))
                 .error(R.drawable.placeholder_error)
                 .placeholder(R.drawable.placeholder_error)
                 .into(binding.imCardHeader)
-
-
 
             itemView.setOnClickListener {
                 val extras =
@@ -70,7 +66,6 @@ class MainPlaceAdapter() :
             }
         }
     }
-
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindData(subSectionsData[position])
