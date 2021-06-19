@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.Hold
 import com.google.common.util.concurrent.ListenableFuture
 import com.inmersoft.trinidadpatrimonial.databinding.QrScannerFragmentBinding
 import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
@@ -33,6 +34,11 @@ class QrScannerFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
     private var camera: Camera? = null
     private lateinit var qrProcessor: QrProcessor
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition=Hold()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,11 +57,7 @@ class QrScannerFragment : Fragment() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        binding.openTestBottomSheet.setOnClickListener {
 
-
-
-        }
         return binding.root
     }
 

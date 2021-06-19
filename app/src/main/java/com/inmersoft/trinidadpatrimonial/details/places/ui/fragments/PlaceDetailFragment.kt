@@ -18,10 +18,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment() {
 
     private lateinit var binding: PlaceDetailsFragmentBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

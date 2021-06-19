@@ -34,10 +34,10 @@ class MapFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )
-        var trinidadGPS = LatLng(21.796282222968483, -79.98046886229075)
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
-            trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
+            var trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
+
             places.forEach { place ->
                 val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
                 googleMap.addMarker(
