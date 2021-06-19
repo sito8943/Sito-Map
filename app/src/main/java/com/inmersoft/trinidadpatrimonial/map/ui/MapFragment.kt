@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.transition.MaterialFadeThrough
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
@@ -33,27 +32,29 @@ class MapFragment : Fragment() {
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
-
     private val callback = OnMapReadyCallback { googleMap ->
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )
-        val trinidadGPS = LatLng(21.796282222968483, -79.98046886229075)
-        val trinidadGPS2 = LatLng(21.800735, -79.984793)
-        googleMap.addMarker(
-            MarkerOptions().position(trinidadGPS)
-                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.splash_screen_icon))
-                .title("Trinidad")
-        )
+        var trinidadGPS = LatLng(21.796282222968483, -79.98046886229075)
 
-        googleMap.addMarker(
-            MarkerOptions().position(trinidadGPS2)
-                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.splash_screen_icon))
-                .title("Plaza Carillo").draggable(true)
+        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
+            trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
+            places.forEach { place ->
+                val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
+                googleMap.addMarker(
+                    MarkerOptions().position(gpsPoint)
+                        //.icon(BitmapDescriptorFactory.fromResource(R.drawable.splash_screen_icon))
+                        .title(place.place_name).draggable(true)
+                        .snippet(place.place_description)
+                )
+            }
+
+            val cameraPosition = CameraPosition.Builder()
+                .target(trinidadGPS)
+                .zoom(18f)
+                .build()
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        }
         )
-        val cameraPosition = CameraPosition.Builder()
-            .target(trinidadGPS)
-            .zoom(15f)
-            .build()
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
 
     override fun onCreateView(
@@ -102,5 +103,6 @@ class MapFragment : Fragment() {
 
     private fun initMap(mapFragment: SupportMapFragment?) {
         mapFragment?.getMapAsync(callback)
+
     }
 }

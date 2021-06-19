@@ -20,7 +20,6 @@ class HomeListAdapter() :
         private val mainPlaceAdapter by lazy { MainPlaceAdapter() }
 
         init {
-
             val snapHelper: SnapHelper = LinearSnapHelper()
             snapHelper.attachToRecyclerView(binding.mainPlacesRecycleview)
 
