@@ -36,11 +36,12 @@ class DetailsFragment : Fragment() {
         //TODO y el tipo de lugar que es o sea si es ruta o lugar
         //TODO cojer tambien a que tipo pertenece para mostrar todos los typos en el carrousel
 
-        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPLaces ->
+        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPlaces ->
             val fragmentList = mutableListOf<PlaceDetailFragment>()
-            for (index in allPLaces.indices) {
-                val currentPlace = allPLaces[index]
+            allPlaces.indices.forEach { index ->
+                val currentPlace = allPlaces[index]
                 if (safeArgs.placeID == currentPlace.place_id) {
+                    //Agregamos el lugar elejido por el usuario como primero enla lista
                     fragmentList.add(0, PlaceDetailFragment(currentPlace))
                 } else {
                     fragmentList.add(PlaceDetailFragment(currentPlace))

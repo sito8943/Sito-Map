@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.transition.Hold
-import com.google.android.material.transition.MaterialElevationScale
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
@@ -27,11 +26,6 @@ class HomeFragment : Fragment() {
         HomeListAdapter()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        exitTransition = Hold()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +41,6 @@ class HomeFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             binding.drawerLayout.open()
         }
-
 
         /*  val searchView = binding.toolbar.searget(1) as androidx.appcompat.widget.SearchView
           searchView.setOnClickListener {
@@ -75,8 +68,8 @@ class HomeFragment : Fragment() {
 
         }
 
+        binding.homeListRecycleview.layoutManager = LinearLayoutManager(requireContext())
         binding.homeListRecycleview.adapter = homeListAdapter
-
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
             viewLifecycleOwner,
             { placeTypeWithPlacesList ->

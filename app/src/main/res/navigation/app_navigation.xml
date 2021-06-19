@@ -41,6 +41,8 @@
         <action
             android:id="@+id/action_onboardingFragment_to_nav_home"
             app:destination="@id/nav_home"
+            app:enterAnim="@anim/viewpage_transition_in"
+            app:exitAnim="@anim/viewpage_transition_out"
             app:popUpTo="@id/onboardingFragment"
             app:popUpToInclusive="true" />
     </fragment>

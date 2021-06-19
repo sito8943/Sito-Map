@@ -2,7 +2,10 @@ package com.inmersoft.trinidadpatrimonial.home.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.HomePlacesItemBinding
 
@@ -17,6 +20,12 @@ class HomeListAdapter() :
         private val mainPlaceAdapter by lazy { MainPlaceAdapter() }
 
         init {
+
+            val snapHelper: SnapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(binding.mainPlacesRecycleview)
+
+            binding.mainPlacesRecycleview.layoutManager =
+                LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
             binding.mainPlacesRecycleview.adapter = mainPlaceAdapter
         }
 
