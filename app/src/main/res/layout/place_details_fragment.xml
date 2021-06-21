@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/place_name">
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/materialButton"
+                        android:id="@+id/btn_go_to_map"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -61,14 +61,14 @@
                         app:iconSize="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
 
-                        app:layout_constraintEnd_toStartOf="@+id/materialButton2"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_speech_description"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/materialButton2"
+                        android:id="@+id/btn_speech_description"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -83,14 +83,14 @@
                         app:iconSize="24dp"
 
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/materialButton3"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_share_place_information"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/materialButton"
+                        app:layout_constraintStart_toEndOf="@+id/btn_go_to_map"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/materialButton3"
+                        android:id="@+id/btn_share_place_information"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -104,14 +104,14 @@
                         app:iconPadding="0dp"
                         app:iconSize="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/materialButton4"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_go_web_page"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/materialButton2"
+                        app:layout_constraintStart_toEndOf="@+id/btn_speech_description"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/materialButton4"
+                        android:id="@+id/btn_go_web_page"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -127,7 +127,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/materialButton3"
+                        app:layout_constraintStart_toEndOf="@+id/btn_share_place_information"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
 

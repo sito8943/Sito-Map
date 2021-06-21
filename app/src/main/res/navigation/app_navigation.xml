@@ -54,5 +54,8 @@
             android:name="placeID"
             android:defaultValue="-1"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailsFragment_to_nav_map"
+            app:destination="@id/nav_map" />
     </fragment>
 </navigation>
