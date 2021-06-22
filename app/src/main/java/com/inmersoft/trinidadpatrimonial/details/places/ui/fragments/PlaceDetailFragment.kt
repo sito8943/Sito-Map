@@ -1,6 +1,7 @@
 package com.inmersoft.trinidadpatrimonial.details.places.ui.fragments
 
 import android.Manifest
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -107,10 +108,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         //TODO Cambiar los iconos del boton
 
         if (tts != null) {
-            if (tts!!.isSpeaking()) {
-                tts!!.shutdown()
-            }
+            Log.d("TAG", "speechPlaceDescription: IS NOT NULL")
+            binding.btnSpeechDescription.icon=resources.getDrawable(R.drawable.ic_baseline_hearing_24)
+            tts!!.shutdown()
+            tts=null
         } else {
+            binding.btnSpeechDescription.icon=resources.getDrawable(R.drawable.ic_baseline_hearing_disabled_24)
+            Log.d("TAG", "speechPlaceDescription: IS NULL")
             tts = TTS(requireActivity(), placeDescription, true)
         }
     }

@@ -31,6 +31,8 @@ class TTS(
         }
     }
 
+
+
     private fun speakOut(message: String) {
         tts.speak(message, TextToSpeech.QUEUE_FLUSH, null, null)
     }
