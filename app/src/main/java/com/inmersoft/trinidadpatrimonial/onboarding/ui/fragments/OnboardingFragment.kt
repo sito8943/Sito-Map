@@ -16,12 +16,10 @@ import com.inmersoft.trinidadpatrimonial.databinding.FragmentOnboardingBinding
 import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.transformer.OnboardingViewPagerTransformer
-import com.inmersoft.trinidadpatrimonial.utils.showComponentWithEffect
 
 class OnboardingFragment : Fragment() {
 
     lateinit var binding: FragmentOnboardingBinding
-
 
     private val viewPager2PageChangeCallback = ViewPager2PageChangeCallback {
         setOnboardingPoint(it)
@@ -58,7 +56,6 @@ class OnboardingFragment : Fragment() {
         binding.onboardingStartButton.setOnClickListener {
             findNavController().navigate(R.id.action_onboardingFragment_to_nav_home)
         }
-
 
         binding.onboardingViewPage.adapter = onboardingAdapter
 
@@ -100,15 +97,11 @@ class OnboardingFragment : Fragment() {
             TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
             binding.onboardingPagePositionContainer.visibility = View.INVISIBLE
             binding.onboardingStartButton.visibility = View.VISIBLE
-            /*showComponentWithEffect(binding.onboardingStartButton)
-            hideComponentWithEffect(binding.onboardingPagePositionContainer)
-            */
         } else {
             TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
 
             if (binding.onboardingPagePositionContainer.visibility == View.INVISIBLE) {
                 binding.onboardingPagePositionContainer.visibility = View.VISIBLE
-                //showComponentWithEffect(binding.onboardingPagePositionContainer)
             }
             binding.onboardingStartButton.visibility = View.INVISIBLE
         }

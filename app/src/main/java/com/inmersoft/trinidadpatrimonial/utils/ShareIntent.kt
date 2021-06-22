@@ -13,7 +13,7 @@ import com.inmersoft.trinidadpatrimonial.R
 
 object ShareIntent {
 
-    fun ShareIt(ctx: Context, bm: Bitmap, shareText: String, shareBy: String) {
+    fun shareIt(ctx: Context, bm: Bitmap, shareText: String, shareBy: String) {
         val intent = Intent(Intent.ACTION_SEND_MULTIPLE)
         intent.putExtra(
             Intent.EXTRA_TEXT,

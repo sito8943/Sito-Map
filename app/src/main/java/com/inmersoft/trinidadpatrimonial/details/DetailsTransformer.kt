@@ -11,7 +11,7 @@ class DetailsTransformer(private val offscreenPageLimit: Int) : ViewPager2.PageT
     companion object {
         private const val TAG = "SliderTransformer"
 
-        private const val DEFAULT_TRANSLATION_X = .0f
+        private const val DEFAULT_TRANSLATION_X = .5f
         private const val DEFAULT_TRANSLATION_FACTOR = 1.2f
 
         private const val SCALE_FACTOR = .14f

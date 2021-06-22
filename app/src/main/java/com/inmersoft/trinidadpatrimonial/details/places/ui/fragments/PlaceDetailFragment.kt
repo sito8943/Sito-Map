@@ -84,7 +84,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
                 ) {
-                    ShareIntent.ShareIt(
+                    ShareIntent.shareIt(
                         requireActivity(),
                         resource,
                         placeData.place_name,

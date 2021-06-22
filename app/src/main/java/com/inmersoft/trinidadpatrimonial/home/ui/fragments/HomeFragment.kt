@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -65,6 +66,7 @@ class HomeFragment : Fragment() {
 
         binding.fab.setOnClickListener {
 
+            Toast.makeText(requireContext(), "NOT IMPLEMENTED YET!!!", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -85,8 +87,10 @@ class HomeFragment : Fragment() {
              }
          })*/
 
+        //Active the marquee text
+        binding.trinidadDesctiptionTxt.isSelected=true
+
         return binding.root
     }
-
 }
 

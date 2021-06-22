@@ -32,16 +32,12 @@ class DetailsFragment : Fragment() {
     ): View? {
         binding = DetailsFragmentBinding.inflate(inflater, container, false)
 
-        //TODO cojer del argumento el id del elemento
-        //TODO y el tipo de lugar que es o sea si es ruta o lugar
-        //TODO cojer tambien a que tipo pertenece para mostrar todos los typos en el carrousel
-
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPlaces ->
             val fragmentList = mutableListOf<PlaceDetailFragment>()
             allPlaces.indices.forEach { index ->
                 val currentPlace = allPlaces[index]
                 if (safeArgs.placeID == currentPlace.place_id) {
-                    //Agregamos el lugar elejido por el usuario como primero enla lista
+                    //Agregamos el lugar elejido por el usuario como primero en la lista
                     fragmentList.add(0, PlaceDetailFragment(currentPlace))
                 } else {
                     fragmentList.add(PlaceDetailFragment(currentPlace))
@@ -54,9 +50,11 @@ class DetailsFragment : Fragment() {
                     requireActivity().supportFragmentManager,
                     lifecycle
                 )
+
             binding.detailViewPager2Content.adapter = adapter
-            binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(3))
+            binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(4))
         })
+
         return binding.root
     }
 
