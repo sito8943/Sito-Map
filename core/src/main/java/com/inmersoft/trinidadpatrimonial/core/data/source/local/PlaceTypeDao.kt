@@ -19,6 +19,9 @@ interface PlaceTypeDao {
     @Query("SELECT * FROM place_types")
     fun getAllPlacesType(): LiveData<List<PlaceType>>
 
+    @Query("SELECT COUNT(*) FROM place_types")
+    fun getCantPlacesType(): LiveData<Int>
+
     @Query("DELETE FROM place_types")
     suspend fun deleteAll()
 

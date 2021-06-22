@@ -52,7 +52,6 @@ abstract class AppDatabase : RoomDatabase() {
                     object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            Log.d("DATABASE-X255", "onCreate: CALLED SEED DATABASE")
                             val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
                             WorkManager.getInstance(context).enqueue(request)
                         }
@@ -60,6 +59,5 @@ abstract class AppDatabase : RoomDatabase() {
                 )
                 .build()
         }
-
     }
 }

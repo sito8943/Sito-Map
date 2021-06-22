@@ -121,7 +121,6 @@
                         android:focusableInTouchMode="true"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:requiresFadingEdge="vertical"
-
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="La ciudad colonial e histórica de Trinidad o Villa de la Santísima Trinidad, Patrimonio de la Humanidad, Ciudad Artesanal y Creativa del Mundo, Monumento"

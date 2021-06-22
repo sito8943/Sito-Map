@@ -72,9 +72,11 @@ class SeedDatabaseWorker(
                     }
                 }
 
-        resultTrinidadFromJson?.let { placesDao.insertAll(it.places) }
-        resultTrinidadFromJson?.let { routesDao.insertAll(it.routes) }
-        resultTrinidadFromJson?.let { placesTypeDao.insertAll(it.place_type) }
+        resultTrinidadFromJson?.let {
+            placesDao.insertAll(it.places)
+            routesDao.insertAll(it.routes)
+            placesTypeDao.insertAll(it.place_type)
+        }
 
         Log.d(TAG, "doWork: Called")
         Result.success()
