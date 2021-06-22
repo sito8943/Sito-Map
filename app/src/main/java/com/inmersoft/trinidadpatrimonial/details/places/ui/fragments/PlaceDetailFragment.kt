@@ -19,6 +19,7 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
 import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
+import com.inmersoft.trinidadpatrimonial.utils.TTS
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
@@ -28,6 +29,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: PlaceDetailsFragmentBinding
+    private var tts: TTS? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,6 +104,15 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private fun speechPlaceDescription(placeDescription: String) {
 
+        //TODO Cambiar los iconos del boton
+
+        if (tts != null) {
+            if (tts!!.isSpeaking()) {
+                tts!!.shutdown()
+            }
+        } else {
+            tts = TTS(requireActivity(), placeDescription, true)
+        }
     }
 
     private fun goToMap(placeId: Int) {
@@ -162,6 +173,11 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        tts?.shutdown()
     }
 
     companion object {

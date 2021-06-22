@@ -11,8 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.transition.MaterialFadeThrough
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
+import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
+import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,16 +23,17 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var database: AppDatabase
 
-    private val fadeThrough by lazy { MaterialFadeThrough() }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        initUi()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initUI()
     }
 
-    private fun initUi() {
+    private fun initUI() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
@@ -51,10 +53,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun showBottomNav(navView: BottomNavigationView) {
+        fadeTransition(binding.container)
         navView.visibility = View.VISIBLE
     }
 
     private fun hideBottomNav(navView: BottomNavigationView) {
+        fadeTransition(binding.container)
         navView.visibility = View.GONE
         supportActionBar?.hide();
     }
@@ -84,6 +88,4 @@ class MainActivity : AppCompatActivity() {
         }
         win.attributes = winParams
     }
-
-
 }
