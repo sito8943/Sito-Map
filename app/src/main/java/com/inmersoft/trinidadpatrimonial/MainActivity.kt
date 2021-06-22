@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.transition.MaterialFadeThrough
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var database: AppDatabase
+
+    private val fadeThrough by lazy { MaterialFadeThrough() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)

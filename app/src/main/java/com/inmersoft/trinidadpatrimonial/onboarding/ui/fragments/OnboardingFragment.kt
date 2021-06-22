@@ -8,18 +8,18 @@ import android.widget.ImageView
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.transition.TransitionManager
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.transition.MaterialFadeThrough
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentOnboardingBinding
 import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.transformer.OnboardingViewPagerTransformer
+import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
 
 class OnboardingFragment : Fragment() {
-
     lateinit var binding: FragmentOnboardingBinding
+
+    //  private val fadeThrough by lazy { MaterialFadeThrough() }
 
     private val viewPager2PageChangeCallback = ViewPager2PageChangeCallback {
         setOnboardingPoint(it)
@@ -44,8 +44,6 @@ class OnboardingFragment : Fragment() {
             )
         )
     }
-
-    val fadeThrough by lazy { MaterialFadeThrough() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,12 +92,13 @@ class OnboardingFragment : Fragment() {
         }
 
         if (index == max - 1) {
-            TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+            // TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+            fadeTransition(binding.container)
             binding.onboardingPagePositionContainer.visibility = View.INVISIBLE
             binding.onboardingStartButton.visibility = View.VISIBLE
         } else {
-            TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
-
+            //   TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
+            fadeTransition(binding.container)
             if (binding.onboardingPagePositionContainer.visibility == View.INVISIBLE) {
                 binding.onboardingPagePositionContainer.visibility = View.VISIBLE
             }
