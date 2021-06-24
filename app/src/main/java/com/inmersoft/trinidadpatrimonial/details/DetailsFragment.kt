@@ -52,7 +52,7 @@ class DetailsFragment : Fragment() {
                 )
 
             binding.detailViewPager2Content.adapter = adapter
-            binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(4))
+            binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(50))
         })
 
         return binding.root

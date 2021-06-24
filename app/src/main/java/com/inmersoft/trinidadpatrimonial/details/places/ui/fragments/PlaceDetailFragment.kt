@@ -63,19 +63,18 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnGoToMap.setOnClickListener {
             goToMap(placeData.place_id)
         }
-        binding.btnToogleSpeechDescription.addOnButtonCheckedListener { _, _, isChecked ->
-            binding.btnSpeechDescription.icon = if (isChecked) {
-                if (!textToSpeechEngine.isSpeaking) {
-                    speechPlaceDescription(placeData.place_description)
-                }
-
-                resources.getDrawable(R.drawable.ic_baseline_hearing_disabled_24)
-
+        binding.btnSpeechDescription.setOnClickListener {
+            if (!textToSpeechEngine.isSpeaking) {
+                speechPlaceDescription(placeData.place_description)
+                binding.btnSpeechDescription.icon =
+                    resources.getDrawable(R.drawable.ic_baseline_hearing_disabled_24)
             } else {
                 textToSpeechEngine.stop()
-                resources.getDrawable(R.drawable.ic_baseline_hearing_24)
+                binding.btnSpeechDescription.icon =
+                    resources.getDrawable(R.drawable.ic_baseline_hearing_24)
             }
         }
+
 
         binding.btnGoWebPage.setOnClickListener {
             goToWebPage(placeData.web)
@@ -83,8 +82,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation(placeData)
         }
-
-
         return binding.root
     }
 
@@ -218,32 +215,38 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
 
-    fun loadPano360(panoAssetName: List<String>) {
-        Glide.with(requireActivity())
-            .asBitmap()
-            .placeholder(R.drawable.ic_placeholder)
-            .load(Uri.parse(TrinidadAssets.getPanoAssetFullPath(panoAssetName[0])))
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap>?
-                ) {
-                    val options = VrPanoramaView.Options()
-                    options.inputType = VrPanoramaView.Options.TYPE_MONO
-                    binding.run {
+    private fun loadPano360(panoAssetName: List<String>) {
+        if (panoAssetName[0].isNotEmpty()) {
+            val panoAssetUrl = TrinidadAssets.getPanoAssetFullPath(panoAssetName[0])
+            Glide.with(requireActivity())
+                .asBitmap()
+                .placeholder(R.drawable.ic_placeholder)
+                .load(Uri.parse(panoAssetUrl))
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val options = VrPanoramaView.Options()
                         options.inputType = VrPanoramaView.Options.TYPE_MONO
-                        placePanoView.setInfoButtonEnabled(false)
+                        binding.run {
+                            options.inputType = VrPanoramaView.Options.TYPE_MONO
+                            placePanoView.setInfoButtonEnabled(false)
                         placePanoView.setFullscreenButtonEnabled(false)
                         placePanoView.setStereoModeButtonEnabled(false)
-                        placePanoView.setTouchTrackingEnabled(false)
-                        placePanoView.loadImageFromBitmap(resource, options)
-                    }
-                }
+                            placePanoView.setTouchTrackingEnabled(false)
+                            placePanoView.loadImageFromBitmap(resource, options)
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    // Add other icon
-                }
-            })
+                        }
+                    }
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Add other icon
+                    }
+
+                })
+        } else {
+            binding.placePanoView.visibility = View.GONE
+        }
     }
 
     companion object {
