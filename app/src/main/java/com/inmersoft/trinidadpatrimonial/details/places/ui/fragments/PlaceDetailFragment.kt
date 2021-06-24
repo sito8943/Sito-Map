@@ -1,11 +1,11 @@
 package com.inmersoft.trinidadpatrimonial.details.places.ui.fragments
 
 import android.Manifest
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,17 +20,34 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
 import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
-import com.inmersoft.trinidadpatrimonial.utils.TTS
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
+import com.inmersoft.trinidadpatrimonial.utils.showToast
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
+import java.util.*
 
 
 class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     EasyPermissions.PermissionCallbacks {
 
     private lateinit var binding: PlaceDetailsFragmentBinding
-    private var tts: TTS? = null
+    private var currentLocale = Locale("es", "ES")
+
+    private val textToSpeechEngine: TextToSpeech by lazy {
+        TextToSpeech(requireActivity()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                if (textToSpeechEngine.isLanguageAvailable(
+                        currentLocale
+                    ) == TextToSpeech.LANG_AVAILABLE
+                ) {
+                    textToSpeechEngine.language = currentLocale
+                } else {
+                    showToast(requireContext(), resources.getString(R.string.lang_not_supported))
+                }
+            }
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +60,20 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnGoToMap.setOnClickListener {
             goToMap(placeData.place_id)
         }
-        binding.btnSpeechDescription.setOnClickListener {
-            speechPlaceDescription(placeData.place_description)
+        binding.btnToogleSpeechDescription.addOnButtonCheckedListener { _, _, isChecked ->
+            binding.btnSpeechDescription.icon = if (isChecked) {
+                if (!textToSpeechEngine.isSpeaking) {
+                    speechPlaceDescription(placeData.place_description)
+                }
+
+                resources.getDrawable(R.drawable.ic_baseline_hearing_disabled_24)
+
+            } else {
+                textToSpeechEngine.stop()
+                resources.getDrawable(R.drawable.ic_baseline_hearing_24)
+            }
         }
+
         binding.btnGoWebPage.setOnClickListener {
             goToWebPage(placeData.web)
         }
@@ -65,7 +93,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun goToWebPage(web: String) {
-
+        TODO("NOT IMPLEMENTED YET")
     }
 
     private fun sharePlaceInformation(placeData: Place) {
@@ -91,7 +119,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                         requireActivity(),
                         resource,
                         placeData.place_name,
-                        "Trinidad App"
+                        resources.getString(R.string.app_name)
                     )
                     Log.d("TAG", "onResourceReady: IMAGE LOADED")
                 }
@@ -104,23 +132,14 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun speechPlaceDescription(placeDescription: String) {
-
-        //TODO Cambiar los iconos del boton
-
-        if (tts != null) {
-            Log.d("TAG", "speechPlaceDescription: IS NOT NULL")
-            binding.btnSpeechDescription.icon=resources.getDrawable(R.drawable.ic_baseline_hearing_24)
-            tts!!.shutdown()
-            tts=null
-        } else {
-            binding.btnSpeechDescription.icon=resources.getDrawable(R.drawable.ic_baseline_hearing_disabled_24)
-            Log.d("TAG", "speechPlaceDescription: IS NULL")
-            tts = TTS(requireActivity(), placeDescription, true)
+        if (placeDescription.isNotEmpty()) {
+            textToSpeechEngine.speak(placeDescription, TextToSpeech.QUEUE_FLUSH, null, "tts1")
         }
     }
 
-    private fun goToMap(placeId: Int) {
 
+    private fun goToMap(placeId: Int) {
+        TODO("NOT IMPLEMENTED YET")
     }
 
     //WRITE EXTERNAL STORAGE PERMISSIONS
@@ -179,9 +198,16 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     }
 
+    override fun onPause() {
+        textToSpeechEngine.stop()
+        binding.btnSpeechDescription.isChecked = false
+        super.onPause()
+    }
+
     override fun onDestroy() {
+        textToSpeechEngine.shutdown()
+        binding.btnSpeechDescription.isChecked = false
         super.onDestroy()
-        tts?.shutdown()
     }
 
     companion object {
