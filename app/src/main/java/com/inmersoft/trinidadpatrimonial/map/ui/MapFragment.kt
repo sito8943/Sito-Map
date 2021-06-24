@@ -9,6 +9,7 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -28,6 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MapFragment : Fragment() {
     private lateinit var binding: MapFragmentBinding
 
+    val safeArgs: MapFragmentArgs by navArgs()
+
     private lateinit var placesTypeAdapter: MapPlaceTypeAdapter
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
@@ -36,9 +39,14 @@ class MapFragment : Fragment() {
         //TODO ( La posicion inicial de trinidad se podria pedir a la base de datos )
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
+            val placeIdArgs = safeArgs.placeID
+
             var trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
 
             places.forEach { place ->
+                if (place.place_id == placeIdArgs) {
+                    trinidadGPS = LatLng(place.location.latitude, place.location.longitude)
+                }
                 val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
                 googleMap.addMarker(
                     MarkerOptions().position(gpsPoint)

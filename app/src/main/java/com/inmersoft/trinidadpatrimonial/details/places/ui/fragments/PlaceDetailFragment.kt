@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -19,6 +20,8 @@ import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
+import com.inmersoft.trinidadpatrimonial.details.DetailsFragmentDirections
+import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
@@ -143,7 +146,9 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
 
     private fun goToMap(placeId: Int) {
-        TODO("NOT IMPLEMENTED YET")
+        val action =
+            DetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
+        findNavController().navigate(action)
     }
 
     //WRITE EXTERNAL STORAGE PERMISSIONS
