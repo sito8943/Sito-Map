@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
@@ -54,9 +55,11 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         savedInstanceState: Bundle?,
     ): View? {
         binding = PlaceDetailsFragmentBinding.inflate(layoutInflater, container, false)
-        binding.placeName.text = placeData.place_name
-        binding.placeDescription.text = placeData.place_description
+        binding.toolbarLayout.title = placeData.place_name
+        loadPano360(placeData.pano)
+        loadHeader(placeData.header_images)
 
+        binding.placeDescription.text = placeData.place_description
         binding.btnGoToMap.setOnClickListener {
             goToMap(placeData.place_id)
         }
@@ -81,15 +84,19 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             sharePlaceInformation(placeData)
         }
 
+
+        return binding.root
+    }
+
+    private fun loadHeader(headerImages: List<String>) {
+
         Glide.with(requireContext())
             .load(
-                Uri.parse("$ASSETS_FOLDER/${placeData.header_images[0]}.jpg")
+                Uri.parse("$ASSETS_FOLDER/${headerImages[0]}.jpg")
             )
             .error(R.drawable.placeholder_error)
             .placeholder(R.drawable.ic_placeholder)
-            .into(binding.placeHeader)
-
-        return binding.root
+            .into(binding.headerImage)
     }
 
     private fun goToWebPage(web: String) {
@@ -208,6 +215,35 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         textToSpeechEngine.shutdown()
         binding.btnSpeechDescription.isChecked = false
         super.onDestroy()
+    }
+
+
+    fun loadPano360(panoAssetName: List<String>) {
+        Glide.with(requireActivity())
+            .asBitmap()
+            .placeholder(R.drawable.ic_placeholder)
+            .load(Uri.parse(TrinidadAssets.getPanoAssetFullPath(panoAssetName[0])))
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    val options = VrPanoramaView.Options()
+                    options.inputType = VrPanoramaView.Options.TYPE_MONO
+                    binding.run {
+                        options.inputType = VrPanoramaView.Options.TYPE_MONO
+                        placePanoView.setInfoButtonEnabled(false)
+                        placePanoView.setFullscreenButtonEnabled(false)
+                        placePanoView.setStereoModeButtonEnabled(false)
+                        placePanoView.setTouchTrackingEnabled(false)
+                        placePanoView.loadImageFromBitmap(resource, options)
+                    }
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // Add other icon
+                }
+            })
     }
 
     companion object {

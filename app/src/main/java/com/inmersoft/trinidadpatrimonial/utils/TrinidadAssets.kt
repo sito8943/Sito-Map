@@ -5,4 +5,10 @@ object TrinidadAssets {
     fun getAssetFullPath(url: String): String {
         return "$ASSETS_FOLDER/$url.$FILE_EXTENSION"
     }
+
+    fun getPanoAssetFullPath(url: String): String {
+        return "$ASSETS_FOLDER/$url.$FILE_PANO_EXTENSION"
+    }
+
+
 }

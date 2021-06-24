@@ -1,4 +1,5 @@
 package com.inmersoft.trinidadpatrimonial.utils
 
 const val ASSETS_FOLDER = "file:///android_asset"
-const val FILE_EXTENSION="jpg"
+const val FILE_EXTENSION = "jpg"
+const val FILE_PANO_EXTENSION = "webp"
