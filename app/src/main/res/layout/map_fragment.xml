@@ -5,6 +5,7 @@
     tools:context=".ui.MapFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:transitionName="map_shared_view_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,9 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
-
+<!--
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/open_test_bottom_sheet"
+            android:id="@+id/btn_user_gps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -35,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:contentDescription="TODO"
             app:tint="@android:color/white" />
-
+-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_field"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"

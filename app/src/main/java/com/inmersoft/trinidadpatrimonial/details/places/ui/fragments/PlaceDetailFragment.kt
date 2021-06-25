@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -62,8 +63,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         loadHeader(placeData.header_images)
 
         binding.placeDescription.text = placeData.place_description
-        binding.btnGoToMap.setOnClickListener {
-            goToMap(placeData.place_id)
+
+        binding.btnGoToMap.apply {
+            transitionName = UUID.randomUUID().toString()
+            setOnClickListener {
+                goToMap(placeData.place_id)
+            }
+
         }
         binding.btnSpeechDescription.setOnClickListener {
             if (!textToSpeechEngine.isSpeaking) {
@@ -84,6 +90,9 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation(placeData)
         }
+
+
+
         return binding.root
     }
 
