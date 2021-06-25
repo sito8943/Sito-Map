@@ -142,14 +142,14 @@
                     android:id="@+id/place_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="32dp"
+                    android:layout_margin="16dp"
                     android:text="PLACE NAMEsdgrergergerger DETAIL" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
-                    android:layout_margin="8dp"
-                    app:cardCornerRadius="32dp">
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="25dp">
                     <com.google.vr.sdk.widgets.pano.VrPanoramaView
                         android:id="@+id/place_pano_view"
                         android:layout_width="match_parent"

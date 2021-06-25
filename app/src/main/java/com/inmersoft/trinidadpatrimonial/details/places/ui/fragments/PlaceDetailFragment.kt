@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -245,9 +244,9 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                         binding.run {
                             options.inputType = VrPanoramaView.Options.TYPE_MONO
                             placePanoView.setInfoButtonEnabled(false)
-                        placePanoView.setFullscreenButtonEnabled(false)
-                        placePanoView.setStereoModeButtonEnabled(false)
-                            placePanoView.setTouchTrackingEnabled(false)
+                            placePanoView.setFullscreenButtonEnabled(true)
+                            placePanoView.setStereoModeButtonEnabled(true)
+                            placePanoView.setTouchTrackingEnabled(true)
                             placePanoView.loadImageFromBitmap(resource, options)
 
                         }
