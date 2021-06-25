@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -32,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -118,7 +121,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMapToolbarEnabled = true
 
-
         map.setOnMarkerClickListener(this)
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
@@ -197,18 +199,19 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 binding.bottomSheetPlaceName.isSelected = true
                 binding.bottomSheetPlaceDescription.text = place.place_description
                 bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+                binding.seeMoreButton.setOnClickListener {
+                    binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
+                    val extras =
+                        FragmentNavigatorExtras(
+                            binding.bottomSheetImage to "shared_view_container"
+                        )
+                    val action =
+                        MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
+                    findNavController().navigate(action, extras)
+                }
             }
         }
 
-        /*binding.frameLayout.transitionName = UUID.randomUUID().toString()
-        val extras =
-            FragmentNavigatorExtras(
-                binding.frameLayout to "shared_view_container"
-            )
-
-        val action =
-            MapFragmentDirections.actionNavMapToDetailsFragment(placeID = marker.tag as Int)
-        findNavController().navigate(action,extras)*/
         return true
     }
 
