@@ -21,7 +21,6 @@ import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.DetailsFragmentDirections
-import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
