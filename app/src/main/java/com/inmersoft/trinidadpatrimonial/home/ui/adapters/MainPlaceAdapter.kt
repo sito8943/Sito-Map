@@ -46,17 +46,17 @@ class MainPlaceAdapter() :
         fun bindData(place: Place) {
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
-            // generamos un uuid diferente para cada item
-            binding.cardContainer.transitionName = UUID.randomUUID().toString()
+
 
             Glide.with(binding.root.context)
                 .load(Uri.parse("$ASSETS_FOLDER/${place.header_images[0]}.jpg"))
                 .error(R.drawable.placeholder_error)
                 .placeholder(R.drawable.placeholder_error)
-                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.imCardHeader)
 
             itemView.setOnClickListener {
+                // generamos un uuid diferente para cada item
+                binding.cardContainer.transitionName = UUID.randomUUID().toString()
                 val extras =
                     FragmentNavigatorExtras(
                         binding.cardContainer to "shared_view_container"
