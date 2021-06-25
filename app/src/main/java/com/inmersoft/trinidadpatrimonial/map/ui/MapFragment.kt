@@ -1,35 +1,46 @@
 package com.inmersoft.trinidadpatrimonial.map.ui
 
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
+
+    private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
+
     private lateinit var binding: MapFragmentBinding
 
     val safeArgs: MapFragmentArgs by navArgs()
@@ -62,9 +73,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         placesTypeAdapter =
             MapPlaceTypeAdapter()
 
-
         binding.placeTypeList.adapter = placesTypeAdapter
-
 
 /*
         binding.btnUserGps.setOnClickListener {
@@ -82,6 +91,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             autoCompletePlacesNameAdapter.addAll(placeNamesList)
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
+
+        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
+        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
         return binding.root
     }
@@ -168,7 +180,27 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        binding.frameLayout.transitionName = UUID.randomUUID().toString()
+        val placeID=marker.tag as Int
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            Log.d("TAG", "onMarkerClick: $placeID")
+            val place = trinidadDataViewModel.getPlaceById(placeID)
+            withContext(Dispatchers.Main) {
+                Glide.with(requireContext())
+                    .load(Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0])))
+                    .placeholder(R.drawable.placeholder_error)
+                    .error(R.drawable.placeholder_error)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(binding.mapBottomSheetImageHeader)
+
+                binding.bottomSheetPlaceName.text = place.place_name
+                binding.bottomSheetPlaceName.isSelected = true
+                binding.bottomSheetPlaceDescription.text = place.place_description
+                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+
+        /*binding.frameLayout.transitionName = UUID.randomUUID().toString()
         val extras =
             FragmentNavigatorExtras(
                 binding.frameLayout to "shared_view_container"
@@ -176,7 +208,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
         val action =
             MapFragmentDirections.actionNavMapToDetailsFragment(placeID = marker.tag as Int)
-        findNavController().navigate(action,extras)
+        findNavController().navigate(action,extras)*/
         return true
     }
 

@@ -24,6 +24,9 @@ class DataRepository @Inject constructor(
     val allPlacesTypeWithPlaces: LiveData<List<PlaceTypeWithPlaces>> =
         placeTypeDao.getPlaceTypeWithPlaces()
 
+    suspend fun getPlaceById(placeID: Int): Place {
+        return placeDao.getPlaceByID(placeID)
+    }
 
 
 }

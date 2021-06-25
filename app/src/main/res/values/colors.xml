@@ -11,11 +11,10 @@
     <color name="trinidadOnBoardingTitleTextColor">#0B0026</color>
     <color name="trinidadOnBoardingSubTitleTextColor">#808080</color>
     <color name="trinidadMainBackground">#F2F2F2</color>
+    <color name="white">#FFFFFF</color>
     <color name="reticle_ripple">@color/trinidadColorPrimary</color>
     <color name="onboarding_item_selected">@color/trinidadColorPrimary</color>
     <color name="onboarding_item_unselected">#F3C996</color>
     <color name="qr_reticle_background">#99000000</color>
     <color name="qr_reticle_stroke">#40000000</color>
-
-
 </resources>

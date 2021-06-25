@@ -24,9 +24,11 @@ interface PlaceDao {
     @Query("SELECT * FROM places")
     fun getAllPlaces(): LiveData<List<Place>>
 
+    @Query("SELECT * FROM places WHERE place_id=:placeID ")
+    suspend fun getPlaceByID(placeID: Int): Place
+
     @Query("DELETE FROM places ")
     suspend fun deleteAll()
-
 
     @Transaction
     @Query("SELECT * FROM places")

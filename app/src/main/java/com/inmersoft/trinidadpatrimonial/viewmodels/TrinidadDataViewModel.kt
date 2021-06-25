@@ -1,13 +1,12 @@
 package com.inmersoft.trinidadpatrimonial.viewmodels
 
-import android.speech.tts.TextToSpeech
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
+import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,5 +24,9 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
     }
     var allRoutes = dataRepository.allRoutes
     var allPlaces = dataRepository.allPlaces
+
+    suspend fun getPlaceById(placeId: Int): Place {
+        return dataRepository.getPlaceById(placeId)
+    }
 
 }
