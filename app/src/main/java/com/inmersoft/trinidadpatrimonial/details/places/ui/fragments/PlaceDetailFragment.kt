@@ -288,7 +288,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
                 })
         } else {
-            binding.placePanoView.visibility = View.GONE
+            binding.materialPanoContainer.visibility = View.GONE
         }
     }
 
