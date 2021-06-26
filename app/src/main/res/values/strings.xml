@@ -33,6 +33,7 @@
     <string name="lang_not_supported">Imposible reproducir el audio del texto; Idioma no soportado.</string>
     <string name="share">Compartir</string>
     <string name="web">web</string>
+    <string name="video_promo">Video promocional</string>
 
 
 </resources>

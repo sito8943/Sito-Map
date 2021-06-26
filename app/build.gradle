@@ -98,6 +98,11 @@ dependencies {
       implementation "com.google.vr:sdk-base:1.180.0"
       implementation "com.google.vr:sdk-panowidget:1.180.0"
 
+    // Exoplayer (Video)
+      implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
+      implementation "com.google.android.exoplayer:exoplayer-dash:2.14.1"
+      implementation "com.google.android.exoplayer:exoplayer-ui:2.14.1"
+
     // Testing
     testImplementation "junit:junit:4.13.2"
     androidTestImplementation "androidx.test.ext:junit:1.1.2"
