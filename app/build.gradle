@@ -95,9 +95,14 @@ dependencies {
     kapt 'com.google.dagger:hilt-android-compiler:2.37'
 
     // Google VR SDK
-      implementation "com.google.vr:sdk-base:1.180.0"
-      implementation "com.google.vr:sdk-panowidget:1.180.0"
+    implementation "com.google.vr:sdk-base:1.180.0"
+    implementation "com.google.vr:sdk-panowidget:1.180.0"
 
+    // Exoplayer (Video)
+    implementation "com.google.android.exoplayer:exoplayer:2.14.1"
+
+    //Youtube extractor
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
 
 
     //Custom Chrome Tabs
