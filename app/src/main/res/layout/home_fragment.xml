@@ -42,7 +42,7 @@
                     app:toolbarId="@id/toolbar">
 
                     <ImageView
-                        android:id="@+id/map_bottom_sheet_image_header"
+                        android:id="@+id/qr_bottom_sheet_image_header"
                         android:layout_width="match_parent"
                         android:layout_height="278dp"
                         android:fitsSystemWindows="true"

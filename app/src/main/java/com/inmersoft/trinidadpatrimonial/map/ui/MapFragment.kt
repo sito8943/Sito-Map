@@ -224,6 +224,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     val action =
                         MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
                     findNavController().navigate(action, extras)
+                    bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
                 }
                 bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
             }

@@ -1,9 +1,7 @@
 package com.inmersoft.trinidadpatrimonial.qr.qrdetection
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.util.Size
-import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -11,12 +9,19 @@ import com.google.mlkit.vision.common.InputImage
 import com.inmersoft.trinidadpatrimonial.qr.camera.CameraReticleAnimator
 import com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
 
-class QrProcessor(private val graphicOverlay: GraphicOverlay) : ImageAnalysis.Analyzer {
+class QrProcessor(
+    private val graphicOverlay: GraphicOverlay,
+    private val scanListener: IScanProcessListener
+) : ImageAnalysis.Analyzer {
     private val cameraReticleAnimator = CameraReticleAnimator(graphicOverlay)
     private val barcodeScanner: BarcodeScanner = QrUtils.provideBarcodeScanner()
 
-    //TODO: Definir una interfaz para la comunicación con el fragmento
+
     //TODO: (Detener la cámara, Mostrar resultados, ...)
+
+    interface IScanProcessListener {
+        fun onDetected(scanResult: String?)
+    }
 
     @SuppressLint("UnsafeOptInUsageError")
     override fun analyze(imageProxy: ImageProxy) {
@@ -50,7 +55,7 @@ class QrProcessor(private val graphicOverlay: GraphicOverlay) : ImageAnalysis.An
     }
 
     private fun processScan(qrValue: String?) {
-        Log.d(TAG, "processScan: QR-VALUE: $qrValue")
+        scanListener.onDetected(qrValue)
     }
 
     private fun addReticleGraphic() {
