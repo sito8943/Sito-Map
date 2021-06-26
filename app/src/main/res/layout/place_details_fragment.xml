@@ -137,6 +137,15 @@
                             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/place_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="PLACE NAMEsdgrergergerger DETAIL"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/place_description"
                     android:layout_width="match_parent"
@@ -172,7 +181,6 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:text="@string/video_promo"
-                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.card.MaterialCardView

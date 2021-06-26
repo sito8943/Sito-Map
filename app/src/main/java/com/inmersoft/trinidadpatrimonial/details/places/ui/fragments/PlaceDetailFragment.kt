@@ -70,6 +70,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         loadHeader(placeData.header_images)
 
         binding.placeDescription.text = placeData.place_description
+        binding.placeName.text = placeData.place_name
 
         binding.btnGoToMap.apply {
             transitionName = UUID.randomUUID().toString()
