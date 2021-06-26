@@ -7,12 +7,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import at.huber.youtubeExtractor.VideoMeta
+import at.huber.youtubeExtractor.YouTubeExtractor
+import at.huber.youtubeExtractor.YtFile
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -20,6 +24,13 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.MergingMediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
@@ -39,6 +50,12 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private lateinit var binding: PlaceDetailsFragmentBinding
     private var currentLocale = Locale("es", "ES")
+
+    private lateinit var playerView: PlayerView
+    private lateinit var simpleExoPlayer: SimpleExoPlayer
+    var currentWindows = 0
+    var playbackPosition = 0L
+    var playWhenReady = false
 
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
@@ -98,7 +115,81 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation()
         }
+
+        initPlayer()
         return binding.root
+    }
+
+    private fun initPlayer() {
+
+        simpleExoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
+        playerView = binding.videoPlayer
+        binding.videoPlayer.player = simpleExoPlayer
+
+
+        playYoutubeUrl(placeData.video_promo)
+
+    }
+
+    private fun playYoutubeUrl(videoPromo: String) {
+        object : YouTubeExtractor(requireContext()) {
+            override fun onExtractionComplete(
+                ytFiles: SparseArray<YtFile>?,
+                videoMeta: VideoMeta?
+            ) {
+                if (ytFiles != null) {
+                    val videoTag = 137 //Tag 1080
+                    val audioTag = 140 //Tag 1080
+                    var audioSource: MediaSource =
+                        ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
+                            .createMediaSource(MediaItem.fromUri(ytFiles.get(audioTag).url))
+                    var videoSource: MediaSource =
+                        ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
+                            .createMediaSource(MediaItem.fromUri(ytFiles.get(videoTag).url))
+
+                    simpleExoPlayer.setMediaSource(
+                        MergingMediaSource(
+                            true,
+                            videoSource,
+                            audioSource
+                        ),
+                        true
+                    )
+                    simpleExoPlayer.prepare()
+                    simpleExoPlayer.playWhenReady = false
+                    simpleExoPlayer.seekTo(currentWindows, playbackPosition)
+
+                }
+            }
+
+        }.extract(videoPromo, false, true)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initPlayer()
+    }
+
+    override fun onStop() {
+        releasePlayer()
+        super.onStop()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (simpleExoPlayer == null) {
+            initPlayer()
+        }
+    }
+
+    private fun releasePlayer() {
+        if (playerView != null) {
+            playWhenReady = simpleExoPlayer.playWhenReady
+            playbackPosition = simpleExoPlayer.currentPosition
+            currentWindows = simpleExoPlayer.currentWindowIndex
+            simpleExoPlayer.release()
+        }
     }
 
     private fun loadHeader(headerImages: List<String>) {
@@ -221,6 +312,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     override fun onPause() {
         textToSpeechEngine.stop()
         binding.btnSpeechDescription.isChecked = false
+        releasePlayer()
         super.onPause()
     }
 

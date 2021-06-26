@@ -185,7 +185,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="260dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
@@ -194,8 +194,12 @@
                     app:cardCornerRadius="32dp"
                     app:cardElevation="6dp">
 
-
-
+                    <com.google.android.exoplayer2.ui.PlayerView
+                        android:id="@+id/video_player"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:show_buffering="always"
+                        />
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
