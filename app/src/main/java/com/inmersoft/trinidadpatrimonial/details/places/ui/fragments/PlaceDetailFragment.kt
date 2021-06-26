@@ -106,7 +106,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                 Uri.parse(TrinidadAssets.getAssetFullPath(headerImages[0]))
             )
             .error(R.drawable.placeholder_error)
-            .placeholder(R.drawable.ic_placeholder)
+            .placeholder(R.drawable.placeholder_error)
             .into(binding.headerImage)
     }
 
@@ -233,7 +233,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             val panoAssetUrl = TrinidadAssets.getPanoAssetFullPath(panoAssetName[0])
             Glide.with(requireActivity())
                 .asBitmap()
-                .placeholder(R.drawable.ic_placeholder)
+                .placeholder(R.drawable.placeholder_error)
                 .load(Uri.parse(panoAssetUrl))
                 .listener(object : RequestListener<Bitmap?> {
 

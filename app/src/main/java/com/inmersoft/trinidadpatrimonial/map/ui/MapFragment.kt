@@ -80,6 +80,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         val textInputLayout: TextInputLayout = binding.searchField
         autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
         autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
+
         placesTypeAdapter =
             MapPlaceTypeAdapter()
 
@@ -164,8 +165,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     override fun onMarkerClick(marker: Marker): Boolean {
         val placeID = marker.tag as Int
 
-        listOfMarkers.forEach { it ->
-            it.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+        listOfMarkers.forEach { currentMarker ->
+            currentMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
         }
 
         marker.showInfoWindow()
