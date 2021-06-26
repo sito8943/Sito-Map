@@ -4,7 +4,7 @@
     package="com.inmersoft.trinidadpatrimonial">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-sdk tools:overrideLibrary="android.support.customtabs"/>
+
 
     <application
         android:name=".MainApplication"
@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrinidadPatrimonial"
         android:hardwareAccelerated="true"
-        tools:ignore="AllowBackup">
+        tools:ignore="AllowBackup"
+        tools:targetApi="m">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
