@@ -86,9 +86,7 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="0dp"
-
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -101,6 +99,7 @@
                 app:behavior_peekHeight="0dp"
                 app:behavior_skipCollapsed="true"
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+
                 >
 
                 <com.google.android.material.card.MaterialCardView
@@ -109,7 +108,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="8dp"
                     app:cardCornerRadius="16dp"
-                    app:cardElevation="8dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -195,11 +195,11 @@
                             android:id="@+id/bottom_sheet_share"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:transitionName="bottom_sheet_share"
                             android:layout_height="wrap_content"
                             android:text="@string/share"
                             android:textColor="@color/colorPrimary"
                             android:textSize="12sp"
+                            android:transitionName="bottom_sheet_share"
                             app:cornerRadius="32dp"
                             app:icon="@drawable/ic_baseline_share_24"
                             app:iconSize="16dp"
@@ -215,9 +215,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/web"
-                            android:transitionName="bottom_sheet_webpage"
                             android:textColor="@color/colorPrimary"
                             android:textSize="12sp"
+                            android:transitionName="bottom_sheet_webpage"
                             app:cornerRadius="32dp"
                             app:icon="@drawable/ic_baseline_link_24"
                             app:iconSize="16dp"
