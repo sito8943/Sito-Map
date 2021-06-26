@@ -39,6 +39,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private lateinit var binding: PlaceDetailsFragmentBinding
     private var currentLocale = Locale("es", "ES")
+
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -60,6 +61,11 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     ): View? {
         binding = PlaceDetailsFragmentBinding.inflate(layoutInflater, container, false)
         binding.toolbarLayout.title = placeData.place_name
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+
         loadPano360(placeData.pano)
         loadHeader(placeData.header_images)
 
@@ -95,7 +101,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun loadHeader(headerImages: List<String>) {
-
         Glide.with(requireContext())
             .load(
                 Uri.parse(TrinidadAssets.getAssetFullPath(headerImages[0]))
@@ -223,8 +228,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnSpeechDescription.isChecked = false
         super.onDestroy()
     }
-
-
     private fun loadPano360(panoAssetName: List<String>) {
         if (panoAssetName[0].isNotEmpty()) {
             val panoAssetUrl = TrinidadAssets.getPanoAssetFullPath(panoAssetName[0])
@@ -280,7 +283,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                     override fun onLoadCleared(placeholder: Drawable?) {
                         // Add other icon
                     }
-
                 })
         } else {
             binding.materialPanoContainer.visibility = View.GONE

@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         setAppBarTranslucent()
     }
 
-
     private fun showBottomNav(navView: BottomNavigationView) {
         fadeTransition(binding.container)
         navView.visibility = View.VISIBLE
@@ -59,10 +58,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideBottomNav(navView: BottomNavigationView) {
         fadeTransition(binding.container)
-        navView.visibility = View.GONE
+        navView.visibility = View.INVISIBLE
         supportActionBar?.hide();
     }
-
 
     private fun setAppBarTranslucent() {
         if (Build.VERSION.SDK_INT >= 21) {

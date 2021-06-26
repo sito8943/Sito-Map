@@ -1,5 +1,7 @@
 package com.inmersoft.trinidadpatrimonial.map.ui
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +19,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -28,6 +31,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
@@ -79,13 +83,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
         binding.placeTypeList.adapter = placesTypeAdapter
 
-/*
-        binding.btnUserGps.setOnClickListener {
-            val action =
-                MapFragmentDirections.actionNavMapToDetailsFragment(placeID = 1)
-            findNavController().navigate(action)
-        }*/
-
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
             placesTypeAdapter.setData(placesTypeList)
         })
@@ -126,20 +123,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
             val placeIdArgs = safeArgs.placeID
-
             var trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
-/*
-
-            // Instantiates a new Polyline object and adds points to define a rectangle
-            val polylineOptions = PolylineOptions()
-                .add(LatLng(places[0].location.latitude, places[0].location.longitude))
-                .add(LatLng(places[1].location.latitude, places[1].location.longitude))
-                .add(LatLng(places[3].location.latitude, places[3].location.longitude))
-                .add(LatLng(places[4].location.latitude, places[4].location.longitude))
-// Get back the mutable Polyline
-            val polyline = map.addPolyline(polylineOptions)
-*/
-
 
             places.forEach { place ->
                 val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
@@ -147,25 +131,18 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
                 if (place.place_id == placeIdArgs) {
                     trinidadGPS = LatLng(place.location.latitude, place.location.longitude)
-/*
-
-                    val circleOptions = CircleOptions()
-                        .center(LatLng(place.location.latitude, place.location.longitude))
-                        .radius(15.0) // In meters
-                    val circle = map.addCircle(circleOptions)
-*/
 
                     marker = map.addMarker(
                         MarkerOptions().position(gpsPoint)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                            .title(place.place_id.toString())
+                            .title(place.place_name)
                             .snippet(place.place_description)
                     )
                 } else {
                     marker = map.addMarker(
                         MarkerOptions().position(gpsPoint)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                            .title(place.place_id.toString())
+                            .title(place.place_name)
                             .snippet(place.place_description)
                     )
                 }
@@ -182,17 +159,39 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        val placeID=marker.tag as Int
+        val placeID = marker.tag as Int
+
         lifecycleScope.launch(Dispatchers.IO) {
             Log.d("TAG", "onMarkerClick: $placeID")
             val place = trinidadDataViewModel.getPlaceById(placeID)
             withContext(Dispatchers.Main) {
                 Glide.with(requireContext())
+                    .asBitmap()
                     .load(Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0])))
                     .placeholder(R.drawable.placeholder_error)
                     .error(R.drawable.placeholder_error)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(binding.mapBottomSheetImageHeader)
+                    .into(object : CustomTarget<Bitmap>() {
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap>?
+                        ) {
+                            binding.mapBottomSheetImageHeader.setImageBitmap(resource)
+                            binding.bottomSheetShare.setOnClickListener {
+                                ShareIntent.shareIt(
+                                    requireContext(),
+                                    resource,
+                                    place.place_name,
+                                    getString(R.string.app_name)
+                                )
+                            }
+                        }
+
+                        override fun onLoadCleared(placeholder: Drawable?) {
+
+                        }
+
+                    })
+
 
                 binding.bottomSheetPlaceName.text = place.place_name
                 binding.bottomSheetPlaceName.isSelected = true
