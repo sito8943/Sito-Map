@@ -87,17 +87,12 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         binding.btnGoWebPage.transitionName = "button_link_${placeData.place_id}"
         binding.btnGoWebPage.setOnClickListener {
-
             goToWebPage(placeData.web)
         }
-
         binding.btnSharePlaceInformation.transitionName = "button_share_${placeData.place_id}"
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation()
         }
-
-
-
         return binding.root
     }
 
