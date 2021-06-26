@@ -29,6 +29,7 @@ import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
+import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -169,7 +170,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     )
                 }
                 marker?.tag = place.place_id
-
             }
 
             val cameraPosition = CameraPosition.Builder()
@@ -184,7 +184,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     override fun onMarkerClick(marker: Marker): Boolean {
         val placeID=marker.tag as Int
         lifecycleScope.launch(Dispatchers.IO) {
-
             Log.d("TAG", "onMarkerClick: $placeID")
             val place = trinidadDataViewModel.getPlaceById(placeID)
             withContext(Dispatchers.Main) {
@@ -198,15 +197,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 binding.bottomSheetPlaceName.text = place.place_name
                 binding.bottomSheetPlaceName.isSelected = true
                 binding.bottomSheetPlaceDescription.text = place.place_description
-                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+
+                binding.bottomSheetWebpage.setOnClickListener {
+                    TrinidadCustomChromeTab.launch(requireContext(), place.web)
+                }
+
+
+
                 binding.seeMoreButton.setOnClickListener {
                     binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
-
-
                     val linkTransitionName = "button_link_$placeID"
                     val shareTransitionName = "button_share_$placeID"
-
-
                     val extras =
                         FragmentNavigatorExtras(
                             binding.bottomSheetImage to "shared_view_container",
@@ -217,6 +218,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                         MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
                     findNavController().navigate(action, extras)
                 }
+
+                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
 

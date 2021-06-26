@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -28,6 +27,7 @@ import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.DetailsFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
+import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import com.inmersoft.trinidadpatrimonial.utils.showToast
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
@@ -54,7 +54,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -71,7 +70,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             setOnClickListener {
                 goToMap(placeData.place_id)
             }
-
         }
         binding.btnSpeechDescription.setOnClickListener {
             if (!textToSpeechEngine.isSpeaking) {
@@ -108,14 +106,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun goToWebPage(web: String) {
-        val builder = CustomTabsIntent.Builder();
-        val customTabsIntent = builder.build()
-
-        val colorInt: Int = resources.getColor(R.color.trinidadColorPrimary)
-
-        builder.setToolbarColor(colorInt)
-
-        customTabsIntent.launchUrl(requireContext(), Uri.parse(web))
+        TrinidadCustomChromeTab.launch(requireContext(), web)
     }
 
     private fun sharePlaceInformation() {
