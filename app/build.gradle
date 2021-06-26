@@ -92,6 +92,7 @@ dependencies {
     //ADD IN PROJECT GRADLE classpath "com.google.dagger:hilt-android-gradle-plugin:2.35.1"
     implementation "com.google.dagger:hilt-android:2.35.1"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
+    implementation 'androidx.media2:media2-exoplayer:1.0.3'
     kapt "com.google.dagger:hilt-android-compiler:2.35.1"
 
     // Google VR SDK
@@ -99,9 +100,7 @@ dependencies {
       implementation "com.google.vr:sdk-panowidget:1.180.0"
 
     // Exoplayer (Video)
-      implementation "com.google.android.exoplayer:exoplayer-core:2.14.1"
-      implementation "com.google.android.exoplayer:exoplayer-dash:2.14.1"
-      implementation "com.google.android.exoplayer:exoplayer-ui:2.14.1"
+      implementation 'com.google.android.exoplayer:exoplayer:2.14.1'
 
     // Testing
     testImplementation "junit:junit:4.13.2"

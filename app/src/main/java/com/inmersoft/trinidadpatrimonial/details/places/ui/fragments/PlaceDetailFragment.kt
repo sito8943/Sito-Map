@@ -7,11 +7,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.media2.exoplayer.external.ExoPlayerFactory
+import androidx.media2.exoplayer.external.source.ExtractorMediaSource
+import androidx.media2.exoplayer.external.upstream.DefaultHttpDataSourceFactory
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -38,7 +42,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private lateinit var binding: PlaceDetailsFragmentBinding
     private var currentLocale = Locale("es", "ES")
-
     private val textToSpeechEngine: TextToSpeech by lazy {
         TextToSpeech(requireActivity()) { status ->
             if (status == TextToSpeech.SUCCESS) {
@@ -95,6 +98,8 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation()
         }
+
+
 
         return binding.root
     }
@@ -291,6 +296,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             binding.materialPanoContainer.visibility = View.GONE
         }
     }
+
 
     companion object {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 5637
