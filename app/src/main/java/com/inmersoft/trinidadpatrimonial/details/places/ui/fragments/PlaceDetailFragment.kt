@@ -7,15 +7,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
-import androidx.media2.exoplayer.external.ExoPlayerFactory
-import androidx.media2.exoplayer.external.source.ExtractorMediaSource
-import androidx.media2.exoplayer.external.upstream.DefaultHttpDataSourceFactory
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -116,7 +113,14 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun goToWebPage(web: String) {
-        showToast(requireContext(), "NOT IMPLEMENTED YET")
+        val builder = CustomTabsIntent.Builder();
+        val customTabsIntent = builder.build()
+
+        val colorInt: Int = resources.getColor(R.color.trinidadColorPrimary)
+
+        builder.setToolbarColor(colorInt)
+
+        customTabsIntent.launchUrl(requireContext(), Uri.parse(web))
     }
 
     private fun sharePlaceInformation() {
