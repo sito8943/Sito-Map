@@ -148,7 +148,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 }
                 marker?.tag = place.place_id
             }
-
             val cameraPosition = CameraPosition.Builder()
                 .target(trinidadGPS)
                 .zoom(18f)
