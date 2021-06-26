@@ -31,6 +31,8 @@
     <string name="onboarding_title_page3">Pues a disfrutar que el tiempo vuela...</string>
     <string name="onboarding_subtitle_page3" />
     <string name="lang_not_supported">Imposible reproducir el audio del texto; Idioma no soportado.</string>
+    <string name="share">Compartir</string>
+    <string name="web">web</string>
 
 
 </resources>

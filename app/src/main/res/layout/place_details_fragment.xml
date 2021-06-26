@@ -28,12 +28,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:collapsedTitleGravity="center"
-                app:collapsedTitleTextAppearance="@style/TextAppearance.Trinidad.Toolbar.Text"
+                app:collapsedTitleGravity="left"
                 app:contentScrim="@color/trinidadColorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@color/trinidadColorPrimary"
                 app:titleEnabled="true"
+                app:expandedTitleTextAppearance="@style/TextAppearance.Trinidad.Toolbar.Text.Second"
                 app:toolbarId="@id/toolbar">
 
                 <ImageView
@@ -146,6 +146,7 @@
                     android:text="PLACE NAMEsdgrergergerger DETAIL" />
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/material_pano_container"
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:layout_margin="16dp"

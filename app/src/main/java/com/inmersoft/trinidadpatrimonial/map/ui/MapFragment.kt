@@ -201,9 +201,17 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
                 binding.seeMoreButton.setOnClickListener {
                     binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
+
+
+                    val linkTransitionName = "button_link_$placeID"
+                    val shareTransitionName = "button_share_$placeID"
+
+
                     val extras =
                         FragmentNavigatorExtras(
-                            binding.bottomSheetImage to "shared_view_container"
+                            binding.bottomSheetImage to "shared_view_container",
+                            binding.bottomSheetWebpage to linkTransitionName,
+                            binding.bottomSheetShare to shareTransitionName
                         )
                     val action =
                         MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)

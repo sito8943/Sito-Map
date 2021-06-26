@@ -47,7 +47,6 @@ class MainPlaceAdapter() :
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
 
-
             Glide.with(binding.root.context)
                 .load(Uri.parse("$ASSETS_FOLDER/${place.header_images[0]}.jpg"))
                 .error(R.drawable.placeholder_error)

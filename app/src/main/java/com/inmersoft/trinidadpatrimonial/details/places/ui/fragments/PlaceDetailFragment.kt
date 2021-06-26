@@ -14,14 +14,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
 import com.inmersoft.trinidadpatrimonial.details.DetailsFragmentDirections
-import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.showToast
@@ -82,15 +85,16 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             }
         }
 
-
+        binding.btnGoWebPage.transitionName = "button_link_${placeData.place_id}"
         binding.btnGoWebPage.setOnClickListener {
+
             goToWebPage(placeData.web)
         }
+
+        binding.btnSharePlaceInformation.transitionName = "button_share_${placeData.place_id}"
         binding.btnSharePlaceInformation.setOnClickListener {
-            sharePlaceInformation(placeData)
+            sharePlaceInformation()
         }
-
-
 
         return binding.root
     }
@@ -99,7 +103,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         Glide.with(requireContext())
             .load(
-                Uri.parse("$ASSETS_FOLDER/${headerImages[0]}.jpg")
+                Uri.parse(TrinidadAssets.getAssetFullPath(headerImages[0]))
             )
             .error(R.drawable.placeholder_error)
             .placeholder(R.drawable.ic_placeholder)
@@ -107,10 +111,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun goToWebPage(web: String) {
-        TODO("NOT IMPLEMENTED YET")
+        showToast(requireContext(), "NOT IMPLEMENTED YET")
     }
 
-    private fun sharePlaceInformation(placeData: Place) {
+    private fun sharePlaceInformation() {
         if (!hasWriteExternalPermission()) {
             requestWriteExternalPermission()
         } else {
@@ -123,8 +127,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             .asBitmap()
             .load(
                 Uri.parse(TrinidadAssets.getAssetFullPath(placeData.header_images[0]))
-            )
-            .into(object : CustomTarget<Bitmap>() {
+            ).into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
                     transition: Transition<in Bitmap>?
@@ -234,6 +237,34 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                 .asBitmap()
                 .placeholder(R.drawable.ic_placeholder)
                 .load(Uri.parse(panoAssetUrl))
+                .listener(object : RequestListener<Bitmap?> {
+
+                    private fun loadingDone(done: Boolean) {
+                        binding.materialPanoContainer.visibility =
+                            if (done) View.VISIBLE else View.GONE
+                    }
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap?>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        loadingDone(false)
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Bitmap?,
+                        model: Any?,
+                        target: Target<Bitmap?>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        loadingDone(true)
+                        return false
+                    }
+                })
                 .into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(
                         resource: Bitmap,
