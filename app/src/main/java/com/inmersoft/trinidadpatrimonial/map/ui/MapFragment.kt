@@ -202,8 +202,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     TrinidadCustomChromeTab.launch(requireContext(), place.web)
                 }
 
-
-
                 binding.seeMoreButton.setOnClickListener {
                     binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
                     val linkTransitionName = "button_link_$placeID"
