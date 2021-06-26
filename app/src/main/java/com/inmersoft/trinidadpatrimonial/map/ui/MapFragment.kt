@@ -51,11 +51,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private lateinit var binding: MapFragmentBinding
 
-    val safeArgs: MapFragmentArgs by navArgs()
+    private val safeArgs: MapFragmentArgs by navArgs()
 
     private lateinit var placesTypeAdapter: MapPlaceTypeAdapter
 
     private lateinit var map: GoogleMap
+
+    private val listOfMarkers = mutableListOf<Marker>()
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
@@ -138,6 +140,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                             .title(place.place_name)
                             .snippet(place.place_description)
                     )
+                    marker.showInfoWindow()
                 } else {
                     marker = map.addMarker(
                         MarkerOptions().position(gpsPoint)
@@ -147,6 +150,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     )
                 }
                 marker?.tag = place.place_id
+                listOfMarkers.add(marker)
             }
             val cameraPosition = CameraPosition.Builder()
                 .target(trinidadGPS)
@@ -159,6 +163,19 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     override fun onMarkerClick(marker: Marker): Boolean {
         val placeID = marker.tag as Int
+
+        listOfMarkers.forEach { it ->
+            it.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+        }
+
+        marker.showInfoWindow()
+        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+
+        val cameraPosition = CameraPosition.Builder()
+            .target(marker.position)
+            .zoom(18f)
+            .build()
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
         lifecycleScope.launch(Dispatchers.IO) {
             Log.d("TAG", "onMarkerClick: $placeID")
