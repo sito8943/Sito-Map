@@ -212,24 +212,37 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 binding.bottomSheetPlaceName.text = place.place_name
                 binding.bottomSheetPlaceName.isSelected = true
                 binding.bottomSheetPlaceDescription.text = place.place_description
+
                 binding.bottomSheetWebpage.setOnClickListener {
                     TrinidadCustomChromeTab.launch(requireContext(), place.web)
                 }
+
                 binding.seeMoreButton.setOnClickListener {
-                    binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
-                    val extras =
-                        FragmentNavigatorExtras(
-                            binding.bottomSheetImage to "shared_view_container"
-                        )
-                    val action =
-                        MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
-                    findNavController().navigate(action, extras)
+                    navigateToPlaceDetail(placeID)
                 }
-                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+
+                binding.bottomSheetImage.setOnClickListener {
+                    navigateToPlaceDetail(placeID)
+                }
+
+                bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED)
             }
+
         }
 
         return true
+    }
+
+    private fun navigateToPlaceDetail(placeID: Int) {
+        binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
+        val extras =
+            FragmentNavigatorExtras(
+                binding.bottomSheetImage to "shared_view_container"
+            )
+        val action =
+            MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
+        findNavController().navigate(action, extras)
+
     }
 
 }

@@ -14,9 +14,7 @@ class OnBoardingViewHolder(private val binding: FragmentOnboardingScreenBinding)
         Glide.with(binding.root.context)
             .load(currenOnboardingScreen.imageResource)
             .error(R.drawable.placeholder_error)
-            .placeholder(R.drawable.placeholder_error)
             .into(binding.imageViewParallaxEffect)
-
         binding.title.text = currenOnboardingScreen.title
         binding.subtitle.text = currenOnboardingScreen.subtitle
     }
