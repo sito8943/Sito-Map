@@ -1,7 +1,5 @@
 package com.inmersoft.trinidadpatrimonial.map.ui
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
@@ -19,8 +17,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -182,32 +178,24 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             Log.d("TAG", "onMarkerClick: $placeID")
             val place = trinidadDataViewModel.getPlaceById(placeID)
             withContext(Dispatchers.Main) {
+
+                val imageURI = Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0]))
+
                 Glide.with(requireContext())
                     .asBitmap()
-                    .load(Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0])))
+                    .load(imageURI)
                     .placeholder(R.drawable.placeholder_error)
                     .error(R.drawable.placeholder_error)
-                    .into(object : CustomTarget<Bitmap>() {
-                        override fun onResourceReady(
-                            resource: Bitmap,
-                            transition: Transition<in Bitmap>?
-                        ) {
-                            binding.mapBottomSheetImageHeader.setImageBitmap(resource)
-                            binding.bottomSheetShare.setOnClickListener {
-                                ShareIntent.shareIt(
-                                    requireContext(),
-                                    resource,
-                                    place.place_name,
-                                    getString(R.string.app_name)
-                                )
-                            }
-                        }
+                    .into(binding.mapBottomSheetImageHeader)
 
-                        override fun onLoadCleared(placeholder: Drawable?) {
-
-                        }
-
-                    })
+                binding.bottomSheetShare.setOnClickListener {
+                    ShareIntent.loadImageAndShare(
+                        requireContext(),
+                        imageURI,
+                        place.place_name,
+                        getString(R.string.app_name)
+                    )
+                }
 
                 binding.bottomSheetPlaceName.text = place.place_name
                 binding.bottomSheetPlaceName.isSelected = true
