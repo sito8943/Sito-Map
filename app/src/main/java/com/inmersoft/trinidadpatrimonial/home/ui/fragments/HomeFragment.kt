@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.Hold
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
@@ -20,6 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: HomeFragmentBinding
+
+    private val holdTransition = Hold()
 
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
@@ -88,8 +91,13 @@ class HomeFragment : Fragment() {
          })*/
 
         //Active the marquee text
-        binding.trinidadDesctiptionTxt.isSelected=true
+        binding.trinidadDesctiptionTxt.isSelected = true
 
+
+        // Add root view as target for the Hold so that the entire view hierarchy is held in place as
+        // one instead of each child view individually. Helps keep shadows during the transition.
+       holdTransition.addTarget(binding.root)
+      exitTransition = holdTransition
         return binding.root
     }
 }
