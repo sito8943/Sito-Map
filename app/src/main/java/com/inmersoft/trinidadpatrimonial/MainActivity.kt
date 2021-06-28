@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -14,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
 import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
+import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var database: AppDatabase
 
     private lateinit var binding: ActivityMainBinding
+
+    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_TrinidadPatrimonial)
@@ -38,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
 
-        database.placesTypeDao().getCantPlacesType().observe(this, {
-            Log.d("TAG", "initUi: $it Places Type in DATABASE")
+        trinidadDataViewModel.allPlacesName.observe(this, {
+            Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: ${it.size}")
         })
 
         navController.addOnDestinationChangedListener { _, destination, _ ->

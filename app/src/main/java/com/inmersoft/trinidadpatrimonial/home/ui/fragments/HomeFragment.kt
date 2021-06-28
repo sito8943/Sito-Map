@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
@@ -28,6 +31,15 @@ class HomeFragment : Fragment() {
 
     private val homeListAdapter: HomeListAdapter by lazy {
         HomeListAdapter()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        postponeEnterTransition();
+        val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
+        sharedTransitionEffect.setPathMotion(MaterialArcMotion())
+        sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
+        sharedElementEnterTransition = sharedTransitionEffect
     }
 
     override fun onCreateView(
@@ -96,8 +108,11 @@ class HomeFragment : Fragment() {
 
         // Add root view as target for the Hold so that the entire view hierarchy is held in place as
         // one instead of each child view individually. Helps keep shadows during the transition.
-       holdTransition.addTarget(binding.root)
-      exitTransition = holdTransition
+        /*  holdTransition.addTarget(binding.root)
+         exitTransition = holdTransition*/
+
+         startPostponedEnterTransition()
+
         return binding.root
     }
 }

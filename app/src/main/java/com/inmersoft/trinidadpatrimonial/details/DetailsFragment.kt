@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
@@ -27,7 +26,7 @@ class DetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
         sharedTransitionEffect.setPathMotion(MaterialArcMotion())
-        sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+        sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
         sharedElementEnterTransition = sharedTransitionEffect
 
 /*

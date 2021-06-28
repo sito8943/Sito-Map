@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -59,7 +59,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private val listOfMarkers = mutableListOf<Marker>()
 
-    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
