@@ -48,12 +48,12 @@ class DetailsFragment : Fragment() {
 */
 
     }
-
+/*
     private fun buildContainerTransform(entering: Boolean): MaterialContainerTransform {
         val context = requireContext()
 
         return MaterialContainerTransform(context, entering)
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
