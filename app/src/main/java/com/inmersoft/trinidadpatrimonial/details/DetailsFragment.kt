@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
@@ -23,13 +24,14 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext(), true)
+        sharedElementEnterTransition = MaterialContainerTransform()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        postponeEnterTransition()
         binding = DetailsFragmentBinding.inflate(inflater, container, false)
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPlaces ->
@@ -53,6 +55,12 @@ class DetailsFragment : Fragment() {
 
             binding.detailViewPager2Content.adapter = adapter
             binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(50))
+
+            (view?.parent as? ViewGroup)?.doOnPreDraw {
+                // Parent has been drawn. Start transitioning!
+                startPostponedEnterTransition()
+            }
+
         })
 
         return binding.root
