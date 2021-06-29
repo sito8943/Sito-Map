@@ -206,21 +206,31 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     TrinidadCustomChromeTab.launch(requireContext(), place.web)
                 }
                 binding.seeMoreButton.setOnClickListener {
-                    binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
-                    val extras =
-                        FragmentNavigatorExtras(
-                            binding.bottomSheetImage to "shared_view_container"
-                        )
-                    val action =
-                        MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
-                    findNavController().navigate(action, extras)
-                    bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+                    navigateToPlaceDetail(placeID)
                 }
+
+                binding.bottomSheetImage.setOnClickListener {
+                    navigateToPlaceDetail(placeID)
+                }
+
+
                 bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
 
         return true
+    }
+
+    private fun navigateToPlaceDetail(placeID: Int) {
+        binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
+        val extras =
+            FragmentNavigatorExtras(
+                binding.bottomSheetImage to "shared_view_container"
+            )
+        val action =
+            MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
+        findNavController().navigate(action, extras)
+        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
 }
