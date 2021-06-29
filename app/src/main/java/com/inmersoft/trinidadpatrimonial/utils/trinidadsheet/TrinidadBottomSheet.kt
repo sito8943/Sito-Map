@@ -24,8 +24,6 @@ class TrinidadBottomSheet(
 ) {
     private var binding: TrinidadBottomSheetBinding
 
-    private var currentDataId: Int = -1
-
     private var bottomSheet: BottomSheetBehavior<ConstraintLayout>
 
     private var inflater: LayoutInflater =
@@ -38,7 +36,6 @@ class TrinidadBottomSheet(
     }
 
     fun bindData(data: SheetData) {
-            currentDataId = data.id
             Glide.with(context)
                 .load(data.imageURI)
                 .placeholder(R.drawable.placeholder_error)
@@ -63,6 +60,7 @@ class TrinidadBottomSheet(
                 TrinidadCustomChromeTab.launch(context, data.webUrl)
             }
         Log.d("TAGXHD", "bindData: CALLED BINDING...")
+        show()
 
     }
 
@@ -94,5 +92,10 @@ class TrinidadBottomSheet(
     fun hide() {
         bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
     }
+
+    companion object {
+        var currentDataId: Int = -1
+    }
+
 
 }

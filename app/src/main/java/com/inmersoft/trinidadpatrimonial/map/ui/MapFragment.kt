@@ -187,13 +187,14 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                         place.place_description,
                         webURI
                     )
-                trinidadBottomSheet.bindData(data)
+
                 trinidadBottomSheet.navigateTo(
                     MapFragmentDirections.actionNavMapToDetailsFragment(
                         placeID
                     )
                 )
-                trinidadBottomSheet.show()
+                trinidadBottomSheet.bindData(data)
+
             }
         }
 
