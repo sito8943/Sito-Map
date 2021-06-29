@@ -208,7 +208,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun goToWebPage(web: String) {
-        TrinidadCustomChromeTab.launch(requireContext(), web)
+        TrinidadCustomChromeTab.launch(requireContext(), Uri.parse(web))
     }
 
     private fun sharePlaceInformation() {

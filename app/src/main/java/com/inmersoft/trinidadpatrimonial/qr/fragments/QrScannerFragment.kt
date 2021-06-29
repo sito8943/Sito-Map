@@ -17,30 +17,25 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.lifecycle.ProcessCameraProvider.getInstance
 import androidx.camera.view.PreviewView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.common.util.concurrent.ListenableFuture
-import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.QrScannerFragmentBinding
+import com.inmersoft.trinidadpatrimonial.map.ui.MapFragmentDirections
 import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
-import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
-import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
+import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.SheetData
+import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import kotlinx.coroutines.withContext
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -54,9 +49,9 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
 
     private lateinit var binding: QrScannerFragmentBinding
 
-    private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
+    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
-    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+    private lateinit var trinidadBottomSheet: TrinidadBottomSheet
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,8 +74,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup)
 
         return binding.root
     }
@@ -143,51 +137,29 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
             {
                 Log.d("TAG", "onMarkerClick: $placeID")
                 val place = trinidadDataViewModel.getPlaceById(placeID)
-                lifecycleScope.launch(Dispatchers.Main) {
-                    val imageURI = Uri.parse(
+                withContext(Dispatchers.Main) {
+                    val uriImage = Uri.parse(
                         TrinidadAssets.getAssetFullPath(
                             place.header_images[0],
                             TrinidadAssets.FILE_JPG_EXTENSION
                         )
                     )
-
-                    Glide.with(requireContext())
-                        .load(imageURI)
-                        .placeholder(R.drawable.placeholder_error)
-                        .error(R.drawable.placeholder_error)
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(binding.qrBottomSheetImageHeader)
-
-
-
-                    binding.bottomSheetShare.setOnClickListener {
-                        ShareIntent.loadImageAndShare(
-                            requireContext(),
-                            imageURI,
+                    val webURI = Uri.parse(place.web)
+                    val data =
+                        SheetData(
+                            place.place_id,
+                            uriImage,
                             place.place_name,
-                            getString(R.string.app_name)
+                            place.place_description,
+                            webURI
                         )
-                    }
-
-                    binding.bottomSheetPlaceName.text = place.place_name
-                    binding.bottomSheetPlaceName.isSelected = true
-                    binding.bottomSheetPlaceDescription.text = place.place_description
-                    binding.bottomSheetWebpage.setOnClickListener {
-                        TrinidadCustomChromeTab.launch(requireContext(), place.web)
-                    }
-                    binding.seeMoreButton.setOnClickListener {
-                        binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
-                        val extras =
-                            FragmentNavigatorExtras(
-                              binding.bottomSheetImage to "shared_view_container"
-                            )
-                        val action =
-                            QrScannerFragmentDirections.actionNavQrToDetailsFragment(placeID = placeID)
-                        findNavController().navigate(action, extras)
-                        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-                    }
-                    bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
-
+                    trinidadBottomSheet.bindData(data)
+                    trinidadBottomSheet.navigateTo(
+                        MapFragmentDirections.actionNavMapToDetailsFragment(
+                            placeID
+                        ), findNavController()
+                    )
+                    trinidadBottomSheet.show()
                 }
             }
         }

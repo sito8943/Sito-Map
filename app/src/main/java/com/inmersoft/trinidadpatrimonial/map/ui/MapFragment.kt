@@ -9,44 +9,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
-import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
-import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
+import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.SheetData
+import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 
 @AndroidEntryPoint
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
-
-    private lateinit var bottomSheet: BottomSheetBehavior<ConstraintLayout>
-
     private lateinit var binding: MapFragmentBinding
 
     private val safeArgs: MapFragmentArgs by navArgs()
@@ -57,7 +47,10 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private val listOfMarkers = mutableListOf<Marker>()
 
-    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
+
+    private lateinit var trinidadBottomSheet: TrinidadBottomSheet
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,8 +87,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
 
-        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup)
 
         return binding.root
     }
@@ -180,56 +172,33 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             Log.d("TAG", "onMarkerClick: $placeID")
             val place = trinidadDataViewModel.getPlaceById(placeID)
             withContext(Dispatchers.Main) {
-
-                val imageURI = Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0],TrinidadAssets.FILE_JPG_EXTENSION))
-
-                Glide.with(requireContext())
-                    .load(imageURI)
-                    .placeholder(R.drawable.placeholder_error)
-                    .error(R.drawable.placeholder_error)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(binding.mapBottomSheetImageHeader)
-
-                binding.bottomSheetShare.setOnClickListener {
-                    ShareIntent.loadImageAndShare(
-                        requireContext(),
-                        imageURI,
-                        place.place_name,
-                        getString(R.string.app_name)
+                val uriImage = Uri.parse(
+                    TrinidadAssets.getAssetFullPath(
+                        place.header_images[0],
+                        TrinidadAssets.FILE_JPG_EXTENSION
                     )
-                }
-
-                binding.bottomSheetPlaceName.text = place.place_name
-                binding.bottomSheetPlaceName.isSelected = true
-                binding.bottomSheetPlaceDescription.text = place.place_description
-                binding.bottomSheetWebpage.setOnClickListener {
-                    TrinidadCustomChromeTab.launch(requireContext(), place.web)
-                }
-                binding.seeMoreButton.setOnClickListener {
-                    navigateToPlaceDetail(placeID)
-                }
-
-                binding.bottomSheetImage.setOnClickListener {
-                    navigateToPlaceDetail(placeID)
-                }
- 
-                bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+                )
+                val webURI = Uri.parse(place.web)
+                val data =
+                    SheetData(
+                        place.place_id,
+                        uriImage,
+                        place.place_name,
+                        place.place_description,
+                        webURI
+                    )
+                trinidadBottomSheet.bindData(data)
+                trinidadBottomSheet.navigateTo(
+                    MapFragmentDirections.actionNavMapToDetailsFragment(
+                        placeID
+                    ), findNavController()
+                )
+                trinidadBottomSheet.show()
             }
         }
 
         return true
     }
 
-    private fun navigateToPlaceDetail(placeID: Int) {
-        binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
-        val extras =
-            FragmentNavigatorExtras(
-                binding.bottomSheetImage to "shared_view_container"
-            )
-        val action =
-            MapFragmentDirections.actionNavMapToDetailsFragment(placeID = placeID)
-        findNavController().navigate(action, extras)
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-    }
 
 }

@@ -20,7 +20,7 @@ class DetailsFragment : Fragment() {
 
     lateinit var binding: DetailsFragmentBinding
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
-    val safeArgs: DetailsFragmentArgs by navArgs()
+    private val safeArgs: DetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,30 +29,7 @@ class DetailsFragment : Fragment() {
         sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
         sharedElementEnterTransition = sharedTransitionEffect
 
-/*
-
-        // For all 3 container layer colors, use colorSurface since this transform can be configured
-        // using any fade mode and some of the start views don't have a background and the end view
-        // doesn't have a background.
-        val colorSurface = MaterialColors.getColor(requireView(), R.attr.colorSurface)
-
-        val enterContainerTransform: MaterialContainerTransform = buildContainerTransform(true)
-        enterContainerTransform.setAllContainerColors(colorSurface)
-        sharedElementEnterTransition = enterContainerTransform
-
-        val returnContainerTransform: MaterialContainerTransform = buildContainerTransform(false)
-        returnContainerTransform.setAllContainerColors(colorSurface)
-        sharedElementReturnTransition = returnContainerTransform
-
-*/
-
     }
-/*
-    private fun buildContainerTransform(entering: Boolean): MaterialContainerTransform {
-        val context = requireContext()
-
-        return MaterialContainerTransform(context, entering)
-    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

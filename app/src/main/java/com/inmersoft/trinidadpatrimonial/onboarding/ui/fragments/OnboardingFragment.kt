@@ -21,8 +21,6 @@ import java.util.*
 class OnboardingFragment : Fragment() {
     lateinit var binding: FragmentOnboardingBinding
 
-    //  private val fadeThrough by lazy { MaterialFadeThrough() }
-
     private val viewPager2PageChangeCallback = ViewPager2PageChangeCallback {
         setOnboardingPoint(it)
     }

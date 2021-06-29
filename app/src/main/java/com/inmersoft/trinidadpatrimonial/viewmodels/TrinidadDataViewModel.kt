@@ -7,6 +7,8 @@ import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
