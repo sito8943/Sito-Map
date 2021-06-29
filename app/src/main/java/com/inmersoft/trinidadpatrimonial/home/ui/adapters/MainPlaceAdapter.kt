@@ -7,12 +7,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragmentDirections
-import com.inmersoft.trinidadpatrimonial.utils.ASSETS_FOLDER
+import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import java.util.*
 
 class MainPlaceAdapter() :
@@ -48,7 +47,15 @@ class MainPlaceAdapter() :
             binding.tvCardSubtitle.text = place.place_description
 
             Glide.with(binding.root.context)
-                .load(Uri.parse("$ASSETS_FOLDER/${place.header_images[0]}.jpg"))
+                .load(
+                    Uri.parse(
+                        TrinidadAssets.getAssetFullPath(
+                            place.header_images[0],
+                            TrinidadAssets.FILE_JPG_EXTENSION
+                        )
+                    )
+                )
+                .fitCenter()
                 .error(R.drawable.placeholder_error)
                 .placeholder(R.drawable.placeholder_error)
                 .into(binding.imCardHeader)

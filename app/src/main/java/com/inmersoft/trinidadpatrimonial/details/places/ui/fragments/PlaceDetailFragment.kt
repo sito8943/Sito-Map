@@ -195,7 +195,12 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     private fun loadHeader(headerImages: List<String>) {
         Glide.with(requireContext())
             .load(
-                Uri.parse(TrinidadAssets.getAssetFullPath(headerImages[0]))
+                Uri.parse(
+                    TrinidadAssets.getAssetFullPath(
+                        headerImages[0],
+                        TrinidadAssets.FILE_JPG_EXTENSION
+                    )
+                )
             )
             .error(R.drawable.placeholder_error)
             .placeholder(R.drawable.placeholder_error)
@@ -218,7 +223,12 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         Glide.with(requireContext())
             .asBitmap()
             .load(
-                Uri.parse(TrinidadAssets.getAssetFullPath(placeData.header_images[0]))
+                Uri.parse(
+                    TrinidadAssets.getAssetFullPath(
+                        placeData.header_images[0],
+                        TrinidadAssets.FILE_JPG_EXTENSION
+                    )
+                )
             ).into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
@@ -323,7 +333,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
     private fun loadPano360(panoAssetName: List<String>) {
         if (panoAssetName[0].isNotEmpty()) {
-            val panoAssetUrl = TrinidadAssets.getPanoAssetFullPath(panoAssetName[0])
+            val panoAssetUrl = TrinidadAssets.getAssetFullPath(
+                panoAssetName[0],
+                TrinidadAssets.FILE_WEBP_EXTENSION
+            )
             Glide.with(requireActivity())
                 .asBitmap()
                 .placeholder(R.drawable.placeholder_error)

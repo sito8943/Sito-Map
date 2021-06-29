@@ -184,7 +184,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             withContext(Dispatchers.Main) {
                 Glide.with(requireContext())
                     .asBitmap()
-                    .load(Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0])))
+                    .load(Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0],TrinidadAssets.FILE_JPG_EXTENSION)))
                     .placeholder(R.drawable.placeholder_error)
                     .error(R.drawable.placeholder_error)
                     .into(object : CustomTarget<Bitmap>() {
