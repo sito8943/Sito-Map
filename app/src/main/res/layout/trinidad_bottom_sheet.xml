@@ -8,6 +8,7 @@
         android:id="@+id/bottom_sheet_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:transitionName="trinidad_bottom_sheet"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
@@ -258,9 +259,16 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
 
     private fun goToMap(placeId: Int) {
+
+        binding.placeDetailContainer.transitionName=UUID.randomUUID().toString()
+
+        val extras =
+            FragmentNavigatorExtras(
+                binding.placeDetailContainer to "trinidad_bottom_sheet"
+            )
         val action =
             DetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
-        findNavController().navigate(action)
+        findNavController().navigate(action,extras)
     }
 
     //WRITE EXTERNAL STORAGE PERMISSIONS

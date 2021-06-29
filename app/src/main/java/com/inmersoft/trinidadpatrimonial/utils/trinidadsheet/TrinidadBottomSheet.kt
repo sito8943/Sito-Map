@@ -18,7 +18,7 @@ import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import java.util.*
 
 class TrinidadBottomSheet(
-    private val context: Context,
+    private val context: Context, started: Boolean,
     private val rootLayout: ViewGroup,
     private val navController: NavController
 ) {
@@ -32,7 +32,7 @@ class TrinidadBottomSheet(
     init {
         binding = TrinidadBottomSheetBinding.inflate(inflater, rootLayout, true)
         bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
-        hide()
+        if (!started) hide() else show()
     }
 
     fun bindData(data: SheetData) {

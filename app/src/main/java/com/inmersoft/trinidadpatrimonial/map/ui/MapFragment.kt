@@ -20,7 +20,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.textfield.TextInputLayout
+import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
+import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
@@ -51,6 +53,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private lateinit var trinidadBottomSheet: TrinidadBottomSheet
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
+        sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+        sharedElementEnterTransition = sharedTransitionEffect
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +67,16 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     ): View {
 
         binding = MapFragmentBinding.inflate(inflater, container, false)
+
+        val started = safeArgs.placeID != -1
+
+        trinidadBottomSheet =
+            TrinidadBottomSheet(
+                requireContext(),
+                started = started,
+                binding.root as ViewGroup,
+                findNavController()
+            )
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -88,7 +106,6 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
 
-        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup,findNavController())
 
         return binding.root
     }
@@ -133,6 +150,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                             .snippet(place.place_description)
                     )
                     marker.showInfoWindow()
+                    showTrinidadBottomSheet(place)
                 } else {
                     marker = map.addMarker(
                         MarkerOptions().position(gpsPoint)
@@ -173,34 +191,37 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             Log.d("TAG", "onMarkerClick: $placeID")
             val place = trinidadDataViewModel.getPlaceById(placeID)
             withContext(Dispatchers.Main) {
-                val uriImage = Uri.parse(
-                    TrinidadAssets.getAssetFullPath(
-                        place.header_images[0],
-                        TrinidadAssets.FILE_JPG_EXTENSION
-                    )
-                )
-                val webURI = Uri.parse(place.web)
-                val data =
-                    SheetData(
-                        place.place_id,
-                        uriImage,
-                        place.place_name,
-                        place.place_description,
-                        webURI
-                    )
-
-                trinidadBottomSheet.navigateTo(
-                    MapFragmentDirections.actionNavMapToDetailsFragment(
-                        placeID
-                    )
-                )
-                trinidadBottomSheet.bindData(data)
-                trinidadBottomSheet.show()
-
+                showTrinidadBottomSheet(place)
             }
         }
 
         return true
+    }
+
+    private fun showTrinidadBottomSheet(place: Place) {
+        val uriImage = Uri.parse(
+            TrinidadAssets.getAssetFullPath(
+                place.header_images[0],
+                TrinidadAssets.FILE_JPG_EXTENSION
+            )
+        )
+        val webURI = Uri.parse(place.web)
+        val data =
+            SheetData(
+                place.place_id,
+                uriImage,
+                place.place_name,
+                place.place_description,
+                webURI
+            )
+
+        trinidadBottomSheet.navigateTo(
+            MapFragmentDirections.actionNavMapToDetailsFragment(
+                place.place_id
+            )
+        )
+        trinidadBottomSheet.bindData(data)
+        trinidadBottomSheet.show()
     }
 
 
