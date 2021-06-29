@@ -1,6 +1,7 @@
 package com.inmersoft.trinidadpatrimonial.utils.trinidadsheet
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +19,8 @@ import java.util.*
 
 class TrinidadBottomSheet(
     private val context: Context,
-    private val rootLayout: ViewGroup
+    private val rootLayout: ViewGroup,
+    private val navController: NavController
 ) {
     private var binding: TrinidadBottomSheetBinding
 
@@ -36,7 +38,6 @@ class TrinidadBottomSheet(
     }
 
     fun bindData(data: SheetData) {
-        if (!data.isSame(currentDataId)) {
             currentDataId = data.id
             Glide.with(context)
                 .load(data.imageURI)
@@ -61,13 +62,12 @@ class TrinidadBottomSheet(
             binding.bottomSheetWebpage.setOnClickListener {
                 TrinidadCustomChromeTab.launch(context, data.webUrl)
             }
+        Log.d("TAGXHD", "bindData: CALLED BINDING...")
 
-        }
     }
 
     fun navigateTo(
-        destination: NavDirections,
-        navController: NavController
+        destination: NavDirections
     ) {
         binding.bottomSheetHeaderCardview.transitionName = UUID.randomUUID().toString()
         val extras =

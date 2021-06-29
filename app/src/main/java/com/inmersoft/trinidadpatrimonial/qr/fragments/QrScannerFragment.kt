@@ -74,7 +74,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup)
+        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup,findNavController())
 
         return binding.root
     }
@@ -157,7 +157,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
                     trinidadBottomSheet.navigateTo(
                         MapFragmentDirections.actionNavMapToDetailsFragment(
                             placeID
-                        ), findNavController()
+                        )
                     )
                     trinidadBottomSheet.show()
                 }

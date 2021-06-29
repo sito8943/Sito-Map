@@ -87,7 +87,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
 
-        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup)
+        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), binding.root as ViewGroup,findNavController())
 
         return binding.root
     }
@@ -191,7 +191,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 trinidadBottomSheet.navigateTo(
                     MapFragmentDirections.actionNavMapToDetailsFragment(
                         placeID
-                    ), findNavController()
+                    )
                 )
                 trinidadBottomSheet.show()
             }
