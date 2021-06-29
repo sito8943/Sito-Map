@@ -212,8 +212,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                 binding.bottomSheetImage.setOnClickListener {
                     navigateToPlaceDetail(placeID)
                 }
-
-
+ 
                 bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
