@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.inmersoft.trinidadpatrimonial.R
@@ -15,6 +16,7 @@ import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.transformer.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
+import java.util.*
 
 class OnboardingFragment : Fragment() {
     lateinit var binding: FragmentOnboardingBinding
@@ -52,7 +54,14 @@ class OnboardingFragment : Fragment() {
         binding =
             FragmentOnboardingBinding.inflate(inflater, container, false)
         binding.onboardingStartButton.setOnClickListener {
-            findNavController().navigate(R.id.action_onboardingFragment_to_nav_home)
+
+            it.transitionName = UUID.randomUUID().toString()
+            val extras =
+                FragmentNavigatorExtras(
+                    binding.onboardingStartButton to "home_fragment_container"
+                )
+            val action = OnboardingFragmentDirections.actionOnboardingFragmentToNavHome()
+            findNavController().navigate(action, extras)
         }
 
         binding.onboardingViewPage.adapter = onboardingAdapter

@@ -14,7 +14,7 @@
             "header_images": [
                 "images/headers/plazuela_jigue_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8055678,
                 "longitude": -79.985233
@@ -56,7 +56,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_69_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.805763,
                 "longitude": -79.9861212
@@ -90,7 +90,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_90_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8062476,
                 "longitude": -79.9859264
@@ -129,7 +129,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_93_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8065601,
                 "longitude": -79.9856226
@@ -166,7 +166,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_95_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8065153,
                 "longitude": -79.9857292
@@ -199,7 +199,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_122_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.807403,
                 "longitude": -79.985296
@@ -232,7 +232,7 @@
             "header_images": [
                 "images/headers/cabildo_sanantonio_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8084538,
                 "longitude": -79.986725
@@ -265,7 +265,7 @@
             "header_images": [
                 "images/headers/plaza_tres_cruces_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8088274,
                 "longitude": -79.985811
@@ -298,7 +298,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_151_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8086705,
                 "longitude": -79.9861006
@@ -331,7 +331,7 @@
             "header_images": [
                 "images/headers/casa_amargura_143_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8083555,
                 "longitude": -79.9855844
@@ -364,7 +364,7 @@
             "header_images": [
                 "images/headers/casa_amargura_108_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8073967,
                 "longitude": -79.9849963
@@ -397,7 +397,7 @@
             "header_images": [
                 "images/headers/casa_amargura_85_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8067922,
                 "longitude": -79.98510
@@ -430,7 +430,7 @@
             "header_images": [
                 "images/headers/casa_boca_363_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8064067,
                 "longitude": -79.9850184
@@ -463,7 +463,7 @@
             "header_images": [
                 "images/headers/convento_sanfrancisco_asis_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8061957,
                 "longitude": -79.9855999
@@ -496,7 +496,7 @@
             "header_images": [
                 "images/headers/casa_cristo_66_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8066154,
                 "longitude": -79.9853337
@@ -529,7 +529,7 @@
             "header_images": [
                 "images/headers/casa_san_jose_251_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8070848,
                 "longitude": -79.9873493
@@ -562,7 +562,7 @@
             "header_images": [
                 "images/headers/casa_san_jose_251_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8071589,
                 "longitude": -79.9871367
@@ -595,7 +595,7 @@
             "header_images": [
                 "images/headers/casa_san_jose_264_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8068413,
                 "longitude": -79.9870945
@@ -628,7 +628,7 @@
             "header_images": [
                 "images/headers/casa_san_jose_273_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8072349,
                 "longitude": -79.986898
@@ -661,7 +661,7 @@
             "header_images": [
                 "images/headers/casa_san_jose_274_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8069435,
                 "longitude": -79.9867967
@@ -694,7 +694,7 @@
             "header_images": [
                 "images/headers/casa_boca_320_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8058995,
                 "longitude": -79.9869704
@@ -727,7 +727,7 @@
             "header_images": [
                 "images/headers/casa_boca_314_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8058995,
                 "longitude": -79.9869704
@@ -760,7 +760,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_60_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8055914,
                 "longitude": -79.9873244
@@ -793,7 +793,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_59_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8054213,
                 "longitude": -79.9876095
@@ -826,7 +826,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_54_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8053921,
                 "longitude": -79.9872279
@@ -859,7 +859,7 @@
             "header_images": [
                 "images/headers/casa_real_jigue_47_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8050639,
                 "longitude": -79.9873285
@@ -892,7 +892,7 @@
             "header_images": [
                 "images/headers/casa_conspiradores_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8050919,
                 "longitude": -79.9857558
@@ -925,7 +925,7 @@
             "header_images": [
                 "images/headers/casa_cristo_33_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8047353,
                 "longitude": -79.9858674
@@ -958,7 +958,7 @@
             "header_images": [
                 "images/headers/plazuela_segarte_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8049308,
                 "longitude": -79.9852559
@@ -991,7 +991,7 @@
             "header_images": [
                 "images/headers/casa_cristo_29_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8047035,
                 "longitude": -79.9853967
@@ -1024,7 +1024,7 @@
             "header_images": [
                 "images/headers/casa_alameda_178_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8045888,
                 "longitude": -79.9851371
@@ -1057,7 +1057,7 @@
             "header_images": [
                 "images/headers/casa_alameda_213_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.805166,
                 "longitude": -79.9852592
@@ -1090,7 +1090,7 @@
             "header_images": [
                 "images/headers/casa_alameda_217_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8052924,
                 "longitude": -79.9851666
@@ -1123,7 +1123,7 @@
             "header_images": [
                 "images/headers/casa_alameda_228_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8052924,
                 "longitude": -79.9851666
@@ -1156,7 +1156,7 @@
             "header_images": [
                 "images/headers/casa_alameda_228_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8052924,
                 "longitude": -79.9851666
@@ -1189,7 +1189,7 @@
             "header_images": [
                 "images/headers/casa_amargura_31_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.805496,
                 "longitude": -79.9850513
@@ -1222,7 +1222,7 @@
             "header_images": [
                 "images/headers/casa_santana_591_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8046624,
                 "longitude": -79.9836077
@@ -1255,7 +1255,7 @@
             "header_images": [
                 "images/headers/casa_medialuna_14_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8047926,
                 "longitude": -79.9841601
@@ -1288,7 +1288,7 @@
             "header_images": [
                 "images/headers/palacio_borrell_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8046425,
                 "longitude": -79.9844558
@@ -1321,7 +1321,7 @@
             "header_images": [
                 "images/headers/casa_medialuna_19_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8044687,
                 "longitude": -79.9842801
@@ -1354,7 +1354,7 @@
             "header_images": [
                 "images/headers/antigua_casa_monjas_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8040535,
                 "longitude": -79.9844083
@@ -1387,7 +1387,7 @@
             "header_images": [
                 "images/headers/antigua_casa_monjas_header"
             ],
-            "map_icon": "image/marker/marker_plazas",
+            "map_icon": "images/marker/marker_plazas",
             "location": {
                 "latitude": 21.8040535,
                 "longitude": -79.9844083
@@ -1461,7 +1461,7 @@
                 1
             ],
             "type": "Restaurantes",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/restaurants",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1480,7 +1480,7 @@
                 1
             ],
             "type": "Bares",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Bars",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1499,11 +1499,11 @@
                 1
             ],
             "type": "Cafeterías",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Coffeeshops",
             "type_translation": [
                 {
                     "lang": "en",
-                    "type": "cafés"
+                    "type": "Coffee shops"
                 },
                 {
                     "lang": "fr",
@@ -1518,7 +1518,7 @@
                 1
             ],
             "type": "Parques",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Parks",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1537,7 +1537,7 @@
                 1
             ],
             "type": "Gimnasios",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Gyms",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1556,7 +1556,7 @@
                 1
             ],
             "type": "Arte",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Art",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1575,7 +1575,7 @@
                 1
             ],
             "type": "Museos",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Museums",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1594,7 +1594,7 @@
                 1
             ],
             "type": "Bibliotecas",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Libraries",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1613,7 +1613,7 @@
                 1
             ],
             "type": "Vida Nocturna",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Nightlife",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1632,7 +1632,7 @@
                 1
             ],
             "type": "Supermercados",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Supermarkets",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1651,7 +1651,7 @@
                 1
             ],
             "type": "Centros comerciales",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Shoppingcenters",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1670,7 +1670,7 @@
                 1
             ],
             "type": "Belleza",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Beauty",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1689,7 +1689,7 @@
                 1
             ],
             "type": "Electrónica",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Electronics",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1708,7 +1708,7 @@
                 1
             ],
             "type": "Ropa",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Clothing",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1727,7 +1727,7 @@
                 1
             ],
             "type": "Hoteles",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Hotels",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1746,7 +1746,7 @@
                 1
             ],
             "type": "Gasolineras",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Gasstations",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1765,7 +1765,7 @@
                 1
             ],
             "type": "Cajeros",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/ATMs",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1784,7 +1784,7 @@
                 1
             ],
             "type": "Hospitales",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Hospitals",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1800,10 +1800,10 @@
             "place_type_id": 18,
             "places_id": [
                 0,
-                2
+                1
             ],
             "type": "Alquiler de coches",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Carrental",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1818,10 +1818,11 @@
         {
             "place_type_id": 19,
             "places_id": [
-                0
+                0,
+                1
             ],
             "type": "Aparcamientos",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/Parking",
             "type_translation": [
                 {
                     "lang": "en",
@@ -1837,11 +1838,10 @@
             "place_type_id": 20,
             "places_id": [
                 0,
-                3,
-                2
+                1
             ],
             "type": "Populares",
-            "icon": "url- del a imagen",
+            "icon": "images/marker/popular",
             "type_translation": [
                 {
                     "lang": "en",

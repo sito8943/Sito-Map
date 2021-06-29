@@ -99,7 +99,6 @@
                 app:behavior_peekHeight="0dp"
                 app:behavior_skipCollapsed="true"
                 app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-
                 >
 
                 <com.google.android.material.card.MaterialCardView
