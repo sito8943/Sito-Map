@@ -13,7 +13,7 @@ import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.databinding.HomeFragmentBinding
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: HomeFragmentBinding
+    private lateinit var binding: FragmentHomeBinding
 
     private val holdTransition = Hold()
 
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = HomeFragmentBinding.inflate(layoutInflater, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
 
         binding.toolbar.menu.findItem(R.id.action_search)
             .setOnMenuItemClickListener {

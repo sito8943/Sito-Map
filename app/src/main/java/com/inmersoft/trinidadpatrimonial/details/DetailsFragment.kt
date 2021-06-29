@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
-import com.inmersoft.trinidadpatrimonial.databinding.DetailsFragmentBinding
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentDetailsBinding
 import com.inmersoft.trinidadpatrimonial.details.places.ui.adapter.ViewPagerDetailAdapter
 import com.inmersoft.trinidadpatrimonial.details.places.ui.fragments.PlaceDetailFragment
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
-    lateinit var binding: DetailsFragmentBinding
+    lateinit var binding: FragmentDetailsBinding
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
     private val safeArgs: DetailsFragmentArgs by navArgs()
 
@@ -36,7 +36,7 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DetailsFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPlaces ->
             val fragmentList = mutableListOf<PlaceDetailFragment>()
             allPlaces.indices.forEach { index ->

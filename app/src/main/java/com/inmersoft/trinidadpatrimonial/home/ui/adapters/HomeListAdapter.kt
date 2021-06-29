@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
-import com.inmersoft.trinidadpatrimonial.databinding.HomePlacesItemBinding
+import com.inmersoft.trinidadpatrimonial.databinding.ItemHomePlacesBinding
 
 class HomeListAdapter() :
     RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
 
     private val mainSectionData = mutableListOf<PlaceTypeWithPlaces>()
 
-    inner class ViewHolder(private val binding: HomePlacesItemBinding) :
+    inner class ViewHolder(private val binding: ItemHomePlacesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val mainPlaceAdapter by lazy { MainPlaceAdapter() }
@@ -39,7 +39,7 @@ class HomeListAdapter() :
         viewType: Int
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = HomePlacesItemBinding.inflate(inflater, parent, false)
+        val binding = ItemHomePlacesBinding.inflate(inflater, parent, false)
 
         return ViewHolder(
             binding

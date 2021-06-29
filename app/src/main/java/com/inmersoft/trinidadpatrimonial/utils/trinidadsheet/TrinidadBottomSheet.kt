@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.databinding.TrinidadBottomSheetBinding
+import com.inmersoft.trinidadpatrimonial.databinding.BottomSheetTrinidadBinding
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import java.util.*
@@ -22,7 +22,7 @@ class TrinidadBottomSheet(
     private val rootLayout: ViewGroup,
     private val navController: NavController
 ) {
-    private var binding: TrinidadBottomSheetBinding
+    private var binding: BottomSheetTrinidadBinding
 
     private var bottomSheet: BottomSheetBehavior<ConstraintLayout>
 
@@ -30,7 +30,7 @@ class TrinidadBottomSheet(
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     init {
-        binding = TrinidadBottomSheetBinding.inflate(inflater, rootLayout, true)
+        binding = BottomSheetTrinidadBinding.inflate(inflater, rootLayout, true)
         bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
         if (!started) hide() else show()
     }

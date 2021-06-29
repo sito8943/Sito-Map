@@ -25,7 +25,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
-import com.inmersoft.trinidadpatrimonial.databinding.QrScannerFragmentBinding
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentQrScannerBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.MapFragmentDirections
 import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
@@ -47,7 +47,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
     private var camera: Camera? = null
     private lateinit var qrProcessor: QrProcessor
 
-    private lateinit var binding: QrScannerFragmentBinding
+    private lateinit var binding: FragmentQrScannerBinding
 
     private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
@@ -58,7 +58,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = QrScannerFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentQrScannerBinding.inflate(inflater, container, false)
         cameraPreview = binding.cameraView
         cameraProviderFuture = getInstance(requireContext())
         qrProcessor = QrProcessor(binding.cameraOverlay, this)

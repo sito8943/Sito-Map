@@ -140,7 +140,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/trinidad_desctiption_txt"
-                        tools:listitem="@layout/home_places_item" />
+                        tools:listitem="@layout/item_home_places" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
             <com.google.android.material.floatingactionbutton.FloatingActionButton

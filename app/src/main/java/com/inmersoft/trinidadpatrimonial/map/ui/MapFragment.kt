@@ -23,7 +23,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.databinding.MapFragmentBinding
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentMapBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.SheetData
@@ -39,7 +39,7 @@ import kotlinx.coroutines.withContext
 class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
-    private lateinit var binding: MapFragmentBinding
+    private lateinit var binding: FragmentMapBinding
 
     private val safeArgs: MapFragmentArgs by navArgs()
 
@@ -66,7 +66,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
         savedInstanceState: Bundle?
     ): View {
 
-        binding = MapFragmentBinding.inflate(inflater, container, false)
+        binding = FragmentMapBinding.inflate(inflater, container, false)
 
         val started = safeArgs.placeID != -1
 
@@ -88,9 +88,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
         val autoCompleteTextView: AutoCompleteTextView?
         val textInputLayout: TextInputLayout = binding.searchField
-
         autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
         autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
+        autoCompleteTextView?.onItemSelectedListener
 
         placesTypeAdapter = MapPlaceTypeAdapter()
 

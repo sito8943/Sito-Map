@@ -14,7 +14,9 @@ import com.inmersoft.trinidadpatrimonial.core.utils.readJSONFromAsset
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 
 class SeedDatabaseWorker(
@@ -23,63 +25,68 @@ class SeedDatabaseWorker(
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result = coroutineScope {
 
-        val database = AppDatabase.getDatabase(context = context)
-        val placesDao = database.placesDao()
-        val routesDao = database.routesDao()
-        val placesTypeDao = database.placesTypeDao()
+        withContext(Dispatchers.Default) {
+            val database = AppDatabase.getDatabase(context = context)
+            val placesDao = database.placesDao()
+            val routesDao = database.routesDao()
+            val placesTypeDao = database.placesTypeDao()
 
-        val placeTypesAndPlacesCrossDao = database.placeTypesAndPlacesCrossDao()
-        val routesAndPlacesCrossDao = database.routesAndPlacesCrossDao()
+            val placeTypesAndPlacesCrossDao = database.placeTypesAndPlacesCrossDao()
+            val routesAndPlacesCrossDao = database.routesAndPlacesCrossDao()
 
-        val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+            val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
-        val jsonReader = readJSONFromAsset(context = applicationContext)
+            val jsonReader = readJSONFromAsset(context = applicationContext)
 
-        val trinidadAdapter: JsonAdapter<Trinidad> =
-                    moshi.adapter(Trinidad::class.java)
+            val trinidadAdapter: JsonAdapter<Trinidad> =
+                moshi.adapter(Trinidad::class.java)
 
-                val resultTrinidadFromJson =
-                    trinidadAdapter.fromJson(jsonReader)
+            val resultTrinidadFromJson =
+                trinidadAdapter.fromJson(jsonReader)
 
-                val placeJSONList = JSONObjectManager.extractPlacesFromJSON(jsonReader)
-                val placeWithPlacesTypeId: List<ObjectMap> =
-                    JSONObjectManager.extractPlaceAndPlacesTypeInObjectMap(placeJSONList)
+            val placeJSONList = JSONObjectManager.extractPlacesFromJSON(jsonReader)
+            val placeWithPlacesTypeId: List<ObjectMap> =
+                JSONObjectManager.extractPlaceAndPlacesTypeInObjectMap(placeJSONList)
 
-                placeWithPlacesTypeId.forEach {
-                    val placeID = it.parentValueID
-                    val placeTypesId = it.childValuesID
-                    placeTypesId.forEach { currentPlaceTypeId ->
-                        placeTypesAndPlacesCrossDao.addPlaceAndPlaceTypeCrossRef(
-                            PlaceTypesAndPlacesCrossRef(
-                                placeID, currentPlaceTypeId
-                            )
+
+            placeWithPlacesTypeId.forEach {
+                val placeID = it.parentValueID
+                val placeTypesId = it.childValuesID
+                placeTypesId.forEach { currentPlaceTypeId ->
+                    placeTypesAndPlacesCrossDao.addPlaceAndPlaceTypeCrossRef(
+                        PlaceTypesAndPlacesCrossRef(
+                            placeID, currentPlaceTypeId
                         )
-                    }
+                    )
                 }
+            }
 
-                val routesJSONList = JSONObjectManager.extractRoutesFromJSON(jsonReader)
-                val routesWithPlacesId: List<ObjectMap> =
-                    JSONObjectManager.extractRoutesAndPlacesIDInObjectMap(routesJSONList)
-                routesWithPlacesId.forEach {
-                    val routesID = it.parentValueID
-                    val placesID = it.childValuesID
-                    placesID.forEach { currentPlaceID ->
-                        routesAndPlacesCrossDao.addRoutesAndPlacesCrossRef(
-                            RoutesAndPlacesCrossRef(
-                                routesID, currentPlaceID
-                            )
+            val routesJSONList = JSONObjectManager.extractRoutesFromJSON(jsonReader)
+            val routesWithPlacesId: List<ObjectMap> =
+                JSONObjectManager.extractRoutesAndPlacesIDInObjectMap(routesJSONList)
+            routesWithPlacesId.forEach {
+                val routesID = it.parentValueID
+                val placesID = it.childValuesID
+                placesID.forEach { currentPlaceID ->
+                    routesAndPlacesCrossDao.addRoutesAndPlacesCrossRef(
+                        RoutesAndPlacesCrossRef(
+                            routesID, currentPlaceID
                         )
-                    }
+                    )
                 }
+            }
 
-        resultTrinidadFromJson?.let {
-            placesDao.insertAll(it.places)
-            routesDao.insertAll(it.routes)
-            placesTypeDao.insertAll(it.place_type)
+            withContext(Dispatchers.IO) {
+                resultTrinidadFromJson?.let {
+                    placesDao.insertAll(it.places)
+                    routesDao.insertAll(it.routes)
+                    placesTypeDao.insertAll(it.place_type)
+                }
+            }
+
+            Log.d(TAG, "doWork: Called")
+            Result.success()
         }
-
-        Log.d(TAG, "doWork: Called")
-        Result.success()
     }
 
     companion object {

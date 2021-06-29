@@ -35,7 +35,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.databinding.PlaceDetailsFragmentBinding
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
 import com.inmersoft.trinidadpatrimonial.details.DetailsFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
@@ -49,7 +49,7 @@ import java.util.*
 class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     EasyPermissions.PermissionCallbacks {
 
-    private lateinit var binding: PlaceDetailsFragmentBinding
+    private lateinit var binding: FragmentPlaceDetailsBinding
     private var currentLocale = Locale("es", "ES")
 
     private lateinit var playerView: PlayerView
@@ -77,7 +77,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = PlaceDetailsFragmentBinding.inflate(layoutInflater, container, false)
+        binding = FragmentPlaceDetailsBinding.inflate(layoutInflater, container, false)
         binding.toolbarLayout.title = placeData.place_name
 
         binding.toolbar.setNavigationOnClickListener {
@@ -264,7 +264,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         val extras =
             FragmentNavigatorExtras(
-                binding.placeDetailContainer to "trinidad_bottom_sheet"
+                binding.placeDetailContainer to "bottom_sheet_trinidad"
             )
         val action =
             DetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
