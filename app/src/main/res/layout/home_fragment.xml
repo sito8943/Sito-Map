@@ -15,7 +15,7 @@
             android:background="?attr/colorSurface"
             android:fitsSystemWindows="true"
             tools:context=".MainActivity"
-            tools:ignore="MergeRootFrame">
+          >
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appbar"
