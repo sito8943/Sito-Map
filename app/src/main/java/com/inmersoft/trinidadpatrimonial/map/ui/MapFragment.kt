@@ -17,6 +17,8 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -179,13 +181,13 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             val place = trinidadDataViewModel.getPlaceById(placeID)
             withContext(Dispatchers.Main) {
 
-                val imageURI = Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0]))
+                val imageURI = Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0],TrinidadAssets.FILE_JPG_EXTENSION))
 
                 Glide.with(requireContext())
-                    .asBitmap()
                     .load(imageURI)
                     .placeholder(R.drawable.placeholder_error)
                     .error(R.drawable.placeholder_error)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(binding.mapBottomSheetImageHeader)
 
                 binding.bottomSheetShare.setOnClickListener {

@@ -2,8 +2,6 @@ package com.inmersoft.trinidadpatrimonial.qr.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -29,8 +27,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.common.util.concurrent.ListenableFuture
 import com.inmersoft.trinidadpatrimonial.R
@@ -147,32 +144,30 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
                 Log.d("TAG", "onMarkerClick: $placeID")
                 val place = trinidadDataViewModel.getPlaceById(placeID)
                 lifecycleScope.launch(Dispatchers.Main) {
+                    val imageURI = Uri.parse(
+                        TrinidadAssets.getAssetFullPath(
+                            place.header_images[0],
+                            TrinidadAssets.FILE_JPG_EXTENSION
+                        )
+                    )
+
                     Glide.with(requireContext())
-                        .asBitmap()
-                        .load(Uri.parse(TrinidadAssets.getAssetFullPath(place.header_images[0])))
+                        .load(imageURI)
                         .placeholder(R.drawable.placeholder_error)
                         .error(R.drawable.placeholder_error)
-                        .into(object : CustomTarget<Bitmap>() {
-                            override fun onResourceReady(
-                                resource: Bitmap,
-                                transition: Transition<in Bitmap>?
-                            ) {
-                                binding.qrBottomSheetImageHeader.setImageBitmap(resource)
-                                binding.bottomSheetShare.setOnClickListener {
-                                    ShareIntent.shareIt(
-                                        requireContext(),
-                                        resource,
-                                        place.place_name,
-                                        getString(R.string.app_name)
-                                    )
-                                }
-                            }
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(binding.qrBottomSheetImageHeader)
 
-                            override fun onLoadCleared(placeholder: Drawable?) {
 
-                            }
 
-                        })
+                    binding.bottomSheetShare.setOnClickListener {
+                        ShareIntent.loadImageAndShare(
+                            requireContext(),
+                            imageURI,
+                            place.place_name,
+                            getString(R.string.app_name)
+                        )
+                    }
 
                     binding.bottomSheetPlaceName.text = place.place_name
                     binding.bottomSheetPlaceName.isSelected = true
@@ -184,7 +179,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
                         binding.bottomSheetImage.transitionName = UUID.randomUUID().toString()
                         val extras =
                             FragmentNavigatorExtras(
-                                binding.bottomSheetImage to "shared_view_container"
+                              binding.bottomSheetImage to "shared_view_container"
                             )
                         val action =
                             QrScannerFragmentDirections.actionNavQrToDetailsFragment(placeID = placeID)
