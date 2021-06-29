@@ -67,13 +67,14 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             requireContext(),
             android.R.layout.simple_dropdown_item_1line
         )
+
         val autoCompleteTextView: AutoCompleteTextView?
         val textInputLayout: TextInputLayout = binding.searchField
+
         autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
         autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
 
-        placesTypeAdapter =
-            MapPlaceTypeAdapter()
+        placesTypeAdapter = MapPlaceTypeAdapter()
 
         binding.placeTypeList.adapter = placesTypeAdapter
 
@@ -194,6 +195,7 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                     )
                 )
                 trinidadBottomSheet.bindData(data)
+                trinidadBottomSheet.show()
 
             }
         }

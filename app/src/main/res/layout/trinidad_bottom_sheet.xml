@@ -17,7 +17,7 @@
             app:behavior_hideable="true"
             app:behavior_peekHeight="0dp"
             app:behavior_skipCollapsed="true"
-            android:layout_gravity="bottom"
+
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <com.google.android.material.card.MaterialCardView

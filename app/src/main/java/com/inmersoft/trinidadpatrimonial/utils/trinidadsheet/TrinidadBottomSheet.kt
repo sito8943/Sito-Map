@@ -60,7 +60,6 @@ class TrinidadBottomSheet(
                 TrinidadCustomChromeTab.launch(context, data.webUrl)
             }
         Log.d("TAGXHD", "bindData: CALLED BINDING...")
-        show()
 
     }
 
@@ -86,7 +85,8 @@ class TrinidadBottomSheet(
     }
 
     fun show() {
-        bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+        if (bottomSheet.state != BottomSheetBehavior.STATE_EXPANDED)
+            bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     fun hide() {
