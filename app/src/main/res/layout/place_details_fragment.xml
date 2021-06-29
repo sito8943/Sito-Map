@@ -10,6 +10,7 @@
         android:background="?attr/colorSurface"
         android:fitsSystemWindows="true"
         android:transitionName="shared_view_container"
+        android:transitionGroup="true"
         tools:context=".MainActivity"
         tools:ignore="MergeRootFrame">
 

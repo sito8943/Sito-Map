@@ -42,10 +42,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
 
-        trinidadDataViewModel.allPlacesName.observe(this, {
-            Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: ${it.size}")
-        })
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.onboardingFragment -> hideBottomNav(navView)

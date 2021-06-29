@@ -1,12 +1,14 @@
 package com.inmersoft.trinidadpatrimonial.onboarding.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -16,10 +18,15 @@ import com.inmersoft.trinidadpatrimonial.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.onboarding.ui.transformer.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
+import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class OnboardingFragment : Fragment() {
     lateinit var binding: FragmentOnboardingBinding
+
+    val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
     private val viewPager2PageChangeCallback = ViewPager2PageChangeCallback {
         setOnboardingPoint(it)
@@ -71,6 +78,10 @@ class OnboardingFragment : Fragment() {
         setOnboardingPoint(0)
 
         binding.onboardingViewPage.registerOnPageChangeCallback(viewPager2PageChangeCallback)
+
+        trinidadDataViewModel.allPlacesName.observe(viewLifecycleOwner, {
+            Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: ${it.size}")
+        })
 
         return binding.root
     }
