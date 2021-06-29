@@ -17,4 +17,5 @@
     <color name="onboarding_item_unselected">#F3C996</color>
     <color name="qr_reticle_background">#99000000</color>
     <color name="qr_reticle_stroke">#40000000</color>
+    <color name="trinidadMapSearch">#FFFFFF</color>
 </resources>
