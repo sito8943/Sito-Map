@@ -60,7 +60,6 @@ class OnboardingFragment : Fragment() {
             FragmentOnboardingBinding.inflate(inflater, container, false)
         binding.onboardingStartButton.setOnClickListener {
 
-            it.transitionName = UUID.randomUUID().toString()
             val extras =
                 FragmentNavigatorExtras(
                     binding.onboardingStartButton to "home_fragment_container"
@@ -110,12 +109,10 @@ class OnboardingFragment : Fragment() {
         }
 
         if (index == max - 1) {
-            // TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
             fadeTransition(binding.container)
             binding.onboardingPagePositionContainer.visibility = View.INVISIBLE
             binding.onboardingStartButton.visibility = View.VISIBLE
         } else {
-            //   TransitionManager.beginDelayedTransition(binding.container, fadeThrough)
             fadeTransition(binding.container)
             if (binding.onboardingPagePositionContainer.visibility == View.INVISIBLE) {
                 binding.onboardingPagePositionContainer.visibility = View.VISIBLE

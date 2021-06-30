@@ -41,6 +41,7 @@
             android:textAllCaps="false"
             android:textColor="@color/trinidadMainBackground"
             android:textStyle="bold"
+            android:transitionName="onboarding_start_button"
             app:cornerRadius="20dp"
             app:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"

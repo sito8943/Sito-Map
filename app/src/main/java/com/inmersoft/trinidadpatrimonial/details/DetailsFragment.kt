@@ -24,7 +24,7 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
+        val sharedTransitionEffect = MaterialContainerTransform()
         sharedTransitionEffect.setPathMotion(MaterialArcMotion())
         sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
         sharedElementEnterTransition = sharedTransitionEffect

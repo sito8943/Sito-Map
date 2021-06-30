@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.Hold
-import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
@@ -34,9 +33,7 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        postponeEnterTransition();
-        val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
-        sharedTransitionEffect.setPathMotion(MaterialArcMotion())
+        val sharedTransitionEffect = MaterialContainerTransform()
         sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
         sharedElementEnterTransition = sharedTransitionEffect
     }
@@ -86,13 +83,7 @@ class HomeFragment : Fragment() {
 
         binding.homeListRecycleview.layoutManager = LinearLayoutManager(requireContext())
         binding.homeListRecycleview.adapter = homeListAdapter
-        //FIX E/RecyclerView: No adapter attached; skipping layout
-        (binding.homeListRecycleview.adapter as HomeListAdapter).notifyDataSetChanged()
-        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
-            viewLifecycleOwner,
-            { placeTypeWithPlacesList ->
-                homeListAdapter.setData(placeTypeWithPlacesList)
-            })
+
 
         /* binding.homeListRecycleview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
              override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -106,15 +97,22 @@ class HomeFragment : Fragment() {
         //Active the marquee text
         binding.trinidadDesctiptionTxt.isSelected = true
 
-
         // Add root view as target for the Hold so that the entire view hierarchy is held in place as
         // one instead of each child view individually. Helps keep shadows during the transition.
         /*  holdTransition.addTarget(binding.root)
          exitTransition = holdTransition*/
 
-         startPostponedEnterTransition()
-
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
+            viewLifecycleOwner,
+            { placeTypeWithPlacesList ->
+                homeListAdapter.setData(placeTypeWithPlacesList)
+            }
+        )
     }
 }
 
