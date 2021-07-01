@@ -16,7 +16,7 @@ class DetailsFragment : TrinidadFragment() {
 
     private lateinit var binding: FragmentDetailsBinding
     private val safeArgs: DetailsFragmentArgs by navArgs()
-    val viewPagerAdapter: ViewPagerDetailAdapter by lazy {
+    private val viewPagerAdapter: ViewPagerDetailAdapter by lazy {
         ViewPagerDetailAdapter(
             requireActivity().supportFragmentManager,
             lifecycle
