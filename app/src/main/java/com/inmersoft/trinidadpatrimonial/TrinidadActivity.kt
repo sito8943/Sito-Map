@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.transition.platform.MaterialContainerTransform
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
@@ -18,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class TrinidadActivity : AppCompatActivity() {
 
     @Inject
     lateinit var database: AppDatabase
@@ -28,7 +30,28 @@ class MainActivity : AppCompatActivity() {
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_TrinidadPatrimonial)
+
+        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+
+        // Set the transition name, which matches Activity A’s start view transition name, on
+        // the root view.
+        findViewById<View>(android.R.id.content).transitionName = "shared_element_container"
+
+        // Attach a callback used to receive the shared elements from Activity A to be
+        // used by the container transform transition.
+        setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+
+        // Set this Activity’s enter and return transition to a MaterialContainerTransform
+        window.sharedElementEnterTransition = MaterialContainerTransform().apply {
+            addTarget(android.R.id.content)
+            duration = 300L
+        }
+        window.sharedElementReturnTransition = MaterialContainerTransform().apply {
+            addTarget(android.R.id.content)
+            duration = 250L
+        }
+
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -39,24 +62,9 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.onboardingFragment -> hideBottomNav(navView)
-                else -> showBottomNav(navView)
-            }
-        }
         setAppBarTranslucent()
     }
 
-    private fun showBottomNav(navView: BottomNavigationView) {
-        navView.visibility = View.VISIBLE
-    }
-
-    private fun hideBottomNav(navView: BottomNavigationView) {
-        navView.visibility = View.INVISIBLE
-        supportActionBar?.hide();
-    }
 
     private fun setAppBarTranslucent() {
         if (Build.VERSION.SDK_INT >= 21) {

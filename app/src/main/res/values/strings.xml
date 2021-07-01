@@ -34,6 +34,9 @@
     <string name="share">Compartir</string>
     <string name="web">web</string>
     <string name="video_promo">Video promocional</string>
+    <string name="title_activity_on_boarding">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 
 </resources>
