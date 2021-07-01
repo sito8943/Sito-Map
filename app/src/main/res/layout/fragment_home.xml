@@ -14,7 +14,7 @@
             android:layout_height="match_parent"
             android:background="?attr/colorSurface"
             android:fitsSystemWindows="true"
-            tools:context=".TrinidadActivity"
+            tools:context=".ui.trinidad.TrinidadActivity"
           >
 
             <com.google.android.material.appbar.AppBarLayout

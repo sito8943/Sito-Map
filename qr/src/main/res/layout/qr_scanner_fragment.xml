@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.inmersoft.trinidadpatrimonial.qr.camera.GraphicOverlay
+        <com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.GraphicOverlay
             android:id="@+id/camera_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

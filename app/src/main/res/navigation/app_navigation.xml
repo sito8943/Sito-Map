@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.inmersoft.trinidadpatrimonial.home.ui.fragments.HomeFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.home.fragments.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_nav_home_to_detailsFragment"
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/nav_map"
-        android:name="com.inmersoft.trinidadpatrimonial.map.ui.MapFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.map.fragments.MapFragment"
         android:label="MapFragment">
         <argument
             android:name="placeID"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/nav_qr"
-        android:name="com.inmersoft.trinidadpatrimonial.qr.fragments.QrScannerFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.fragments.QrScannerFragment"
         android:label="QrScannerFragment">
         <action
             android:id="@+id/action_nav_qr_to_detailsFragment"
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.inmersoft.trinidadpatrimonial.details.DetailsFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.details.fragments.DetailsFragment"
         android:label="DetailsFragment">
         <argument
             android:name="placeID"

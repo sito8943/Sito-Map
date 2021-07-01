@@ -36,9 +36,8 @@
         </activity>
 
         <activity
-            android:name=".TrinidadActivity"
+            android:name=".ui.trinidad.TrinidadActivity"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="com.inmersoft.trinidad.MAIN" />
 
