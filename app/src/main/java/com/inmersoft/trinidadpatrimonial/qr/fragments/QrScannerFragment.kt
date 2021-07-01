@@ -2,7 +2,6 @@ package com.inmersoft.trinidadpatrimonial.qr.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
@@ -19,28 +18,19 @@ import androidx.camera.lifecycle.ProcessCameraProvider.getInstance
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
+import com.inmersoft.trinidadpatrimonial.TrinidadFragment
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentQrScannerBinding
-import com.inmersoft.trinidadpatrimonial.map.ui.MapFragmentDirections
 import com.inmersoft.trinidadpatrimonial.qr.qrdetection.QrProcessor
-import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
-import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.SheetData
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
-import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 @AndroidEntryPoint
-class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
+class QrScannerFragment : TrinidadFragment(), QrProcessor.IScanProcessListener {
     private lateinit var cameraPreview: PreviewView
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraExecutor: ExecutorService
@@ -48,10 +38,6 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
     private lateinit var qrProcessor: QrProcessor
 
     private lateinit var binding: FragmentQrScannerBinding
-
-    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
-
-    private lateinit var trinidadBottomSheet: TrinidadBottomSheet
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,7 +60,24 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
-        trinidadBottomSheet = TrinidadBottomSheet(requireContext(), started = false,binding.root as ViewGroup,findNavController())
+        trinidadBottomSheet = TrinidadBottomSheet(
+            requireContext(),
+            started = false,
+            binding.root as ViewGroup,
+            findNavController()
+        )
+
+
+        trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
+            { currentPlace ->
+                val nav = QrScannerFragmentDirections.actionNavQrToDetailsFragment(
+                    currentPlace.place_id
+                )
+                showTrinidadBottomSheetPlaceInfo(
+                    place = currentPlace, navDirections = nav
+                )
+            })
+
 
         return binding.root
     }
@@ -133,35 +136,7 @@ class QrScannerFragment : Fragment(), QrProcessor.IScanProcessListener {
     override fun onDetected(scanResult: String?) {
         if (!scanResult.isNullOrEmpty() && scanResult.isDigitsOnly()) {
             val placeID = scanResult.toInt()
-            lifecycleScope.launch(Dispatchers.IO)
-            {
-                Log.d("TAG", "onMarkerClick: $placeID")
-                val place = trinidadDataViewModel.getPlaceById(placeID)
-                withContext(Dispatchers.Main) {
-                    val uriImage = Uri.parse(
-                        TrinidadAssets.getAssetFullPath(
-                            place.header_images[0],
-                            TrinidadAssets.FILE_JPG_EXTENSION
-                        )
-                    )
-                    val webURI = Uri.parse(place.web)
-                    val data =
-                        SheetData(
-                            place.place_id,
-                            uriImage,
-                            place.place_name,
-                            place.place_description,
-                            webURI
-                        )
-                    trinidadBottomSheet.bindData(data)
-                    trinidadBottomSheet.navigateTo(
-                        MapFragmentDirections.actionNavMapToDetailsFragment(
-                            placeID
-                        )
-                    )
-                    trinidadBottomSheet.show()
-                }
-            }
+            trinidadDataViewModel.onBottomSheetShow(placeID)
         }
     }
 

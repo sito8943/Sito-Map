@@ -3,7 +3,6 @@ package com.inmersoft.trinidadpatrimonial
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -14,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inmersoft.trinidadpatrimonial.core.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityMainBinding
-import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -52,12 +50,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showBottomNav(navView: BottomNavigationView) {
-        fadeTransition(binding.container)
         navView.visibility = View.VISIBLE
     }
 
     private fun hideBottomNav(navView: BottomNavigationView) {
-        fadeTransition(binding.container)
         navView.visibility = View.INVISIBLE
         supportActionBar?.hide();
     }

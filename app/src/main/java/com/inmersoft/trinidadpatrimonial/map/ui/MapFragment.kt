@@ -1,17 +1,12 @@
 package com.inmersoft.trinidadpatrimonial.map.ui
 
 import android.location.Location
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,45 +15,40 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.TrinidadFragment
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentMapBinding
 import com.inmersoft.trinidadpatrimonial.map.ui.adapter.MapPlaceTypeAdapter
-import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
-import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.SheetData
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
-import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
-class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
+class MapFragment : TrinidadFragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener {
+
     private lateinit var binding: FragmentMapBinding
 
     private val safeArgs: MapFragmentArgs by navArgs()
 
-    private lateinit var placesTypeAdapter: MapPlaceTypeAdapter
+    private val placesTypeAdapter: MapPlaceTypeAdapter by lazy {
+        MapPlaceTypeAdapter()
+    }
 
     private lateinit var map: GoogleMap
 
     private val listOfMarkers = mutableListOf<Marker>()
 
-    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
+    private val showBottomSheetOnStart: Boolean by lazy { safeArgs.placeID != -1 }
 
-    private lateinit var trinidadBottomSheet: TrinidadBottomSheet
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val sharedTransitionEffect = MaterialContainerTransform()
-        sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
-        sharedElementEnterTransition = sharedTransitionEffect
+    private val autoCompletePlacesNameAdapter: ArrayAdapter<String> by lazy {
+        ArrayAdapter<String>(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line
+        )
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,37 +58,49 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
 
         binding = FragmentMapBinding.inflate(inflater, container, false)
 
-        val started = safeArgs.placeID != -1
-
-        trinidadBottomSheet =
-            TrinidadBottomSheet(
-                requireContext(),
-                started = started,
-                binding.root as ViewGroup,
-                findNavController()
-            )
-
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val autoCompletePlacesNameAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line
-        )
+        setupUI()
+
+        return binding.root
+    }
+
+    private fun setupUI() {
+
+        binding.placeTypeList.adapter = placesTypeAdapter
 
         val autoCompleteTextView: AutoCompleteTextView?
         val textInputLayout: TextInputLayout = binding.searchField
         autoCompleteTextView = textInputLayout.editText as AutoCompleteTextView?
         autoCompleteTextView?.setAdapter(autoCompletePlacesNameAdapter)
-        autoCompleteTextView?.onItemSelectedListener
 
-        placesTypeAdapter = MapPlaceTypeAdapter()
+        trinidadBottomSheet =
+            TrinidadBottomSheet(
+                requireContext(),
+                started = showBottomSheetOnStart,
+                binding.root as ViewGroup,
+                findNavController()
+            )
 
-        binding.placeTypeList.adapter = placesTypeAdapter
+    }
 
-        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
-            placesTypeAdapter.setData(placesTypeList)
-        })
+    override fun onStart() {
+        super.onStart()
+        subscribeObservers()
+    }
+
+    private fun subscribeObservers() {
+        //BottomSheet Information
+        trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
+            { currentPlace ->
+                val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
+                    currentPlace.place_id
+                )
+                showTrinidadBottomSheetPlaceInfo(
+                    place = currentPlace, navDirections = nav
+                )
+            })
 
         //AutoComplete
         trinidadDataViewModel.allPlacesName.observe(viewLifecycleOwner, { placeNamesList ->
@@ -106,8 +108,9 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
 
-
-        return binding.root
+        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
+            placesTypeAdapter.setData(placesTypeList)
+        })
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -150,7 +153,12 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
                             .snippet(place.place_description)
                     )
                     marker.showInfoWindow()
-                    showTrinidadBottomSheet(place)
+                    val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
+                        place.place_id
+                    )
+                    showTrinidadBottomSheetPlaceInfo(
+                        place, navDirections = nav
+                    )
                 } else {
                     marker = map.addMarker(
                         MarkerOptions().position(gpsPoint)
@@ -187,42 +195,8 @@ class MapFragment : Fragment(), GoogleMap.OnMyLocationButtonClickListener,
             .build()
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            Log.d("TAG", "onMarkerClick: $placeID")
-            val place = trinidadDataViewModel.getPlaceById(placeID)
-            withContext(Dispatchers.Main) {
-                showTrinidadBottomSheet(place)
-            }
-        }
+        trinidadDataViewModel.onBottomSheetShow(placeID)
 
         return true
     }
-
-    private fun showTrinidadBottomSheet(place: Place) {
-        val uriImage = Uri.parse(
-            TrinidadAssets.getAssetFullPath(
-                place.header_images[0],
-                TrinidadAssets.FILE_JPG_EXTENSION
-            )
-        )
-        val webURI = Uri.parse(place.web)
-        val data =
-            SheetData(
-                place.place_id,
-                uriImage,
-                place.place_name,
-                place.place_description,
-                webURI
-            )
-
-        trinidadBottomSheet.navigateTo(
-            MapFragmentDirections.actionNavMapToDetailsFragment(
-                place.place_id
-            )
-        )
-        trinidadBottomSheet.bindData(data)
-        trinidadBottomSheet.show()
-    }
-
-
 }

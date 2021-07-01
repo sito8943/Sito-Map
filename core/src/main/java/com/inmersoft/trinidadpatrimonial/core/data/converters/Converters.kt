@@ -118,7 +118,7 @@ class Converters {
         val moshi = Moshi.Builder().build()
         val type: Type = Types.newParameterizedType(String::class.java, Location::class.java)
         val adapter: JsonAdapter<Location> = moshi.adapter(type)
-        return adapter.fromJson(json)
+        return adapter.fromJson(json?:"")
     }
 
 
@@ -127,7 +127,7 @@ class Converters {
         val moshi = Moshi.Builder().build()
         val type: Type = Types.newParameterizedType(String::class.java, TypeTranslation::class.java)
         val adapter: JsonAdapter<TypeTranslation> = moshi.adapter(type)
-        return adapter.fromJson(json)
+        return adapter.fromJson(json?:"")
     }
 
     @TypeConverter
@@ -143,7 +143,7 @@ class Converters {
         val moshi = Moshi.Builder().build()
         val type: Type = Types.newParameterizedType(List::class.java, TypeTranslation::class.java)
         val adapter: JsonAdapter<List<TypeTranslation>> = moshi.adapter(type)
-        return adapter.fromJson(json)
+        return adapter.fromJson(json?:"")
     }
 
     @TypeConverter
@@ -159,7 +159,7 @@ class Converters {
         val moshi = Moshi.Builder().build()
         val type: Type = Types.newParameterizedType(List::class.java, Int::class.javaObjectType)
         val adapter: JsonAdapter<List<Int>> = moshi.adapter(type)
-        return adapter.fromJson(json)
+        return adapter.fromJson(json?:"")
     }
 
     @TypeConverter

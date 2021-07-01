@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
 import com.inmersoft.trinidadpatrimonial.R
+import com.inmersoft.trinidadpatrimonial.TrinidadFragment
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.home.ui.adapters.HomeListAdapter
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
@@ -19,13 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : TrinidadFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-
-    private val holdTransition = Hold()
-
-    private val trinidadDataViewModel: TrinidadDataViewModel by activityViewModels()
 
     private val homeListAdapter: HomeListAdapter by lazy {
         HomeListAdapter()
@@ -76,9 +73,7 @@ class HomeFragment : Fragment() {
 */
 
         binding.fab.setOnClickListener {
-
             Toast.makeText(requireContext(), "NOT IMPLEMENTED YET!!!", Toast.LENGTH_SHORT).show()
-
         }
 
         binding.homeListRecycleview.layoutManager = LinearLayoutManager(requireContext())
