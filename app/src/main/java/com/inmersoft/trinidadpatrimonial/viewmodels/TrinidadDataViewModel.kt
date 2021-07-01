@@ -17,11 +17,8 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
     ViewModel() {
 
     var allPlacesName = dataRepository.allPlacesName
-    var allPlaceType = dataRepository.allPlacesType
     var allPlaceTypeWithPlaces = dataRepository.allPlacesTypeWithPlaces
-    var allRoutes = dataRepository.allRoutes
     var allPlaces = dataRepository.allPlaces
-
 
     private val _currentPlaceToBottomSheet = MutableLiveData<Place>()
     val currentPlaceToBottomSheet: LiveData<Place> get() = _currentPlaceToBottomSheet

@@ -6,10 +6,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ViewPagerDetailAdapter(
-    private val fragmentList: List<Fragment>,
     private val fManager: FragmentManager,
     private val lifecycle: Lifecycle
 ) : FragmentStateAdapter(fManager, lifecycle) {
+
+    private val fragmentList = mutableListOf<Fragment>()
+
+    fun setFragments(fragmentListData: List<Fragment>) {
+        fragmentList.addAll(0, fragmentListData)
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int {
         return fragmentList.size

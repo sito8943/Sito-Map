@@ -16,6 +16,12 @@ class DetailsFragment : TrinidadFragment() {
 
     private lateinit var binding: FragmentDetailsBinding
     private val safeArgs: DetailsFragmentArgs by navArgs()
+    val viewPagerAdapter: ViewPagerDetailAdapter by lazy {
+        ViewPagerDetailAdapter(
+            requireActivity().supportFragmentManager,
+            lifecycle
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,9 +29,19 @@ class DetailsFragment : TrinidadFragment() {
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        subscribeObservers()
+        setupUI()
 
         return binding.root
+    }
+
+    fun setupUI() {
+        binding.detailViewPager2Content.adapter = viewPagerAdapter
+        binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(50))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        subscribeObservers()
     }
 
     private fun subscribeObservers() {
@@ -40,16 +56,7 @@ class DetailsFragment : TrinidadFragment() {
                     fragmentList.add(PlaceDetailFragment(currentPlace))
                 }
             }
-
-            val adapter =
-                ViewPagerDetailAdapter(
-                    fragmentList,
-                    requireActivity().supportFragmentManager,
-                    lifecycle
-                )
-
-            binding.detailViewPager2Content.adapter = adapter
-            binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(50))
+            viewPagerAdapter.setFragments(fragmentList)
         })
     }
 }
