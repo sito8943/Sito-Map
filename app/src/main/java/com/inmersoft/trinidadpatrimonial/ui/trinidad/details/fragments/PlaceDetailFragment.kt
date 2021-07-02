@@ -55,8 +55,12 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     var playbackPosition = 0L
     var playWhenReady = false
 
-    private val textToSpeechEngine: TextToSpeech by lazy {
-        TextToSpeech(requireActivity()) { status ->
+    private lateinit var textToSpeechEngine: TextToSpeech
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        textToSpeechEngine=TextToSpeech(requireActivity()) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 if (textToSpeechEngine.isLanguageAvailable(
                         currentLocale
@@ -96,10 +100,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         }
         binding.btnSpeechDescription.setOnClickListener {
             if (it.isSelected) {
-                speechPlaceDescription(placeData.place_description)
+                textToSpeechEngine.stop()
                 it.isSelected = false
             } else {
-                textToSpeechEngine.stop()
+                speechPlaceDescription(placeData.place_description)
                 it.isSelected = true
             }
         }
