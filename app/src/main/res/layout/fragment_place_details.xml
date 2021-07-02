@@ -104,7 +104,7 @@
                             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:icon="@drawable/ic_baseline_hearing_24"
+                            app:icon="@drawable/btn_text_speech"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/btn_share_place_information"
                             app:layout_constraintHorizontal_bias="0.5"

@@ -95,14 +95,14 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             }
         }
         binding.btnSpeechDescription.setOnClickListener {
-            if (!textToSpeechEngine.isSpeaking) {
-                speechPlaceDescription(placeData.place_description)
-                binding.btnSpeechDescription.icon =
-                    resources.getDrawable(R.drawable.ic_baseline_hearing_disabled_24)
-            } else {
-                textToSpeechEngine.stop()
-                binding.btnSpeechDescription.icon =
-                    resources.getDrawable(R.drawable.ic_baseline_hearing_24)
+            it?.let {
+                if (it.isSelected) {
+                    textToSpeechEngine.stop()
+                    it.isSelected = false
+                } else {
+                    speechPlaceDescription(placeData.place_description)
+                    it.isSelected = true
+                }
             }
         }
 

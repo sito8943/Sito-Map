@@ -24,6 +24,7 @@
     <string name="share">Compartir</string>
     <string name="web">web</string>
     <string name="video_promo">Video promocional</string>
+    <string name="plase_scan_qr">Por favor, escanee el codigo QR</string>
 
 
 </resources>

@@ -27,6 +27,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/bottom_prompt_chip"
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:checkable="false"
+            android:clickable="false"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/plase_scan_qr"
+            android:textColor="@color/white"
+            app:chipCornerRadius="8dp"
+            app:chipSurfaceColor="@color/cardview_dark_background"
+            app:closeIconVisible="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
