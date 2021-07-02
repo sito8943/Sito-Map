@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -220,33 +219,15 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun sharePlaceInfo() {
-        Glide.with(requireContext())
-            .asBitmap()
-            .load(
-                Uri.parse(
-                    TrinidadAssets.getAssetFullPath(
-                        placeData.header_images[0],
-                        TrinidadAssets.FILE_JPG_EXTENSION
-                    )
-                )
-            ).into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap>?
-                ) {
-                    ShareIntent.shareIt(
-                        requireActivity(),
-                        resource,
-                        placeData.place_name,
-                        resources.getString(R.string.app_name)
-                    )
-                    Log.d("TAG", "onResourceReady: IMAGE LOADED")
-                }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    // Add other icon
-                }
-            })
+        ShareIntent.loadImageAndShare(
+            requireContext(), Uri.parse(
+                TrinidadAssets.getAssetFullPath(
+                    placeData.header_images[0],
+                    TrinidadAssets.FILE_JPG_EXTENSION
+                )
+            ), placeData.place_name, resources.getString(R.string.app_name)
+        )
 
     }
 
@@ -281,7 +262,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             "La aplicación Trinidad Patrimonial necesita permisos  para compartir su " +
                     "contenido con otras aplicaciones.\n " +
                     "La información compartida no se corresponde" +
-                    " a su informacón personal, sino a la informacion contenida " +
+                    " a su información personal, sino a la informacion contenida " +
                     "en la propia base de datos de la aplicación Trinidad Patrimonial" +
                     " y que hace referencia al contenido tratado por la aplicación; La Ciudad de Trinidad.",
             WRITE_EXTERNAL_PERMISSION_CODE,
@@ -302,15 +283,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
 
         if (requestCode == WRITE_EXTERNAL_PERMISSION_CODE) {
-
-            Toast.makeText(
-                requireContext(),
-                "La aplicación Trinidad Patrimonial esta lista para " +
-                        "compartir su contenido con otras aplicaciones.",
-                Toast.LENGTH_LONG
-            )
-                .show()
-
             sharePlaceInfo()
         }
     }

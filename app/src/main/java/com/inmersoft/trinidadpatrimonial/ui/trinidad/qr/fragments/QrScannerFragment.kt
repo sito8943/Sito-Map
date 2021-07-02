@@ -1,14 +1,12 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.fragments
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -26,6 +24,7 @@ import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.detection.QrProcessor
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -54,10 +53,11 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
             Log.d(TAG, "onCreateView: ${it.size}")
         })
 
-        if (isPermissionGranted())
+        if (!hasCameraPermission()) {
+            requestCameraPermission()
+        } else {
             startCamera()
-        else
-            requestPermission.launch(REQUIRED_PERMISSION)
+        }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -116,20 +116,6 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
             preview
         )
     }
-
-    private val requestPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted)
-                startCamera()
-            else {
-                findNavController().popBackStack()
-            }
-        }
-
-    private fun isPermissionGranted() = ContextCompat.checkSelfPermission(
-        requireContext(), REQUIRED_PERMISSION
-    ) == PackageManager.PERMISSION_GRANTED
-
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
@@ -143,8 +129,48 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
         }
     }
 
+
+    private fun hasCameraPermission() =
+        EasyPermissions.hasPermissions(requireContext(), Manifest.permission.CAMERA)
+
+    private fun requestCameraPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            " Mensnaje sobre la cmara ", CAMERA_PERMISSION_CODE,
+            Manifest.permission.CAMERA
+        )
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            SettingsDialog.Builder(requireActivity()).build().show()
+        } else {
+            requestCameraPermission()
+        }
+
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+        if (requestCode == CAMERA_PERMISSION_CODE) {
+            startCamera()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+
+    }
+
+
     companion object {
         private const val TAG = "QrScannerFragment"
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+        private const val CAMERA_PERMISSION_CODE = 5637
     }
 }
