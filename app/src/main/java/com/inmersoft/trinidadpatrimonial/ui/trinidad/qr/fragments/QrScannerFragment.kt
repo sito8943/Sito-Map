@@ -25,12 +25,13 @@ import com.inmersoft.trinidadpatrimonial.databinding.FragmentQrScannerBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.detection.QrProcessor
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
+import com.vmadalin.easypermissions.EasyPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 @AndroidEntryPoint
-class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener {
+class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyPermissions.PermissionCallbacks {
     private lateinit var cameraPreview: PreviewView
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraExecutor: ExecutorService
