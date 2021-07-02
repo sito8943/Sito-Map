@@ -251,52 +251,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         findNavController().navigate(action,extras)
     }
 
-    //WRITE EXTERNAL STORAGE PERMISSIONS
 
-    private fun hasWriteExternalPermission() =
-        EasyPermissions.hasPermissions(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-    private fun requestWriteExternalPermission() {
-        EasyPermissions.requestPermissions(
-            this,
-            "La aplicación Trinidad Patrimonial necesita permisos  para compartir su " +
-                    "contenido con otras aplicaciones.\n " +
-                    "La información compartida no se corresponde" +
-                    " a su información personal, sino a la informacion contenida " +
-                    "en la propia base de datos de la aplicación Trinidad Patrimonial" +
-                    " y que hace referencia al contenido tratado por la aplicación; La Ciudad de Trinidad.",
-            WRITE_EXTERNAL_PERMISSION_CODE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
-
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            SettingsDialog.Builder(requireActivity()).build().show()
-        } else {
-            requestWriteExternalPermission()
-        }
-
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-
-        if (requestCode == WRITE_EXTERNAL_PERMISSION_CODE) {
-            sharePlaceInfo()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-
-    }
 
     override fun onPause() {
         textToSpeechEngine.stop()
@@ -374,7 +329,52 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         }
     }
 
+//WRITE EXTERNAL STORAGE PERMISSIONS
 
+    private fun hasWriteExternalPermission() =
+        EasyPermissions.hasPermissions(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+    private fun requestWriteExternalPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            "La aplicación Trinidad Patrimonial necesita permisos  para compartir su " +
+                    "contenido con otras aplicaciones.\n " +
+                    "La información compartida no se corresponde" +
+                    " a su información personal, sino a la informacion contenida " +
+                    "en la propia base de datos de la aplicación Trinidad Patrimonial" +
+                    " y que hace referencia al contenido tratado por la aplicación; La Ciudad de Trinidad.",
+            WRITE_EXTERNAL_PERMISSION_CODE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            SettingsDialog.Builder(requireActivity()).build().show()
+        } else {
+            requestWriteExternalPermission()
+        }
+
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+
+        if (requestCode == WRITE_EXTERNAL_PERMISSION_CODE) {
+            sharePlaceInfo()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+
+    }
     companion object {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 5637
     }
