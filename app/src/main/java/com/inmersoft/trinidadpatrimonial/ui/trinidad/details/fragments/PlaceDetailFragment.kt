@@ -10,7 +10,6 @@ import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -63,6 +62,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                         currentLocale
                     ) == TextToSpeech.LANG_AVAILABLE
                 ) {
+                    showToast(requireContext(), "SUPPORTED")
                     textToSpeechEngine.language = currentLocale
                 } else {
                     showToast(requireContext(), resources.getString(R.string.lang_not_supported))
@@ -95,22 +95,18 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             }
         }
         binding.btnSpeechDescription.setOnClickListener {
-            it?.let {
-                if (it.isSelected) {
-                    textToSpeechEngine.stop()
-                    it.isSelected = false
-                } else {
-                    speechPlaceDescription(placeData.place_description)
-                    it.isSelected = true
-                }
+            if (it.isSelected) {
+                speechPlaceDescription(placeData.place_description)
+                it.isSelected = false
+            } else {
+                textToSpeechEngine.stop()
+                it.isSelected = true
             }
         }
 
-        binding.btnGoWebPage.transitionName = "button_link_${placeData.place_id}"
         binding.btnGoWebPage.setOnClickListener {
             goToWebPage(placeData.web)
         }
-        binding.btnSharePlaceInformation.transitionName = "button_share_${placeData.place_id}"
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation()
         }
@@ -139,10 +135,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                 if (ytFiles != null) {
                     val videoTag = 137 //Tag 1080
                     val audioTag = 140 //Tag 1080
-                    var audioSource: MediaSource =
+                    val audioSource: MediaSource =
                         ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
                             .createMediaSource(MediaItem.fromUri(ytFiles.get(audioTag).url))
-                    var videoSource: MediaSource =
+                    val videoSource: MediaSource =
                         ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
                             .createMediaSource(MediaItem.fromUri(ytFiles.get(videoTag).url))
 
