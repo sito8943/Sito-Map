@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial
+package com.inmersoft.trinidadpatrimonial.ui.onboarding
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.size
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
+import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityOnBoardingBinding
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnBoardingAdapter

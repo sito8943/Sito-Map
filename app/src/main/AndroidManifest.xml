@@ -22,9 +22,9 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".OnBoardingActivity"
+            android:name=".ui.onboarding.OnBoardingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_on_boarding"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>

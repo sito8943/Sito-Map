@@ -6,6 +6,9 @@ buildscript {
         compileSdkVersion = 30
         minSdkVersion = 21
         targetSdkVersion = 30
+
+        versionCode=2
+        versionName="1.1.0"
     }
 
     repositories {
@@ -15,7 +18,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.35.1"
 
