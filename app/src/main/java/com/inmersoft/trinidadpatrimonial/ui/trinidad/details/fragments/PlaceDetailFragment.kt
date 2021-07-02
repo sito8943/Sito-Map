@@ -171,15 +171,22 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     override fun onStop() {
         releasePlayer()
+        textToSpeechEngine.stop()
         super.onStop()
 
     }
 
     override fun onResume() {
+        textToSpeechEngine.stop()
         super.onResume()
         if (simpleExoPlayer == null) {
             initPlayer()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        textToSpeechEngine.stop()
     }
 
     private fun releasePlayer() {
@@ -261,7 +268,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     override fun onDestroy() {
-        textToSpeechEngine.shutdown()
+        textToSpeechEngine.stop()
         binding.btnSpeechDescription.isChecked = false
         super.onDestroy()
     }
