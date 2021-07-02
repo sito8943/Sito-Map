@@ -14,12 +14,12 @@ internal abstract class QrGraphicBase(overlay: GraphicOverlay) : GraphicOverlay.
     }
 
     private val scrimPaint: Paint = Paint().apply {
-        color = ContextCompat.getColor(context, R.color.qr_reticle_background)
+        color = ContextCompat.getColor(context, R.color.qr_reticle_stroke)
     }
 
     private val eraserPaint: Paint = Paint().apply {
         strokeWidth = boxPaint.strokeWidth
-        xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+        xfermode = PorterDuffXfermode(PorterDuff.Mode.DST)
     }
 
     val boxCornerRadius: Float = context.resources.getDimensionPixelOffset(R.dimen.qr_reticle_corner_radius).toFloat()
