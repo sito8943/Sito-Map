@@ -66,7 +66,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                         currentLocale
                     ) == TextToSpeech.LANG_AVAILABLE
                 ) {
-                    showToast(requireContext(), "SUPPORTED")
+
                     textToSpeechEngine.language = currentLocale
                 } else {
                     showToast(requireContext(), resources.getString(R.string.lang_not_supported))
