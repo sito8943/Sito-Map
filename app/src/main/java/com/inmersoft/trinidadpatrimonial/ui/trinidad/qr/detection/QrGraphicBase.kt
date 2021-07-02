@@ -8,7 +8,7 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.GraphicOverlay
 internal abstract class QrGraphicBase(overlay: GraphicOverlay) : GraphicOverlay.Graphic(overlay) {
 
     private val boxPaint: Paint = Paint().apply {
-        color = ContextCompat.getColor(context, R.color.qr_reticle_stroke)
+        color = ContextCompat.getColor(context, R.color.qr_reticle_background)
         style = Paint.Style.STROKE
         strokeWidth = context.resources.getDimensionPixelOffset(R.dimen.qr_reticle_stroke_width).toFloat()
     }
