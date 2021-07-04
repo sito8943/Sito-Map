@@ -2,17 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_baseline_share_24"
+            android:title="@string/share_app" />
         <item
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/about"
+            android:icon="@drawable/ic_baseline_help_center_24"
+            android:title="@string/about" />
         <item
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/settings"
+            android:icon="@drawable/exo_ic_settings"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/faq"
+            android:icon="@drawable/ic_baseline_question_answer_24"
+            android:title="@string/faq" />
+        <item
+            android:id="@+id/tutorial"
+            android:icon="@drawable/ic_baseline_menu_book_24"
+            android:title="@string/tutorial" />
+        <item
+            android:id="@+id/normas"
+            android:icon="@drawable/ic_baseline_rule_24"
+            android:title="@string/normas" />
     </group>
 </menu>

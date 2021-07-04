@@ -29,5 +29,11 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="install_update">Instalar</string>
     <string name="update_downloaded">Descarga terminada</string>
+    <string name="normas">Normas</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="faq">Preguntas frecuentes</string>
+    <string name="settings">Configuracion</string>
+    <string name="share_app">Compartir</string>
+    <string name="about">About</string>
 
 </resources>
