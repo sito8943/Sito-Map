@@ -49,24 +49,12 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
         cameraProviderFuture = getInstance(requireContext())
         qrProcessor = QrProcessor(binding.cameraOverlay, this)
 
-        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, {
-            Log.d(TAG, "onCreateView: ${it.size}")
-        })
-
         if (!hasCameraPermission()) {
             requestCameraPermission()
         } else {
             startCamera()
         }
 
-        cameraExecutor = Executors.newSingleThreadExecutor()
-
-        trinidadBottomSheet = TrinidadBottomSheet(
-            requireContext(),
-            started = false,
-            binding.root as ViewGroup,
-            findNavController()
-        )
 
         trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
             { currentPlace ->
@@ -86,6 +74,16 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
         binding.openDrawer.setOnClickListener {
             openDrawerInTrinidadActivity()
         }
+
+
+        cameraExecutor = Executors.newSingleThreadExecutor()
+
+        trinidadBottomSheet = TrinidadBottomSheet(
+            requireContext(),
+            started = false,
+            binding.root as ViewGroup,
+            findNavController()
+        )
 
         return binding.root
     }
