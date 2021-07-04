@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.Hold
 import com.google.common.util.concurrent.ListenableFuture
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentQrScannerBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
@@ -38,6 +39,11 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
     private lateinit var qrProcessor: QrProcessor
 
     private lateinit var binding: FragmentQrScannerBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition=Hold()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
