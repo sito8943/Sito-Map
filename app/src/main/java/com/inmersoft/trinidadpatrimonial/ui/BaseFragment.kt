@@ -1,17 +1,14 @@
 package com.inmersoft.trinidadpatrimonial.ui
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
-import androidx.transition.TransitionManager
 import com.google.android.material.transition.MaterialContainerTransform
-import com.google.android.material.transition.MaterialFadeThrough
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.SheetData
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
@@ -54,5 +51,9 @@ open class BaseFragment : Fragment() {
         )
         trinidadBottomSheet.bindData(data)
         trinidadBottomSheet.show()
+    }
+
+    protected fun openDrawerInTrinidadActivity(view: View) {
+        (activity as TrinidadActivity).openCloseNavigationDrawer(view)
     }
 }

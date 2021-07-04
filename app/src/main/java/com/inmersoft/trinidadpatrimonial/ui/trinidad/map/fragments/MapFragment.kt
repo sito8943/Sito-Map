@@ -83,6 +83,10 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                 findNavController()
             )
 
+        binding.openDrawer.setOnClickListener {
+            openDrawerInTrinidadActivity(it)
+        }
+
     }
 
     override fun onStart() {

@@ -16,7 +16,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
@@ -45,6 +45,7 @@
             android:layout_marginTop="70dp"
             android:layout_marginEnd="16dp"
             android:elevation="8dp"
+            android:focusable="false"
             android:hint="@string/search_elements"
             app:boxBackgroundColor="@color/trinidadMapSearch"
             app:boxCornerRadiusBottomEnd="@dimen/map_search_text_corners"
@@ -53,15 +54,13 @@
             app:boxCornerRadiusTopStart="@dimen/map_search_text_corners"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            android:focusable="false"
             app:endIconMode="clear_text"
+            app:endIconTint="@color/trinidadColorPrimary"
             app:hintTextColor="@color/trinidadColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/openDrawer"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_search_24"
-            app:endIconTint="@color/trinidadColorPrimary"
-            >
+            app:startIconDrawable="@drawable/ic_search_24">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:layout_width="match_parent"
@@ -81,6 +80,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_field"
             tools:listitem="@layout/map_item_place_type" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openDrawer"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:iconTint="@color/exo_black_opacity_70"
+            app:icon="@drawable/ic_menu_drawer_24"
+            app:layout_constraintBottom_toBottomOf="@+id/search_field"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout"
+            app:layout_constraintTop_toTopOf="@+id/search_field"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

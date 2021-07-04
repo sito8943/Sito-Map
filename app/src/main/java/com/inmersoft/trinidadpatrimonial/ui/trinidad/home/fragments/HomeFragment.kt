@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
+import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.HomeListAdapter
 import com.inmersoft.trinidadpatrimonial.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment() {
                 true
             }
         binding.toolbar.setNavigationOnClickListener {
-        //binding.drawerLayout.open()
+            openDrawerInTrinidadActivity(it)
         }
 
 
