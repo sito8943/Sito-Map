@@ -1,7 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.map.adapters
 
 import android.net.Uri
-import android.util.Log
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,11 +18,15 @@ class PlaceTypeViewHolder(
 
     fun bindData(itemPlaceType: PlaceTypeWithPlaces) {
         binding.placeType = itemPlaceType.placeType
-        val file=Uri.parse(TrinidadAssets.getAssetFullPath(itemPlaceType.placeType.icon,TrinidadAssets.FILE_JPG_EXTENSION))
-        Log.d("TAG", "bindData: $file")
+        val icon = Uri.parse(
+            TrinidadAssets.getAssetFullPath(
+                itemPlaceType.placeType.icon,
+                TrinidadAssets.FILE_PNG_EXTENSION
+            )
+        )
         Glide.with(binding.root.context)
             .load(
-                file.toString()
+                icon
             )
             .error(R.drawable.placeholder_error)
             .placeholder(R.drawable.placeholder_error)

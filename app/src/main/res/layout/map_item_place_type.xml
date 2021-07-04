@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="placeType"
             type="com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType" />
@@ -39,7 +38,7 @@
                     android:id="@+id/place_type_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="centerInside"
                     android:src="@drawable/placeholder_error" />
             </com.google.android.material.card.MaterialCardView>
 
