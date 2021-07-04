@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentDetailsBinding
+import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.adapters.DetailsTransformer
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.adapters.ViewPagerDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
