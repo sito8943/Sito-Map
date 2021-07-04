@@ -92,11 +92,20 @@ class TrinidadActivity : AppCompatActivity() {
         win.attributes = winParams
     }
 
-    fun openCloseNavigationDrawer(view: View) {
+    fun openCloseNavigationDrawer() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
     }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }

@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment() {
                 true
             }
         binding.toolbar.setNavigationOnClickListener {
-            openDrawerInTrinidadActivity(it)
+            openDrawerInTrinidadActivity()
         }
 
 

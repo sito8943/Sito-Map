@@ -84,7 +84,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
             )
 
         binding.openDrawer.setOnClickListener {
-            openDrawerInTrinidadActivity(it)
+            openDrawerInTrinidadActivity()
         }
 
     }
@@ -98,13 +98,15 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         //BottomSheet Information
         trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
             { currentPlace ->
-                if (currentPlace != null) {
-                    val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
-                        currentPlace.place_id
-                    )
-                    showTrinidadBottomSheetPlaceInfo(
-                        place = currentPlace, navDirections = nav
-                    )
+                if (trinidadDataViewModel.isParent(this.javaClass.toString())) {
+                    if (currentPlace != null) {
+                        val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
+                            currentPlace.place_id
+                        )
+                        showTrinidadBottomSheetPlaceInfo(
+                            place = currentPlace, navDirections = nav
+                        )
+                    }
                 }
             })
 
@@ -201,7 +203,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
             .build()
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
-        trinidadDataViewModel.onBottomSheetShow(placeID)
+        trinidadDataViewModel.onBottomSheetSetInfo(placeID, _parent = this.javaClass.toString())
 
         return true
     }

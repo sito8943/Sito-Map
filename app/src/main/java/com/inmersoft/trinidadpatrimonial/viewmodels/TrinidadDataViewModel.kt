@@ -1,6 +1,5 @@
 package com.inmersoft.trinidadpatrimonial.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,16 +23,22 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
     private val _currentPlaceToBottomSheet = MutableLiveData<Place?>()
     val currentPlaceToBottomSheet: LiveData<Place?> get() = _currentPlaceToBottomSheet
 
-    fun onBottomSheetShow(placeId: Int) {
+    private var parent = "TrinidadDataViewModel"
+
+    fun onBottomSheetSetInfo(placeId: Int, _parent: String) {
         viewModelScope.launch {
             val place = withContext(Dispatchers.IO) { dataRepository.getPlaceById(placeId) }
             _currentPlaceToBottomSheet.value = place
-            Log.d("TAG", "onBottomSheetShow: Executing coroutine")
+            parent = _parent
         }
     }
 
     fun onMapDestroy() {
         _currentPlaceToBottomSheet.value = null
+    }
+
+    fun isParent(_parent: String): Boolean {
+        return _parent == parent
     }
 
 }

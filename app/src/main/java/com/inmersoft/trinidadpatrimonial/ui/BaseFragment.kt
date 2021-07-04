@@ -53,7 +53,8 @@ open class BaseFragment : Fragment() {
         trinidadBottomSheet.show()
     }
 
-    protected fun openDrawerInTrinidadActivity(view: View) {
-        (activity as TrinidadActivity).openCloseNavigationDrawer(view)
+    protected fun openDrawerInTrinidadActivity() {
+        (activity as TrinidadActivity).openCloseNavigationDrawer()
     }
+
 }

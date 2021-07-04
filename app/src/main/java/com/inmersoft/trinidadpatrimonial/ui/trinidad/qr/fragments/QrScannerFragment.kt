@@ -71,18 +71,20 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
         trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
             { currentPlace ->
                 if (currentPlace != null) {
-                    val nav = QrScannerFragmentDirections.actionNavQrToDetailsFragment(
-                        currentPlace.place_id
-                    )
-                    showTrinidadBottomSheetPlaceInfo(
-                        place = currentPlace, navDirections = nav
-                    )
+                    if (trinidadDataViewModel.isParent(this.javaClass.toString())) {
+                        val nav = QrScannerFragmentDirections.actionNavQrToDetailsFragment(
+                            currentPlace.place_id
+                        )
+                        showTrinidadBottomSheetPlaceInfo(
+                            place = currentPlace, navDirections = nav
+                        )
+                    }
                 }
             })
 
 
         binding.openDrawer.setOnClickListener {
-            openDrawerInTrinidadActivity(it)
+            openDrawerInTrinidadActivity()
         }
 
         return binding.root
@@ -129,7 +131,7 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
 
         if (!scanResult.isNullOrEmpty() && scanResult.isDigitsOnly()) {
             val placeID = scanResult.toInt()
-            trinidadDataViewModel.onBottomSheetShow(placeID)
+            trinidadDataViewModel.onBottomSheetSetInfo(placeID, _parent = this.javaClass.toString())
         }
     }
 
