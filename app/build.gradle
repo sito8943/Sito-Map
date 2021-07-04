@@ -112,6 +112,9 @@ dependencies {
     implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
 
 
+    //PlayCore
+    implementation 'com.google.android.play:core-ktx:1.8.1'
+
     //Custom Chrome Tabs
     implementation "androidx.browser:browser:1.3.0"
 

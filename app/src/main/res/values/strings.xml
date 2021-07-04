@@ -27,5 +27,7 @@
     <string name="plase_scan_qr">Por favor, escanee el codigo QR</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="install_update">Instalar</string>
+    <string name="update_downloaded">Descarga terminada</string>
 
 </resources>
