@@ -81,6 +81,10 @@ class QrScannerFragment : BaseFragment(), QrProcessor.IScanProcessListener,EasyP
             })
 
 
+        binding.openDrawer.setOnClickListener {
+            openDrawerInTrinidadActivity(it)
+        }
+
         return binding.root
     }
 
