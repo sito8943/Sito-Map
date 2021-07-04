@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.HomeListAdapter
+import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
 import com.inmersoft.trinidadpatrimonial.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,6 +57,8 @@ class HomeFragment : BaseFragment() {
 
         //Active the marquee text
         binding.trinidadDesctiptionTxt.isSelected = true
+
+        trinidadDataViewModel.onLoadMainRecycleViewData()
     }
 
     private fun subscribeObservers() {
@@ -68,6 +68,13 @@ class HomeFragment : BaseFragment() {
                 homeListAdapter.setData(placeTypeWithPlacesList)
             }
         )
+
+        trinidadDataViewModel.showProgressLoading.observe(viewLifecycleOwner, { visibility ->
+            fadeTransition(binding.root as ViewGroup)
+            binding.loadingData.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
+            binding.homeListRecycleview.visibility =
+                if (!visibility) View.VISIBLE else View.INVISIBLE
+        })
     }
 
     override fun onStart() {

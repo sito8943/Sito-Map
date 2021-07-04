@@ -122,7 +122,18 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/trinidad_header_subtitle" />
 
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/loading_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toTopOf="@+id/home_list_recycleview"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
                     <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="invisible"
                         android:id="@+id/home_list_recycleview"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"

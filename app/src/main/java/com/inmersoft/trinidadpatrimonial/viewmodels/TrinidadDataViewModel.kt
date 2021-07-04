@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,13 +18,33 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
     ViewModel() {
 
     var allPlacesName = dataRepository.allPlacesName
-    var allPlaceTypeWithPlaces = dataRepository.allPlacesTypeWithPlaces
+
+    private val _allPlaceTypeWithPlaces = MutableLiveData<List<PlaceTypeWithPlaces>>()
+    val allPlaceTypeWithPlaces: LiveData<List<PlaceTypeWithPlaces>> = _allPlaceTypeWithPlaces
+
     var allPlaces = dataRepository.allPlaces
 
     private val _currentPlaceToBottomSheet = MutableLiveData<Place?>()
     val currentPlaceToBottomSheet: LiveData<Place?> get() = _currentPlaceToBottomSheet
 
     private var parent = "TrinidadDataViewModel"
+
+    private var loadedMainData = false
+    private val _showProgressLoading = MutableLiveData<Boolean>()
+    val showProgressLoading: LiveData<Boolean> = _showProgressLoading
+
+
+    //TODO (Make the pagination when scroll down)
+
+    fun onLoadMainRecycleViewData() {
+        viewModelScope.launch(Dispatchers.Main) {
+            _showProgressLoading.value = true
+            _allPlaceTypeWithPlaces.value =
+                withContext(Dispatchers.IO) { dataRepository.allPlacesTypeWithPlaces() }!!
+            _showProgressLoading.value = false
+            loadedMainData = true
+        }
+    }
 
     fun onBottomSheetSetInfo(placeId: Int, _parent: String) {
         viewModelScope.launch {
