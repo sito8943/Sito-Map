@@ -18,7 +18,7 @@ class DetailsFragment : BaseFragment() {
     private val safeArgs: DetailsFragmentArgs by navArgs()
     private val viewPagerAdapter: ViewPagerDetailAdapter by lazy {
         ViewPagerDetailAdapter(
-            requireActivity().supportFragmentManager,
+            childFragmentManager,
             lifecycle
         )
     }
@@ -34,7 +34,7 @@ class DetailsFragment : BaseFragment() {
         return binding.root
     }
 
-    fun setupUI() {
+    private fun setupUI() {
         binding.detailViewPager2Content.adapter = viewPagerAdapter
         binding.detailViewPager2Content.setPageTransformer(DetailsTransformer(50))
     }
