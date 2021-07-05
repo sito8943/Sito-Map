@@ -29,36 +29,41 @@ class TrinidadBottomSheet(
     private var inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
+
     init {
         binding = BottomSheetTrinidadBinding.inflate(inflater, rootLayout, true)
         bottomSheet = BottomSheetBehavior.from(binding.bottomSheet)
         if (!started) hide() else show()
     }
 
+    fun addTrindadBottomSheetCallBack(callback: BottomSheetBehavior.BottomSheetCallback) {
+        bottomSheet.addBottomSheetCallback(callback)
+    }
+
     fun bindData(data: SheetData) {
-            Glide.with(context)
-                .load(data.imageURI)
-                .placeholder(R.drawable.placeholder_error)
-                .error(R.drawable.placeholder_error)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(binding.bottomSheetImageHeader)
+        Glide.with(context)
+            .load(data.imageURI)
+            .placeholder(R.drawable.placeholder_error)
+            .error(R.drawable.placeholder_error)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.bottomSheetImageHeader)
 
-            binding.bottomSheetHeaderTitle.text = data.headerTitle
-            binding.bottomSheetHeaderTitle.isSelected = true
-            binding.bottomSheetMiniDescription.text = data.miniDescription
+        binding.bottomSheetHeaderTitle.text = data.headerTitle
+        binding.bottomSheetHeaderTitle.isSelected = true
+        binding.bottomSheetMiniDescription.text = data.miniDescription
 
-            binding.bottomSheetShare.setOnClickListener {
+        binding.bottomSheetShare.setOnClickListener {
 
-                ShareIntent.loadImageAndShare(
-                    context,
-                    data.imageURI,
-                    data.headerTitle,
-                    context.getString(R.string.app_name)
-                )
-            }
-            binding.bottomSheetWebpage.setOnClickListener {
-                TrinidadCustomChromeTab.launch(context, data.webUrl)
-            }
+            ShareIntent.loadImageAndShare(
+                context,
+                data.imageURI,
+                data.headerTitle,
+                context.getString(R.string.app_name)
+            )
+        }
+        binding.bottomSheetWebpage.setOnClickListener {
+            TrinidadCustomChromeTab.launch(context, data.webUrl)
+        }
         Log.d("TAGXHD", "bindData: CALLED BINDING...")
 
     }
@@ -85,6 +90,7 @@ class TrinidadBottomSheet(
     }
 
     fun show() {
+        Log.d("TAG", "BottomShretshow: Showing bottom sheet")
         if (bottomSheet.state != BottomSheetBehavior.STATE_EXPANDED)
             bottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
     }

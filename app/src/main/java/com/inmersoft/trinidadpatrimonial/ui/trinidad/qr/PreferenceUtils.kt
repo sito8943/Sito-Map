@@ -24,7 +24,6 @@ import com.google.mlkit.vision.barcode.Barcode
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.GraphicOverlay
 
-/** Utility class to retrieve shared preferences.  */
 object PreferenceUtils {
 
 

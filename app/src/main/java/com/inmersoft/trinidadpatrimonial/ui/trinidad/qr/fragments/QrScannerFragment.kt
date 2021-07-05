@@ -9,10 +9,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
+import com.google.android.material.transition.Hold
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentQrScannerBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
@@ -21,6 +22,9 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.CameraSource
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.CameraSourcePreview
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.GraphicOverlay
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.WorkflowModel
+import com.inmersoft.trinidadpatrimonial.utils.TrinidadQR
+import com.inmersoft.trinidadpatrimonial.utils.showToast
+import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,13 +45,20 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
     private val workflowModel: WorkflowModel by viewModels()
     private lateinit var binding: FragmentQrScannerBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
 
         binding = FragmentQrScannerBinding.inflate(layoutInflater, container, false)
+
         preview = binding.cameraPreview
+
         graphicOverlay =
             binding.root.findViewById<GraphicOverlay>(R.id.camera_preview_graphic_overlay).apply {
                 setOnClickListener(this@QrScannerFragment)
@@ -55,6 +66,7 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
             }
 
         promptChip = binding.root.findViewById(R.id.bottom_prompt_chip)
+
         promptChipAnimator =
             (AnimatorInflater.loadAnimator(
                 requireContext(),
@@ -64,6 +76,7 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
             }
 
         binding.root.findViewById<View>(R.id.close_button).setOnClickListener(this)
+
         flashButton = binding.root.findViewById<View>(R.id.flash_button).apply {
             setOnClickListener(this@QrScannerFragment)
         }
@@ -74,8 +87,51 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
         if (!hasCameraPermission()) {
             requestCameraPermission()
         }
+
         setUpWorkflowModel()
+
+        setupBottomSheet()
+
         return binding.root
+    }
+
+    private fun setupBottomSheet() {
+        trinidadBottomSheet =
+            TrinidadBottomSheet(
+                requireContext(),
+                started = false,
+                binding.root as ViewGroup,
+                findNavController()
+            )
+        trinidadBottomSheet.addTrindadBottomSheetCallBack(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        startCameraPreview()
+                    }
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
+//BottomSheet Information
+        trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
+            { currentPlace ->
+                if (trinidadDataViewModel.isParent(this.javaClass.toString())) {
+                    if (currentPlace != null) {
+                        val nav = QrScannerFragmentDirections.actionNavQrToDetailsFragment(
+                            currentPlace.place_id
+                        )
+                        showTrinidadBottomSheetPlaceInfo(
+                            place = currentPlace, navDirections = nav
+                        )
+                    }
+                }
+            })
+
     }
 
     override fun onResume() {
@@ -151,8 +207,6 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
 
 
     private fun setUpWorkflowModel() {
-
-
         // Observes the workflow state changes, if happens, update the overlay view indicators and
         // camera preview state.
         workflowModel!!.workflowState.observe(viewLifecycleOwner, { workflowState ->
@@ -194,11 +248,29 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
             }
         })
 
-        workflowModel?.detectedBarcode?.observe(viewLifecycleOwner, { barcode ->
+        workflowModel.detectedBarcode.observe(viewLifecycleOwner, { barcode ->
             if (barcode != null) {
-                Log.d("TAG", "setUpWorkflowModel: barcode.rawValue ")
+                Log.d(TAG, "setUpWorkflowModel: ${barcode.rawValue}")
+                processBarcodeValue(barcode.rawValue!!)
             }
         })
+    }
+
+    private fun processBarcodeValue(barcodeRaw: String) {
+        val trinidadQR = TrinidadQR(barcodeRaw)
+        if (trinidadQR.isValid()) {
+            Log.d(TAG, "processBarcodeValue: QR IS VALID")
+            val placeID = trinidadQR.getPlaceID()
+            if (placeID >= 0) {
+                Log.d(TAG, "processBarcodeValue: SEND DATA TO BOTTOMSHEET")
+                trinidadDataViewModel.onBottomSheetSetInfo(placeId = placeID, _parent =
+                this.javaClass.toString())
+            }
+        } else {
+            Log.d(TAG, "processBarcodeValue: QR IS NOT VALID")
+            showToast(requireContext(), resources.getString(R.string.not_valid_qrcode))
+            startCameraPreview()
+        }
     }
 
     private fun hasCameraPermission() =
@@ -223,19 +295,10 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
-
+/*
         if (requestCode == CAMERA_PERMISSION_CODE) {
 
-            Toast.makeText(
-                requireContext(),
-                "La aplicación Trinidad Patrimonial esta lista para " +
-                        "compartir su contenido con otras aplicaciones.",
-                Toast.LENGTH_LONG
-            )
-                .show()
-
-
-        }
+        }*/
     }
 
     override fun onRequestPermissionsResult(
@@ -251,5 +314,6 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
 
     companion object {
         const val CAMERA_PERMISSION_CODE = 5637
+        const val TAG = "QRScanFragment"
     }
 }

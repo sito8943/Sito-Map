@@ -14,11 +14,13 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentMapBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.map.adapters.MapPlaceTypeAdapter
+import com.inmersoft.trinidadpatrimonial.utils.showToast
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,7 +64,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         mapFragment.getMapAsync(this)
 
         setupUI()
-
         return binding.root
     }
 
