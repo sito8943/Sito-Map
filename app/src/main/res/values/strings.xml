@@ -24,16 +24,17 @@
     <string name="share">Compartir</string>
     <string name="web">web</string>
     <string name="video_promo">Video promocional</string>
-    <string name="plase_scan_qr">Por favor, escanee el codigo QR</string>
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    <string name="install_update">Instalar</string>
-    <string name="update_downloaded">Descarga terminada</string>
-    <string name="normas">Normas</string>
-    <string name="tutorial">Tutorial</string>
-    <string name="faq">Preguntas frecuentes</string>
-    <string name="settings">Configuracion</string>
+    <string name="prompt_point_at_a_barcode">Por favor escanee el código QR</string>
+    <string name="prompt_move_camera_closer">" Por favor, acerque un poco más la cámara al QR"</string>
+    <string name="prompt_searching">Procesando...</string>
     <string name="share_app">Compartir</string>
-    <string name="about">About</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="faq">faq</string>
+    <string name="normas">normas</string>
+    <string name="settings">settings</string>
+    <string name="about">about</string>
+    <string name="update_downloaded">Descarga completada</string>
+    <string name="install_update">Instalar</string>
+
 
 </resources>
