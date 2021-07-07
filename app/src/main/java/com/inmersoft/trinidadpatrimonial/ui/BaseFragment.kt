@@ -2,7 +2,7 @@ package com.inmersoft.trinidadpatrimonial.ui
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
@@ -24,12 +24,13 @@ open class BaseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedTransitionEffect = MaterialContainerTransform()
+        val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
         sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
         sharedElementEnterTransition = sharedTransitionEffect
     }
 
     protected fun showTrinidadBottomSheetPlaceInfo(place: Place, navDirections: NavDirections) {
+        Log.d("BaseFragment", "showTrinidadBottomSheetPlaceInfo: Called this function")
         val uriImage = Uri.parse(
             TrinidadAssets.getAssetFullPath(
                 place.header_images[0],

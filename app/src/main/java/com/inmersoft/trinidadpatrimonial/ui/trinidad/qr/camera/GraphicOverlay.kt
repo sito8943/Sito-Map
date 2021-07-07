@@ -22,7 +22,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.Utils.Utils
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.Utils.BarcodeUtils
 import java.util.ArrayList
 
 /**
@@ -80,7 +80,7 @@ class GraphicOverlay(context: Context, attrs: AttributeSet) : View(context, attr
      */
     fun setCameraInfo(cameraSource: CameraSource) {
         val previewSize = cameraSource.previewSize ?: return
-        if (Utils.isPortraitMode(context)) {
+        if (BarcodeUtils.isPortraitMode(context)) {
             // Swap width and height when in portrait, since camera's natural orientation is landscape.
             previewWidth = previewSize.height
             previewHeight = previewSize.width

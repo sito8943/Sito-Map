@@ -17,7 +17,7 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.qr
 
 import android.graphics.Bitmap
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.Utils.Utils
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.Utils.BarcodeUtils
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.FrameMetadata
 import java.nio.ByteBuffer
 
@@ -35,7 +35,7 @@ class CameraInputInfo(
     @Synchronized
     override fun getBitmap(): Bitmap {
         return bitmap ?: let {
-            bitmap = Utils.convertToBitmap(
+            bitmap = BarcodeUtils.convertToBitmap(
                 frameByteBuffer, frameMetadata.width, frameMetadata.height, frameMetadata.rotation
             )
             bitmap!!

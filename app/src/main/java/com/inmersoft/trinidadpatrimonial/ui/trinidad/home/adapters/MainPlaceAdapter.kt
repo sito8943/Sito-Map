@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageWithGlideExt
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.fragments.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import java.util.*
@@ -46,19 +45,12 @@ class MainPlaceAdapter() :
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
 
-            Glide.with(binding.root.context)
-                .load(
-                    Uri.parse(
-                        TrinidadAssets.getAssetFullPath(
-                            place.header_images[0],
-                            TrinidadAssets.FILE_JPG_EXTENSION
-                        )
-                    )
+            binding.imCardHeader.loadImageWithGlideExt(Uri.parse(
+                TrinidadAssets.getAssetFullPath(
+                    place.header_images[0],
+                    TrinidadAssets.FILE_JPG_EXTENSION
                 )
-                .fitCenter()
-                .error(R.drawable.placeholder_error)
-                .placeholder(R.drawable.placeholder_error)
-                .into(binding.imCardHeader)
+            ))
 
             itemView.setOnClickListener {
                 // generamos un uuid diferente para cada item

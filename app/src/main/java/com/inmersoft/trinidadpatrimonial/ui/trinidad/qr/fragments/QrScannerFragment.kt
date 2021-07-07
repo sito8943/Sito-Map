@@ -3,6 +3,7 @@ package com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.fragments
 import android.Manifest
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
+import android.app.AlertDialog
 import android.hardware.Camera
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +24,6 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.CameraSourcePrevi
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.GraphicOverlay
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.qr.camera.WorkflowModel
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadQR
-import com.inmersoft.trinidadpatrimonial.utils.showToast
 import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
@@ -120,15 +120,24 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
 //BottomSheet Information
         trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
             { currentPlace ->
-                if (trinidadDataViewModel.isParent(this.javaClass.toString())) {
+                Log.d(TAG, "setupBottomSheet: OBSERVE COLLECTING INFO")
+                Log.d(TAG, "setupBottomSheet: PLACEDATA-> ${currentPlace?.place_name}")
+
+                if (trinidadDataViewModel.isParent(TAG)) {
+                    Log.d(TAG, "setupBottomSheet: PARENT IS CORRECT ")
                     if (currentPlace != null) {
+                        Log.d(TAG, "setupBottomSheet: CURRENTPLACE IS NOT NULL")
                         val nav = QrScannerFragmentDirections.actionNavQrToDetailsFragment(
                             currentPlace.place_id
                         )
+                        Log.d(TAG,
+                            "setupBottomSheet: CALLING showTrinidadBottomSheetPlaceInfo function")
                         showTrinidadBottomSheetPlaceInfo(
                             place = currentPlace, navDirections = nav
                         )
                     }
+                } else {
+                    Log.d(TAG, "setupBottomSheet: PARENT IS NOT CORRECT ")
                 }
             })
 
@@ -264,12 +273,19 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
             if (placeID >= 0) {
                 Log.d(TAG, "processBarcodeValue: SEND DATA TO BOTTOMSHEET")
                 trinidadDataViewModel.onBottomSheetSetInfo(placeId = placeID, _parent =
-                this.javaClass.toString())
+                TAG)
             }
         } else {
             Log.d(TAG, "processBarcodeValue: QR IS NOT VALID")
-            showToast(requireContext(), resources.getString(R.string.not_valid_qrcode))
-            startCameraPreview()
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle(resources.getString(R.string.app_name))
+            builder.setIcon(R.drawable.ic_menu_qr)
+            builder.setMessage(resources.getString(R.string.not_valid_qrcode))
+            builder.setPositiveButton(resources.getString(R.string.OK)) { dialog, which ->
+                startCameraPreview()
+                dialog.dismiss()
+            }
+            builder.show()
         }
     }
 
@@ -279,7 +295,7 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
     private fun requestCameraPermission() {
         EasyPermissions.requestPermissions(
             this,
-            " Mensaje sobre la cmara ", CAMERA_PERMISSION_CODE,
+            resources.getString(R.string.camera_rationale_info), CAMERA_PERMISSION_CODE,
             Manifest.permission.CAMERA
         )
     }

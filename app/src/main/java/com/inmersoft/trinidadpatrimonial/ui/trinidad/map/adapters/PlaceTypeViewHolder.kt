@@ -3,10 +3,9 @@ package com.inmersoft.trinidadpatrimonial.ui.trinidad.map.adapters
 import android.net.Uri
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.MapItemPlaceTypeBinding
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageWithGlideExt
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 
 class PlaceTypeViewHolder(
@@ -24,13 +23,9 @@ class PlaceTypeViewHolder(
                 TrinidadAssets.FILE_PNG_EXTENSION
             )
         )
-        Glide.with(binding.root.context)
-            .load(
-                icon
-            )
-            .error(R.drawable.placeholder_error)
-            .placeholder(R.drawable.placeholder_error)
-            .into(placeTypeImage)
+
+        placeTypeImage.loadImageWithGlideExt(icon)
+
     }
 
 }

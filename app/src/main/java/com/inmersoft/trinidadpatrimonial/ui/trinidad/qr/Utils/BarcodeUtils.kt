@@ -48,7 +48,7 @@ import java.util.ArrayList
 import kotlin.math.abs
 
 /** Utility class to provide helper methods.  */
-object Utils {
+object BarcodeUtils {
 
     /**
      * If the absolute difference between aspect ratios is less than this tolerance, they are
@@ -58,7 +58,7 @@ object Utils {
 
     internal const val REQUEST_CODE_PHOTO_LIBRARY = 1
 
-    private const val TAG = "Utils"
+    private const val TAG = "BarcodeUtils"
 
     internal fun requestRuntimePermissions(activity: Activity) {
 

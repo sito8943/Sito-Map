@@ -19,11 +19,11 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityOnBoardingBinding
+import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
-import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -168,11 +168,11 @@ class OnBoardingActivity : AppCompatActivity() {
         }
 
         if (index == max - 1) {
-            fadeTransition(binding.container)
+            binding.container.fadeTransitionExt()
             binding.onboardingPagePositionContainer.visibility = View.INVISIBLE
             binding.onboardingStartButton.visibility = View.VISIBLE
         } else {
-            fadeTransition(binding.container)
+            binding.container.fadeTransitionExt()
             if (binding.onboardingPagePositionContainer.visibility == View.INVISIBLE) {
                 binding.onboardingPagePositionContainer.visibility = View.VISIBLE
             }

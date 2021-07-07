@@ -1,5 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,7 +30,6 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
 
     private var parent = "TrinidadDataViewModel"
 
-    private var loadedMainData = false
     private val _showProgressLoading = MutableLiveData<Boolean>()
     val showProgressLoading: LiveData<Boolean> = _showProgressLoading
 
@@ -42,15 +42,14 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
             _allPlaceTypeWithPlaces.value =
                 withContext(Dispatchers.IO) { dataRepository.allPlacesTypeWithPlaces() }!!
             _showProgressLoading.value = false
-            loadedMainData = true
         }
     }
 
     fun onBottomSheetSetInfo(placeId: Int, _parent: String) {
         viewModelScope.launch {
             val place = withContext(Dispatchers.IO) { dataRepository.getPlaceById(placeId) }
-            _currentPlaceToBottomSheet.value = place
             parent = _parent
+            _currentPlaceToBottomSheet.value = place
         }
     }
 
@@ -59,7 +58,11 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
     }
 
     fun isParent(_parent: String): Boolean {
+        Log.d(TAG, "isParent: _parent: $_parent parent:$parent")
         return _parent == parent
     }
 
+    companion object {
+        const val TAG = "TrinidadDataViewModel"
+    }
 }

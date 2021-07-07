@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
+import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
+import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.HomeListAdapter
-import com.inmersoft.trinidadpatrimonial.utils.fadeTransition
-import com.inmersoft.trinidadpatrimonial.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment() {
 
 
         binding.fab.setOnClickListener {
-            showToast(requireContext(), "NOT IMPLEMENTED YET!!!")
+            requireContext().showToastExt("NOT IMPLEMENTED YET!!!")
         }
 
         binding.homeListRecycleview.layoutManager = LinearLayoutManager(requireContext())
@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment() {
         )
 
         trinidadDataViewModel.showProgressLoading.observe(viewLifecycleOwner, { visibility ->
-            fadeTransition(binding.root as ViewGroup)
+            (binding.root as ViewGroup).fadeTransitionExt()
             binding.loadingData.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
             binding.homeListRecycleview.visibility =
                 if (!visibility) View.VISIBLE else View.INVISIBLE

@@ -1,8 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.fragments
 
 import android.Manifest
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -16,13 +14,6 @@ import androidx.navigation.fragment.findNavController
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MediaSource
@@ -30,14 +21,15 @@ import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
-import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageWithGlideExt
+import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
+import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
-import com.inmersoft.trinidadpatrimonial.utils.showToast
 import com.vmadalin.easypermissions.EasyPermissions
 import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import java.util.*
@@ -66,10 +58,9 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                         currentLocale
                     ) == TextToSpeech.LANG_AVAILABLE
                 ) {
-
                     textToSpeechEngine.language = currentLocale
                 } else {
-                    showToast(requireContext(), resources.getString(R.string.lang_not_supported))
+                    requireContext().showToastExt(resources.getString(R.string.lang_not_supported))
                 }
             }
         }
@@ -199,18 +190,12 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun loadHeader(headerImages: List<String>) {
-        Glide.with(requireContext())
-            .load(
-                Uri.parse(
-                    TrinidadAssets.getAssetFullPath(
-                        headerImages[0],
-                        TrinidadAssets.FILE_JPG_EXTENSION
-                    )
-                )
+        binding.headerImage.loadImageWithGlideExt(Uri.parse(
+            TrinidadAssets.getAssetFullPath(
+                headerImages[0],
+                TrinidadAssets.FILE_JPG_EXTENSION
             )
-            .error(R.drawable.placeholder_error)
-            .placeholder(R.drawable.placeholder_error)
-            .into(binding.headerImage)
+        ))
     }
 
     private fun goToWebPage(web: String) {
@@ -258,8 +243,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         findNavController().navigate(action,extras)
     }
 
-
-
     override fun onPause() {
         textToSpeechEngine.stop()
         binding.btnSpeechDescription.isChecked = false
@@ -273,67 +256,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         super.onDestroy()
     }
     private fun loadPano360(panoAssetName: List<String>) {
-        if (panoAssetName[0].isNotEmpty()) {
-            val panoAssetUrl = TrinidadAssets.getAssetFullPath(
-                panoAssetName[0],
-                TrinidadAssets.FILE_WEBP_EXTENSION
-            )
-            Glide.with(requireActivity())
-                .asBitmap()
-                .placeholder(R.drawable.placeholder_error)
-                .load(Uri.parse(panoAssetUrl))
-                .listener(object : RequestListener<Bitmap?> {
+        val panoAssetUrl = TrinidadAssets.getAssetFullPath(
+            panoAssetName[0],
+            TrinidadAssets.FILE_WEBP_EXTENSION
+        )
 
-                    private fun loadingDone(done: Boolean) {
-                        binding.materialPanoContainer.visibility =
-                            if (done) View.VISIBLE else View.GONE
-                    }
+        binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl))
 
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Bitmap?>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        loadingDone(false)
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Bitmap?,
-                        model: Any?,
-                        target: Target<Bitmap?>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        loadingDone(true)
-                        return false
-                    }
-                })
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        val options = VrPanoramaView.Options()
-                        options.inputType = VrPanoramaView.Options.TYPE_MONO
-                        binding.run {
-                            options.inputType = VrPanoramaView.Options.TYPE_MONO
-                            placePanoView.setInfoButtonEnabled(false)
-                            placePanoView.setFullscreenButtonEnabled(true)
-                            placePanoView.setStereoModeButtonEnabled(true)
-                            placePanoView.setTouchTrackingEnabled(true)
-                            placePanoView.loadImageFromBitmap(resource, options)
-
-                        }
-                    }
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        // Add other icon
-                    }
-                })
-        } else {
-            binding.materialPanoContainer.visibility = View.GONE
-        }
     }
 
 //WRITE EXTERNAL STORAGE PERMISSIONS

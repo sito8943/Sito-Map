@@ -36,6 +36,8 @@
     <string name="update_downloaded">Descarga completada</string>
     <string name="install_update">Instalar</string>
     <string name="not_valid_qrcode">Lo sentimos pero este codigo QR no es correcto para el         funcionamiento de la app Trinidad.</string>
+    <string name="OK">Aceptar</string>
+    <string name="camera_rationale_info">Esta aplicación utiliza la camara para poder escanear los diferentes codigos qr localizados en diferentes puntos por toda la ciudad de Trinidad.</string>
 
 
 </resources>
