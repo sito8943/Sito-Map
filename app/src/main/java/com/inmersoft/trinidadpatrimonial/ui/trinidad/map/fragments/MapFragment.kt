@@ -143,7 +143,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         map.uiSettings.isZoomGesturesEnabled = true
         map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMapToolbarEnabled = true
-
         map.setOnMarkerClickListener(this)
 
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
@@ -153,10 +152,8 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
             places.forEach { place ->
                 val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
                 val marker: Marker?
-
                 if (place.place_id == placeIdArgs) {
                     trinidadGPS = LatLng(place.location.latitude, place.location.longitude)
-
                     marker = map.addMarker(
                         MarkerOptions().position(gpsPoint)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
