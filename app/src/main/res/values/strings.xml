@@ -38,6 +38,10 @@
     <string name="not_valid_qrcode">Lo sentimos pero este codigo QR no es correcto para el         funcionamiento de la app Trinidad.</string>
     <string name="OK">Aceptar</string>
     <string name="camera_rationale_info">Esta aplicación utiliza la camara para poder escanear los diferentes codigos qr localizados en diferentes puntos por toda la ciudad de Trinidad.</string>
+    <string name="directions">Como llegar</string>
+    <string name="text_to_speech">Escuchar</string>
+    <string name="text_share">Compartir</string>
+    <string name="text_open_web">Web</string>
 
 
 </resources>
