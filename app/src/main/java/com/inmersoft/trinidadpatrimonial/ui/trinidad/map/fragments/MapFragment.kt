@@ -181,11 +181,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                 marker?.tag = place.place_id
                 listOfMarkers.add(marker)
             }
-            val cameraPosition = CameraPosition.Builder()
-                .target(trinidadGPS)
-                .zoom(18f)
-                .build()
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(trinidadGPS, 17f))
         }
         )
     }
@@ -204,6 +200,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
             .target(marker.position)
             .zoom(18f)
             .build()
+
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
         trinidadDataViewModel.onBottomSheetSetInfo(placeID, _parent = this.javaClass.toString())
