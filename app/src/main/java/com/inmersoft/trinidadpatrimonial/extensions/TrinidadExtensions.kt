@@ -30,7 +30,17 @@ fun Context.showToastExt(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-fun ImageView.loadImageWithGlideExt(imageUri: Uri) {
+fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
+    Glide.with(this)
+        .load(imageUri)
+        .centerInside()
+        .error(R.drawable.placeholder_error)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .placeholder(R.drawable.placeholder_error)
+        .into(this)
+}
+
+fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
     Glide.with(this)
         .load(imageUri)
         .centerCrop()
@@ -40,7 +50,7 @@ fun ImageView.loadImageWithGlideExt(imageUri: Uri) {
         .into(this)
 }
 
-fun ImageView.loadImageWithGlideExt(imageResource: Int) {
+fun ImageView.loadImageCenterCropExt(imageResource: Int) {
     Glide.with(this)
         .load(this.resources.getDrawable(imageResource, this.context.theme))
         .centerCrop()

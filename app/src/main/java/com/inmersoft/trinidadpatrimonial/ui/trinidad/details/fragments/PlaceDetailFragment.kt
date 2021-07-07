@@ -24,7 +24,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
-import com.inmersoft.trinidadpatrimonial.extensions.loadImageWithGlideExt
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
 import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
@@ -190,7 +190,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun loadHeader(headerImages: List<String>) {
-        binding.headerImage.loadImageWithGlideExt(Uri.parse(
+        binding.headerImage.loadImageCenterCropExt(Uri.parse(
             TrinidadAssets.getAssetFullPath(
                 headerImages[0],
                 TrinidadAssets.FILE_JPG_EXTENSION

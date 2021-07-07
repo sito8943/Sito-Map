@@ -5,7 +5,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.MapItemPlaceTypeBinding
-import com.inmersoft.trinidadpatrimonial.extensions.loadImageWithGlideExt
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterInsideExt
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 
 class PlaceTypeViewHolder(
@@ -24,7 +24,7 @@ class PlaceTypeViewHolder(
             )
         )
 
-        placeTypeImage.loadImageWithGlideExt(icon)
+        placeTypeImage.loadImageCenterInsideExt(icon)
 
     }
 
