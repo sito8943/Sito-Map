@@ -15,8 +15,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
+import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentMapBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.map.adapters.MapPlaceTypeAdapter
@@ -27,15 +29,17 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener, OnMapReadyCallback,
-    GoogleMap.OnMarkerClickListener {
+    GoogleMap.OnMarkerClickListener, MapPlaceTypeAdapter.Event {
 
     private lateinit var binding: FragmentMapBinding
 
     private val safeArgs: MapFragmentArgs by navArgs()
 
     private val placesTypeAdapter: MapPlaceTypeAdapter by lazy {
-        MapPlaceTypeAdapter()
+        MapPlaceTypeAdapter(this@MapFragment)
     }
+
+    private lateinit var trinidadGPS: LatLng
 
     private lateinit var map: GoogleMap
 
@@ -50,7 +54,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         )
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,7 +64,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
         setupUI()
         return binding.root
     }
@@ -83,10 +85,28 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                 findNavController()
             )
 
+        trinidadBottomSheet.addTrindadBottomSheetCallBack(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        putMapCameraToStart()
+                    }
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
+
         binding.openDrawer.setOnClickListener {
             openDrawerInTrinidadActivity()
         }
+    }
 
+    private fun putMapCameraToStart() {
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(trinidadGPS, 17f))
     }
 
     override fun onStart() {
@@ -122,6 +142,58 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
             placesTypeAdapter.setData(placesTypeList)
         })
+
+        //Map
+        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
+            showPlacesInMap(places)
+            trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
+            putMapCameraToStart()
+        }
+        )
+
+        trinidadDataViewModel.placeTypeFiltered.observe(viewLifecycleOwner, {
+            showPlacesInMap(it.placesList)
+        })
+
+    }
+
+    private fun showPlacesInMap(places: List<Place>) {
+        val placeIdArgs = safeArgs.placeID
+        listOfMarkers.clear()
+        places.forEach { place ->
+            val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
+            val marker: Marker?
+            if (place.place_id == placeIdArgs) {
+                val placeLocation = LatLng(place.location.latitude, place.location.longitude)
+                marker = map.addMarker(
+                    MarkerOptions().position(gpsPoint)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                        .title(place.place_name)
+                )
+
+                val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
+                    place.place_id
+                )
+                showTrinidadBottomSheetPlaceInfo(
+                    place, navDirections = nav
+                )
+
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
+
+            } else {
+                marker = map.addMarker(
+                    MarkerOptions().position(gpsPoint)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                        .title(place.place_name)
+                        .snippet(place.place_description)
+                )
+                val placeLocation =
+                    LatLng(places[0].location.latitude, places[0].location.longitude)
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
+            }
+            marker?.tag = place.place_id
+            listOfMarkers.add(marker)
+        }
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -144,43 +216,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMapToolbarEnabled = true
         map.setOnMarkerClickListener(this)
-
-        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
-            val placeIdArgs = safeArgs.placeID
-            var trinidadGPS = LatLng(places[0].location.latitude, places[0].location.longitude)
-
-            places.forEach { place ->
-                val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
-                val marker: Marker?
-                if (place.place_id == placeIdArgs) {
-                    trinidadGPS = LatLng(place.location.latitude, place.location.longitude)
-                    marker = map.addMarker(
-                        MarkerOptions().position(gpsPoint)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                            .title(place.place_name)
-                            .snippet(place.place_description)
-                    )
-                    marker.showInfoWindow()
-                    val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
-                        place.place_id
-                    )
-                    showTrinidadBottomSheetPlaceInfo(
-                        place, navDirections = nav
-                    )
-                } else {
-                    marker = map.addMarker(
-                        MarkerOptions().position(gpsPoint)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                            .title(place.place_name)
-                            .snippet(place.place_description)
-                    )
-                }
-                marker?.tag = place.place_id
-                listOfMarkers.add(marker)
-            }
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(trinidadGPS, 17f))
-        }
-        )
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
@@ -205,9 +240,16 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         return true
     }
 
-
     override fun onDestroy() {
         trinidadDataViewModel.onMapDestroy()
         super.onDestroy()
+    }
+
+    override fun onClickListener(placeId: Int) {
+        Log.d("TAG", "onClickListener: Called using ID $placeId")
+        listOfMarkers.clear()
+        map.clear()
+        trinidadDataViewModel.onMapFilter(placeId)
+        trinidadBottomSheet.hide()
     }
 }

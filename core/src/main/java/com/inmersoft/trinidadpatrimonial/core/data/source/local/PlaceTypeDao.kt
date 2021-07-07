@@ -29,4 +29,8 @@ interface PlaceTypeDao {
     @Query("SELECT * FROM place_types")
     suspend fun getPlaceTypeWithPlaces(): List<PlaceTypeWithPlaces>
 
+    @Transaction
+    @Query("SELECT * FROM place_types WHERE place_type_id=:id")
+    suspend fun getPlacesTypeById(id: Int): PlaceTypeWithPlaces
+
 }

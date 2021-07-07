@@ -3,6 +3,7 @@ package com.inmersoft.trinidadpatrimonial.core.data
 import androidx.lifecycle.LiveData
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType
+import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Route
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceDao
 import com.inmersoft.trinidadpatrimonial.core.data.source.local.PlaceTypeDao
@@ -19,11 +20,15 @@ class DataRepository @Inject constructor(
     val allPlacesName: LiveData<List<String>> = placeDao.getAllPlacesName()
     val allRoutes: LiveData<List<Route>> = routesDao.getAllRoutes()
     val allPlaces: LiveData<List<Place>> = placeDao.getAllPlaces()
-    val allPlacesType: LiveData<List<PlaceType>> = placeTypeDao.getAllPlacesType()
+    val placesTypeLiveData: LiveData<List<PlaceType>> = placeTypeDao.getAllPlacesType()
 
     suspend fun allPlacesTypeWithPlaces() = placeTypeDao.getPlaceTypeWithPlaces()
     suspend fun getPlaceById(placeID: Int): Place {
         return placeDao.getPlaceByID(placeID)
+    }
+
+    suspend fun getPlaceTypeById(id: Int): PlaceTypeWithPlaces {
+       return placeTypeDao.getPlacesTypeById(id)
     }
 
 
