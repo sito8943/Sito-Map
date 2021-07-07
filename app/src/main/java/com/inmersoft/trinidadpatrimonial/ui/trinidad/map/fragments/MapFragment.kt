@@ -185,10 +185,11 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         .title(place.place_name)
                 )
-                val placeLocation =
-                    LatLng(places[0].location.latitude, places[0].location.longitude)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
             }
+            val placeLocation =
+                LatLng(places[0].location.latitude, places[0].location.longitude)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
+
             marker?.tag = place.place_id
             listOfMarkers.add(marker)
         }
@@ -230,6 +231,8 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
             .target(marker.position)
             .zoom(18f)
             .build()
+
+        trinidadGPS = marker.position
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
