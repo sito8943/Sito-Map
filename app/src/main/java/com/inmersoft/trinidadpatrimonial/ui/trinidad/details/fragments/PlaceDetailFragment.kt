@@ -261,7 +261,8 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             TrinidadAssets.FILE_WEBP_EXTENSION
         )
 
-        binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl))
+        binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl),
+            container = binding.materialPanoContainer)
 
     }
 
@@ -307,9 +308,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-
     }
     companion object {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 5637

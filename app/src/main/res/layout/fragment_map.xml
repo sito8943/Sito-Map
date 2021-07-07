@@ -22,20 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
-<!--
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_user_gps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_baseline_my_location_24"
-            app:elevation="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="TODO"
-            app:tint="@android:color/white" />
--->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/search_field"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -56,6 +43,7 @@
             app:boxStrokeWidthFocused="0dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/trinidadColorPrimary"
+            app:startIconTint="@color/trinidadColorPrimary"
             app:hintTextColor="@color/trinidadColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/openDrawer"
@@ -83,13 +71,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/openDrawer"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            style="@style/Widget.App.Button.FilledButton.IconOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:clickable="true"
             android:focusable="true"
-            app:iconTint="@color/exo_black_opacity_70"
             app:icon="@drawable/ic_menu_drawer_24"
             app:layout_constraintBottom_toBottomOf="@+id/search_field"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"

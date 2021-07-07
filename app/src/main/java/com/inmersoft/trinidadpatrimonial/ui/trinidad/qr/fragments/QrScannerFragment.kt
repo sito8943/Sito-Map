@@ -80,9 +80,7 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
         flashButton = binding.root.findViewById<View>(R.id.flash_button).apply {
             setOnClickListener(this@QrScannerFragment)
         }
-        settingsButton = binding.root.findViewById<View>(R.id.settings_button).apply {
-            setOnClickListener(this@QrScannerFragment)
-        }
+
 
         if (!hasCameraPermission()) {
             requestCameraPermission()
@@ -183,10 +181,7 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
                     }
                 }
             }
-            R.id.settings_button -> {
-                settingsButton?.isEnabled = false
-                //startActivity(Intent(this, SettingsActivity::class.java))
-            }
+
         }
     }
 

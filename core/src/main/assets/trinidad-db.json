@@ -471,7 +471,7 @@
             "web": "https://www.linkedin.com/company/inmersoft",
             "video_promo": "https://www.youtube.com/watch?v=Y0BaRplVrbM",
             "pano": [
-                "convento_sanfrancisco_asis_360"
+                "images/sections/convento_sanfrancisco_asis_360"
             ],
             "model3d": "model/timefly.glb",
             "place_translations": [

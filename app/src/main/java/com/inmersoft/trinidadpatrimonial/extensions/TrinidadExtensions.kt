@@ -50,55 +50,59 @@ fun ImageView.loadImageWithGlideExt(imageResource: Int) {
         .into(this)
 }
 
-fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri) {
+fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: View? = null) {
     val vrPanoContext = this
-    Glide.with(this)
-        .asBitmap()
-        .placeholder(R.drawable.placeholder_error)
-        .load(uriPanoResource)
-        .listener(object : RequestListener<Bitmap?> {
+    if (uriPanoResource.toString().isNotEmpty()) {
+        Glide.with(this)
+            .asBitmap()
+            .placeholder(R.drawable.placeholder_error)
+            .load(uriPanoResource)
+            .listener(object : RequestListener<Bitmap?> {
 
-            private fun loadingDone(done: Boolean) {
-                vrPanoContext.visibility = if (done) View.VISIBLE else View.GONE
-            }
+                private fun loadingDone(done: Boolean) {
+                    container?.visibility = if (done) View.VISIBLE else View.GONE
+                }
 
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: Target<Bitmap?>?,
-                isFirstResource: Boolean,
-            ): Boolean {
-                loadingDone(false)
-                return false
-            }
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Bitmap?>?,
+                    isFirstResource: Boolean,
+                ): Boolean {
+                    loadingDone(false)
+                    return false
+                }
 
-            override fun onResourceReady(
-                resource: Bitmap?,
-                model: Any?,
-                target: Target<Bitmap?>?,
-                dataSource: DataSource?,
-                isFirstResource: Boolean,
-            ): Boolean {
-                loadingDone(true)
-                return false
-            }
-        })
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(
-                resource: Bitmap,
-                transition: Transition<in Bitmap>?,
-            ) {
-                val options = VrPanoramaView.Options()
-                options.inputType = VrPanoramaView.Options.TYPE_MONO
-                vrPanoContext.setInfoButtonEnabled(false)
-                vrPanoContext.setFullscreenButtonEnabled(true)
-                vrPanoContext.setStereoModeButtonEnabled(true)
-                vrPanoContext.setTouchTrackingEnabled(true)
-                vrPanoContext.loadImageFromBitmap(resource, options)
-            }
+                override fun onResourceReady(
+                    resource: Bitmap?,
+                    model: Any?,
+                    target: Target<Bitmap?>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean,
+                ): Boolean {
+                    loadingDone(true)
+                    return false
+                }
+            })
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?,
+                ) {
+                    val options = VrPanoramaView.Options()
+                    options.inputType = VrPanoramaView.Options.TYPE_MONO
+                    vrPanoContext.setInfoButtonEnabled(false)
+                    vrPanoContext.setFullscreenButtonEnabled(true)
+                    vrPanoContext.setStereoModeButtonEnabled(true)
+                    vrPanoContext.setTouchTrackingEnabled(true)
+                    vrPanoContext.loadImageFromBitmap(resource, options)
+                }
 
-            override fun onLoadCleared(placeholder: Drawable?) {
-                // Add other icon
-            }
-        })
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // Add other icon
+                }
+            })
+    } else {
+        container?.visibility = View.GONE
+    }
 }
