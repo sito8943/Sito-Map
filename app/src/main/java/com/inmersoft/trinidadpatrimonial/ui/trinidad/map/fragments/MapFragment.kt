@@ -109,11 +109,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(trinidadGPS, 17f))
     }
 
-    override fun onStart() {
-        super.onStart()
-        subscribeObservers()
-    }
-
     private fun subscribeObservers() {
         //BottomSheet Information
         trinidadDataViewModel.currentPlaceToBottomSheet.observe(viewLifecycleOwner,
@@ -159,7 +154,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     private fun showPlacesInMap(places: List<Place>) {
         val placeIdArgs = safeArgs.placeID
-        listOfMarkers.clear()
         places.forEach { place ->
             val gpsPoint = LatLng(place.location.latitude, place.location.longitude)
             val marker: Marker?
@@ -176,8 +170,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                 showTrinidadBottomSheetPlaceInfo(
                     place, navDirections = nav
                 )
-
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 18f))
 
             } else {
                 marker = map.addMarker(
@@ -185,11 +178,10 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         .title(place.place_name)
                 )
+                val placeLocation =
+                    LatLng(places[0].location.latitude, places[0].location.longitude)
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
             }
-            val placeLocation =
-                LatLng(places[0].location.latitude, places[0].location.longitude)
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 17f))
-
             marker?.tag = place.place_id
             listOfMarkers.add(marker)
         }
@@ -215,6 +207,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
         map.uiSettings.isCompassEnabled = true
         map.uiSettings.isMapToolbarEnabled = true
         map.setOnMarkerClickListener(this)
+        subscribeObservers()
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
