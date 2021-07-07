@@ -170,7 +170,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                         .title(place.place_name)
                 )
-
                 val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
                     place.place_id
                 )
@@ -185,7 +184,6 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                     MarkerOptions().position(gpsPoint)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         .title(place.place_name)
-                        .snippet(place.place_description)
                 )
                 val placeLocation =
                     LatLng(places[0].location.latitude, places[0].location.longitude)
