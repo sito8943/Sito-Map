@@ -231,7 +231,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         }
     }
 
-
     private fun goToMap(placeId: Int) {
 
         binding.placeDetailContainer.transitionName=UUID.randomUUID().toString()
