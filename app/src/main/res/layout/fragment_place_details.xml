@@ -237,23 +237,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <TextSwitcher
+                        <TextView
                             android:id="@+id/place_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="16dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            >
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-
-                        </TextSwitcher>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.button.MaterialButtonToggleGroup
                             android:id="@+id/see_more_button_toogle"

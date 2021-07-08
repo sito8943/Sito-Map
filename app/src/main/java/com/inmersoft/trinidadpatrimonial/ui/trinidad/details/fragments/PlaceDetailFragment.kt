@@ -87,20 +87,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun setupUI() {
-
-
         binding.placeName.text = placeData.place_name
-
         binding.btnGoToMap.apply {
             transitionName = UUID.randomUUID().toString()
             setOnClickListener {
                 goToMap(placeData.place_id)
             }
         }
-
-        //Set fade Animaton text changed
-        binding.placeDescription.setInAnimation(context, android.R.anim.fade_in);
-        binding.placeDescription.setOutAnimation(context, android.R.anim.fade_out);
 
         val description = placeData.place_description
         val shortDescription = description.smartTruncate(MAX_SMART_TRUNCATE_STRINGS)
@@ -111,14 +104,14 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             if (placeData.place_description.length > MAX_SMART_TRUNCATE_STRINGS) View.VISIBLE else View.GONE
 
         binding.seeMoreButtonToogle.addOnButtonCheckedListener { _, _, isChecked ->
-            binding.placeDescription.setText(if (isChecked) {
+            binding.placeDescription.text=if (isChecked) {
                 binding.seeMoreButton.text = getString(R.string.see_less)
                 description
             } else {
                 binding.seeMoreButton.text = getString(R.string.see_more)
                 shortDescription
             }
-            )
+
         }
 
         binding.btnSpeechDescription.setOnClickListener {
