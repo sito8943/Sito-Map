@@ -26,7 +26,7 @@ import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
-import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
+import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
 import com.inmersoft.trinidadpatrimonial.utils.RomanNumbers
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
@@ -50,6 +50,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private lateinit var textToSpeechEngine: TextToSpeech
 
+    private var canSpeak = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +62,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                 ) {
                     textToSpeechEngine.language = currentLocale
                 } else {
-                    requireContext().showToastExt(resources.getString(R.string.lang_not_supported))
+                    canSpeak = false
                 }
             }
         }
@@ -80,8 +81,14 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         loadPano360(placeData.pano)
         loadHeader(placeData.header_images)
+        setupUI()
+        initPlayer()
+        return binding.root
+    }
 
-        binding.placeDescription.text = placeData.place_description
+    private fun setupUI() {
+
+
         binding.placeName.text = placeData.place_name
 
         binding.btnGoToMap.apply {
@@ -90,6 +97,30 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                 goToMap(placeData.place_id)
             }
         }
+
+        //Set fade Animaton text changed
+        binding.placeDescription.setInAnimation(context, android.R.anim.fade_in);
+        binding.placeDescription.setOutAnimation(context, android.R.anim.fade_out);
+
+        val description = placeData.place_description
+        val shortDescription = description.smartTruncate(MAX_SMART_TRUNCATE_STRINGS)
+
+        binding.placeDescription.setText(shortDescription)
+
+        binding.seeMoreButtonToogle.visibility =
+            if (placeData.place_description.length > MAX_SMART_TRUNCATE_STRINGS) View.VISIBLE else View.GONE
+
+        binding.seeMoreButtonToogle.addOnButtonCheckedListener { _, _, isChecked ->
+            binding.placeDescription.setText(if (isChecked) {
+                binding.seeMoreButton.text = getString(R.string.see_less)
+                description
+            } else {
+                binding.seeMoreButton.text = getString(R.string.see_more)
+                shortDescription
+            }
+            )
+        }
+
         binding.btnSpeechDescription.setOnClickListener {
             if (it.isSelected) {
                 textToSpeechEngine.stop()
@@ -107,8 +138,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             sharePlaceInformation()
         }
 
-        initPlayer()
-        return binding.root
     }
 
     private fun initPlayer() {
@@ -126,7 +155,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         object : YouTubeExtractor(requireContext()) {
             override fun onExtractionComplete(
                 ytFiles: SparseArray<YtFile>?,
-                videoMeta: VideoMeta?
+                videoMeta: VideoMeta?,
             ) {
                 if (ytFiles != null) {
                     val videoTag = 137 //Tag 1080
@@ -256,6 +285,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         binding.btnSpeechDescription.isChecked = false
         super.onDestroy()
     }
+
     private fun loadPano360(panoAssetName: List<String>) {
         val panoAssetUrl = TrinidadAssets.getAssetFullPath(
             panoAssetName[0],
@@ -306,13 +336,14 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
     companion object {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 5637
+        const val MAX_SMART_TRUNCATE_STRINGS = 256
     }
 
 }

@@ -77,7 +77,7 @@ class TrinidadBottomSheet(
                 binding.bottomSheetHeaderCardview to "shared_view_container"
             )
 
-        binding.seeMoreButton.setOnClickListener {
+        binding.seeMoreBottomSheetButton.setOnClickListener {
             navController.navigate(destination, extras)
             hide()
         }

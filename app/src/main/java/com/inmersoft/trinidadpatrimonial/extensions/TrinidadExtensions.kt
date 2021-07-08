@@ -18,9 +18,9 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.transition.platform.MaterialFadeThrough
+import com.google.android.material.transition.platform.MaterialSharedAxis
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
-
 
 fun ViewGroup.fadeTransitionExt() {
     TransitionManager.beginDelayedTransition(this, MaterialFadeThrough())
@@ -29,6 +29,15 @@ fun ViewGroup.fadeTransitionExt() {
 fun Context.showToastExt(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
+
+fun String.smartTruncate(max: Int, suffix: String = "..."): String {
+    return if (this.length < max) {
+        this
+    } else {
+        "${this.substring(0, this.substring(0, max - suffix.length).lastIndexOf(' '))}${suffix}"
+    }
+}
+
 
 fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
     Glide.with(this)
