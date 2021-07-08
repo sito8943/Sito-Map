@@ -27,6 +27,7 @@ import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
 import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
+import com.inmersoft.trinidadpatrimonial.utils.RomanNumbers
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
@@ -225,7 +226,8 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private fun speechPlaceDescription(placeDescription: String) {
         if (placeDescription.isNotEmpty()) {
-            textToSpeechEngine.speak(placeDescription, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+            val descriptionToSpeech = RomanNumbers.replaceRomanNumber(placeDescription)
+            textToSpeechEngine.speak(descriptionToSpeech, TextToSpeech.QUEUE_FLUSH, null, "tts1")
         }
     }
 

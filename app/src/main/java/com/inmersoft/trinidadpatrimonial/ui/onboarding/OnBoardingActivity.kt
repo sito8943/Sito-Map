@@ -24,6 +24,7 @@ import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnBoardingAdapte
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
+import com.inmersoft.trinidadpatrimonial.utils.RomanNumbers
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -109,7 +110,6 @@ class OnBoardingActivity : AppCompatActivity() {
             }
             Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: READY: $message")
         })
-
 
         setContentView(binding.root)
     }

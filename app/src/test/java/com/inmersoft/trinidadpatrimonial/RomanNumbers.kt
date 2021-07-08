@@ -9,24 +9,29 @@ class RomanNumbers {
     @Test
     fun convertTest() {
 // Test string, the number 895
-
-// Test string, the number 895
-
-        val test = "DCCCXCV"
-        val result = RomanNumbers.convert(test)
-        Assert.assertEquals(895, result)
+        val test = "XVIII"
+        val result = RomanNumbers.convertRxD(test)
+        Assert.assertEquals(18, result)
     }
 
     @Test
     fun validateRomanNumberTest() {
-        val text = "Casa de las DCCCXCV americas"
-        val romanValid="DCCCXCV"
-
+        val text =
+            "Cronológicamente ubicada dentro de la primera mitad del siglo XVIII, esta vivienda constituye uno de "
+        val romanValid = "XVIII"
         val list = RomanNumbers.extractRomanNumbers(text)
-
-        Assert.assertTrue(list[0]==romanValid)
-
-
+        Assert.assertEquals(list[0], romanValid)
     }
 
+    @Test
+    fun validateRomanNumberReplaceTest() {
+        val text =
+            "Cronológicamente ubicada dentro de la primera mitad del siglo XVIII, esta vivienda constituye uno de "
+        val expected =
+            "Cronológicamente ubicada dentro de la primera mitad del siglo 18, esta vivienda constituye uno de "
+
+        val resultReplace: String = RomanNumbers.replaceRomanNumber(text)
+
+        Assert.assertEquals(expected, resultReplace)
+    }
 }
