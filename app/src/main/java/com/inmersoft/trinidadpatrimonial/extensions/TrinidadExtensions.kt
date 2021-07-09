@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.transition.platform.MaterialFadeThrough
-import com.google.android.material.transition.platform.MaterialSharedAxis
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 
@@ -42,6 +41,16 @@ fun String.smartTruncate(max: Int, suffix: String = "..."): String {
 fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
     Glide.with(this)
         .load(imageUri)
+        .centerInside()
+        .error(R.drawable.placeholder_error)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .placeholder(R.drawable.placeholder_error)
+        .into(this)
+}
+
+fun ImageView.loadImageCenterInsideExt(imageResource: Int) {
+    Glide.with(this)
+        .load(imageResource)
         .centerInside()
         .error(R.drawable.placeholder_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
