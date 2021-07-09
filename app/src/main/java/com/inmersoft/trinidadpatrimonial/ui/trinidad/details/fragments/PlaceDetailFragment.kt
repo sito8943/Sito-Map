@@ -4,6 +4,7 @@ import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.transition.ChangeBounds
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
+import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
 import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
@@ -88,6 +90,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private fun setupUI() {
         binding.placeName.text = placeData.place_name
+        val description = placeData.place_description
+        val shortDescription = description.smartTruncate(MAX_SMART_TRUNCATE_STRINGS)
+        binding.placeDescription.text = shortDescription
+
         binding.btnGoToMap.apply {
             transitionName = UUID.randomUUID().toString()
             setOnClickListener {
@@ -95,23 +101,19 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             }
         }
 
-        val description = placeData.place_description
-        val shortDescription = description.smartTruncate(MAX_SMART_TRUNCATE_STRINGS)
-
-        binding.placeDescription.setText(shortDescription)
 
         binding.seeMoreButtonToogle.visibility =
             if (placeData.place_description.length > MAX_SMART_TRUNCATE_STRINGS) View.VISIBLE else View.GONE
 
         binding.seeMoreButtonToogle.addOnButtonCheckedListener { _, _, isChecked ->
-            binding.placeDescription.text=if (isChecked) {
+            binding.materialCardviewDescriptionContainer.fadeTransitionExt(ChangeBounds())
+            binding.placeDescription.text = if (isChecked) {
                 binding.seeMoreButton.text = getString(R.string.see_less)
                 description
             } else {
                 binding.seeMoreButton.text = getString(R.string.see_more)
                 shortDescription
             }
-
         }
 
         binding.btnSpeechDescription.setOnClickListener {
@@ -134,14 +136,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     }
 
     private fun initPlayer() {
-
         simpleExoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
         playerView = binding.videoPlayer
         binding.videoPlayer.player = simpleExoPlayer
-
-
         playYoutubeUrl(placeData.video_promo)
-
     }
 
     private fun playYoutubeUrl(videoPromo: String) {

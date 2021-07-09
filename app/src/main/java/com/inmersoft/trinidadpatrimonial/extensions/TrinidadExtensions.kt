@@ -21,8 +21,8 @@ import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
 
-fun ViewGroup.fadeTransitionExt() {
-    TransitionManager.beginDelayedTransition(this, MaterialFadeThrough())
+fun ViewGroup.fadeTransitionExt(transition: android.transition.Transition = MaterialFadeThrough()) {
+    TransitionManager.beginDelayedTransition(this, transition)
 }
 
 fun Context.showToastExt(message: String) {
