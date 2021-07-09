@@ -172,6 +172,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
                 )
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(placeLocation, 18f))
 
+
             } else {
                 marker = map.addMarker(
                     MarkerOptions().position(gpsPoint)

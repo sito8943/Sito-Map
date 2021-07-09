@@ -39,11 +39,11 @@ class TrinidadActivity : AppCompatActivity() {
         setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
 
         // Set this Activity’s enter and return transition to a MaterialContainerTransform
-        window.sharedElementEnterTransition = MaterialContainerTransform().apply {
+        window.sharedElementEnterTransition = MaterialContainerTransform(application,true).apply {
             addTarget(android.R.id.content)
-            duration = 300L
+            duration = 250L
         }
-        window.sharedElementReturnTransition = MaterialContainerTransform().apply {
+        window.sharedElementReturnTransition = MaterialContainerTransform(application,false).apply {
             addTarget(android.R.id.content)
             duration = 250L
         }

@@ -134,3 +134,28 @@ fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: View
         container?.visibility = View.GONE
     }
 }
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
+
+/*
+fun View.isVisible(): Boolean {
+    return this.visibility == View.VISIBLE
+}
+
+fun View.isInvisible(): Boolean {
+    return this.visibility == View.INVISIBLE
+}
+
+fun View.isGone(): Boolean {
+    return this.visibility == View.GONE
+}*/

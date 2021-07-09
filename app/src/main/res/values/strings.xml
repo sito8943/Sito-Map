@@ -8,9 +8,6 @@
     <string name="search_text">Buscar</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="see_more">ver más</string>
     <string name="onboarding_start_button">Comenzar</string>
@@ -20,7 +17,6 @@
     <string name="onboarding_subtitle_page2" />
     <string name="onboarding_title_page3">Pues a disfrutar que el tiempo vuela...</string>
     <string name="onboarding_subtitle_page3" />
-    <string name="lang_not_supported">Imposible reproducir el audio del texto; Idioma no soportado.</string>
     <string name="share">Compartir</string>
     <string name="web">web</string>
     <string name="video_promo">Video promocional</string>

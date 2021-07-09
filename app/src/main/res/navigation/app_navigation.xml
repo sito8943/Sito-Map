@@ -25,8 +25,7 @@
         <action
             android:id="@+id/action_nav_map_to_detailsFragment"
             app:destination="@id/detailsFragment"
-            app:popUpTo="@id/nav_home"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
 
 

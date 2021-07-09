@@ -4,11 +4,11 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isInvisible
 import androidx.core.view.size
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
@@ -20,11 +20,12 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityOnBoardingBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
+import com.inmersoft.trinidadpatrimonial.extensions.invisible
+import com.inmersoft.trinidadpatrimonial.extensions.visible
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
-import com.inmersoft.trinidadpatrimonial.utils.RomanNumbers
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,17 +81,13 @@ class OnBoardingActivity : AppCompatActivity() {
 
         binding.onboardingStartButton.setOnClickListener {
 
-
             val intent = Intent(this, TrinidadActivity::class.java)
-
             val options = ActivityOptions.makeSceneTransitionAnimation(
                 this,
                 binding.onboardingStartButton,
                 "shared_element_container" // The transition name to be matched in Activity B.
             )
             startActivity(intent, options.toBundle())
-
-
         }
 
         binding.onboardingViewPage.adapter = onboardingAdapter
@@ -169,14 +166,14 @@ class OnBoardingActivity : AppCompatActivity() {
 
         if (index == max - 1) {
             binding.container.fadeTransitionExt()
-            binding.onboardingPagePositionContainer.visibility = View.INVISIBLE
-            binding.onboardingStartButton.visibility = View.VISIBLE
+            binding.onboardingPagePositionContainer.invisible()
+            binding.onboardingStartButton.visible()
         } else {
             binding.container.fadeTransitionExt()
-            if (binding.onboardingPagePositionContainer.visibility == View.INVISIBLE) {
-                binding.onboardingPagePositionContainer.visibility = View.VISIBLE
+            if (binding.onboardingPagePositionContainer.isInvisible) {
+                binding.onboardingPagePositionContainer.visible()
             }
-            binding.onboardingStartButton.visibility = View.INVISIBLE
+            binding.onboardingStartButton.invisible()
         }
     }
 

@@ -44,16 +44,14 @@
 
             <TextView
                 android:id="@+id/place_type_text"
-                android:layout_width="80dp"
+                style="@style/Widget.Trinidad.TextView.Small"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fadingEdge="horizontal"
-                android:fadingEdgeLength="150dp"
-                android:maxLines="1"
-                android:requiresFadingEdge="horizontal"
+                android:layout_width="0dp"
+                android:layout_marginStart="8dp"
                 android:text="@{placeType.type}"
-                android:textStyle="bold"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/place_type_cardview"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/place_type_cardview"
                 app:layout_constraintTop_toTopOf="@+id/place_type_cardview"
                 tools:text="Hotel" />

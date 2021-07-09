@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:elevation="8dp"
             android:focusable="false"
@@ -43,12 +43,12 @@
             app:boxStrokeWidthFocused="0dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/trinidadColorPrimary"
-            app:startIconTint="@color/trinidadColorPrimary"
             app:hintTextColor="@color/trinidadColorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/openDrawer"
-            app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_search_24">
+            app:layout_constraintTop_toTopOf="@+id/top_banner_gudeline"
+            app:startIconDrawable="@drawable/ic_search_24"
+            app:startIconTint="@color/trinidadColorPrimary">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:layout_width="match_parent"
@@ -61,6 +61,7 @@
             android:id="@+id/place_type_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layoutAnimation="@anim/recycleview_layout_animation"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -82,6 +83,13 @@
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
             app:layout_constraintTop_toTopOf="@+id/search_field"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Trinidad.Circle.Button" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/top_banner_gudeline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.08" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

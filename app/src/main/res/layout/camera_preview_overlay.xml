@@ -14,7 +14,6 @@
       android:background="@color/trinidadTransparent">
 
     <ProgressBar
-        android:id="@+id/search_progress_bar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
