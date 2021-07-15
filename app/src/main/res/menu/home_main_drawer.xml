@@ -9,27 +9,22 @@
         <item
             android:icon="@drawable/ic_baseline_menu_book_24"
             android:title="@string/tutorial" />
-
     </group>
     <group android:checkableBehavior="single">
-
         <item
             android:icon="@drawable/ic_baseline_question_answer_24"
             android:title="@string/faq" />
-
         <item
             android:icon="@drawable/ic_baseline_rule_24"
             android:title="@string/normas" />
-
     </group>
     <group>
         <item
             android:icon="@drawable/exo_ic_settings"
             android:title="@string/settings" />
-
-
         <item
             android:icon="@drawable/ic_baseline_help_center_24"
             android:title="@string/about" />
     </group>
+
 </menu>

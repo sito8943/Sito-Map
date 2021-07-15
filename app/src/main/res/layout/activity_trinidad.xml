@@ -50,7 +50,25 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            app:itemIconTint="@color/trinidadColorPrimary"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/home_main_drawer" />
+            app:menu="@menu/home_main_drawer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="55dp"
+                android:clickable="false"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/footer_trinidad_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    tools:text="Trinidad" />
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

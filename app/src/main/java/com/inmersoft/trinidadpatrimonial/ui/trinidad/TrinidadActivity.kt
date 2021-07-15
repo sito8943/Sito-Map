@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
+import com.inmersoft.trinidadpatrimonial.BuildConfig
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityTrinidadBinding
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
@@ -64,6 +65,9 @@ class TrinidadActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setupWithNavController(navController)
         setAppBarTranslucent()
+
+        binding.footerTrinidadVersion.text = "Trinidad v${BuildConfig.VERSION_NAME}"
+
     }
 
 

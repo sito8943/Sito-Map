@@ -44,6 +44,10 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private val viewPager2PageChangeCallback = ViewPager2PageChangeCallback {
         setOnboardingPoint(it)
+
+
+
+
     }
 
     private val onboardingAdapter by lazy {
