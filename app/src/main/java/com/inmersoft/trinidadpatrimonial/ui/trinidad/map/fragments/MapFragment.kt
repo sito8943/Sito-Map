@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentMapBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.map.adapters.MapPlaceTypeAdapter

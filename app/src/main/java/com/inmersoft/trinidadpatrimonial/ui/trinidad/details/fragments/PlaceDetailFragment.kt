@@ -23,7 +23,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt

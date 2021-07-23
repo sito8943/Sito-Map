@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
-import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.fragments.HomeFragmentDirections

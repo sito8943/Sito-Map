@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
+import com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.MapItemPlaceTypeBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterInsideExt
 import com.inmersoft.trinidadpatrimonial.utils.PlaceTypeFilter

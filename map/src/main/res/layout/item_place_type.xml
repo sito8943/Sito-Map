@@ -7,7 +7,7 @@
 
         <variable
             name="placeType"
-            type="com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceType" />
+            type="com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceType" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
-import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
+import com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.ItemHomePlacesBinding
 
 class HomeListAdapter() :

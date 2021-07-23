@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.inmersoft.trinidadpatrimonial.core.data.DataRepository
-import com.inmersoft.trinidadpatrimonial.core.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.core.data.entity.PlaceTypeWithPlaces
+import com.inmersoft.trinidadpatrimonial.database.data.DataRepository
+import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceTypeWithPlaces
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
