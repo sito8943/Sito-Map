@@ -2,10 +2,9 @@
 buildscript {
     ext {
         // SDK
-        buildToolsVersion = "30.0.3"
-        compileSdkVersion = 30
-        minSdkVersion = 21
-        targetSdkVersion = 30
+        compileSdk = 31
+        minSdk = 21
+        targetSdk = 31
         versionCode=18
         versionName="1.1.$versionCode"
     }
@@ -16,7 +15,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath "com.android.tools.build:gradle:7.0.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.37"
