@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentDetailsBinding
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
@@ -41,7 +42,9 @@ import java.util.*
 class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     EasyPermissions.PermissionCallbacks {
 
-    private lateinit var binding: FragmentPlaceDetailsBinding
+    private var _binding: FragmentPlaceDetailsBinding? = null
+    private val binding get() = _binding!!
+
     private var currentLocale = Locale("es", "ES")
 
     private lateinit var playerView: PlayerView
@@ -74,9 +77,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentPlaceDetailsBinding.inflate(layoutInflater, container, false)
-        binding.toolbarLayout.title = placeData.place_name
+        _binding = FragmentPlaceDetailsBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.toolbarLayout.title = placeData.place_name
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -85,8 +92,8 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         loadHeader(placeData.header_images)
         setupUI()
         initPlayer()
-        return binding.root
     }
+
 
     private fun setupUI() {
         binding.placeName.text = placeData.place_name

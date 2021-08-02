@@ -46,8 +46,6 @@ class OnBoardingActivity : AppCompatActivity() {
         setOnboardingPoint(it)
 
 
-
-
     }
 
     private val onboardingAdapter by lazy {

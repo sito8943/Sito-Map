@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentDetailsBinding
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.adapters.DetailsTransformer
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.adapters.ViewPagerDetailAdapter
@@ -14,7 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailsFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentDetailsBinding
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
+
+
     private val safeArgs: DetailsFragmentArgs by navArgs()
     private val viewPagerAdapter: ViewPagerDetailAdapter by lazy {
         ViewPagerDetailAdapter(
@@ -25,13 +29,15 @@ class DetailsFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentDetailsBinding.inflate(inflater, container, false)
-
-        setupUI()
-
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUI()
     }
 
     private fun setupUI() {

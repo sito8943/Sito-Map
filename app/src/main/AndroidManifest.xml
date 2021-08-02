@@ -8,6 +8,7 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
+
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,6 +23,7 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
+            android:exported="true"
             android:name=".ui.onboarding.OnBoardingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
@@ -36,10 +38,11 @@
         </activity>
 
         <activity
+            android:exported="false"
             android:name=".ui.trinidad.TrinidadActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="com.inmersoft.trinidad.MAIN" />
+                <action android:name=".trinidad.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
