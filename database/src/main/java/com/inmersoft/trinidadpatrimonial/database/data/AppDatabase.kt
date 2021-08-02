@@ -29,7 +29,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun placesDao(): PlaceDao
     abstract fun routesDao(): RoutesDao
     abstract fun placesTypeDao(): PlaceTypeDao
-
     abstract fun routesAndPlacesCrossDao(): RoutesAndPlacesCrossDao
     abstract fun placeTypesAndPlacesCrossDao(): PlaceTypesAndPlacesCrossDao
 
