@@ -83,5 +83,11 @@ class HomeFragment : BaseFragment() {
         super.onStart()
         subscribeObservers()
     }
+
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 }
 

@@ -59,7 +59,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        textToSpeechEngine=TextToSpeech(requireActivity()) { status ->
+        textToSpeechEngine = TextToSpeech(requireActivity()) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 if (textToSpeechEngine.isLanguageAvailable(
                         currentLocale
@@ -260,7 +260,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
     private fun goToMap(placeId: Int) {
 
-        binding.placeDetailContainer.transitionName=UUID.randomUUID().toString()
+        binding.placeDetailContainer.transitionName = UUID.randomUUID().toString()
 
         val extras =
             FragmentNavigatorExtras(
@@ -268,7 +268,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
             )
         val action =
             DetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
-        findNavController().navigate(action,extras)
+        findNavController().navigate(action, extras)
     }
 
     override fun onPause() {
@@ -281,6 +281,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
     override fun onDestroy() {
         textToSpeechEngine.stop()
         binding.btnSpeechDescription.isChecked = false
+        _binding = null
         super.onDestroy()
     }
 
@@ -339,9 +340,11 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
+
     companion object {
         const val WRITE_EXTERNAL_PERMISSION_CODE = 5637
         const val MAX_SMART_TRUNCATE_STRINGS = 256
     }
+
 
 }

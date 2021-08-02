@@ -65,4 +65,10 @@ class DetailsFragment : BaseFragment() {
             viewPagerAdapter.setFragments(fragmentList)
         })
     }
+
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 }

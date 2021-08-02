@@ -243,6 +243,7 @@ class MapFragment : BaseFragment(), GoogleMap.OnMyLocationButtonClickListener,
 
     override fun onDestroy() {
         trinidadDataViewModel.onMapDestroy()
+        _binding=null
         super.onDestroy()
     }
 
