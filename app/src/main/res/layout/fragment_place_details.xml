@@ -9,8 +9,8 @@
         android:layout_height="match_parent"
         android:background="?attr/colorSurface"
         android:fitsSystemWindows="true"
-        android:transitionName="shared_view_container"
         android:transitionGroup="true"
+        android:transitionName="shared_view_container"
         tools:context=".ui.trinidad.TrinidadActivity"
         tools:ignore="MergeRootFrame">
 
@@ -32,10 +32,10 @@
                 android:fitsSystemWindows="true"
                 app:collapsedTitleGravity="left"
                 app:contentScrim="@color/trinidadColorPrimary"
+                app:expandedTitleTextAppearance="@style/TextAppearance.Trinidad.Toolbar.Text.Second"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:statusBarScrim="@color/trinidadColorPrimary"
                 app:titleEnabled="true"
-                app:expandedTitleTextAppearance="@style/TextAppearance.Trinidad.Toolbar.Text.Second"
                 app:toolbarId="@id/toolbar">
 
                 <ImageView
@@ -228,10 +228,10 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/material_cardview_description_container"
-                    app:cardCornerRadius="0dp"
-                    app:cardElevation="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="1dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -285,6 +285,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <View
+                    android:id="@+id/divider_pano_view"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_margin="24dp"
@@ -295,6 +296,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:text="@string/video_promo"
                     android:textStyle="bold" />
@@ -314,8 +316,7 @@
                         android:id="@+id/video_player"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:show_buffering="always"
-                        />
+                        app:show_buffering="always" />
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>

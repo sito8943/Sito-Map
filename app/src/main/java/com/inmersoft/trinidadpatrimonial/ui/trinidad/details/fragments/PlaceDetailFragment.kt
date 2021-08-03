@@ -24,7 +24,6 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.databinding.FragmentDetailsBinding
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
@@ -292,7 +291,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         )
 
         binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl),
-            container = binding.materialPanoContainer)
+            container = listOf(binding.materialPanoContainer, binding.dividerPanoView))
 
     }
 

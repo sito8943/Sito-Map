@@ -78,7 +78,7 @@ fun ImageView.loadImageCenterCropExt(imageResource: Int) {
         .into(this)
 }
 
-fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: View? = null) {
+fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: List<View>) {
     val vrPanoContext = this
     if (uriPanoResource.toString().isNotEmpty()) {
         Glide.with(this)
@@ -88,7 +88,13 @@ fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: View
             .listener(object : RequestListener<Bitmap?> {
 
                 private fun loadingDone(done: Boolean) {
-                    container?.visibility = if (done) View.VISIBLE else View.GONE
+                    container.forEach { currentContainer ->
+                        if (done) {
+                            currentContainer.visible()
+                        } else {
+                            currentContainer.gone()
+                        }
+                    }
                 }
 
                 override fun onLoadFailed(
@@ -131,7 +137,9 @@ fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: View
                 }
             })
     } else {
-        container?.visibility = View.GONE
+        container.forEach { currentContainer ->
+            currentContainer.gone()
+        }
     }
 }
 

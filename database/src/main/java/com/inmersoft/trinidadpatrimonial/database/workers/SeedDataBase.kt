@@ -21,11 +21,12 @@ import kotlinx.coroutines.withContext
 
 class SeedDatabaseWorker(
     private val context: Context,
-    workerParams: WorkerParameters
+    workerParams: WorkerParameters,
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result = coroutineScope {
 
         withContext(Dispatchers.Default) {
+            val startTime = System.currentTimeMillis()
             val database = AppDatabase.getDatabase(context = context)
             val placesDao = database.placesDao()
             val routesDao = database.routesDao()
@@ -47,7 +48,6 @@ class SeedDatabaseWorker(
             val placeJSONList = JSONObjectManager.extractPlacesFromJSON(jsonReader)
             val placeWithPlacesTypeId: List<ObjectMap> =
                 JSONObjectManager.extractPlaceAndPlacesTypeInObjectMap(placeJSONList)
-
 
             placeWithPlacesTypeId.forEach {
                 val placeID = it.parentValueID
@@ -85,6 +85,9 @@ class SeedDatabaseWorker(
             }
 
             Log.d(TAG, "doWork: Called")
+            val endTime = System.currentTimeMillis()
+            val resultCalc = endTime - startTime
+            Log.d(TAG, "TIME: $resultCalc")
             Result.success()
         }
     }
