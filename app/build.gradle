@@ -97,15 +97,14 @@ dependencies {
     implementation "com.google.vr:sdk-base:1.180.0"
     implementation "com.google.vr:sdk-panowidget:1.180.0"
 
+    //Youtube extractor
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
+
     // Exoplayer (Video)
     implementation "com.google.android.exoplayer:exoplayer:2.14.2"
 
     //PlayCore
     implementation 'com.google.android.play:core-ktx:1.8.1'
-
-    //Youtube extractor
-    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
-
 
 
     //Custom Chrome Tabs

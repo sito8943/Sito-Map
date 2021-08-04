@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.adapters
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place.adapters
 
 import android.view.View
 import androidx.core.view.ViewCompat

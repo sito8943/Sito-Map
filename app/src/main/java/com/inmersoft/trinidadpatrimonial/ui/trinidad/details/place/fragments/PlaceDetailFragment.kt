@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.fragments
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place.fragments
 
 import android.Manifest
 import android.net.Uri
@@ -292,7 +292,6 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl),
             container = listOf(binding.materialPanoContainer, binding.dividerPanoView))
-
     }
 
 //WRITE EXTERNAL STORAGE PERMISSIONS

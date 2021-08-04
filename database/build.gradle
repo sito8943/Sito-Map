@@ -49,8 +49,6 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
 
-    //api "org.jetbrains.kotlinx:kotlinx-coroutines-database:1.5.0"
-    //api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
 
     // Hilt (Dependency Injection) add id 'dagger.hilt.android.plugin' and  id 'kotlin-kapt'
     //ADD IN PROJECT GRADLE classpath "com.google.dagger:hilt-android-gradle-plugin:2.35.1"
@@ -70,7 +68,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:2.3.0"
 
     //WorkManager
-    api "androidx.work:work-runtime-ktx:2.6.0-beta02"
+    api "androidx.work:work-runtime-ktx:2.7.0-alpha05"
     // optional - Test helpers
     androidTestImplementation "androidx.work:work-testing:2.6.0-beta02"
 

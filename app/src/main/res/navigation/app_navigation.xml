@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.details.fragments.DetailsFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place.fragments.DetailsFragment"
         android:label="DetailsFragment">
         <argument
             android:name="placeID"
