@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
@@ -15,19 +17,24 @@ import com.inmersoft.trinidadpatrimonial.extensions.invisible
 import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
 import com.inmersoft.trinidadpatrimonial.extensions.visible
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.HomeListAdapter
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.MainPlaceAdapter
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.places.HomePlaceTypeListAdapter
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.places.InnerPlaceSubListAdapter
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.routes.HomeRouteListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment(), MainPlaceAdapter.PlaceItemOnClick {
+class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
+    HomeRouteListAdapter.RouteItemOnClick {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeListAdapter: HomeListAdapter by lazy {
-        HomeListAdapter(placeItemOnClick = this@HomeFragment)
+    private val homePlaceTypeListAdapter: HomePlaceTypeListAdapter by lazy {
+        HomePlaceTypeListAdapter(placeSubListItemOnClick = this@HomeFragment)
+    }
+    private val homeRoutesListAdapter: HomeRouteListAdapter by lazy {
+        HomeRouteListAdapter(routeItemOnClick = this@HomeFragment)
     }
 
     override fun onCreateView(
@@ -59,7 +66,13 @@ class HomeFragment : BaseFragment(), MainPlaceAdapter.PlaceItemOnClick {
         }
 
         binding.homeListRecycleview.layoutManager = LinearLayoutManager(requireContext())
-        binding.homeListRecycleview.adapter = homeListAdapter
+        binding.homeListRecycleview.adapter = homePlaceTypeListAdapter
+
+        //RecycleBView for routes
+        val snapHelper: SnapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.homeRoutesRecycleview)
+
+        binding.homeRoutesRecycleview.adapter = homeRoutesListAdapter
 
 
         //Active the marquee text
@@ -72,7 +85,14 @@ class HomeFragment : BaseFragment(), MainPlaceAdapter.PlaceItemOnClick {
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
             viewLifecycleOwner,
             { placeTypeWithPlacesList ->
-                homeListAdapter.submitList(placeTypeWithPlacesList)
+                homePlaceTypeListAdapter.submitList(placeTypeWithPlacesList)
+            }
+        )
+
+        trinidadDataViewModel.allRoutes.observe(
+            viewLifecycleOwner,
+            { allRoutes ->
+                homeRoutesListAdapter.submitList(allRoutes)
             }
         )
 
@@ -107,6 +127,17 @@ class HomeFragment : BaseFragment(), MainPlaceAdapter.PlaceItemOnClick {
             )
         val action =
             HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = placeId)
+        Navigation.findNavController(requireView())
+            .navigate(action, extras)
+    }
+
+    override fun showRouteDetails(routeId: Int, sharedTransitionView: View) {
+        val extras =
+            FragmentNavigatorExtras(
+                sharedTransitionView to "shared_view_container"
+            )
+        val action =
+            HomeFragmentDirections.actionNavHomeToRoutesContainerDetailsFragment(routeId)
         Navigation.findNavController(requireView())
             .navigate(action, extras)
     }

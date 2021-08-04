@@ -1,18 +1,18 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.places
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceTypeWithPlaces
-import com.inmersoft.trinidadpatrimonial.databinding.ItemHomePlacesBinding
+import com.inmersoft.trinidadpatrimonial.databinding.ItemPlaceTypeBinding
 
-class HomeListAdapter(val placeItemOnClick: MainPlaceAdapter.PlaceItemOnClick) :
-    ListAdapter<PlaceTypeWithPlaces, HomeListAdapter.ViewHolder>(HomeDiffUtil()) {
+class HomePlaceTypeListAdapter(val placeSubListItemOnClick: InnerPlaceSubListAdapter.PlaceItemOnClick) :
+    ListAdapter<PlaceTypeWithPlaces, HomePlaceTypeListAdapter.ViewHolder>(HomeDiffUtil()) {
 
-    inner class ViewHolder(private val binding: ItemHomePlacesBinding) :
+    inner class ViewHolder(private val binding: ItemPlaceTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val mainPlaceAdapter by lazy { MainPlaceAdapter(placeItemOnClick) }
+        private val mainPlaceAdapter by lazy { InnerPlaceSubListAdapter(placeSubListItemOnClick) }
 
         init {
             val snapHelper: SnapHelper = LinearSnapHelper()
@@ -34,7 +34,7 @@ class HomeListAdapter(val placeItemOnClick: MainPlaceAdapter.PlaceItemOnClick) :
         viewType: Int,
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemHomePlacesBinding.inflate(inflater, parent, false)
+        val binding = ItemPlaceTypeBinding.inflate(inflater, parent, false)
 
         return ViewHolder(
             binding
@@ -45,7 +45,7 @@ class HomeListAdapter(val placeItemOnClick: MainPlaceAdapter.PlaceItemOnClick) :
         holder.bindData(getItem(position))
     }
 
-    class HomeDiffUtil : DiffUtil.ItemCallback<PlaceTypeWithPlaces>() {
+   private class HomeDiffUtil : DiffUtil.ItemCallback<PlaceTypeWithPlaces>() {
         override fun areItemsTheSame(
             oldItem: PlaceTypeWithPlaces,
             newItem: PlaceTypeWithPlaces,

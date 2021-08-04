@@ -302,12 +302,7 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
     private fun requestWriteExternalPermission() {
         EasyPermissions.requestPermissions(
             this,
-            "La aplicación Trinidad Patrimonial necesita permisos  para compartir su " +
-                    "contenido con otras aplicaciones.\n " +
-                    "La información compartida no se corresponde" +
-                    " a su información personal, sino a la informacion contenida " +
-                    "en la propia base de datos de la aplicación Trinidad Patrimonial" +
-                    " y que hace referencia al contenido tratado por la aplicación; La Ciudad de Trinidad.",
+            resources.getString(R.string.rationale_share_message),
             WRITE_EXTERNAL_PERMISSION_CODE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )

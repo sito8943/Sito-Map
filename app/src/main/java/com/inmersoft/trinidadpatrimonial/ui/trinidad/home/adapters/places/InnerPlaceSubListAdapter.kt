@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.places
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
+import com.inmersoft.trinidadpatrimonial.databinding.ItemSublistElementBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import java.util.*
 
-class MainPlaceAdapter(val placeItemOnClick: PlaceItemOnClick) :
-    ListAdapter<Place, MainPlaceAdapter.ViewHolder>(MainPlaceDiffUtil()) {
+class InnerPlaceSubListAdapter(val placeItemOnClick: PlaceItemOnClick) :
+    ListAdapter<Place, InnerPlaceSubListAdapter.ViewHolder>(MainPlaceDiffUtil()) {
 
     interface PlaceItemOnClick {
         fun showPlaceDetails(placeId: Int, sharedTransitionView: View)
@@ -26,7 +26,7 @@ class MainPlaceAdapter(val placeItemOnClick: PlaceItemOnClick) :
     ): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemMainPlacesSubsectionsBinding.inflate(inflater, parent, false)
+        val binding = ItemSublistElementBinding.inflate(inflater, parent, false)
 
         return ViewHolder(
             binding
@@ -34,7 +34,7 @@ class MainPlaceAdapter(val placeItemOnClick: PlaceItemOnClick) :
     }
 
     inner class ViewHolder(
-        val binding: ItemMainPlacesSubsectionsBinding,
+        val binding: ItemSublistElementBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(place: Place) {
