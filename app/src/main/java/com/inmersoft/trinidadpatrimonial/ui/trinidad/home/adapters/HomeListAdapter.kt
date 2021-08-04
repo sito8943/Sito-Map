@@ -2,22 +2,17 @@ package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
+import androidx.recyclerview.widget.*
 import com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.ItemHomePlacesBinding
 
-class HomeListAdapter() :
-    RecyclerView.Adapter<HomeListAdapter.ViewHolder>() {
-
-    private val mainSectionData = mutableListOf<PlaceTypeWithPlaces>()
+class HomeListAdapter(val itemOnClick: MainPlaceAdapter.ItemOnCLick) :
+    ListAdapter<PlaceTypeWithPlaces, HomeListAdapter.ViewHolder>(HomeDiffUtil()) {
 
     inner class ViewHolder(private val binding: ItemHomePlacesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val mainPlaceAdapter by lazy { MainPlaceAdapter() }
+        private val mainPlaceAdapter by lazy { MainPlaceAdapter(itemOnClick) }
 
         init {
             val snapHelper: SnapHelper = LinearSnapHelper()
@@ -30,13 +25,13 @@ class HomeListAdapter() :
 
         fun bindData(placeType: PlaceTypeWithPlaces) {
             binding.tvPlaceTypeTitle.text = placeType.placeType.type
-            mainPlaceAdapter.setListPlaceData(placeType.placesList)
+            mainPlaceAdapter.submitList(placeType.placesList)
         }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemHomePlacesBinding.inflate(inflater, parent, false)
@@ -46,18 +41,25 @@ class HomeListAdapter() :
         )
     }
 
-    fun setData(mainDataList: List<PlaceTypeWithPlaces>) {
-        mainSectionData.clear()
-        mainSectionData.addAll(mainDataList)
-        notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindData(mainSectionData[position])
+        holder.bindData(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return mainSectionData.size
-    }
+    class HomeDiffUtil : DiffUtil.ItemCallback<PlaceTypeWithPlaces>() {
+        override fun areItemsTheSame(
+            oldItem: PlaceTypeWithPlaces,
+            newItem: PlaceTypeWithPlaces,
+        ): Boolean {
+            return oldItem.placeType.place_type_id == newItem.placeType.place_type_id
+        }
 
+        override fun areContentsTheSame(
+            oldItem: PlaceTypeWithPlaces,
+            newItem: PlaceTypeWithPlaces,
+        ): Boolean {
+            return oldItem.placeType.place_type_id == newItem.placeType.place_type_id &&
+                    oldItem.placesList.size == newItem.placesList.size
+        }
+
+    }
 }

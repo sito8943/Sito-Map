@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.home.fragments.HomeFragment"
+        android:name="com.inmersoft.trinidadpatrimonial.ui.trinidad.home.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_nav_home_to_detailsFragment"

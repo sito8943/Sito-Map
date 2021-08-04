@@ -9,7 +9,6 @@ import com.inmersoft.trinidadpatrimonial.databinding.FragmentDetailsBinding
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.common.DetailsTransformer
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.common.ViewPagerDetailAdapter
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place.fragments.PlaceDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

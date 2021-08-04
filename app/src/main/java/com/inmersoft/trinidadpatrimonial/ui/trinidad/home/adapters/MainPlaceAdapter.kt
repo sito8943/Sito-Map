@@ -2,31 +2,30 @@ package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters
 
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.fragments.HomeFragmentDirections
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import java.util.*
 
-class MainPlaceAdapter() :
-    RecyclerView.Adapter<MainPlaceAdapter.ViewHolder>() {
+class MainPlaceAdapter(val itemOnClick: ItemOnCLick) :
+    ListAdapter<Place, MainPlaceAdapter.ViewHolder>(MainPlaceDiffUtil()) {
 
-    private val subSectionsData = mutableListOf<Place>()
-
-    fun setListPlaceData(newDataList: List<Place>) {
-        subSectionsData.clear()
-        subSectionsData.addAll(newDataList)
-        notifyDataSetChanged()
+    interface ItemOnCLick {
+        fun invoke(placeId: Int, sharedTransitionView: View)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
@@ -38,13 +37,14 @@ class MainPlaceAdapter() :
     }
 
     inner class ViewHolder(
-        val binding: ItemMainPlacesSubsectionsBinding
+        val binding: ItemMainPlacesSubsectionsBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(place: Place) {
             binding.tvCardHeaderTitle.text = place.place_name
             binding.tvCardSubtitle.text = place.place_description
-
+            // generamos un uuid diferente para cada item
+            binding.cardContainer.transitionName = UUID.randomUUID().toString()
             binding.imCardHeader.loadImageCenterCropExt(Uri.parse(
                 TrinidadAssets.getAssetFullPath(
                     place.header_images[0],
@@ -53,25 +53,26 @@ class MainPlaceAdapter() :
             ))
 
             itemView.setOnClickListener {
-                // generamos un uuid diferente para cada item
-                binding.cardContainer.transitionName = UUID.randomUUID().toString()
-                val extras =
-                    FragmentNavigatorExtras(
-                        binding.cardContainer to "shared_view_container"
-                    )
-                val action =
-                    HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = place.place_id)
-                Navigation.findNavController(itemView)
-                    .navigate(action, extras)
+                itemOnClick.invoke(place.place_id, binding.cardContainer)
             }
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindData(subSectionsData[position])
+        holder.bindData(getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return subSectionsData.size
+
+    class MainPlaceDiffUtil : DiffUtil.ItemCallback<Place>() {
+        override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
+            return oldItem.place_id == newItem.place_id
+        }
+
+        override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
+            return oldItem.place_id == newItem.place_id &&
+                    oldItem.place_name == newItem.place_name
+        }
+
+
     }
 }

@@ -1,28 +1,33 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.home.fragments
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.home
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
+import com.inmersoft.trinidadpatrimonial.extensions.invisible
 import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
+import com.inmersoft.trinidadpatrimonial.extensions.visible
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.HomeListAdapter
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.MainPlaceAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), MainPlaceAdapter.ItemOnCLick {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val homeListAdapter: HomeListAdapter by lazy {
-        HomeListAdapter()
+        HomeListAdapter(itemOnClick = this@HomeFragment)
     }
 
     override fun onCreateView(
@@ -67,15 +72,21 @@ class HomeFragment : BaseFragment() {
         trinidadDataViewModel.allPlaceTypeWithPlaces.observe(
             viewLifecycleOwner,
             { placeTypeWithPlacesList ->
-                homeListAdapter.setData(placeTypeWithPlacesList)
+                homeListAdapter.submitList(placeTypeWithPlacesList)
             }
         )
 
         trinidadDataViewModel.showProgressLoading.observe(viewLifecycleOwner, { visibility ->
             (binding.root as ViewGroup).fadeTransitionExt()
-            binding.loadingData.visibility = if (visibility) View.VISIBLE else View.INVISIBLE
-            binding.homeListRecycleview.visibility =
-                if (!visibility) View.VISIBLE else View.INVISIBLE
+            if (visibility) {
+                binding.loadingData.visible()
+                binding.homeListRecycleview.invisible()
+                binding.homeRoutesRecycleview.invisible()
+            } else {
+                binding.loadingData.invisible()
+                binding.homeListRecycleview.visible()
+                binding.homeRoutesRecycleview.visible()
+            }
         })
     }
 
@@ -84,10 +95,20 @@ class HomeFragment : BaseFragment() {
         subscribeObservers()
     }
 
-
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    override fun invoke(placeId: Int, sharedTransitionView: View) {
+        val extras =
+            FragmentNavigatorExtras(
+                sharedTransitionView to "shared_view_container"
+            )
+        val action =
+            HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = placeId)
+        Navigation.findNavController(requireView())
+            .navigate(action, extras)
     }
 }
 
