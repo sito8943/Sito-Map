@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place.adapters
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.common
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

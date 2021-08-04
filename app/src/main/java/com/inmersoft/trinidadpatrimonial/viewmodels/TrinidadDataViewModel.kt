@@ -24,9 +24,12 @@ class TrinidadDataViewModel @Inject constructor(private val dataRepository: Data
     val allPlaceTypeWithPlaces: LiveData<List<PlaceTypeWithPlaces>> = _allPlaceTypeWithPlaces
 
     var allPlaces = dataRepository.allPlaces
-    private val _currentPlaceToBottomSheet = MutableLiveData<Place?>()
+    var allRoutes = dataRepository.allRoutes
 
+
+    private val _currentPlaceToBottomSheet = MutableLiveData<Place?>()
     val currentPlaceToBottomSheet: LiveData<Place?> get() = _currentPlaceToBottomSheet
+
     private var parent = "TrinidadDataViewModel"
 
     private val _showProgressLoading = MutableLiveData<Boolean>()

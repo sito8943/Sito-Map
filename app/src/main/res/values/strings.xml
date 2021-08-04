@@ -39,6 +39,7 @@
     <string name="text_share">Compartir</string>
     <string name="text_open_web">Web</string>
     <string name="see_less">ver menos</string>
+    <string name="rationale_share_message">\"La aplicación Trinidad Patrimonial necesita permisos  para compartir su \" +                     \"contenido con otras aplicaciones.\n \" +                     \"La información compartida no se corresponde\" +                     \" a su información personal, sino a la informacion contenida \" +                     \"en la propia base de datos de la aplicación Trinidad Patrimonial\" +                     \" y que hace referencia al contenido tratado por la aplicación; La Ciudad de Trinidad.\"</string>
 
 
 </resources>

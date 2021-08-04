@@ -1,4 +1,4 @@
-package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place.fragments
+package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.routes
 
 import android.Manifest
 import android.net.Uri
@@ -23,8 +23,8 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
-import com.inmersoft.trinidadpatrimonial.databinding.FragmentPlaceDetailsBinding
+import com.inmersoft.trinidadpatrimonial.database.data.entity.Route
+import com.inmersoft.trinidadpatrimonial.databinding.FragmentRoutesDetailsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
@@ -38,10 +38,10 @@ import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import java.util.*
 
 
-class PlaceDetailFragment(private val placeData: Place) : Fragment(),
+class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
     EasyPermissions.PermissionCallbacks {
 
-    private var _binding: FragmentPlaceDetailsBinding? = null
+    private var _binding: FragmentRoutesDetailsBinding? = null
     private val binding get() = _binding!!
 
     private var currentLocale = Locale("es", "ES")
@@ -76,40 +76,40 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        _binding = FragmentPlaceDetailsBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentRoutesDetailsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbarLayout.title = placeData.place_name
+        binding.toolbarLayout.title = routeData.route_name
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
 
-        loadPano360(placeData.pano)
-        loadHeader(placeData.header_images)
+        //loadPano360(routeData.pano)
+        loadHeader(routeData.header_images)
         setupUI()
         initPlayer()
     }
 
 
     private fun setupUI() {
-        binding.placeName.text = placeData.place_name
-        val description = placeData.place_description
+        binding.placeName.text = routeData.route_name
+        val description = routeData.route_description
         val shortDescription = description.smartTruncate(MAX_SMART_TRUNCATE_STRINGS)
         binding.placeDescription.text = shortDescription
 
         binding.btnGoToMap.apply {
             transitionName = UUID.randomUUID().toString()
             setOnClickListener {
-                goToMap(placeData.place_id)
+                //goToMap(routeData.place_id)
             }
         }
 
 
         binding.seeMoreButtonToogle.visibility =
-            if (placeData.place_description.length > MAX_SMART_TRUNCATE_STRINGS) View.VISIBLE else View.GONE
+            if (routeData.route_description.length > MAX_SMART_TRUNCATE_STRINGS) View.VISIBLE else View.GONE
 
         binding.seeMoreButtonToogle.addOnButtonCheckedListener { _, _, isChecked ->
             binding.materialCardviewDescriptionContainer.fadeTransitionExt(ChangeBounds())
@@ -127,13 +127,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
                 textToSpeechEngine.stop()
                 it.isSelected = false
             } else {
-                speechPlaceDescription(placeData.place_description)
+                speechPlaceDescription(routeData.route_description)
                 it.isSelected = true
             }
         }
 
         binding.btnGoWebPage.setOnClickListener {
-            goToWebPage(placeData.web)
+            //goToWebPage(routeData.web)
         }
         binding.btnSharePlaceInformation.setOnClickListener {
             sharePlaceInformation()
@@ -145,7 +145,7 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         simpleExoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
         playerView = binding.videoPlayer
         binding.videoPlayer.player = simpleExoPlayer
-        playYoutubeUrl(placeData.video_promo)
+        playYoutubeUrl(routeData.video_promo)
     }
 
     private fun playYoutubeUrl(videoPromo: String) {
@@ -242,10 +242,10 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
         ShareIntent.loadImageAndShare(
             requireContext(), Uri.parse(
                 TrinidadAssets.getAssetFullPath(
-                    placeData.header_images[0],
+                    routeData.header_images[0],
                     TrinidadAssets.FILE_JPG_EXTENSION
                 )
-            ), placeData.place_name, resources.getString(R.string.app_name)
+            ), routeData.route_name, resources.getString(R.string.app_name)
         )
 
     }
@@ -261,13 +261,13 @@ class PlaceDetailFragment(private val placeData: Place) : Fragment(),
 
         binding.placeDetailContainer.transitionName = UUID.randomUUID().toString()
 
-        val extras =
+        /*val extras =
             FragmentNavigatorExtras(
                 binding.placeDetailContainer to "bottom_sheet_trinidad"
             )
         val action =
             DetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
-        findNavController().navigate(action, extras)
+        findNavController().navigate(action, extras)*/
     }
 
     override fun onPause() {
