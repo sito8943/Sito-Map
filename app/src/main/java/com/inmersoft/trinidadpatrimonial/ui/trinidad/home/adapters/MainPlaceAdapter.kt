@@ -4,23 +4,20 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.ItemMainPlacesSubsectionsBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.HomeFragmentDirections
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import java.util.*
 
-class MainPlaceAdapter(val itemOnClick: ItemOnCLick) :
+class MainPlaceAdapter(val placeItemOnClick: PlaceItemOnClick) :
     ListAdapter<Place, MainPlaceAdapter.ViewHolder>(MainPlaceDiffUtil()) {
 
-    interface ItemOnCLick {
-        fun invoke(placeId: Int, sharedTransitionView: View)
+    interface PlaceItemOnClick {
+        fun showPlaceDetails(placeId: Int, sharedTransitionView: View)
     }
 
     override fun onCreateViewHolder(
@@ -53,7 +50,7 @@ class MainPlaceAdapter(val itemOnClick: ItemOnCLick) :
             ))
 
             itemView.setOnClickListener {
-                itemOnClick.invoke(place.place_id, binding.cardContainer)
+                placeItemOnClick.showPlaceDetails(place.place_id, binding.cardContainer)
             }
         }
     }

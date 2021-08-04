@@ -21,13 +21,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment(), MainPlaceAdapter.ItemOnCLick {
+class HomeFragment : BaseFragment(), MainPlaceAdapter.PlaceItemOnClick {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val homeListAdapter: HomeListAdapter by lazy {
-        HomeListAdapter(itemOnClick = this@HomeFragment)
+        HomeListAdapter(placeItemOnClick = this@HomeFragment)
     }
 
     override fun onCreateView(
@@ -100,7 +100,7 @@ class HomeFragment : BaseFragment(), MainPlaceAdapter.ItemOnCLick {
         super.onDestroy()
     }
 
-    override fun invoke(placeId: Int, sharedTransitionView: View) {
+    override fun showPlaceDetails(placeId: Int, sharedTransitionView: View) {
         val extras =
             FragmentNavigatorExtras(
                 sharedTransitionView to "shared_view_container"

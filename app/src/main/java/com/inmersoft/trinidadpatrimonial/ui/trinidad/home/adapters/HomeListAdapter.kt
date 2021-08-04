@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.*
 import com.inmersoft.trinidadpatrimonial.database.data.entity.PlaceTypeWithPlaces
 import com.inmersoft.trinidadpatrimonial.databinding.ItemHomePlacesBinding
 
-class HomeListAdapter(val itemOnClick: MainPlaceAdapter.ItemOnCLick) :
+class HomeListAdapter(val placeItemOnClick: MainPlaceAdapter.PlaceItemOnClick) :
     ListAdapter<PlaceTypeWithPlaces, HomeListAdapter.ViewHolder>(HomeDiffUtil()) {
 
     inner class ViewHolder(private val binding: ItemHomePlacesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val mainPlaceAdapter by lazy { MainPlaceAdapter(itemOnClick) }
+        private val mainPlaceAdapter by lazy { MainPlaceAdapter(placeItemOnClick) }
 
         init {
             val snapHelper: SnapHelper = LinearSnapHelper()
