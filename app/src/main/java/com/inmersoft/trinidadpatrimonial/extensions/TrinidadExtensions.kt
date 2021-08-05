@@ -20,6 +20,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.transition.platform.MaterialFadeThrough
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.R
+import kotlin.random.Random
 
 fun ViewGroup.fadeTransitionExt(transition: android.transition.Transition = MaterialFadeThrough()) {
     TransitionManager.beginDelayedTransition(this, transition)
@@ -39,42 +40,53 @@ fun String.smartTruncate(max: Int, suffix: String = "..."): String {
 
 
 fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
+    val placeholderError =
+        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
+
     Glide.with(this)
         .load(imageUri)
-        .centerInside()
-        .error(R.drawable.placeholder_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .placeholder(R.drawable.placeholder_error)
+        .error(placeholderError[Random.nextInt(placeholderError.size)])
+        .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
+        .centerInside()
         .into(this)
 }
 
 fun ImageView.loadImageCenterInsideExt(imageResource: Int) {
+    val placeholderError =
+        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
+
     Glide.with(this)
         .load(imageResource)
-        .centerInside()
-        .error(R.drawable.placeholder_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .placeholder(R.drawable.placeholder_error)
+        .error(placeholderError[Random.nextInt(placeholderError.size)])
+        .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
+        .centerInside()
         .into(this)
 }
 
 fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
+    val placeholderError =
+        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
+
     Glide.with(this)
         .load(imageUri)
-        .centerCrop()
-        .error(R.drawable.placeholder_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .placeholder(R.drawable.placeholder_error)
+        .error(placeholderError[Random.nextInt(placeholderError.size)])
+        .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
+        .centerCrop()
         .into(this)
 }
 
 fun ImageView.loadImageCenterCropExt(imageResource: Int) {
+    val placeholderError =
+        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
     Glide.with(this)
         .load(this.resources.getDrawable(imageResource, this.context.theme))
-        .centerCrop()
-        .error(R.drawable.placeholder_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .placeholder(R.drawable.placeholder_error)
+        .error(placeholderError[Random.nextInt(placeholderError.size)])
+        .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
+        .centerCrop()
         .into(this)
 }
 
@@ -83,7 +95,6 @@ fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: List
     if (uriPanoResource.toString().isNotEmpty()) {
         Glide.with(this)
             .asBitmap()
-            .placeholder(R.drawable.placeholder_error)
             .load(uriPanoResource)
             .listener(object : RequestListener<Bitmap?> {
 
