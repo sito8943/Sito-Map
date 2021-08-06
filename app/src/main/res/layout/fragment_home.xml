@@ -132,15 +132,13 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/loading_data"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="50dp"
                     android:indeterminate="true"
                     android:visibility="visible"
-                    app:layout_constraintBottom_toTopOf="@+id/material_cardview_routes"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/material_card_view_top" />

@@ -62,13 +62,13 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
 
 
         binding.fab.setOnClickListener {
-            requireContext().showToastExt("NOT IMPLEMENTED YET!!!")
+            requireContext().showToastExt("SIN IMPLEMENTAR!!!")
         }
 
         binding.homeListRecycleview.layoutManager = LinearLayoutManager(requireContext())
         binding.homeListRecycleview.adapter = homePlaceTypeListAdapter
 
-        //RecycleBView for routes
+        //RecycleView for routes
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.homeRoutesRecycleview)
 
@@ -101,11 +101,11 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
             if (visibility) {
                 binding.loadingData.visible()
                 binding.homeListRecycleview.invisible()
-                binding.homeRoutesRecycleview.invisible()
+                binding.materialCardviewRoutes.invisible()
             } else {
                 binding.loadingData.invisible()
                 binding.homeListRecycleview.visible()
-                binding.homeRoutesRecycleview.visible()
+                binding.materialCardviewRoutes.visible()
             }
         })
     }

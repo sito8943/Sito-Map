@@ -13,6 +13,7 @@ import com.inmersoft.trinidadpatrimonial.preferences.UserPreferences
 import com.inmersoft.trinidadpatrimonial.preferences.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.concurrent.Flow
@@ -67,12 +68,18 @@ class TrinidadDataViewModel @Inject constructor(
         }
     }
 
+    init {
+        _showProgressLoading.value = true
+    }
+
     //TODO (Make the pagination when scroll down)
     fun onLoadMainRecycleViewData() {
         viewModelScope.launch(Dispatchers.Main) {
-            _showProgressLoading.value = true
             _allPlaceTypeWithPlaces.value =
-                withContext(Dispatchers.IO) { dataRepository.allPlacesTypeWithPlaces() }!!
+                withContext(Dispatchers.IO) {
+                    delay(300)
+                    dataRepository.allPlacesTypeWithPlaces().filter { it.placesList.isNotEmpty() }
+                }!!
             _showProgressLoading.value = false
         }
     }
