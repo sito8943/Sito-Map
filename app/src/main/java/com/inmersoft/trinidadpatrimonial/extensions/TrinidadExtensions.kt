@@ -85,7 +85,6 @@ fun ImageView.loadImageCenterInsideExt(imageResource: Int, imageResourcePlacehol
 }
 
 fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
-
     Glide.with(this)
         .load(imageUri)
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

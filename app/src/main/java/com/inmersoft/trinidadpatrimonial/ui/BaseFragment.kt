@@ -25,8 +25,11 @@ open class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val sharedTransitionEffect = MaterialContainerTransform(requireContext(), true)
+        val sharedTransitionReturnEffect = MaterialContainerTransform(requireContext(), false)
         sharedTransitionEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
+        sharedTransitionReturnEffect.fadeMode = MaterialContainerTransform.FADE_MODE_THROUGH
         sharedElementEnterTransition = sharedTransitionEffect
+        sharedElementReturnTransition = sharedTransitionReturnEffect
     }
 
     protected fun showTrinidadBottomSheetPlaceInfo(place: Place, navDirections: NavDirections) {
