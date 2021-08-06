@@ -45,4 +45,7 @@
     <string name="marquee_message_banner">La ciudad colonial e histórica de Trinidad o Villa de la Santísima Trinidad, Patrimonio de la Humanidad, Ciudad Artesanal y Creativa del Mundo, Monumento</string>
     <string name="routes">Rutas y Senderos</string>
     <string name="todo">TODO</string>
+    <string name="title_activity_loader">LoaderActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

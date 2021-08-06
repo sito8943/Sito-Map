@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
@@ -73,11 +74,21 @@ fun ImageView.loadImageCenterInsideExt(imageResource: Int) {
         .into(this)
 }
 
+fun ImageView.loadImageCenterInsideExt(imageResource: Int, imageResourcePlaceholder: Int) {
+    Glide.with(this)
+        .load(imageResource)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .placeholder(imageResourcePlaceholder)
+        .centerInside()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
+}
+
 fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
 
     Glide.with(this)
         .load(imageUri)
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .error(placeholderError[Random.nextInt(placeholderError.size)])
         .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
         .centerCrop()
@@ -86,8 +97,8 @@ fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
 
 fun ImageView.loadImageCenterCropExt(imageResource: Int) {
     Glide.with(this)
-        .load(this.resources.getDrawable(imageResource, this.context.theme))
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .load(imageResource)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .error(placeholderError[Random.nextInt(placeholderError.size)])
         .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
         .centerCrop()
@@ -169,16 +180,3 @@ fun View.visible() {
 fun View.gone() {
     this.visibility = View.GONE
 }
-
-/*
-fun View.isVisible(): Boolean {
-    return this.visibility == View.VISIBLE
-}
-
-fun View.isInvisible(): Boolean {
-    return this.visibility == View.INVISIBLE
-}
-
-fun View.isGone(): Boolean {
-    return this.visibility == View.GONE
-}*/

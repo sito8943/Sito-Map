@@ -10,7 +10,8 @@ class OnBoardingViewHolder(private val binding: FragmentOnboardingScreenBinding)
     RecyclerView.ViewHolder(binding.root) {
 
     fun bindData(currenOnboardingScreen: OnBoardingData) {
-        binding.imageViewParallaxEffect.loadImageCenterInsideExt(currenOnboardingScreen.imageResource)
+        binding.imageViewParallaxEffect.loadImageCenterInsideExt(currenOnboardingScreen.imageResource,
+            currenOnboardingScreen.imageResourcePlaceholder)
         binding.title.text = currenOnboardingScreen.title
         binding.subtitle.text = currenOnboardingScreen.subtitle
     }

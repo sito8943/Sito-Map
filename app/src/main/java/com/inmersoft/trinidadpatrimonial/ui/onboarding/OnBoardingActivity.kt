@@ -42,15 +42,18 @@ class OnBoardingActivity : AppCompatActivity() {
                 OnBoardingData(
                     resources.getString(R.string.onboarding_title_page1),
                     resources.getString(R.string.onboarding_subtitle_page1),
-                    R.drawable.ic_onboarding_page_1
+                    R.drawable.ic_onboarding_page_1,
+                    R.drawable.ic_onboarding_page_1_placeholder,
                 ), OnBoardingData(
                     resources.getString(R.string.onboarding_title_page2),
                     resources.getString(R.string.onboarding_subtitle_page2),
-                    R.drawable.ic_onboarding_page_2
+                    R.drawable.ic_onboarding_page_2,
+                    R.drawable.ic_onboarding_page_2_placeholder,
                 ), OnBoardingData(
                     resources.getString(R.string.onboarding_title_page3),
                     resources.getString(R.string.onboarding_subtitle_page3),
-                    R.drawable.ic_onboarding_page_3
+                    R.drawable.ic_onboarding_page_3,
+                    R.drawable.ic_onboarding_page_3_placeholder,
                 )
             )
         )
@@ -87,12 +90,11 @@ class OnBoardingActivity : AppCompatActivity() {
     private fun goTrinidadHome(viewShared: View?) {
         val intent = Intent(this, TrinidadActivity::class.java)
         val options = ActivityOptions.makeSceneTransitionAnimation(
-            this,
+            this@OnBoardingActivity,
             viewShared,
             "shared_element_container" // The transition name to be matched in Activity B.
         )
         startActivity(intent, options.toBundle())
-
     }
 
 

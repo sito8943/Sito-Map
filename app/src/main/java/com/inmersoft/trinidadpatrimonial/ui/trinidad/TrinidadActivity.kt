@@ -60,9 +60,8 @@ class TrinidadActivity : AppCompatActivity() {
                 addTarget(android.R.id.content)
                 duration = 250L
             }
-        setTheme(R.style.Theme_TrinidadPatrimonial)
         super.onCreate(savedInstanceState)
-        checkFirstRun()
+
 
         binding = ActivityTrinidadBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -70,38 +69,8 @@ class TrinidadActivity : AppCompatActivity() {
         initUI()
     }
 
-    private fun checkFirstRun() {
-        trinidadDataViewModel.userPreferences.observe(this, { userPref ->
-            if (userPref != null) {
-                if (!userPref.userSeeOnboarding) {
-                    Log.d("TAG", "checkFirstRun: USER NOT SEE ONBOARDING")
-                    populateDataBase()
-                    startOnBoardingPage()
-                } else {
-                    Log.d("TAG", "checkFirstRun: USER SEE ONBOARDING")
-                }
-            } else {
-                startOnBoardingPage()
-            }
-        })
 
-    }
 
-    private fun populateDataBase() {
-        trinidadDataViewModel.allPlacesName.observe(this, {
-            var message = "Is not ready...Populating..."
-            if (it.isNotEmpty()) {
-                message = "Is Ready"
-            }
-            Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: READY: $message")
-        })
-    }
-
-    private fun startOnBoardingPage() {
-        val intent = Intent(this@TrinidadActivity, OnBoardingActivity::class.java)
-        startActivity(intent)
-        finishAfterTransition()
-    }
 
     private fun initUI() {
 
