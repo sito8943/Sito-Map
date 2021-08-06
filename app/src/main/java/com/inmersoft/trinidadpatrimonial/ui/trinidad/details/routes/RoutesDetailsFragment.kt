@@ -25,10 +25,7 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Route
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentRoutesDetailsBinding
-import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
-import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
-import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideExt
-import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
+import com.inmersoft.trinidadpatrimonial.extensions.*
 import com.inmersoft.trinidadpatrimonial.utils.RomanNumbers
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
@@ -99,6 +96,9 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
         val description = routeData.route_description
         val shortDescription = description.smartTruncate(MAX_SMART_TRUNCATE_STRINGS)
         binding.placeDescription.text = shortDescription
+
+        binding.btnGoWebPage.gone()
+        binding.textWebAction.gone()
 
         binding.btnGoToMap.apply {
             transitionName = UUID.randomUUID().toString()
