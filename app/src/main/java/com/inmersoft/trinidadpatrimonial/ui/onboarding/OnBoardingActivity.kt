@@ -4,12 +4,14 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import androidx.core.view.size
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
@@ -22,21 +24,21 @@ import com.inmersoft.trinidadpatrimonial.databinding.ActivityOnBoardingBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.invisible
 import com.inmersoft.trinidadpatrimonial.extensions.visible
+import com.inmersoft.trinidadpatrimonial.preferences.UserPreferences
+import com.inmersoft.trinidadpatrimonial.preferences.UserPreferencesRepository
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingActivity : AppCompatActivity() {
-
-    companion object {
-        private const val UPDATE_REQUEST_CODE = 7856
-    }
-
-    private val appUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
 
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
@@ -44,8 +46,6 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private val viewPager2PageChangeCallback = ViewPager2PageChangeCallback {
         setOnboardingPoint(it)
-
-
     }
 
     private val onboardingAdapter by lazy {
@@ -69,27 +69,17 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_TrinidadPatrimonial)
-        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-        // Attach a callback used to capture the shared elements from this Activity to be used
-        // by the container transform transition
-        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
-        // Keep system bars (status bar, navigation bar) persistent throughout the transition.
-        window.sharedElementsUseOverlay = false
         super.onCreate(savedInstanceState)
+
+        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+        setExitSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+        window.sharedElementsUseOverlay = false
+
         binding = ActivityOnBoardingBinding.inflate(layoutInflater)
 
-        inAppUpdate()
-
         binding.onboardingStartButton.setOnClickListener {
-
-            val intent = Intent(this, TrinidadActivity::class.java)
-            val options = ActivityOptions.makeSceneTransitionAnimation(
-                this,
-                binding.onboardingStartButton,
-                "shared_element_container" // The transition name to be matched in Activity B.
-            )
-            startActivity(intent, options.toBundle())
+            trinidadDataViewModel.onSetUserPreferences(UserPreferences(userSeeOnboarding = true))
+            goTrinidadHome(binding.onboardingStartButton)
         }
 
         binding.onboardingViewPage.adapter = onboardingAdapter
@@ -102,59 +92,21 @@ class OnBoardingActivity : AppCompatActivity() {
 
         binding.onboardingViewPage.registerOnPageChangeCallback(viewPager2PageChangeCallback)
 
-        trinidadDataViewModel.allPlacesName.observe(this, {
-            var message = "Is not ready...Populating..."
-            if (it.isNotEmpty()) {
-                message = "Is Ready"
-            }
-            Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: READY: $message")
-        })
-
         setContentView(binding.root)
+
     }
 
-    private fun inAppUpdate() {
-        appUpdateManager.registerListener {
-            if (it.installStatus() == InstallStatus.DOWNLOADED) {
-                showUpdateDownloadedSnackbar()
-            }
-        }
-
-        appUpdateManager.appUpdateInfo.addOnSuccessListener {
-            if (it.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && it.isUpdateTypeAllowed(
-                    AppUpdateType.FLEXIBLE
-                )
-            ) {
-                appUpdateManager.startUpdateFlowForResult(
-                    it,
-                    AppUpdateType.FLEXIBLE,
-                    this,
-                    UPDATE_REQUEST_CODE
-                )
-            }
-        }.addOnFailureListener {
-            Log.e("FlexibleUpdateActivity", "Failed to check for update: $it")
-        }
-    }
-
-    private fun showUpdateDownloadedSnackbar() {
-        Snackbar.make(
-            binding.root,
-            resources.getString(R.string.update_downloaded),
-            Snackbar.LENGTH_INDEFINITE
+    private fun goTrinidadHome(viewShared: View?) {
+        val intent = Intent(this, TrinidadActivity::class.java)
+        val options = ActivityOptions.makeSceneTransitionAnimation(
+            this,
+            viewShared,
+            "shared_element_container" // The transition name to be matched in Activity B.
         )
-            .setAction(resources.getString(R.string.install_update)) { appUpdateManager.completeUpdate() }
-            .show()
+        startActivity(intent, options.toBundle())
+        finishAfterTransition()
     }
 
-    override fun onResume() {
-        super.onResume()
-        appUpdateManager.appUpdateInfo.addOnSuccessListener {
-            if (it.installStatus() == InstallStatus.DOWNLOADED) {
-                showUpdateDownloadedSnackbar()
-            }
-        }
-    }
 
     private fun setOnboardingPoint(index: Int) {
         val max = binding.onboardingPagePositionContainer.size

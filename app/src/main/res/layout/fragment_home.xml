@@ -35,12 +35,12 @@
                 app:toolbarId="@id/toolbar">
 
                 <ImageView
-                    android:id="@+id/qr_bottom_sheet_image_header"
+                    android:id="@+id/trinidad_header_banner"
                     android:layout_width="match_parent"
+                    android:src="@drawable/placeholder_1"
                     android:layout_height="278dp"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image_header_test"
                     app:layout_collapseMode="parallax"
                     android:contentDescription="@string/todo" />
 

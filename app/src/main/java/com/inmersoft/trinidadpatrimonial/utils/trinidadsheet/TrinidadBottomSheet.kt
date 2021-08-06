@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.BottomSheetTrinidadBinding
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import java.util.*
@@ -41,12 +42,8 @@ class TrinidadBottomSheet(
     }
 
     fun bindData(data: SheetData) {
-        Glide.with(context)
-            .load(data.imageURI)
-            .placeholder(R.drawable.placeholder_error)
-            .error(R.drawable.placeholder_error)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(binding.bottomSheetImageHeader)
+
+        binding.bottomSheetImageHeader.loadImageCenterCropExt(data.imageURI)
 
         binding.bottomSheetHeaderTitle.text = data.headerTitle
         binding.bottomSheetHeaderTitle.isSelected = true

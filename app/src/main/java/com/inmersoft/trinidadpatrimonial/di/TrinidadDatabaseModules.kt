@@ -1,11 +1,14 @@
 package com.inmersoft.trinidadpatrimonial.di
 
 import android.content.Context
+import androidx.datastore.preferences.preferencesDataStore
+import com.inmersoft.trinidadpatrimonial.MainApplication
 import com.inmersoft.trinidadpatrimonial.database.data.AppDatabase
 import com.inmersoft.trinidadpatrimonial.database.data.DataRepository
 import com.inmersoft.trinidadpatrimonial.database.data.source.local.PlaceDao
 import com.inmersoft.trinidadpatrimonial.database.data.source.local.PlaceTypeDao
 import com.inmersoft.trinidadpatrimonial.database.data.source.local.RoutesDao
+import com.inmersoft.trinidadpatrimonial.preferences.UserPreferencesRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -47,6 +50,12 @@ object TrinidadDatabaseModules {
     fun provideRepository(
         placeDao: PlaceDao,
         routesDao: RoutesDao,
-        placeTypeDao: PlaceTypeDao
+        placeTypeDao: PlaceTypeDao,
     ) = DataRepository(placeDao, routesDao, placeTypeDao)
+
+    @Singleton
+    @Provides
+    fun provideUserPrefs(@ApplicationContext appContext: Context): UserPreferencesRepository {
+        return (appContext as MainApplication).userPrefsRepo
+    }
 }

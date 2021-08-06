@@ -38,10 +38,21 @@ fun String.smartTruncate(max: Int, suffix: String = "..."): String {
     }
 }
 
+val placeholderError =
+    listOf<Int>(
+        R.drawable.placeholder_1,
+        R.drawable.placeholder_2,
+        R.drawable.placeholder_3,
+        R.drawable.placeholder_4,
+        R.drawable.placeholder_5,
+        R.drawable.placeholder_6,
+        R.drawable.placeholder_7,
+        R.drawable.placeholder_8,
+        R.drawable.placeholder_9,
+        R.drawable.placeholder_10,
+        R.drawable.placeholder_11)
 
 fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
-    val placeholderError =
-        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
 
     Glide.with(this)
         .load(imageUri)
@@ -53,9 +64,6 @@ fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
 }
 
 fun ImageView.loadImageCenterInsideExt(imageResource: Int) {
-    val placeholderError =
-        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
-
     Glide.with(this)
         .load(imageResource)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -66,8 +74,6 @@ fun ImageView.loadImageCenterInsideExt(imageResource: Int) {
 }
 
 fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
-    val placeholderError =
-        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
 
     Glide.with(this)
         .load(imageUri)
@@ -79,8 +85,6 @@ fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
 }
 
 fun ImageView.loadImageCenterCropExt(imageResource: Int) {
-    val placeholderError =
-        listOf<Int>(R.drawable.placeholder_1, R.drawable.placeholder_2, R.drawable.placeholder_3)
     Glide.with(this)
         .load(this.resources.getDrawable(imageResource, this.context.theme))
         .diskCacheStrategy(DiskCacheStrategy.ALL)
