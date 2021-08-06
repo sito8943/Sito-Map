@@ -48,7 +48,6 @@ class TrinidadActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         findViewById<View>(android.R.id.content).transitionName = "shared_element_container"
         setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
@@ -101,7 +100,7 @@ class TrinidadActivity : AppCompatActivity() {
     private fun startOnBoardingPage() {
         val intent = Intent(this@TrinidadActivity, OnBoardingActivity::class.java)
         startActivity(intent)
-        finish()
+        finishAfterTransition()
     }
 
     private fun initUI() {

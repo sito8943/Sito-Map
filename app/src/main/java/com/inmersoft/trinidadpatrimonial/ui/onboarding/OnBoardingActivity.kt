@@ -3,7 +3,6 @@ package com.inmersoft.trinidadpatrimonial.ui.onboarding
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.ImageView
@@ -11,31 +10,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
 import androidx.core.view.size
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
-import com.google.android.play.core.install.model.UpdateAvailability
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.ActivityOnBoardingBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
 import com.inmersoft.trinidadpatrimonial.extensions.invisible
 import com.inmersoft.trinidadpatrimonial.extensions.visible
 import com.inmersoft.trinidadpatrimonial.preferences.UserPreferences
-import com.inmersoft.trinidadpatrimonial.preferences.UserPreferencesRepository
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnBoardingAdapter
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.adapters.OnboardingViewPagerTransformer
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.data.OnBoardingData
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnBoardingActivity : AppCompatActivity() {
@@ -104,13 +92,13 @@ class OnBoardingActivity : AppCompatActivity() {
             "shared_element_container" // The transition name to be matched in Activity B.
         )
         startActivity(intent, options.toBundle())
-        finishAfterTransition()
+
     }
 
 
     private fun setOnboardingPoint(index: Int) {
-        val max = binding.onboardingPagePositionContainer.size
-        (0 until max).forEach { currentPoint ->
+        val maxOnboardingPageSize = binding.onboardingPagePositionContainer.size
+        (0 until maxOnboardingPageSize).forEach { currentPoint ->
             val imv = binding.onboardingPagePositionContainer.getChildAt(currentPoint) as ImageView
             if (currentPoint == index)
                 imv.setImageResource(R.drawable.onboarding_item_selected)
@@ -118,7 +106,7 @@ class OnBoardingActivity : AppCompatActivity() {
                 imv.setImageResource(R.drawable.onboarding_item_unselected)
         }
 
-        if (index == max - 1) {
+        if (index == maxOnboardingPageSize - 1) {
             binding.container.fadeTransitionExt()
             binding.onboardingPagePositionContainer.invisible()
             binding.onboardingStartButton.visible()

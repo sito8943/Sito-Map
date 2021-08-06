@@ -36,26 +36,26 @@ class TrinidadDataViewModel @Inject constructor(
     val allPlacesName = dataRepository.allPlacesName
 
     private val _allPlaceTypeWithPlaces = MutableLiveData<List<PlaceTypeWithPlaces>>()
+
     val allPlaceTypeWithPlaces: LiveData<List<PlaceTypeWithPlaces>> = _allPlaceTypeWithPlaces
 
-
     var allPlaces = dataRepository.allPlaces
+
     var allRoutes = dataRepository.allRoutes
 
     private val _currentPlaceToBottomSheet = MutableLiveData<Place?>()
 
     val currentPlaceToBottomSheet: LiveData<Place?> get() = _currentPlaceToBottomSheet
+
     private var parent = "TrinidadDataViewModel"
 
     private val _showProgressLoading = MutableLiveData<Boolean>()
 
-
     val showProgressLoading: LiveData<Boolean> = _showProgressLoading
 
-
     private val _placeTypeFiltered = MutableLiveData<PlaceTypeWithPlaces>()
-    val placeTypeFiltered: LiveData<PlaceTypeWithPlaces> = _placeTypeFiltered
 
+    val placeTypeFiltered: LiveData<PlaceTypeWithPlaces> = _placeTypeFiltered
 
     fun onMapFilter(id: Int) {
         viewModelScope.launch(Dispatchers.Main) {
