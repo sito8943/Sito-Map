@@ -4,7 +4,7 @@ import com.inmersoft.trinidadpatrimonial.utils.RomanNumbers
 import org.junit.Assert
 import org.junit.Test
 
-class RomanNumbers {
+class RomanNumbersTest {
 
     @Test
     fun convertTest() {
