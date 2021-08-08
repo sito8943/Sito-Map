@@ -47,11 +47,12 @@
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/drawer_navigation_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:itemIconTint="@color/trinidadColorPrimary"
             app:headerLayout="@layout/nav_header_main"
+            app:itemIconTint="@color/trinidadColorPrimary"
             app:menu="@menu/home_main_drawer">
 
             <LinearLayout

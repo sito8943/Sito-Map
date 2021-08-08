@@ -100,10 +100,14 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
         binding.btnGoWebPage.gone()
         binding.textWebAction.gone()
 
+
         binding.btnGoToMap.apply {
+
+
             transitionName = UUID.randomUUID().toString()
             setOnClickListener {
                 //goToMap(routeData.place_id)
+                requireContext().developAreaMessageExt()
             }
         }
 
@@ -136,7 +140,8 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
             //goToWebPage(routeData.web)
         }
         binding.btnSharePlaceInformation.setOnClickListener {
-            sharePlaceInformation()
+            //sharePlaceInformation()
+            requireContext().developAreaMessageExt()
         }
 
     }

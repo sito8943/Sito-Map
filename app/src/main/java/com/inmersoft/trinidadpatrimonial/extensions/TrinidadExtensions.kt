@@ -31,6 +31,11 @@ fun Context.showToastExt(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
+fun Context.developAreaMessageExt() {
+    this.showToastExt("Esta área aún está en desarrollo; sentimos el inconveniente que esto pueda ocasionar.")
+}
+
+
 fun String.smartTruncate(max: Int, suffix: String = "..."): String {
     return if (this.length < max) {
         this

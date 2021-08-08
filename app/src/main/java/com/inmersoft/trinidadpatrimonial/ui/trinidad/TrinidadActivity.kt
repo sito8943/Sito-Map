@@ -1,5 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad
 
+import android.app.ActivityOptions
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -70,8 +71,6 @@ class TrinidadActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun initUI() {
 
         val navHostFragment =
@@ -81,6 +80,24 @@ class TrinidadActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setupWithNavController(navController)
         setAppBarTranslucent()
+
+        val drawerNavView = binding.drawerNavigationView
+        drawerNavView.setNavigationItemSelectedListener { menuItemSelected ->
+            if (menuItemSelected.itemId == R.id.onboarding_menu_item) {
+                val intent = Intent(this, OnBoardingActivity::class.java)
+                /*val options = ActivityOptions.makeSceneTransitionAnimation(
+                    this@TrinidadActivity,
+                    viewShared,
+                    "shared_element_container" // The transition name to be matched in Activity B.
+                )*/
+                //startActivity(intent, options.toBundle())
+                //TODO configurar la animacion para la transicion entre activitys
+                startActivity(intent)
+            }
+            false
+        }
+
+
 
         binding.footerTrinidadVersion.text = "Trinidad v${BuildConfig.VERSION_NAME}"
 
