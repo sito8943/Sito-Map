@@ -37,7 +37,7 @@
                 <ImageView
                     android:id="@+id/trinidad_header_banner"
                     android:layout_width="match_parent"
-                    android:src="@drawable/placeholder_1"
+                    android:src="@drawable/trinidad_baner"
                     android:layout_height="278dp"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
