@@ -80,5 +80,14 @@
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
 
+    <style name="Theme.TrinidadPatrimonial.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TrinidadPatrimonial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TrinidadPatrimonial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

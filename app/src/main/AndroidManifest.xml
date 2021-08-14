@@ -17,22 +17,21 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup"
         tools:targetApi="m">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".ui.loader.LoaderActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".ui.loader.SplashScreenTrinidad"
             android:exported="true"
-            android:theme="@style/Theme.SplashScreen"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity
@@ -51,8 +50,7 @@
             android:name=".ui.trinidad.TrinidadActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="Trinidad.MAIN" />
 
