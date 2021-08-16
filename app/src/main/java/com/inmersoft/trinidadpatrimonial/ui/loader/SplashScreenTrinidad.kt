@@ -1,17 +1,21 @@
 package com.inmersoft.trinidadpatrimonial.ui.loader
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.animation.OvershootInterpolator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -23,22 +27,31 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.ui.loader.ui.theme.TrinidadPatrimonialTheme
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.OnBoardingActivity
+import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
+import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenTrinidad : ComponentActivity() {
+@AndroidEntryPoint
+class SplashScreenTrinidad : AppCompatActivity() {
+
+    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             TrinidadPatrimonialTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = colorResource(R.color.trinidadColorPrimary),
                     modifier = Modifier.fillMaxHeight()) {
-                    SplashScreenContainer()
+                    SplashScreenContainer(this@SplashScreenTrinidad, trinidadDataViewModel)
                 }
             }
         }
@@ -46,7 +59,10 @@ class SplashScreenTrinidad : ComponentActivity() {
 }
 
 @Composable
-fun SplashScreenContainer() {
+fun SplashScreenContainer(
+    lifecycleOwner: LifecycleOwner,
+    trinidadDataViewModel: TrinidadDataViewModel,
+) {
     val context = LocalContext.current
 
     val scale = remember {
@@ -62,19 +78,59 @@ fun SplashScreenContainer() {
                 }
             )
         )
+        trinidadDataViewModel.allPlacesName.observe(lifecycleOwner, {
+            var message = "Is not ready...Populating..."
+            if (it.isNotEmpty()) {
+                message = "Is Ready"
+            }
+            Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: READY: $message")
+        })
         delay(2000L)
-        context.startActivity(Intent(context, OnBoardingActivity::class.java))
+        trinidadDataViewModel.userPreferences.observe(lifecycleOwner, { userPref ->
+            if (userPref != null) {
+                if (!userPref.userSeeOnboarding) {
+                    Log.d("TAG", "checkFirstRun: USER NOT SEE ONBOARDING")
+                    startOnBoardingPage(context = context)
+
+                } else {
+                    Log.d("TAG", "checkFirstRun: USER SEE ONBOARDING")
+                    startTrinidadPage(context = context)
+                }
+            } else {
+                startOnBoardingPage(context = context)
+            }
+        })
     }
 
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+        modifier = Modifier.fillMaxSize(),
     )
     {
-        Image(
-            painter = painterResource(R.drawable.trinidad_logo),
-            contentDescription = "Trinidad Logo",
-            modifier = Modifier.scale(scale = scale.value)
-        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(R.drawable.trinidad_logo),
+                contentDescription = "Trinidad Logo",
+                modifier = Modifier.scale(scale = scale.value).align(Alignment.CenterHorizontally),
+            )
+            Spacer(modifier = Modifier.padding(4.dp))
+            LinearProgressIndicator(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                color = colorResource(R.color.trinidadColorOnPrimary)
+            )
+        }
     }
 }
+
+private fun startTrinidadPage(context: Context) {
+    val intent = Intent(context, TrinidadActivity::class.java)
+    context.startActivity(intent)
+}
+
+private fun startOnBoardingPage(context: Context) {
+    val intent = Intent(context, OnBoardingActivity::class.java)
+    context.startActivity(intent)
+}
+
