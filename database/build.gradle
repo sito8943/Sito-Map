@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk  rootProject.compileSdk
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         minSdk rootProject.minSdk
@@ -46,8 +46,8 @@ android {
 dependencies {
 
     // Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1"
 
 
     // Hilt (Dependency Injection) add id 'dagger.hilt.android.plugin' and  id 'kotlin-kapt'
