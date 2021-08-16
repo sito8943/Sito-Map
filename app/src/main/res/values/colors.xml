@@ -2,6 +2,7 @@
 <resources>
 
     <color name="trinidadColorPrimary">#FF9515</color>
+    <color name="background_progressbar_color">#DD871E</color>
     <color name="trinidadColorPrimaryVariant">@color/trinidadColorSecondary</color>
     <color name="trinidadColorSecondary">#FF9515</color>
     <color name="trinidadColorSecondaryVariant">#FF018786</color>

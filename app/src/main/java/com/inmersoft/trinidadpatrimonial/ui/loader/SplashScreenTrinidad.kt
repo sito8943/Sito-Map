@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -117,8 +118,9 @@ fun SplashScreenContainer(
             )
             Spacer(modifier = Modifier.padding(4.dp))
             LinearProgressIndicator(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                color = colorResource(R.color.trinidadColorOnPrimary)
+                modifier = Modifier.align(Alignment.CenterHorizontally).width(120.dp),
+                color = colorResource(R.color.trinidadColorOnPrimary),
+                backgroundColor = colorResource(R.color.background_progressbar_color)
             )
         }
     }
