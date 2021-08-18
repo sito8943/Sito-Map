@@ -5,18 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.animation.OvershootInterpolator
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,12 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.ui.loader.ui.theme.TrinidadPatrimonialTheme
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.OnBoardingActivity
@@ -38,21 +34,22 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreenTrinidad : AppCompatActivity() {
 
-    private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
+
             TrinidadPatrimonialTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = colorResource(R.color.trinidadColorPrimary),
                     modifier = Modifier.fillMaxHeight()) {
+                    val trinidadDataViewModel: TrinidadDataViewModel = viewModel()
                     SplashScreenContainer(this@SplashScreenTrinidad, trinidadDataViewModel)
                 }
             }
@@ -82,7 +79,7 @@ fun SplashScreenContainer(
         )
         trinidadDataViewModel.allPlacesName.observe(lifecycleOwner, {
             var message = "Is not ready...Populating..."
-            if (it.isNotEmpty()) {
+            if (!it.isEmpty()) {
                 message = "Is Ready"
             }
             Log.d("DATABASE_POPULATE", "initDataBase: DATABASE: READY: $message")

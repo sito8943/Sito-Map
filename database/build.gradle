@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk rootProject.compileSdk
+    compileSdk  rootProject.compileSdk
 
     defaultConfig {
         minSdk rootProject.minSdk
@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

@@ -12,8 +12,16 @@ android {
 
     buildFeatures {
         dataBinding true
-        viewBinding true
         compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
     }
 
     defaultConfig {
@@ -23,9 +31,6 @@ android {
         versionCode rootProject.versionCode
         versionName rootProject.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
     }
 
     buildTypes {
@@ -42,27 +47,26 @@ android {
         jvmTarget = '1.8'
         useIR = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_version
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
 
     implementation project(":database")
 
-    // Basic app dependencies
-      implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.21"
-      implementation "androidx.core:core-ktx:1.6.0"
-      implementation "androidx.appcompat:appcompat:1.3.1"
-      implementation "com.google.android.material:material:1.4.0"
-      implementation "androidx.constraintlayout:constraintlayout:2.1.0"
-      implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
+//COMPOSE
+    implementation "androidx.compose.ui:ui:1.0.1"
+    implementation "androidx.compose.material:material:1.0.1"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.0.1"
+    implementation 'androidx.activity:activity-compose:1.3.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.0.1"
+    debugImplementation "androidx.compose.ui:ui-tooling:1.0.1"
+
+
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.appcompat:appcompat:1.3.1"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 
     // Fragment
     implementation "androidx.fragment:fragment-ktx:1.3.6"
@@ -84,34 +88,26 @@ dependencies {
     //Preferences
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-    implementation 'androidx.work:work-runtime-ktx:2.7.0-alpha05'
-
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
     implementation "androidx.lifecycle:lifecycle-process:2.3.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
 
 
     //Easy Permisions
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
     // Google MLKit Barcode Scanning
-    implementation "com.google.mlkit:barcode-scanning:16.2.0"
+    implementation "com.google.mlkit:barcode-scanning:17.0.0"
 
     // Hilt (Dependency Injection) add id 'dagger.hilt.android.plugin' and  id 'kotlin-kapt'
     //ADD IN PROJECT GRADLE classpath "com.google.dagger:hilt-android-gradle-plugin:2.35.1"
     implementation 'com.google.dagger:hilt-android:2.37'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     kapt 'com.google.dagger:hilt-android-compiler:2.37'
 
     // Google VR SDK
@@ -122,7 +118,7 @@ dependencies {
     implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
 
     // Exoplayer (Video)
-    implementation "com.google.android.exoplayer:exoplayer:2.14.2"
+    implementation "com.google.android.exoplayer:exoplayer:2.15.0"
 
     //PlayCore
     implementation 'com.google.android.play:core-ktx:1.8.1'

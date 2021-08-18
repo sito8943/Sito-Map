@@ -12,7 +12,9 @@ class HomePlaceTypeListAdapter(val placeSubListItemOnClick: InnerPlaceSubListAda
     inner class ViewHolder(private val binding: ItemPlaceTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val mainPlaceAdapter by lazy { InnerPlaceSubListAdapter(placeSubListItemOnClick) }
+        private val mainPlaceAdapter: InnerPlaceSubListAdapter by lazy {
+            InnerPlaceSubListAdapter(placeSubListItemOnClick)
+        }
 
         init {
             val snapHelper: SnapHelper = LinearSnapHelper()
@@ -45,7 +47,7 @@ class HomePlaceTypeListAdapter(val placeSubListItemOnClick: InnerPlaceSubListAda
         holder.bindData(getItem(position))
     }
 
-   private class HomeDiffUtil : DiffUtil.ItemCallback<PlaceTypeWithPlaces>() {
+    private class HomeDiffUtil : DiffUtil.ItemCallback<PlaceTypeWithPlaces>() {
         override fun areItemsTheSame(
             oldItem: PlaceTypeWithPlaces,
             newItem: PlaceTypeWithPlaces,
