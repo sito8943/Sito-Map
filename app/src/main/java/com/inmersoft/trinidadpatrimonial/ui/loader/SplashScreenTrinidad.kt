@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.animation.OvershootInterpolator
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -26,7 +27,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.ui.loader.ui.theme.TrinidadPatrimonialTheme
 import com.inmersoft.trinidadpatrimonial.ui.onboarding.OnBoardingActivity
@@ -34,22 +34,23 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.TrinidadActivity
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreenTrinidad : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
         setContent {
 
             TrinidadPatrimonialTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = colorResource(R.color.trinidadColorPrimary),
                     modifier = Modifier.fillMaxHeight()) {
-                    val trinidadDataViewModel: TrinidadDataViewModel = viewModel()
+
                     SplashScreenContainer(this@SplashScreenTrinidad, trinidadDataViewModel)
                 }
             }
@@ -119,6 +120,7 @@ fun SplashScreenContainer(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .width(120.dp)
+                    .height(1.dp)
                     .alpha(0.4f),
                 color = colorResource(R.color.trinidadColorOnPrimary),
                 backgroundColor = colorResource(R.color.background_progressbar_color)
