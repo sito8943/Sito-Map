@@ -91,7 +91,6 @@ fun SplashScreenContainer(
                 if (!userPref.userSeeOnboarding) {
                     Log.d("TAG", "checkFirstRun: USER NOT SEE ONBOARDING")
                     startOnBoardingPage(context = context)
-
                 } else {
                     Log.d("TAG", "checkFirstRun: USER SEE ONBOARDING")
                     startTrinidadPage(context = context)
