@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.secrets_gradle_plugin' version '0.6'
 }
 
 android {
@@ -79,9 +78,17 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
-    // Google Maps SDK
-    implementation "com.google.android.gms:play-services-maps:17.0.1"
-    implementation 'com.google.maps.android:maps-ktx:3.1.0'
+    // Mapbox (Maps)
+    implementation 'com.mapbox.maps:android:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-annotation:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-locationcomponent:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-gestures:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-compass:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-animation:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-scalebar:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-logo:10.0.0-rc.6'
+    implementation 'com.mapbox.plugin:maps-attribution:10.0.0-rc.6'
+
 
     // CameraX
     implementation "androidx.camera:camera-core:1.0.1"
