@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -15,6 +16,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentMapBinding
+import com.inmersoft.trinidadpatrimonial.extensions.showToastExt
 import com.inmersoft.trinidadpatrimonial.ui.BaseFragment
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.map.adapters.MapPlaceTypeAdapter
 import com.inmersoft.trinidadpatrimonial.ui.trinidad.map.utils.BaseMapFragment
@@ -41,12 +43,16 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         MapPlaceTypeAdapter(this@MapFragment)
     }
 
-    private lateinit var trinidadGPS: MapPoint
+    private val trinidadGPS: MapPoint by lazy {
+        MapPoint("Trinidad",
+            21.8055678,
+            -79.985233,
+            null)
+    }
 
     private val mapFragment: BaseMapFragment by lazy {
         childFragmentManager.findFragmentById(R.id.map_fragment) as BaseMapFragment
     }
-
 
     private val listOfMarkers = mutableListOf<MapPoint>()
 
@@ -85,7 +91,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                     .build(), null)
             // addMapsElements()
         }
-        //setupUI()*/
+        setupUI()
     }
 
 
@@ -124,6 +130,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         binding.openDrawer.setOnClickListener {
             openDrawerInTrinidadActivity()
         }
+        subscribeObservers()
     }
 
 
@@ -158,17 +165,13 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
 
         //Map
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
-            trinidadGPS = MapPoint(places[0].place_name,
-                places[0].location.latitude,
-                places[0].location.longitude,
-                null)
             showPlacesInMap(places)
         }
         )
 
-        trinidadDataViewModel.placeTypeFiltered.observe(viewLifecycleOwner, {
-            showPlacesInMap(it.placesList)
-        })
+        /*  trinidadDataViewModel.placeTypeFiltered.observe(viewLifecycleOwner, {
+              showPlacesInMap(it.placesList)
+          })*/
 
     }
 
@@ -210,6 +213,27 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
     }
 
     /*fun onMarkerClick(marker: Marker): Boolean {
+
+    }*/
+
+    override fun onDestroy() {
+        trinidadDataViewModel.onMapDestroy()
+        _binding = null
+        super.onDestroy()
+    }
+
+    override fun onClickListener(placeId: Int) {
+        Log.d("TAG", "onClickListener: Called using ID $placeId")
+        listOfMarkers.clear()
+
+        trinidadDataViewModel.onMapFilter(placeId)
+        trinidadBottomSheet.hide()
+    }
+
+    override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
+
+        requireContext().showToastExt(annotation.textField!!)
+        /*
         val placeID = marker.tag as Int
 
         listOfMarkers.forEach { currentMarker ->
@@ -229,25 +253,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
         trinidadDataViewModel.onBottomSheetSetInfo(placeID, _parent = this.javaClass.toString())
-
+*/
         return true
-    }*/
-
-    override fun onDestroy() {
-        trinidadDataViewModel.onMapDestroy()
-        _binding = null
-        super.onDestroy()
-    }
-
-    override fun onClickListener(placeId: Int) {
-        Log.d("TAG", "onClickListener: Called using ID $placeId")
-        listOfMarkers.clear()
-
-        trinidadDataViewModel.onMapFilter(placeId)
-        trinidadBottomSheet.hide()
-    }
-
-    override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
-        TODO("Not yet implemented")
     }
 }
