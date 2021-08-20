@@ -227,9 +227,6 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                 .build(), null)
     }
 
-    /*fun onMarkerClick(marker: Marker): Boolean {
-
-    }*/
 
     override fun onDestroy() {
         trinidadDataViewModel.onMapDestroy()
@@ -245,7 +242,6 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         trinidadBottomSheet.hide()
     }
 
-
     override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
         val nameTextField = annotation.textField
         if (!nameTextField.isNullOrEmpty()) {
@@ -253,7 +249,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                 if (it.text == nameTextField) {
                     it.icon = R.drawable.map_icon
                     requireContext().showToastExt(annotation.id.toString())
-                    mapFlyTo(it.getAsPoint(),17.0)
+                    mapFlyTo(it.getAsPoint(), 19.0)
                 } else {
                     it.icon = R.drawable.map_icon_unselected
                 }
