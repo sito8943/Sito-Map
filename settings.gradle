@@ -5,7 +5,18 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url "https://jitpack.io" }
         jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'mapbox'
+                password = rootProject.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
+        }
     }
+
 }
 rootProject.name = "Trinidad Patrimonial"
 include ':app'
