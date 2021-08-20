@@ -43,7 +43,9 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
 
     private lateinit var trinidadGPS: MapPoint
 
-    private lateinit var mapFragment: BaseMapFragment
+    private val mapFragment: BaseMapFragment by lazy {
+        childFragmentManager.findFragmentById(R.id.map_fragment) as BaseMapFragment
+    }
 
 
     private val listOfMarkers = mutableListOf<MapPoint>()
@@ -62,13 +64,18 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-
         _binding = FragmentMapBinding.inflate(inflater, container, false)
-        mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as BaseMapFragment
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         mapFragment.getMapAsync { map ->
 
-            /*   map.loadStyleUri(Uri.parse("mapbox://styles/qu35t64/ckskkkh5k2wlr18lugd8arsrp")
-                   .toString())*/
+            map.loadStyleUri(Uri.parse("mapbox://styles/qu35t64/ckskkkh5k2wlr18lugd8arsrp")
+                .toString())
 
             mapFragment.addOnPointAnnotationClickListener(this@MapFragment)
             map.flyTo(
@@ -78,10 +85,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                     .build(), null)
             // addMapsElements()
         }
-
-        //setupUI()
-
-        return binding.root
+        //setupUI()*/
     }
 
 
@@ -201,7 +205,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         mapFragment.getMapView().getMapboxMap().flyTo(
             CameraOptions.Builder()
                 .center(point)
-                .zoom(17.0)
+                .zoom(zoom)
                 .build(), null)
     }
 
