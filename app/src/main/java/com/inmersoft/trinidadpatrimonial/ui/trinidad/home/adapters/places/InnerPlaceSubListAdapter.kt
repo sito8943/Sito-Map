@@ -45,7 +45,7 @@ class InnerPlaceSubListAdapter(val placeItemOnClick: PlaceItemOnClick) :
             binding.imCardHeader.loadImageCenterCropExt(Uri.parse(
                 TrinidadAssets.getAssetFullPath(
                     place.header_images[0],
-                    TrinidadAssets.FILE_JPG_EXTENSION
+                    TrinidadAssets.jpg
                 )
             ))
 

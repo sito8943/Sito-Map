@@ -220,7 +220,7 @@ class PlaceDetailsFragment(private val placeData: Place) : Fragment(),
         binding.headerImage.loadImageCenterCropExt(Uri.parse(
             TrinidadAssets.getAssetFullPath(
                 headerImages[0],
-                TrinidadAssets.FILE_JPG_EXTENSION
+                TrinidadAssets.jpg
             )
         ))
     }
@@ -243,7 +243,7 @@ class PlaceDetailsFragment(private val placeData: Place) : Fragment(),
             requireContext(), Uri.parse(
                 TrinidadAssets.getAssetFullPath(
                     placeData.header_images[0],
-                    TrinidadAssets.FILE_JPG_EXTENSION
+                    TrinidadAssets.jpg
                 )
             ), placeData.place_name, resources.getString(R.string.app_name)
         )

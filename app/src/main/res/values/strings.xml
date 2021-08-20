@@ -50,4 +50,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_splash_screen_trinidad">SplashScreenTrinidad</string>
     <string name="mapbox_access_token">pk.eyJ1IjoicXUzNXQ2NCIsImEiOiJja3MzbDRqaWsxeGFyMnFvOWkybGxsZXRsIn0.heeLMVbXVvhTCSQeyfijFQ</string>
+    <string name="others_places">Otros lugares</string>
 </resources>

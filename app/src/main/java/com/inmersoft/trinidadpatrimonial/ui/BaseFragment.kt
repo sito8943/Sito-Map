@@ -37,7 +37,7 @@ abstract class BaseFragment : Fragment() {
         val uriImage = Uri.parse(
             TrinidadAssets.getAssetFullPath(
                 place.header_images[0],
-                TrinidadAssets.FILE_JPG_EXTENSION
+                TrinidadAssets.jpg
             )
         )
         val webURI = Uri.parse(place.web)

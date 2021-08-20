@@ -6,11 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Route
-import com.inmersoft.trinidadpatrimonial.databinding.ItemPlaceTypeBinding
 import com.inmersoft.trinidadpatrimonial.databinding.ItemSublistElementBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
-import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
-import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.places.InnerPlaceSubListAdapter
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import java.util.*
 
@@ -44,7 +41,7 @@ class HomeRouteListAdapter(val routeItemOnClick: RouteItemOnClick) :
             binding.imCardHeader.loadImageCenterCropExt(Uri.parse(route.header_images[0]))
             TrinidadAssets.getAssetFullPath(
                 route.header_images[0],
-                TrinidadAssets.FILE_JPG_EXTENSION
+                TrinidadAssets.jpg
             )
             binding.tvCardSubtitle.text = route.route_description
             binding.cardContainer.transitionName = UUID.randomUUID().toString()
