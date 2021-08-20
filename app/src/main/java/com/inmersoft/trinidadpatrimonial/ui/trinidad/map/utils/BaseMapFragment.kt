@@ -14,10 +14,7 @@ import com.inmersoft.trinidadpatrimonial.R
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.maps.*
 import com.mapbox.maps.plugin.annotation.annotations
-import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
-import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.compass.compass
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.gestures
@@ -124,6 +121,17 @@ class BaseMapFragment : Fragment() {
         }
     }
 
+    fun getAllPointsAnnotations(): List<PointAnnotation> {
+        if (::pointAnnotationManager.isInitialized) {
+            return pointAnnotationManager.annotations
+        }
+        return emptyList()
+    }
+
+    fun changePointAnnotationOptions(pointAnnotation: PointAnnotation) {
+        pointAnnotationManager.delete(pointAnnotation)
+    }
+
     private fun addPoints(points: List<MapPoint>) {
         if (::pointAnnotationManager.isInitialized) {
             lifecycleScope.launch(Dispatchers.IO) {
@@ -168,28 +176,6 @@ class BaseMapFragment : Fragment() {
             removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         }
         mapView.gestures.removeOnMoveListener(onMoveListener)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mapView.onStart()
-        addListeners()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-        removeListeners()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mapView.onDestroy()
     }
 
 

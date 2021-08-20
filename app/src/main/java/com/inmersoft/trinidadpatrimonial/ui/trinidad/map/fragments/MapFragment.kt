@@ -29,6 +29,7 @@ import com.inmersoft.trinidadpatrimonial.utils.trinidadsheet.TrinidadBottomSheet
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapboxMap
+import com.mapbox.maps.plugin.animation.MapAnimationOptions
 import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotation
@@ -224,7 +225,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
             CameraOptions.Builder()
                 .center(point)
                 .zoom(zoom)
-                .build(), null)
+                .build(), MapAnimationOptions.mapAnimationOptions { duration(1000L) })
     }
 
 
@@ -247,14 +248,14 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         if (!nameTextField.isNullOrEmpty()) {
             listOfMapPoint.forEach {
                 if (it.text == nameTextField) {
-                    it.icon = R.drawable.map_icon
-                    requireContext().showToastExt(annotation.id.toString())
+                    //mapFragment.changePointAnnotationOptions(annotation)
                     mapFlyTo(it.getAsPoint(), 19.0)
-                } else {
-                    it.icon = R.drawable.map_icon_unselected
+                    trinidadDataViewModel.onBottomSheetSetInfo(it.placeIdInRoomDB,
+                        _parent = this.javaClass.toString())
+                    return@forEach
                 }
             }
-            mapFragment.setPoints(listOfMapPoint)
+            //mapFragment.setPoints(listOfMapPoint)
         }
 
         /*
