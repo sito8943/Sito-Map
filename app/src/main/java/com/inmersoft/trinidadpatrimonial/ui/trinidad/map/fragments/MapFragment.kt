@@ -1,5 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.map.fragments
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +10,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.FutureTarget
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.textfield.TextInputLayout
 import com.inmersoft.trinidadpatrimonial.R
@@ -29,6 +33,9 @@ import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.generated.OnPointAnnotationClickListener
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotation
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
@@ -44,10 +51,10 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
     }
 
     private val trinidadGPS: MapPoint by lazy {
-        MapPoint("Trinidad",
+        MapPoint(-1, "Trinidad",
             21.8055678,
             -79.985233,
-            null)
+            R.drawable.map_icon)
     }
 
     private val mapFragment: BaseMapFragment by lazy {
@@ -55,6 +62,8 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
     }
 
     private val listOfMarkers = mutableListOf<MapPoint>()
+
+    private val listOfMapPoint = mutableListOf<MapPoint>()
 
     private val showBottomSheetOnStart: Boolean by lazy { safeArgs.placeID != -1 }
 
@@ -65,12 +74,14 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         )
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
+
 
         return binding.root
     }
@@ -159,9 +170,10 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
             autoCompletePlacesNameAdapter.notifyDataSetChanged()
         })
 
-        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner, { placesTypeList ->
-            placesTypeAdapter.setData(placesTypeList)
-        })
+        trinidadDataViewModel.allPlaceTypeWithPlaces.observe(viewLifecycleOwner,
+            { placesTypeList ->
+                placesTypeAdapter.setData(placesTypeList)
+            })
 
         //Map
         trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { places ->
@@ -177,12 +189,15 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
 
     private fun showPlacesInMap(places: List<Place>) {
         val placeIdArgs = safeArgs.placeID
-        val listOfMapPoint = mutableListOf<MapPoint>()
         var flagSafeArgs = false
 
         places.forEach { place ->
             val mapPoint =
-                MapPoint(place.place_name, place.location.latitude, place.location.longitude, null)
+                MapPoint(place.place_id,
+                    place.place_name,
+                    place.location.latitude,
+                    place.location.longitude,
+                    R.drawable.map_icon)
             if (place.place_id == placeIdArgs) {
                 flagSafeArgs = true
                 val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
@@ -230,30 +245,44 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         trinidadBottomSheet.hide()
     }
 
+
     override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
-
-        requireContext().showToastExt(annotation.textField!!)
-        /*
-        val placeID = marker.tag as Int
-
-        listOfMarkers.forEach { currentMarker ->
-            currentMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+        val nameTextField = annotation.textField
+        if (!nameTextField.isNullOrEmpty()) {
+            listOfMapPoint.forEach {
+                if (it.text == nameTextField) {
+                    it.icon = R.drawable.map_icon
+                    requireContext().showToastExt(annotation.id.toString())
+                    mapFlyTo(it.getAsPoint(),17.0)
+                } else {
+                    it.icon = R.drawable.map_icon_unselected
+                }
+            }
+            mapFragment.setPoints(listOfMapPoint)
         }
 
-        marker.showInfoWindow()
-        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+        /*
+    val placeID = marker.tag as Int
 
-        val cameraPosition = CameraPosition.Builder()
-            .target(marker.position)
-            .zoom(18f)
-            .build()
+    listOfMarkers.forEach { currentMarker ->
+        currentMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+    }
 
-        trinidadGPS = marker.position
+    marker.showInfoWindow()
+    marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
 
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+    val cameraPosition = CameraPosition.Builder()
+        .target(marker.position)
+        .zoom(18f)
+        .build()
 
-        trinidadDataViewModel.onBottomSheetSetInfo(placeID, _parent = this.javaClass.toString())
+    trinidadGPS = marker.position
+
+    map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+    trinidadDataViewModel.onBottomSheetSetInfo(placeID, _parent = this.javaClass.toString())
 */
         return true
+
     }
 }

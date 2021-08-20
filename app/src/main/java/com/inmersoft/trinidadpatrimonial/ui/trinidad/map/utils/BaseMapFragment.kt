@@ -130,7 +130,7 @@ class BaseMapFragment : Fragment() {
                 val pointsAnnotationOptions = points.map { point ->
                     val futureTarget: FutureTarget<Bitmap> = Glide.with(requireContext())
                         .asBitmap()
-                        .load(R.drawable.map_icon)
+                        .load(point.icon)
                         .submit(300, 300)
                     val bitmap = futureTarget.get()
                     PointAnnotationOptions().apply {
@@ -138,12 +138,6 @@ class BaseMapFragment : Fragment() {
                             point.latitude))
                         withIconImage(bitmap)
                         withIconSize(0.4)
-                        /*withTextFont(
-                          listOf(
-                            "Arial Unicode MS Bold",
-                            "Open Sans Regular"
-                          )
-                        )*/
                         withTextOffset(listOf(0.0, 2.0))
                         withTextSize(16.0)
                         withTextField(point.text)
