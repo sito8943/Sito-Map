@@ -25,6 +25,7 @@ import com.mapbox.maps.plugin.scalebar.scalebar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.random.Random
 
 
 class BaseMapFragment : Fragment() {
@@ -130,8 +131,12 @@ class BaseMapFragment : Fragment() {
 
     private fun addPoints(points: List<MapPoint>) {
         if (::pointAnnotationManager.isInitialized) {
+            var countPoints = 100.0
             lifecycleScope.launch(Dispatchers.IO) {
                 val pointsAnnotationOptions = points.map { point ->
+
+                    countPoints *= 10.0
+
                     val futureTarget: FutureTarget<Bitmap> = Glide.with(requireContext())
                         .asBitmap()
                         .load(point.icon)
@@ -148,7 +153,7 @@ class BaseMapFragment : Fragment() {
                         withTextColor(Color.BLACK)
                         withTextHaloWidth(0.8)
                         withTextHaloColor(Color.WHITE)
-                        withSymbolSortKey(100.0)
+                        withSymbolSortKey(countPoints)
                     }
                 }
                 withContext(Dispatchers.Main) {

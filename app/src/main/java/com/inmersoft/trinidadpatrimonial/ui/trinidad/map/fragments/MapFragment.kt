@@ -92,8 +92,10 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
 
         mapFragment.getMapAsync { map ->
 
+
             map.loadStyleUri(Uri.parse("mapbox://styles/qu35t64/ckskkkh5k2wlr18lugd8arsrp")
                 .toString())
+
 
             mapFragment.addOnPointAnnotationClickListener(this@MapFragment)
             map.flyTo(
