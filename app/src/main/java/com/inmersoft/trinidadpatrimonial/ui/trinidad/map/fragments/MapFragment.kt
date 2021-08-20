@@ -182,15 +182,16 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         }
         )
 
-        /*  trinidadDataViewModel.placeTypeFiltered.observe(viewLifecycleOwner, {
-              showPlacesInMap(it.placesList)
-          })*/
-
+        trinidadDataViewModel.placeTypeFiltered.observe(viewLifecycleOwner, {
+            showPlacesInMap(it.placesList)
+        })
     }
 
     private fun showPlacesInMap(places: List<Place>) {
         val placeIdArgs = safeArgs.placeID
         var flagSafeArgs = false
+
+        listOfMapPoint.clear()
 
         places.forEach { place ->
             val mapPoint =

@@ -128,10 +128,6 @@ class BaseMapFragment : Fragment() {
         return emptyList()
     }
 
-    fun changePointAnnotationOptions(pointAnnotation: PointAnnotation) {
-        pointAnnotationManager.delete(pointAnnotation)
-    }
-
     private fun addPoints(points: List<MapPoint>) {
         if (::pointAnnotationManager.isInitialized) {
             lifecycleScope.launch(Dispatchers.IO) {
@@ -147,7 +143,7 @@ class BaseMapFragment : Fragment() {
                         withIconImage(bitmap)
                         withIconSize(0.4)
                         withTextOffset(listOf(0.0, 2.0))
-                        withTextSize(16.0)
+                        withTextSize(14.0)
                         withTextField(point.text)
                         withTextColor(Color.BLACK)
                         withTextHaloWidth(0.8)
@@ -161,6 +157,7 @@ class BaseMapFragment : Fragment() {
             }
         }
     }
+
 
     private fun addListeners() {
         mapView.location.apply {
