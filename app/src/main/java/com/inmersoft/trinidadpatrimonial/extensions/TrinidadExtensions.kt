@@ -98,6 +98,16 @@ fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
         .centerCrop()
         .into(this)
 }
+fun ImageView.loadImageCenterCropWithTransitionExt(imageUri: Uri) {
+    Glide.with(this)
+        .load(imageUri)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .error(placeholderError[Random.nextInt(placeholderError.size)])
+        .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
+        .centerCrop()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
+}
 
 fun ImageView.loadImageCenterCropExt(imageResource: Int) {
     Glide.with(this)

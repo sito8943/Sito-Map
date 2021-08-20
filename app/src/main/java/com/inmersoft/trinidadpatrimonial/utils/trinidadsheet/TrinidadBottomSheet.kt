@@ -14,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.BottomSheetTrinidadBinding
 import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropExt
+import com.inmersoft.trinidadpatrimonial.extensions.loadImageCenterCropWithTransitionExt
 import com.inmersoft.trinidadpatrimonial.utils.ShareIntent
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadCustomChromeTab
 import java.util.*
@@ -43,7 +44,7 @@ class TrinidadBottomSheet(
 
     fun bindData(data: SheetData) {
 
-        binding.bottomSheetImageHeader.loadImageCenterCropExt(data.imageURI)
+        binding.bottomSheetImageHeader.loadImageCenterCropWithTransitionExt(data.imageURI)
 
         binding.bottomSheetHeaderTitle.text = data.headerTitle
         binding.bottomSheetHeaderTitle.isSelected = true
