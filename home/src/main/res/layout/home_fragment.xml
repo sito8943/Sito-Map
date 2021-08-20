@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.HomeFragment">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/trinidadColorOnPrimary"
+        app:layoutDescription="@xml/home_fragment_xml_constraintlayout_scene">
+
+        <ImageView
+            android:id="@+id/trinidad_headers_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_header_test"
+            app:layout_constraintBottom_toTopOf="@+id/header_inner_guide_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/header_inner_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.30" />
+
+        <TextView
+            android:id="@+id/trinidad_header_title_text_view"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center|start"
+            android:text="Trinidad Patrimonial"
+            android:textColor="@color/trinidadColorOnPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/main_recycleview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
+            app:layout_constraintVertical_bias="0.060000002"
+            tools:text="Trinidad Patrimonial" />
+
+        <TextView
+            android:id="@+id/trinidad_header_subtitle_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Por los senderos del saber"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/trinidad_header_title_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/trinidad_headers_image_view"
+            tools:text="Por los senderos del saber" />
+
+        <TextView
+            android:id="@+id/trinidad_header_subtitle_text_view2"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="none"
+            android:fadeScrollbars="true"
+            android:fadingEdge="vertical"
+            android:fadingEdgeLength="100dp"
+            android:maxLines="3"
+            android:requiresFadingEdge="vertical"
+            android:text="La ciudad colonial e histórica de Trinidad o Villa de la Santísima Trinidad, Patrimonio de la Humanidad, Ciudad Artesanal y Creativa del Mundo, Monumento Nacional de la nación cubana es un tesoro vivo y único de Cuba y América. Se halla ubicada en la región central de la isla, específicamente en el sur de la provincia cubana de Sancti Spíritus, y es la capital del municipio del mismo nombre."
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/main_recycleview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trinidad_headers_image_view"
+            app:layout_constraintVertical_bias="0.74"
+            tools:text="Lorem ipsumsdf sdfsidf sdfiosj dfois fiosdfosidf iosdfuos idfu wefwef  wefwi efwe fopwefpowi eopfiwpeof wepfowpoe fwpeof wpoef weofpwiefpowfipwoefi pwoefklfjwefwf " />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_recycleview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/trinidadMainBackground"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/header_guide_line"
+            tools:listitem="@layout/main_places_sections" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/header_guide_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:elevation="11dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/menu_drawer_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                android:src="@drawable/ic_menu_drawer_24"
+                app:elevation="0dp"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@android:color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/menu_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_menu_search_24"
+                app:elevation="0dp"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="@+id/menu_drawer_button"
+                app:layout_constraintEnd_toStartOf="@+id/menu_utils_button"
+                app:layout_constraintTop_toTopOf="@+id/menu_drawer_button"
+                app:tint="@android:color/white" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/menu_utils_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_menu_utils_vert_24"
+                app:elevation="0dp"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="@+id/menu_search_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/menu_search_button"
+                app:tint="@android:color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

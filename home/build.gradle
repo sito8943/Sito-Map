@@ -1,0 +1,9 @@
+apply  from: "../android.gradle"
+apply plugin: 'kotlin-android'
+
+dependencies {
+
+    api "androidx.database:database-ktx:$rootProject.coreKtxVersion"
+    api "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
+}

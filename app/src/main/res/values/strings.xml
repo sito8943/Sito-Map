@@ -1,3 +1,52 @@
 <resources>
     <string name="app_name">Trinidad Patrimonial</string>
+    <string name="home_fragment_title">Inicio</string>
+    <string name="map_fragment_title">Mapa</string>
+    <string name="qr_scanner_fragment_title">Escaner QR</string>
+    <string name="search_elements">Buscar...</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_text">Buscar</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="see_more">ver más</string>
+    <string name="onboarding_start_button">Comenzar</string>
+    <string name="onboarding_title_page1">Trinidad Patrimonial</string>
+    <string name="onboarding_subtitle_page1">Una guia de viajeros con consejos para ahorrar y optimizar tu tiempo.</string>
+    <string name="onboarding_title_page2">Actividades, rutas y visitas guiadas accesibles en un solo lugar.</string>
+    <string name="onboarding_subtitle_page2" />
+    <string name="onboarding_title_page3">Pues a disfrutar que el tiempo vuela…</string>
+    <string name="onboarding_subtitle_page3" />
+    <string name="share">Compartir</string>
+    <string name="web">web</string>
+    <string name="video_promo">Video promocional</string>
+    <string name="prompt_point_at_a_barcode">Por favor escanee el código QR</string>
+    <string name="prompt_move_camera_closer">" Por favor, acerque un poco más la cámara al QR"</string>
+    <string name="prompt_searching">Procesando…</string>
+    <string name="share_app">Compartir</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="faq">Preguntas frecuentes</string>
+    <string name="normas">Normas</string>
+    <string name="settings">Configuración</string>
+    <string name="about">Acerca de</string>
+    <string name="update_downloaded">Descarga completada</string>
+    <string name="install_update">Instalar</string>
+    <string name="not_valid_qrcode">Lo sentimos pero este codigo QR no es correcto para el         funcionamiento de la app Trinidad.</string>
+    <string name="OK">Aceptar</string>
+    <string name="camera_rationale_info">Esta aplicación utiliza la camara para poder escanear los diferentes codigos qr localizados en diferentes puntos por toda la ciudad de Trinidad.</string>
+    <string name="directions">Como llegar</string>
+    <string name="text_to_speech">Escuchar</string>
+    <string name="text_share">Compartir</string>
+    <string name="text_open_web">Web</string>
+    <string name="see_less">ver menos</string>
+    <string name="rationale_share_message">\"La aplicación Trinidad Patrimonial necesita permisos  para compartir su \" +                     \"contenido con otras aplicaciones.\n \" +                     \"La información compartida no se corresponde\" +                     \" a su información personal, sino a la informacion contenida \" +                     \"en la propia base de datos de la aplicación Trinidad Patrimonial\" +                     \" y que hace referencia al contenido tratado por la aplicación; La Ciudad de Trinidad.\"</string>
+    <string name="banner_text">Por los senderos del saber</string>
+    <string name="sub_banner_text">Lo mas hermoso en ciudad trinidad</string>
+    <string name="marquee_message_banner">La ciudad colonial e histórica de Trinidad o Villa de la Santísima Trinidad, Patrimonio de la Humanidad, Ciudad Artesanal y Creativa del Mundo, Monumento</string>
+    <string name="routes">Rutas y Senderos</string>
+    <string name="todo">TODO</string>
+    <string name="title_activity_loader">LoaderActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_splash_screen_trinidad">SplashScreenTrinidad</string>
 </resources>
