@@ -1,5 +1,6 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +18,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.rounded.Create
-import androidx.compose.material.icons.rounded.LocationOn
-import androidx.compose.material.icons.rounded.Share
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,15 +32,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import coil.compose.rememberImagePainter
 import com.inmersoft.trinidadpatrimonial.R
+import com.inmersoft.trinidadpatrimonial.composables.ComposePanoView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
@@ -62,7 +60,7 @@ class PlaceContainerDetailsFragment : Fragment() {
     ): View? {
         return ComposeView(requireContext()).apply {
             setContent {
-                PlaceDetailScreen(trinidadDataViewModel.allPlaces)
+                PlaceDetailScreen(requireActivity(), trinidadDataViewModel.allPlaces)
             }
         }
     }
@@ -70,12 +68,12 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @ExperimentalMaterialApi
     @Composable
-    fun PlaceDetailScreen(placesLiveData: LiveData<List<Place>>) {
+    fun PlaceDetailScreen(context: FragmentActivity, placesLiveData: LiveData<List<Place>>) {
         val placesData by placesLiveData.observeAsState(initial = emptyList())
         if (placesData.isEmpty()) {
             ShowLoading()
         } else {
-            PlaceDetailsContent(placesData)
+            PlaceDetailsContent(context, placesData)
         }
     }
 
@@ -97,7 +95,7 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @ExperimentalMaterialApi
     @Composable
-    fun PlaceDetailsContent(placesData: List<Place>) {
+    fun PlaceDetailsContent(context: FragmentActivity, placesData: List<Place>) {
 
         val userSelectPlaceId = safeArgs.placeID
         val currentPlace = placesData.first() { place -> place.place_id == userSelectPlaceId }
@@ -120,7 +118,10 @@ class PlaceContainerDetailsFragment : Fragment() {
 
                 },
                 frontLayerContent = {
-                    PlaceSections(modifier = Modifier.fillMaxSize(), currentPlace, placesData)
+                    PlaceSections(context,
+                        modifier = Modifier.fillMaxSize(),
+                        currentPlace,
+                        placesData)
                 })
 
         }
@@ -134,9 +135,19 @@ class PlaceContainerDetailsFragment : Fragment() {
     }
 
     @Composable
-    private fun Places360() {
-        Card(modifier = Modifier.height(100.dp).fillMaxWidth()) {
-            Text(text = "Places Pano 360", textAlign = TextAlign.Center)
+    private fun PlacePano360(context: FragmentActivity, imageUrl: Uri) {
+        Card(modifier = Modifier.height(300.dp).fillMaxWidth().padding(8.dp)) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = stringResource(R.string.imagen360),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+                ComposePanoView(context,
+                    panoUri = imageUrl,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 
@@ -250,7 +261,10 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     fun PlaceSections(
-        modifier: Modifier = Modifier, currentPlace: Place, placesData: List<Place>,
+        context: FragmentActivity,
+        modifier: Modifier = Modifier,
+        currentPlace: Place,
+        placesData: List<Place>,
     ) {
         Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = RoundedCornerShape(
             topStart = 20.dp,
@@ -269,7 +283,9 @@ class PlaceContainerDetailsFragment : Fragment() {
 
                     if (currentPlace.pano[0].isNotEmpty()) {
                         item {
-                            Places360()
+                            val panoUrl = TrinidadAssets.getAssetFullPath(currentPlace.pano[0],
+                                TrinidadAssets.webp)
+                            PlacePano360(context, Uri.parse(panoUrl))
                         }
                     }
                     if (currentPlace.video_promo.isNotEmpty()) {

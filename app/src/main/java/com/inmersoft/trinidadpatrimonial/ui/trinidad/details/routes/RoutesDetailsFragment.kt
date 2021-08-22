@@ -291,7 +291,7 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
     private fun loadPano360(panoAssetName: List<String>) {
         val panoAssetUrl = TrinidadAssets.getAssetFullPath(
             panoAssetName[0],
-            TrinidadAssets.FILE_WEBP_EXTENSION
+            TrinidadAssets.webp
         )
 
         binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl),

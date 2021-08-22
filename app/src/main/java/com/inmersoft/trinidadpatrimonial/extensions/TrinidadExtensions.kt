@@ -5,10 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.compose.runtime.MutableState
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -98,6 +100,7 @@ fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
         .centerCrop()
         .into(this)
 }
+
 fun ImageView.loadImageCenterCropWithTransitionExt(imageUri: Uri) {
     Glide.with(this)
         .load(imageUri)
@@ -119,8 +122,40 @@ fun ImageView.loadImageCenterCropExt(imageResource: Int) {
         .into(this)
 }
 
+
+fun VrPanoramaView.loadPano360WithGlideInComposeExt(uriPanoResource: Uri) {
+    val vrPanoContext = this
+    Log.e("PANOVIEW EXT",
+        "loadPano360WithGlideExt: WHEN ALL SYSTEM STATY IN COMPOSE PLEASE CHANGE THIS METHOD")
+    Glide.with(this)
+        .asBitmap()
+        .load(uriPanoResource)
+        .into(object : CustomTarget<Bitmap>() {
+            override fun onResourceReady(
+                resource: Bitmap,
+                transition: Transition<in Bitmap>?,
+            ) {
+                val options = VrPanoramaView.Options()
+                options.inputType = VrPanoramaView.Options.TYPE_MONO
+                vrPanoContext.setInfoButtonEnabled(false)
+                vrPanoContext.setFullscreenButtonEnabled(true)
+                vrPanoContext.setStereoModeButtonEnabled(true)
+                vrPanoContext.setTouchTrackingEnabled(true)
+                vrPanoContext.loadImageFromBitmap(resource, options)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+                // Add other icon
+            }
+        })
+
+}
+
+
 fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: List<View>) {
     val vrPanoContext = this
+    Log.e("PANOVIEW EXT",
+        "loadPano360WithGlideExt: WHEN ALL SYSTEM STATY IN COMPOSE PLEASE CHANGE THIS METHOD")
     if (uriPanoResource.toString().isNotEmpty()) {
         Glide.with(this)
             .asBitmap()
