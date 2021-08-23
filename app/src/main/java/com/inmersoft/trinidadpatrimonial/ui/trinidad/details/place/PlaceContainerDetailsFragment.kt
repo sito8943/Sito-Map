@@ -44,8 +44,10 @@ import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.composables.ComposePanoView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
+import com.inmersoft.trinidadpatrimonial.utils.placeholderList
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class PlaceContainerDetailsFragment : Fragment() {
@@ -127,8 +129,110 @@ class PlaceContainerDetailsFragment : Fragment() {
         }
     }
 
+
     @Composable
-    private fun PlacesVideo() {
+    fun PlaceSections(
+        context: FragmentActivity,
+        modifier: Modifier = Modifier,
+        currentPlace: Place,
+        placesData: List<Place>,
+    ) {
+        Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = RoundedCornerShape(
+            topStart = 20.dp,
+            topEnd = 20.dp,
+            bottomStart = 0.dp,
+            bottomEnd = 0.dp
+        )) {
+            Column(modifier = Modifier.padding(top = 20.dp)) {
+                LazyColumn(
+                    modifier = Modifier.weight(1f),
+                ) {
+
+                    item {
+                        PlacesDescription(currentPlace.place_name, currentPlace.place_description)
+                    }
+
+                    if (currentPlace.pano[0].isNotEmpty()) {
+                        item {
+                            val panoUrl = TrinidadAssets.getAssetFullPath(currentPlace.pano[0],
+                                TrinidadAssets.webp)
+                            PlacePano360(context, Uri.parse(panoUrl))
+                        }
+                    }
+                    if (currentPlace.video_promo.isNotEmpty()) {
+                        item {
+                            PlacesVideo(currentPlace.video_promo)
+                        }
+                    }
+                    item {
+                        OtherPlaces(placesData)
+                    }
+                    item {
+                        Spacer(modifier = Modifier.padding(20.dp))
+                    }
+                }
+            }
+        }
+    }
+
+
+    @Composable
+    fun OtherPlaces(placesList: List<Place>) {
+        Card(modifier = Modifier.fillMaxSize(), elevation = 2.dp) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Text(text = stringResource(R.string.others_places),
+                    fontSize = 14.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(8.dp))
+                LazyRow(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                ) {
+                    items(placesList) { place ->
+                        OtherPlaceItem(TrinidadAssets.getAssetFullPath(place.header_images[0],
+                            TrinidadAssets.jpg), place.place_name)
+                    }
+                }
+
+            }
+        }
+
+    }
+
+
+    @Composable
+    fun OtherPlaceItem(imageUrl: String, placeName: String) {
+        Card(modifier = Modifier.height(130.dp).width(180.dp)
+            .padding(start = 4.dp, top = 8.dp, bottom = 8.dp, end = 4.dp)) {
+            Column(modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceAround) {
+                Image(
+                    modifier = Modifier.fillMaxWidth().height(80.dp),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = "OtherPlaces",
+                    painter = rememberImagePainter(
+                        data = imageUrl,
+                        builder = {
+                            crossfade(true)
+                            placeholder(placeholderList[Random.nextInt(placeholderList.size)])
+                        }
+                    )
+                )
+                Text(text = placeName,
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(8.dp))
+            }
+        }
+
+
+    }
+
+
+    @Composable
+    private fun PlacesVideo(videoPromo: String) {
         Card(modifier = Modifier.height(100.dp).fillMaxWidth()) {
             Text(text = "Places Video", textAlign = TextAlign.Center)
         }
@@ -256,106 +360,6 @@ class PlaceContainerDetailsFragment : Fragment() {
                 }
             }
         })
-    }
-
-
-    @Composable
-    fun PlaceSections(
-        context: FragmentActivity,
-        modifier: Modifier = Modifier,
-        currentPlace: Place,
-        placesData: List<Place>,
-    ) {
-        Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = RoundedCornerShape(
-            topStart = 20.dp,
-            topEnd = 20.dp,
-            bottomStart = 0.dp,
-            bottomEnd = 0.dp
-        )) {
-            Column(modifier = Modifier.padding(top = 20.dp)) {
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                ) {
-
-                    item {
-                        PlacesDescription(currentPlace.place_name, currentPlace.place_description)
-                    }
-
-                    if (currentPlace.pano[0].isNotEmpty()) {
-                        item {
-                            val panoUrl = TrinidadAssets.getAssetFullPath(currentPlace.pano[0],
-                                TrinidadAssets.webp)
-                            PlacePano360(context, Uri.parse(panoUrl))
-                        }
-                    }
-                    if (currentPlace.video_promo.isNotEmpty()) {
-                        items(3) {
-                            PlacesVideo()
-                        }
-                    }
-                    item {
-                        OtherPlaces(placesData)
-                    }
-                    item {
-                        Spacer(modifier = Modifier.padding(20.dp))
-                    }
-                }
-            }
-        }
-    }
-
-
-    @Composable
-    fun OtherPlaces(placesList: List<Place>) {
-        Card(modifier = Modifier.fillMaxSize(), elevation = 2.dp) {
-            Column(modifier = Modifier.fillMaxSize()) {
-                Text(text = stringResource(R.string.others_places),
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(8.dp))
-                LazyRow(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.spacedBy(2.dp),
-                ) {
-                    items(placesList) { place ->
-                        OtherPlaceItem(TrinidadAssets.getAssetFullPath(place.header_images[0],
-                            TrinidadAssets.jpg), place.place_name)
-                    }
-                }
-
-            }
-        }
-
-    }
-
-    @Composable
-    fun OtherPlaceItem(imageUrl: String, placeName: String) {
-        Card(modifier = Modifier.height(130.dp).width(180.dp)
-            .padding(start = 4.dp, top = 8.dp, bottom = 8.dp, end = 4.dp)) {
-            Column(modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceAround) {
-                Image(
-                    modifier = Modifier.fillMaxWidth().height(80.dp),
-                    contentScale = ContentScale.Crop,
-                    contentDescription = "OtherPlaces",
-                    painter = rememberImagePainter(
-                        data = imageUrl,
-                        builder = {
-                            crossfade(true)
-                            placeholder(R.drawable.placeholder_1)
-                        }
-                    )
-                )
-                Text(text = placeName,
-                    fontSize = 12.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(8.dp))
-            }
-        }
-
-
     }
 
 

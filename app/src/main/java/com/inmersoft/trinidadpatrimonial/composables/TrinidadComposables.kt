@@ -8,6 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.fragment.app.FragmentActivity
+import com.google.android.exoplayer2.ui.PlayerView
 import com.google.vr.sdk.widgets.pano.VrPanoramaView
 import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideInComposeExt
 
@@ -21,5 +22,14 @@ fun ComposePanoView(context: FragmentActivity, panoUri: Uri, modifier: Modifier 
             }
         },
         modifier = modifier // Occupy the max size in the Compose UI tree
+    )
+}
+
+@Composable
+fun ComposeExoPlayer() {
+    AndroidView(
+        {
+            PlayerView(it)
+        }
     )
 }
