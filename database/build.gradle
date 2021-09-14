@@ -39,20 +39,24 @@ android {
     kapt {
         correctErrorTypes true
     }
+    ndkVersion '23.0.7599858'
+    buildToolsVersion '31.0.0'
+    compileSdkVersion 31
+
 }
 
 dependencies {
 
     // Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1"
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
 
 
     // Hilt (Dependency Injection) add id 'dagger.hilt.android.plugin' and  id 'kotlin-kapt'
     //ADD IN PROJECT GRADLE classpath "com.google.dagger:hilt-android-gradle-plugin:2.35.1"
-    implementation "com.google.dagger:hilt-android:2.37"
+    implementation 'com.google.dagger:hilt-android:2.38.1'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-    kapt "com.google.dagger:hilt-android-compiler:2.37"
+    kapt 'com.google.dagger:hilt-android-compiler:2.38.1'
 
 
     // Moshi (JSON)
@@ -66,9 +70,9 @@ dependencies {
     testImplementation "androidx.room:room-testing:2.3.0"
 
     //WorkManager
-    api "androidx.work:work-runtime-ktx:2.7.0-alpha05"
+    api 'androidx.work:work-runtime-ktx:2.7.0-beta01'
     // optional - Test helpers
-    androidTestImplementation "androidx.work:work-testing:2.6.0-rc01"
+    androidTestImplementation 'androidx.work:work-testing:2.7.0-beta01'
 
     // Testing
     testImplementation "junit:junit:4.13.2"
