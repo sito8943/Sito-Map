@@ -89,5 +89,3 @@ lint/tmp/
 # Android Profiling
 *.hprof
 
-*.jpg
-*.webp
