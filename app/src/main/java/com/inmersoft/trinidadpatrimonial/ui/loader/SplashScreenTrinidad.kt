@@ -98,7 +98,9 @@ fun SplashScreenContainer(
             } else {
                 startOnBoardingPage(context = context)
             }
+
         })
+
     }
 
     Box(
