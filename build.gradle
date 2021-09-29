@@ -5,8 +5,8 @@ buildscript {
         compileSdk = 31
         minSdk = 21
         targetSdk = 31
-        versionCode=22
-        versionName="1.1.$versionCode"
+        versionCode = 22
+        versionName = "1.1.$versionCode"
         compose_version = '1.1.0-alpha04'
     }
 

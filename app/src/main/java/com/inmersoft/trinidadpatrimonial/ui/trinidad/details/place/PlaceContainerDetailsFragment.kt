@@ -59,12 +59,11 @@ class PlaceContainerDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return ComposeView(requireContext()).apply {
-            setContent {
-                PlaceDetailScreen(requireActivity(), trinidadDataViewModel.allPlaces)
-            }
+    ) = ComposeView(requireContext()).apply {
+        setContent {
+            PlaceDetailScreen(requireActivity(), trinidadDataViewModel.allPlaces)
         }
+
     }
 
 
@@ -81,8 +80,10 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     fun ShowLoading() {
-        Box(contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
             LinearProgressIndicator(
                 modifier = Modifier
                     .width(120.dp)
@@ -112,18 +113,23 @@ class PlaceContainerDetailsFragment : Fragment() {
                 frontLayerScrimColor = Color.Unspecified,
                 backLayerContent = {
                     PlaceBanner(
-                        TrinidadAssets.getAssetFullPath(currentPlace.header_images[0],
-                            TrinidadAssets.jpg),
+                        TrinidadAssets.getAssetFullPath(
+                            currentPlace.header_images[0],
+                            TrinidadAssets.jpg
+                        ),
                         Modifier
-                            .fillMaxWidth().height(230.dp),
+                            .fillMaxWidth()
+                            .height(230.dp),
                     )
 
                 },
                 frontLayerContent = {
-                    PlaceSections(context,
+                    PlaceSections(
+                        context,
                         modifier = Modifier.fillMaxSize(),
                         currentPlace,
-                        placesData)
+                        placesData
+                    )
                 })
 
         }
@@ -137,12 +143,14 @@ class PlaceContainerDetailsFragment : Fragment() {
         currentPlace: Place,
         placesData: List<Place>,
     ) {
-        Surface(modifier = modifier.fillMaxSize(), color = Color.White, shape = RoundedCornerShape(
-            topStart = 20.dp,
-            topEnd = 20.dp,
-            bottomStart = 0.dp,
-            bottomEnd = 0.dp
-        )) {
+        Surface(
+            modifier = modifier.fillMaxSize(), color = Color.White, shape = RoundedCornerShape(
+                topStart = 20.dp,
+                topEnd = 20.dp,
+                bottomStart = 0.dp,
+                bottomEnd = 0.dp
+            )
+        ) {
             Column(modifier = Modifier.padding(top = 20.dp)) {
                 LazyColumn(
                     modifier = Modifier.weight(1f),
@@ -154,8 +162,10 @@ class PlaceContainerDetailsFragment : Fragment() {
 
                     if (currentPlace.pano[0].isNotEmpty()) {
                         item {
-                            val panoUrl = TrinidadAssets.getAssetFullPath(currentPlace.pano[0],
-                                TrinidadAssets.webp)
+                            val panoUrl = TrinidadAssets.getAssetFullPath(
+                                currentPlace.pano[0],
+                                TrinidadAssets.webp
+                            )
                             PlacePano360(context, Uri.parse(panoUrl))
                         }
                     }
@@ -180,18 +190,24 @@ class PlaceContainerDetailsFragment : Fragment() {
     fun OtherPlaces(placesList: List<Place>) {
         Card(modifier = Modifier.fillMaxSize(), elevation = 2.dp) {
             Column(modifier = Modifier.fillMaxSize()) {
-                Text(text = stringResource(R.string.others_places),
+                Text(
+                    text = stringResource(R.string.others_places),
                     fontSize = 14.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(8.dp))
+                    modifier = Modifier.padding(8.dp)
+                )
                 LazyRow(
                     modifier = Modifier.fillMaxSize(),
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
                     items(placesList) { place ->
-                        OtherPlaceItem(TrinidadAssets.getAssetFullPath(place.header_images[0],
-                            TrinidadAssets.jpg), place.place_name)
+                        OtherPlaceItem(
+                            TrinidadAssets.getAssetFullPath(
+                                place.header_images[0],
+                                TrinidadAssets.jpg
+                            ), place.place_name
+                        )
                     }
                 }
 
@@ -203,12 +219,20 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     fun OtherPlaceItem(imageUrl: String, placeName: String) {
-        Card(modifier = Modifier.height(130.dp).width(180.dp)
-            .padding(start = 4.dp, top = 8.dp, bottom = 8.dp, end = 4.dp)) {
-            Column(modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceAround) {
+        Card(
+            modifier = Modifier
+                .height(130.dp)
+                .width(180.dp)
+                .padding(start = 4.dp, top = 8.dp, bottom = 8.dp, end = 4.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceAround
+            ) {
                 Image(
-                    modifier = Modifier.fillMaxWidth().height(80.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(80.dp),
                     contentScale = ContentScale.Crop,
                     contentDescription = "OtherPlaces",
                     painter = rememberImagePainter(
@@ -219,11 +243,13 @@ class PlaceContainerDetailsFragment : Fragment() {
                         }
                     )
                 )
-                Text(text = placeName,
+                Text(
+                    text = placeName,
                     fontSize = 12.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(8.dp))
+                    modifier = Modifier.padding(8.dp)
+                )
             }
         }
 
@@ -233,21 +259,31 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     private fun PlacesVideo(videoPromo: String) {
-        Card(modifier = Modifier.height(100.dp).fillMaxWidth()) {
+        Card(
+            modifier = Modifier
+                .height(100.dp)
+                .fillMaxWidth()
+        ) {
             Text(text = "Places Video", textAlign = TextAlign.Center)
         }
     }
 
     @Composable
     private fun PlacePano360(context: FragmentActivity, imageUrl: Uri) {
-        Card(modifier = Modifier.height(300.dp).fillMaxWidth().padding(8.dp)) {
+        Card(
+            modifier = Modifier
+                .height(300.dp)
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = stringResource(R.string.imagen360),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
-                ComposePanoView(context,
+                ComposePanoView(
+                    context,
                     panoUri = imageUrl,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -257,15 +293,21 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     private fun PlacesDescription(placeName: String, placeDescription: String) {
-        Card(modifier = Modifier.height(210.dp).fillMaxWidth()
-            .padding(start = 0.dp, end = 0.dp, bottom = 8.dp)) {
+        Card(
+            modifier = Modifier
+                .height(210.dp)
+                .fillMaxWidth()
+                .padding(start = 0.dp, end = 0.dp, bottom = 8.dp)
+        ) {
             val verticalScrollDescriptionState = rememberScrollState(0)
             Column(modifier = Modifier.padding(10.dp)) {
                 Text(text = placeName, textAlign = TextAlign.Left)
                 Spacer(modifier = Modifier.padding(8.dp))
-                Text(text = placeDescription,
+                Text(
+                    text = placeDescription,
                     textAlign = TextAlign.Justify,
-                    modifier = Modifier.verticalScroll(verticalScrollDescriptionState))
+                    modifier = Modifier.verticalScroll(verticalScrollDescriptionState)
+                )
             }
         }
     }
@@ -273,44 +315,64 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     private fun PlacesActionButtons() {
-        Card(modifier = Modifier.height(80.dp).fillMaxWidth(),
+        Card(
+            modifier = Modifier
+                .height(80.dp)
+                .fillMaxWidth(),
             elevation = 4.dp,
-            shape = RoundedCornerShape(3.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth().padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceAround) {
-                Button(onClick = { },
+            shape = RoundedCornerShape(3.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Button(
+                    onClick = { },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     contentPadding = PaddingValues(0.dp),  //avoid the little icon
-                    colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(R.color.trinidadColorPrimary),
-                        contentColor = Color.White)
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = colorResource(R.color.trinidadColorPrimary),
+                        contentColor = Color.White
+                    )
                 ) {
-                    Icon(painterResource(R.drawable.ic_round_directions_24),
-                        contentDescription = "button description")
+                    Icon(
+                        painterResource(R.drawable.ic_round_directions_24),
+                        contentDescription = "button description"
+                    )
                 }
-                OutlinedButton(onClick = { },
+                OutlinedButton(
+                    onClick = { },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     border = BorderStroke(1.dp, colorResource(R.color.trinidadColorPrimary)),
                     contentPadding = PaddingValues(0.dp),  //avoid the little icon
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = colorResource(R.color.trinidadColorPrimary))
                 ) {
-                    Icon(painterResource(R.drawable.ic_baseline_hearing_24),
-                        contentDescription = "button description")
+                    Icon(
+                        painterResource(R.drawable.ic_baseline_hearing_24),
+                        contentDescription = "button description"
+                    )
                 }
 
-                OutlinedButton(onClick = { },
+                OutlinedButton(
+                    onClick = { },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     border = BorderStroke(1.dp, colorResource(R.color.trinidadColorPrimary)),
                     contentPadding = PaddingValues(0.dp),  //avoid the little icon
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = colorResource(R.color.trinidadColorPrimary))
                 ) {
-                    Icon(Icons.Filled.Share,
-                        contentDescription = "button description")
+                    Icon(
+                        Icons.Filled.Share,
+                        contentDescription = "button description"
+                    )
                 }
-                OutlinedButton(onClick = { },
+                OutlinedButton(
+                    onClick = { },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     border = BorderStroke(1.dp, colorResource(R.color.trinidadColorPrimary)),
@@ -318,8 +380,10 @@ class PlaceContainerDetailsFragment : Fragment() {
                     colors =
                     ButtonDefaults.outlinedButtonColors(contentColor = colorResource(R.color.trinidadColorPrimary))
                 ) {
-                    Icon(painterResource(R.drawable.ic_baseline_link_24),
-                        contentDescription = "button description")
+                    Icon(
+                        painterResource(R.drawable.ic_baseline_link_24),
+                        contentDescription = "button description"
+                    )
                 }
             }
 
