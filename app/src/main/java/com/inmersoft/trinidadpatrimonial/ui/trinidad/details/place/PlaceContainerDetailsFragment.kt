@@ -336,7 +336,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     @Composable
     fun OtherPlaces(placesList: List<Place>, currentPlace: MutableState<Place?>) {
-        Card(modifier = Modifier.fillMaxSize()) {
+        Card(elevation = 1.dp,modifier = Modifier.fillMaxSize().padding(vertical = 8.dp)) {
             Column(modifier = Modifier.fillMaxSize()) {
                 PlaceText(
                     text = stringResource(R.string.others_places)
@@ -349,8 +349,8 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                         OtherPlaceItem(
                             place
                         ) {
-                            currentPlace.value = place
-                            Log.d("TAG-CLICKED", place.place_name)
+                            currentPlace.value = it
+                            Log.d("TAG-CLICKED", it.place_name)
                         }
                     }
                 }
@@ -360,11 +360,10 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     }
 
-
     @Composable
-    fun OtherPlaceItem(place: Place, setCurrentPlace: () -> Unit) {
+    fun OtherPlaceItem(place: Place, setCurrentPlace: (Place) -> Unit) {
         Card(
-            elevation = 4.dp,
+            elevation = 12.dp,
             modifier = Modifier
                 .height(150.dp)
                 .width(180.dp)
@@ -373,7 +372,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     RoundedCornerShape(10.dp)
                 )
                 .clickable {
-                    setCurrentPlace()
+                    setCurrentPlace(place)
                 }
         ) {
             Column(
