@@ -70,9 +70,9 @@ dependencies {
     testImplementation "androidx.room:room-testing:2.3.0"
 
     //WorkManager
-    api 'androidx.work:work-runtime-ktx:2.7.0-beta01'
+    api 'androidx.work:work-runtime-ktx:2.7.0-rc01'
     // optional - Test helpers
-    androidTestImplementation 'androidx.work:work-testing:2.7.0-beta01'
+    androidTestImplementation 'androidx.work:work-testing:2.7.0-rc01'
 
     // Testing
     testImplementation "junit:junit:4.13.2"

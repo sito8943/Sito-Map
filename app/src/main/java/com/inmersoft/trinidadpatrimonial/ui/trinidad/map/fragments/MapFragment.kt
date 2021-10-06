@@ -52,10 +52,12 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
     }
 
     private val trinidadGPS: MapPoint by lazy {
-        MapPoint(-1, "Trinidad",
+        MapPoint(
+            -1, "Trinidad",
             21.8055678,
             -79.985233,
-            R.drawable.map_icon)
+            R.drawable.map_icon
+        )
     }
 
     private val mapFragment: BaseMapFragment by lazy {
@@ -91,18 +93,17 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         super.onViewCreated(view, savedInstanceState)
 
         mapFragment.getMapAsync { map ->
-
-
-            map.loadStyleUri(Uri.parse("mapbox://styles/qu35t64/ckskkkh5k2wlr18lugd8arsrp")
-                .toString())
-
-
+            map.loadStyleUri(
+                Uri.parse("mapbox://styles/qu35t64/ckskkkh5k2wlr18lugd8arsrp")
+                    .toString()
+            )
             mapFragment.addOnPointAnnotationClickListener(this@MapFragment)
             map.flyTo(
                 CameraOptions.Builder()
                     .center(trinidadGPS.getAsPoint())
                     .zoom(15.0)
-                    .build(), null)
+                    .build(), null
+            )
             // addMapsElements()
         }
         setupUI()
@@ -162,8 +163,10 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                         )
                     }
                 } else {
-                    Log.d("MApFragment",
-                        "subscribeObservers:PARENT:${this.javaClass.toString()}  PARENT IS INCORRECT ")
+                    Log.d(
+                        "MApFragment",
+                        "subscribeObservers:PARENT:${this.javaClass.toString()}  PARENT IS INCORRECT "
+                    )
                 }
             })
 
@@ -197,11 +200,13 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
 
         places.forEach { place ->
             val mapPoint =
-                MapPoint(place.place_id,
+                MapPoint(
+                    place.place_id,
                     place.place_name,
                     place.location.latitude,
                     place.location.longitude,
-                    R.drawable.map_icon)
+                    R.drawable.map_icon
+                )
             if (place.place_id == placeIdArgs) {
                 flagSafeArgs = true
                 val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
@@ -215,10 +220,12 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
             listOfMapPoint.add(mapPoint)
         }
         if (!flagSafeArgs) {
-            mapFlyTo(Point.fromLngLat(
-                places[0].location.longitude,
-                places[0].location.latitude
-            ), 17.0)
+            mapFlyTo(
+                Point.fromLngLat(
+                    places[0].location.longitude,
+                    places[0].location.latitude
+                ), 17.0
+            )
         }
         mapFragment.setPoints(listOfMapPoint)
     }
@@ -253,8 +260,10 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                 if (it.text == nameTextField) {
                     //mapFragment.changePointAnnotationOptions(annotation)
                     mapFlyTo(it.getAsPoint(), 19.0)
-                    trinidadDataViewModel.onBottomSheetSetInfo(it.placeIdInRoomDB,
-                        _parent = this.javaClass.toString())
+                    trinidadDataViewModel.onBottomSheetSetInfo(
+                        it.placeIdInRoomDB,
+                        _parent = this.javaClass.toString()
+                    )
                     return@forEach
                 }
             }
