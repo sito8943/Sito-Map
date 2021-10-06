@@ -70,7 +70,7 @@ fun SplashScreenContainer(
     }
     LaunchedEffect(true) {
         scale.animateTo(
-            targetValue = 0.3f,
+            targetValue = 0.5f,
             animationSpec = tween(
                 durationMillis = 500,
                 easing = {

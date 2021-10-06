@@ -4,9 +4,9 @@ import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.compose.animation.*
 import androidx.compose.foundation.*
@@ -23,11 +23,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -39,12 +37,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import at.huber.youtubeExtractor.VideoMeta
@@ -53,6 +49,7 @@ import at.huber.youtubeExtractor.YtFile
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.placeholder.PlaceholderHighlight
 import com.google.accompanist.placeholder.placeholder
@@ -66,7 +63,6 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
-import com.inmersoft.trinidadpatrimonial.composables.ComposeExoPlayer
 import com.inmersoft.trinidadpatrimonial.composables.ComposePanoView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
@@ -90,7 +86,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     private lateinit var textToSpeechEngine: TextToSpeech
 
-    private lateinit var currentGlobalPlace: Place
+    private var currentGlobalPlace: Place? = null
 
     private var canSpeak = true
 
@@ -124,6 +120,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
         findNavController().navigate(action)
     }
 
+
     @ExperimentalMaterialApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -145,12 +142,14 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     fun PlaceDetailScreen(context: FragmentActivity, placesLiveData: LiveData<List<Place>>) {
         val placesData by placesLiveData.observeAsState(initial = emptyList())
         val userSelectPlaceId = safeArgs.placeID
-        val currentPlace = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
-        if (currentPlace != null) {
-            currentGlobalPlace = currentPlace
+        val place = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
+        val currentPlace =
+            remember { mutableStateOf<Place?>(null) }
+        if (place != null) {
+            currentPlace.value = place
+            currentGlobalPlace = currentPlace.value
             PlaceDetailsContent(context, placesData, currentPlace = currentPlace)
-        }
-        else {
+        } else {
             ShowPlaceHolder()
         }
     }
@@ -192,10 +191,37 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                                 highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
                             )
                             .padding(10.dp)
-
-
                     )
                 }
+            }
+        }
+    }
+
+    @Composable
+    fun TopBar(currentPlace: MutableState<Place?>) {
+        TopAppBar(
+            elevation = 0.dp,
+            backgroundColor = Color.Transparent,
+            modifier = Modifier
+                .statusBarsPadding()
+        ) {
+            Spacer(modifier = Modifier.width(10.dp))
+            IconButton(onClick = {
+                findNavController().popBackStack()
+            }) {
+
+                Icon(
+                    Icons.Filled.ArrowBackIos,
+                    contentDescription = "Back",
+                    tint = MaterialTheme.colors.onBackground
+                )
+            }
+            Spacer(modifier = Modifier.width(20.dp))
+            currentPlace.value?.let {
+                Text(
+                    text = it.place_name,
+                    color = MaterialTheme.colors.onBackground
+                )
             }
         }
     }
@@ -205,31 +231,44 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     fun PlaceDetailsContent(
         context: FragmentActivity,
         placesData: List<Place>,
-        currentPlace: Place
+        currentPlace: MutableState<Place?>
     ) {
-
+        val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
         BackdropScaffold(
+            persistentAppBar = false,
+            peekHeight = 100.dp,
+            stickyFrontLayer = true,
             backLayerBackgroundColor = MaterialTheme.colors.background,
-            scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed),
+            scaffoldState = scaffoldState,
             appBar = {
-
+                Spacer(modifier = Modifier.statusBarsHeight())
+                TopBar(currentPlace)
             },
             frontLayerScrimColor = Color.Unspecified,
             backLayerContent = {
-                PlaceBanner(
-                    place = currentPlace,
-                    Modifier
-                        .fillMaxWidth()
-                        .height(230.dp),
-                )
+                currentPlace.value?.let {
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .height(350.dp)
+                            .padding(bottom = 10.dp)
+                    ) {
+                        PlaceBanner(
+                            place = it, modifier = Modifier.fillMaxSize()
+                        )
+                        TopBar(currentPlace)
+                    }
+
+                }
 
             },
             frontLayerContent = {
                 PlaceSections(
                     context,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize(),
                     currentPlace,
-                    placesData
+                    placesData,
                 )
             })
 
@@ -240,7 +279,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     fun PlaceSections(
         context: FragmentActivity,
         modifier: Modifier = Modifier,
-        currentPlace: Place,
+        currentPlace: MutableState<Place?>,
         placesData: List<Place>,
     ) {
         Surface(
@@ -254,36 +293,40 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
             )
         ) {
             Column(modifier = Modifier.padding(top = 20.dp)) {
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                ) {
+                currentPlace.value?.let { innerPlace ->
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                    ) {
 
-                    item {
-                        PlacesDescription(
-                            currentPlace.place_name,
-                            currentPlace.place_description
-                        )
-                    }
-
-                    if (currentPlace.pano[0].isNotEmpty()) {
                         item {
-                            val panoUrl = TrinidadAssets.getAssetFullPath(
-                                currentPlace.pano[0],
-                                TrinidadAssets.webp
+
+                            PlacesDescription(
+                                innerPlace.place_name,
+                                innerPlace.place_description
                             )
-                            PlacePano360(context, Uri.parse(panoUrl))
                         }
-                    }
-                    if (currentPlace.video_promo.isNotEmpty()) {
+
+                        if (innerPlace.pano[0].isNotEmpty()) {
+                            item {
+                                val panoUrl = TrinidadAssets.getAssetFullPath(
+                                    innerPlace.pano[0],
+                                    TrinidadAssets.webp
+                                )
+                                PlacePano360(context, Uri.parse(panoUrl))
+                            }
+                        }
+
+                        if (innerPlace.video_promo.isNotEmpty()) {
+                            item {
+                                PlacesVideo(innerPlace.video_promo)
+                            }
+                        }
                         item {
-                            PlacesVideo(currentPlace.video_promo)
+                            OtherPlaces(placesData, currentPlace)
                         }
-                    }
-                    item {
-                        OtherPlaces(placesData)
-                    }
-                    item {
-                        Spacer(modifier = Modifier.padding(20.dp))
+                        item {
+                            Spacer(modifier = Modifier.padding(20.dp))
+                        }
                     }
                 }
             }
@@ -292,15 +335,11 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
 
     @Composable
-    fun OtherPlaces(placesList: List<Place>) {
+    fun OtherPlaces(placesList: List<Place>, currentPlace: MutableState<Place?>) {
         Card(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = stringResource(R.string.others_places),
-                    fontSize = 14.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(8.dp)
+                PlaceText(
+                    text = stringResource(R.string.others_places)
                 )
                 LazyRow(
                     modifier = Modifier.fillMaxSize(),
@@ -308,11 +347,11 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                 ) {
                     items(placesList) { place ->
                         OtherPlaceItem(
-                            TrinidadAssets.getAssetFullPath(
-                                place.header_images[0],
-                                TrinidadAssets.jpg
-                            ), place.place_name
-                        )
+                            place
+                        ) {
+                            currentPlace.value = place
+                            Log.d("TAG-CLICKED", place.place_name)
+                        }
                     }
                 }
 
@@ -323,7 +362,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
 
     @Composable
-    fun OtherPlaceItem(imageUrl: String, placeName: String) {
+    fun OtherPlaceItem(place: Place, setCurrentPlace: () -> Unit) {
         Card(
             elevation = 4.dp,
             modifier = Modifier
@@ -334,7 +373,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     RoundedCornerShape(10.dp)
                 )
                 .clickable {
-
+                    setCurrentPlace()
                 }
         ) {
             Column(
@@ -343,7 +382,10 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
             ) {
 
                 val imagePainter = rememberImagePainter(
-                    data = imageUrl,
+                    data = TrinidadAssets.getAssetFullPath(
+                        place.header_images[0],
+                        TrinidadAssets.jpg
+                    ),
                     builder = {
                         crossfade(true)
                         error(placeholderList[Random.nextInt(placeholderList.size)])
@@ -366,7 +408,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     painter = imagePainter
                 )
                 Text(
-                    text = placeName,
+                    text = place.place_name,
                     fontSize = 12.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -390,10 +432,8 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     .fillMaxSize()
                     .padding(4.dp)
             ) {
-                Text(
+                PlaceText(
                     text = "Video",
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.padding(start = 4.dp)
                 )
                 VideoPlayer(videoPromo = videoPromo)
             }
@@ -404,21 +444,14 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     @Composable
     private fun PlacePano360(context: FragmentActivity, imageUrl: Uri) {
         Card(
+            elevation = 0.dp,
             modifier = Modifier
                 .height(300.dp)
                 .fillMaxWidth()
-                .padding(8.dp)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    modifier = Modifier.padding(4.dp),
-                    text = stringResource(R.string.imagen360),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-
-
-                    )
-                Spacer(Modifier.height(20.dp))
+                PlaceText(text = stringResource(R.string.imagen360))
+                Spacer(Modifier.height(4.dp))
                 ComposePanoView(
                     context,
                     panoUri = imageUrl,
@@ -562,7 +595,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     ) { targetIsSelected ->
                         Icon(
                             painterResource(
-                                if (targetIsSelected) R.drawable.ic_baseline_hearing_24 else R.drawable.ic_baseline_hearing_disabled_24
+                                if (!targetIsSelected) R.drawable.ic_baseline_hearing_24 else R.drawable.ic_baseline_hearing_disabled_24
                             ),
                             contentDescription = "button description"
                         )
@@ -608,9 +641,11 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     @Composable
     fun PlaceBanner(place: Place, modifier: Modifier = Modifier) {
-        Column {
+        Column(modifier = modifier) {
             Image(
-                modifier = modifier,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(350.dp - 80.dp),
                 contentScale = ContentScale.Crop,
                 contentDescription = "",
                 painter = rememberImagePainter(
@@ -627,6 +662,21 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
             PlacesActionButtons(place = place)
             Spacer(Modifier.height(8.dp))
         }
+    }
+
+    @Composable
+    fun PlaceText(text: String) {
+        Text(
+            text = text,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp),
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start,
+            fontSize = 16.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 
     @Composable
@@ -730,7 +780,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
         }
     }
 
-    //WRITE EXTERNAL STORAGE PERMISSIONS
+//WRITE EXTERNAL STORAGE PERMISSIONS
 
     private fun hasWriteExternalPermission() =
         EasyPermissions.hasPermissions(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -776,14 +826,19 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     }
 
     private fun sharePlaceInfo() {
-        ShareIntent.loadImageAndShare(
-            requireContext(), Uri.parse(
-                TrinidadAssets.getAssetFullPath(
-                    currentGlobalPlace.header_images[0],
-                    TrinidadAssets.jpg
-                )
-            ), currentGlobalPlace.place_name, resources.getString(R.string.app_name)
-        )
+        currentGlobalPlace?.place_name?.let { placeName ->
+            ShareIntent.loadImageAndShare(
+                requireContext(), Uri.parse(
+                    currentGlobalPlace?.let { nPlace ->
+                        TrinidadAssets.getAssetFullPath(
+                            nPlace.header_images[0],
+                            TrinidadAssets.jpg
+                        )
+                    }
+                ),
+                placeName, resources.getString(R.string.app_name)
+            )
+        }
 
     }
 
