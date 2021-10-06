@@ -236,7 +236,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
         val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
         BackdropScaffold(
             persistentAppBar = false,
-            peekHeight = 100.dp,
+            peekHeight = 110.dp,
             stickyFrontLayer = true,
             backLayerBackgroundColor = MaterialTheme.colors.background,
             scaffoldState = scaffoldState,
