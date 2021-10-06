@@ -1,7 +1,9 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place
 
+import android.Manifest
 import android.net.Uri
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
@@ -67,24 +71,58 @@ import com.inmersoft.trinidadpatrimonial.composables.ComposePanoView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
 import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
 import com.inmersoft.trinidadpatrimonial.ui.loader.ui.theme.TrinidadPatrimonialTheme
-import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
-import com.inmersoft.trinidadpatrimonial.utils.placeholderList
+import com.inmersoft.trinidadpatrimonial.utils.*
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
+import com.vmadalin.easypermissions.EasyPermissions
+import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import kotlin.random.Random
 
 @ExperimentalAnimationApi
 @AndroidEntryPoint
-class PlaceContainerDetailsFragment : Fragment() {
+class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
     private val safeArgs: PlaceContainerDetailsFragmentArgs by navArgs()
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+
+    private var currentLocale = Locale("es", "ES")
+
+    private lateinit var textToSpeechEngine: TextToSpeech
+
+    private lateinit var currentGlobalPlace: Place
+
+    private var canSpeak = true
 
     private lateinit var playerView: PlayerView
     private lateinit var simpleExoPlayer: SimpleExoPlayer
     var currentWindows = 0
     var playbackPosition = 0L
     var playWhenReady = false
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        textToSpeechEngine = TextToSpeech(requireActivity()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                if (textToSpeechEngine.isLanguageAvailable(
+                        currentLocale
+                    ) == TextToSpeech.LANG_AVAILABLE
+                ) {
+                    textToSpeechEngine.language = currentLocale
+                } else {
+                    canSpeak = false
+                }
+            }
+        }
+    }
+
+
+    private fun goToMap(placeId: Int) {
+        val action =
+            PlaceContainerDetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
+        findNavController().navigate(action)
+    }
 
     @ExperimentalMaterialApi
     override fun onCreateView(
@@ -108,10 +146,13 @@ class PlaceContainerDetailsFragment : Fragment() {
         val placesData by placesLiveData.observeAsState(initial = emptyList())
         val userSelectPlaceId = safeArgs.placeID
         val currentPlace = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
-        if (currentPlace != null)
+        if (currentPlace != null) {
+            currentGlobalPlace = currentPlace
             PlaceDetailsContent(context, placesData, currentPlace = currentPlace)
-        else
+        }
+        else {
             ShowPlaceHolder()
+        }
     }
 
     @Composable
@@ -176,10 +217,7 @@ class PlaceContainerDetailsFragment : Fragment() {
             frontLayerScrimColor = Color.Unspecified,
             backLayerContent = {
                 PlaceBanner(
-                    TrinidadAssets.getAssetFullPath(
-                        currentPlace.header_images[0],
-                        TrinidadAssets.jpg
-                    ),
+                    place = currentPlace,
                     Modifier
                         .fillMaxWidth()
                         .height(230.dp),
@@ -449,7 +487,7 @@ class PlaceContainerDetailsFragment : Fragment() {
 
 
     @Composable
-    private fun PlacesActionButtons() {
+    private fun PlacesActionButtons(place: Place) {
         Card(
             modifier = Modifier
                 .height(80.dp)
@@ -463,8 +501,13 @@ class PlaceContainerDetailsFragment : Fragment() {
                     .padding(8.dp),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
+                //GoToMap
                 Button(
-                    onClick = { },
+                    onClick = {
+
+                        goToMap(placeId = place.place_id)
+
+                    },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     contentPadding = PaddingValues(0.dp),  //avoid the little icon
@@ -478,22 +521,59 @@ class PlaceContainerDetailsFragment : Fragment() {
                         contentDescription = "button description"
                     )
                 }
+                //Speaker
+                var isSelected by remember { mutableStateOf(false) }
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {
+                        isSelected = if (isSelected) {
+                            textToSpeechEngine.stop()
+                            false
+                        } else {
+                            speechPlaceDescription(place.place_description)
+                            true
+                        }
+                    },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     border = BorderStroke(1.dp, colorResource(R.color.trinidadColorPrimary)),
                     contentPadding = PaddingValues(0.dp),  //avoid the little icon
                     colors = ButtonDefaults.outlinedButtonColors(contentColor = colorResource(R.color.trinidadColorPrimary))
                 ) {
-                    Icon(
-                        painterResource(R.drawable.ic_baseline_hearing_24),
-                        contentDescription = "button description"
-                    )
+                    AnimatedContent(
+                        targetState = isSelected,
+                        transitionSpec = {
+                            // Compare the incoming number with the previous number.
+                            if (isSelected) {
+                                // If the target number is larger, it slides up and fades in
+                                // while the initial (smaller) number slides up and fades out.
+                                fadeIn() with
+                                        fadeOut()
+                            } else {
+                                // If the target number is smaller, it slides down and fades in
+                                // while the initial number slides down and fades out.
+                                fadeIn() with
+                                        fadeOut()
+                            }.using(
+                                // Disable clipping since the faded slide-in/out should
+                                // be displayed out of bounds.
+                                SizeTransform(clip = false)
+                            )
+                        }
+                    ) { targetIsSelected ->
+                        Icon(
+                            painterResource(
+                                if (targetIsSelected) R.drawable.ic_baseline_hearing_24 else R.drawable.ic_baseline_hearing_disabled_24
+                            ),
+                            contentDescription = "button description"
+                        )
+                    }
                 }
 
+                //ShareButton
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {
+                        sharePlaceInformation()
+                    },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     border = BorderStroke(1.dp, colorResource(R.color.trinidadColorPrimary)),
@@ -505,14 +585,16 @@ class PlaceContainerDetailsFragment : Fragment() {
                         contentDescription = "button description"
                     )
                 }
+                //Goto URL
                 OutlinedButton(
-                    onClick = { },
+                    onClick = {
+                        goToWebPage(place.web)
+                    },
                     modifier = Modifier.size(50.dp),  //avoid the oval shape
                     shape = CircleShape,
                     border = BorderStroke(1.dp, colorResource(R.color.trinidadColorPrimary)),
                     contentPadding = PaddingValues(0.dp),  //avoid the little icon
-                    colors =
-                    ButtonDefaults.outlinedButtonColors(contentColor = colorResource(R.color.trinidadColorPrimary))
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = colorResource(R.color.trinidadColorPrimary))
                 ) {
                     Icon(
                         painterResource(R.drawable.ic_baseline_link_24),
@@ -525,21 +607,24 @@ class PlaceContainerDetailsFragment : Fragment() {
     }
 
     @Composable
-    fun PlaceBanner(imageUrl: String, modifier: Modifier = Modifier) {
+    fun PlaceBanner(place: Place, modifier: Modifier = Modifier) {
         Column {
             Image(
                 modifier = modifier,
                 contentScale = ContentScale.Crop,
                 contentDescription = "",
                 painter = rememberImagePainter(
-                    data = imageUrl,
+                    data = TrinidadAssets.getAssetFullPath(
+                        place.header_images[0],
+                        TrinidadAssets.jpg
+                    ),
                     builder = {
                         crossfade(true)
                         placeholder(R.drawable.placeholder_1)
                     }
                 )
             )
-            PlacesActionButtons()
+            PlacesActionButtons(place = place)
             Spacer(Modifier.height(8.dp))
         }
     }
@@ -548,7 +633,7 @@ class PlaceContainerDetailsFragment : Fragment() {
     fun VideoPlayer(videoPromo: String) {
         val context = LocalContext.current
         simpleExoPlayer = SimpleExoPlayer.Builder(context).build()
-        val playerView = PlayerView(context).apply {
+        playerView = PlayerView(context).apply {
             resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
 
         }
@@ -603,6 +688,123 @@ class PlaceContainerDetailsFragment : Fragment() {
             }
 
         }.extract(videoPromo)
+    }
+
+    override fun onStop() {
+        releasePlayer()
+        textToSpeechEngine.stop()
+        super.onStop()
+
+    }
+
+    override fun onResume() {
+        textToSpeechEngine.stop()
+        super.onResume()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        textToSpeechEngine.stop()
+    }
+
+    private fun releasePlayer() {
+        if (playerView != null) {
+            playWhenReady = simpleExoPlayer.playWhenReady
+            playbackPosition = simpleExoPlayer.currentPosition
+            currentWindows = simpleExoPlayer.currentWindowIndex
+            simpleExoPlayer.release()
+        }
+    }
+
+
+    private fun goToWebPage(web: String) {
+        TrinidadCustomChromeTab.launch(requireContext(), Uri.parse(web))
+    }
+
+    private fun sharePlaceInformation() {
+        if (!hasWriteExternalPermission()) {
+            requestWriteExternalPermission()
+        } else {
+            sharePlaceInfo()
+        }
+    }
+
+    //WRITE EXTERNAL STORAGE PERMISSIONS
+
+    private fun hasWriteExternalPermission() =
+        EasyPermissions.hasPermissions(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+    private fun requestWriteExternalPermission() {
+        EasyPermissions.requestPermissions(
+            this,
+            resources.getString(R.string.rationale_share_message),
+            WRITE_EXTERNAL_PERMISSION_CODE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
+
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            SettingsDialog.Builder(requireActivity()).build().show()
+        } else {
+            requestWriteExternalPermission()
+        }
+
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {
+
+        if (requestCode == WRITE_EXTERNAL_PERMISSION_CODE) {
+            sharePlaceInfo()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    companion object {
+        const val WRITE_EXTERNAL_PERMISSION_CODE = 5637
+        const val MAX_SMART_TRUNCATE_STRINGS = 256
+    }
+
+    private fun sharePlaceInfo() {
+        ShareIntent.loadImageAndShare(
+            requireContext(), Uri.parse(
+                TrinidadAssets.getAssetFullPath(
+                    currentGlobalPlace.header_images[0],
+                    TrinidadAssets.jpg
+                )
+            ), currentGlobalPlace.place_name, resources.getString(R.string.app_name)
+        )
+
+    }
+
+    private fun speechPlaceDescription(placeDescription: String) {
+        if (placeDescription.isNotEmpty()) {
+            val descriptionToSpeech = RomanNumbers.replaceRomanNumber(placeDescription)
+            textToSpeechEngine.speak(descriptionToSpeech, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+        }
+    }
+
+    override fun onPause() {
+        textToSpeechEngine.stop()
+
+        releasePlayer()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        textToSpeechEngine.stop()
+
+        super.onDestroy()
     }
 
 }
