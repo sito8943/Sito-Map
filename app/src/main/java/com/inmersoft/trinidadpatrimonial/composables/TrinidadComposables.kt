@@ -17,7 +17,6 @@ import com.inmersoft.trinidadpatrimonial.extensions.loadPano360WithGlideInCompos
 
 @Composable
 fun ComposePanoView(context: FragmentActivity, panoUri: Uri, modifier: Modifier = Modifier) {
-
     AndroidView(
         {
             VrPanoramaView(context).apply {

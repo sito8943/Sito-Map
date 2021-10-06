@@ -7,16 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.animation.*
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -28,6 +25,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -48,6 +46,7 @@ import androidx.navigation.fragment.navArgs
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
+import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
@@ -59,6 +58,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
@@ -122,7 +122,7 @@ class PlaceContainerDetailsFragment : Fragment() {
                     .height(250.dp)
                     .fillMaxWidth()
                     .placeholder(
-                        color = MaterialTheme.colors.surface,
+                        color = Color.LightGray,
                         visible = true,
                         highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
                     )
@@ -133,7 +133,7 @@ class PlaceContainerDetailsFragment : Fragment() {
                     .height(100.dp)
                     .fillMaxWidth()
                     .placeholder(
-                        color = MaterialTheme.colors.surface,
+                        color = Color.LightGray,
                         visible = true,
                         highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
                     )
@@ -146,10 +146,13 @@ class PlaceContainerDetailsFragment : Fragment() {
                             .width(100.dp)
                             .fillMaxHeight()
                             .placeholder(
-                                color = MaterialTheme.colors.surface,
+                                color = Color.LightGray,
                                 visible = true,
                                 highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
                             )
+                            .padding(10.dp)
+
+
                     )
                 }
             }
@@ -252,7 +255,7 @@ class PlaceContainerDetailsFragment : Fragment() {
 
     @Composable
     fun OtherPlaces(placesList: List<Place>) {
-        Card(modifier = Modifier.fillMaxSize(), elevation = 2.dp) {
+        Card(modifier = Modifier.fillMaxSize()) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = stringResource(R.string.others_places),
@@ -284,52 +287,76 @@ class PlaceContainerDetailsFragment : Fragment() {
     @Composable
     fun OtherPlaceItem(imageUrl: String, placeName: String) {
         Card(
+            elevation = 4.dp,
             modifier = Modifier
-                .height(130.dp)
+                .height(150.dp)
                 .width(180.dp)
                 .padding(start = 4.dp, top = 8.dp, bottom = 8.dp, end = 4.dp)
+                .clip(
+                    RoundedCornerShape(10.dp)
+                )
+                .clickable {
+
+                }
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.SpaceAround
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
+
+                val imagePainter = rememberImagePainter(
+                    data = imageUrl,
+                    builder = {
+                        crossfade(true)
+                        error(placeholderList[Random.nextInt(placeholderList.size)])
+                    }
+                )
+
+                val loadingImageState = imagePainter.state is ImagePainter.State.Loading
+
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(80.dp),
+                        .height(90.dp)
+                        .placeholder(
+                            color = Color.LightGray,
+                            visible = loadingImageState,
+                            highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
+                        ),
                     contentScale = ContentScale.Crop,
                     contentDescription = "OtherPlaces",
-                    painter = rememberImagePainter(
-                        data = imageUrl,
-                        builder = {
-                            crossfade(true)
-                            placeholder(placeholderList[Random.nextInt(placeholderList.size)])
-                        }
-                    )
+                    painter = imagePainter
                 )
                 Text(
                     text = placeName,
                     fontSize = 12.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier
+                        .padding(8.dp)
                 )
+                Spacer(Modifier.height(5.dp))
             }
         }
-
-
     }
-
 
     @Composable
     private fun PlacesVideo(videoPromo: String) {
         Card(
             modifier = Modifier
-                .height(200.dp)
+                .height(300.dp)
                 .fillMaxWidth()
         ) {
-            Column(modifier = Modifier.fillMaxSize()) {
-                Text(text = "Video", textAlign = TextAlign.Start)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(4.dp)
+            ) {
+                Text(
+                    text = "Video",
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
                 VideoPlayer(videoPromo = videoPromo)
             }
 
@@ -349,14 +376,17 @@ class PlaceContainerDetailsFragment : Fragment() {
                     modifier = Modifier.padding(4.dp),
                     text = stringResource(R.string.imagen360),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
+                    fontSize = 16.sp,
+
+
+                    )
                 Spacer(Modifier.height(20.dp))
                 ComposePanoView(
                     context,
                     panoUri = imageUrl,
                     modifier = Modifier
                         .fillMaxSize()
+                        .padding(8.dp)
                         .clip(shape = RoundedCornerShape(20.dp))
                 )
             }
@@ -423,7 +453,7 @@ class PlaceContainerDetailsFragment : Fragment() {
         Card(
             modifier = Modifier
                 .height(80.dp)
-                .fillMaxWidth(), elevation = 4.dp,
+                .fillMaxWidth(),
             shape = RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp)
         ) {
             Row(
@@ -505,7 +535,7 @@ class PlaceContainerDetailsFragment : Fragment() {
                     data = imageUrl,
                     builder = {
                         crossfade(true)
-                        placeholder(com.inmersoft.trinidadpatrimonial.R.drawable.placeholder_1)
+                        placeholder(R.drawable.placeholder_1)
                     }
                 )
             )
@@ -518,7 +548,10 @@ class PlaceContainerDetailsFragment : Fragment() {
     fun VideoPlayer(videoPromo: String) {
         val context = LocalContext.current
         simpleExoPlayer = SimpleExoPlayer.Builder(context).build()
-        val playerView = PlayerView(context)
+        val playerView = PlayerView(context).apply {
+            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+
+        }
         val playWhenReady by remember {
             mutableStateOf(true)
         }
@@ -530,7 +563,10 @@ class PlaceContainerDetailsFragment : Fragment() {
             simpleExoPlayer.prepare()
             simpleExoPlayer.playWhenReady = playWhenReady
         }
-        AndroidView(modifier = Modifier.fillMaxSize().padding(8.dp), factory = {
+        AndroidView(modifier = Modifier
+            .fillMaxSize()
+            .padding(4.dp)
+            .clip(shape = RoundedCornerShape(20.dp)), factory = {
             playerView
         })
     }
