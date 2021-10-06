@@ -2,9 +2,11 @@ package com.inmersoft.trinidadpatrimonial.ui.trinidad.details.place
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -17,15 +19,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,26 +38,53 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
+import at.huber.youtubeExtractor.VideoMeta
+import at.huber.youtubeExtractor.YouTubeExtractor
+import at.huber.youtubeExtractor.YtFile
 import coil.compose.rememberImagePainter
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.MergingMediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.inmersoft.trinidadpatrimonial.R
+import com.inmersoft.trinidadpatrimonial.composables.ComposeExoPlayer
 import com.inmersoft.trinidadpatrimonial.composables.ComposePanoView
 import com.inmersoft.trinidadpatrimonial.database.data.entity.Place
+import com.inmersoft.trinidadpatrimonial.extensions.smartTruncate
+import com.inmersoft.trinidadpatrimonial.ui.loader.ui.theme.TrinidadPatrimonialTheme
 import com.inmersoft.trinidadpatrimonial.utils.TrinidadAssets
 import com.inmersoft.trinidadpatrimonial.utils.placeholderList
 import com.inmersoft.trinidadpatrimonial.viewmodels.TrinidadDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
+@ExperimentalAnimationApi
 @AndroidEntryPoint
 class PlaceContainerDetailsFragment : Fragment() {
 
     private val safeArgs: PlaceContainerDetailsFragmentArgs by navArgs()
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
+
+    private lateinit var playerView: PlayerView
+    private lateinit var simpleExoPlayer: SimpleExoPlayer
+    var currentWindows = 0
+    var playbackPosition = 0L
+    var playWhenReady = false
 
     @ExperimentalMaterialApi
     override fun onCreateView(
@@ -61,7 +92,11 @@ class PlaceContainerDetailsFragment : Fragment() {
         savedInstanceState: Bundle?,
     ) = ComposeView(requireContext()).apply {
         setContent {
-            PlaceDetailScreen(requireActivity(), trinidadDataViewModel.allPlaces)
+            TrinidadPatrimonialTheme {
+                ProvideWindowInsets {
+                    PlaceDetailScreen(requireActivity(), trinidadDataViewModel.allPlaces)
+                }
+            }
         }
 
     }
@@ -71,71 +106,95 @@ class PlaceContainerDetailsFragment : Fragment() {
     @Composable
     fun PlaceDetailScreen(context: FragmentActivity, placesLiveData: LiveData<List<Place>>) {
         val placesData by placesLiveData.observeAsState(initial = emptyList())
-        if (placesData.isEmpty()) {
-            ShowLoading()
-        } else {
-            PlaceDetailsContent(context, placesData)
-        }
+        val userSelectPlaceId = safeArgs.placeID
+        val currentPlace = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
+        if (currentPlace != null)
+            PlaceDetailsContent(context, placesData, currentPlace = currentPlace)
+        else
+            ShowPlaceHolder()
     }
 
     @Composable
-    fun ShowLoading() {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            LinearProgressIndicator(
+    private fun ShowPlaceHolder() {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Box(
                 modifier = Modifier
-                    .width(120.dp)
-                    .height(1.dp)
-                    .alpha(0.4f),
-                color = colorResource(R.color.trinidadColorOnPrimary),
-                backgroundColor = colorResource(R.color.background_progressbar_color)
+                    .height(250.dp)
+                    .fillMaxWidth()
+                    .placeholder(
+                        color = MaterialTheme.colors.surface,
+                        visible = true,
+                        highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
+                    )
             )
+            Spacer(modifier = Modifier.height(20.dp))
+            Box(
+                modifier = Modifier
+                    .height(100.dp)
+                    .fillMaxWidth()
+                    .placeholder(
+                        color = MaterialTheme.colors.surface,
+                        visible = true,
+                        highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
+                    )
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            LazyRow(modifier = Modifier.fillMaxWidth()) {
+                items(5) {
+                    Box(
+                        modifier = Modifier
+                            .width(100.dp)
+                            .fillMaxHeight()
+                            .placeholder(
+                                color = MaterialTheme.colors.surface,
+                                visible = true,
+                                highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
+                            )
+                    )
+                }
+            }
         }
     }
-
 
     @ExperimentalMaterialApi
     @Composable
-    fun PlaceDetailsContent(context: FragmentActivity, placesData: List<Place>) {
+    fun PlaceDetailsContent(
+        context: FragmentActivity,
+        placesData: List<Place>,
+        currentPlace: Place
+    ) {
 
-        val userSelectPlaceId = safeArgs.placeID
-        val currentPlace = placesData.first() { place -> place.place_id == userSelectPlaceId }
+        BackdropScaffold(
+            backLayerBackgroundColor = MaterialTheme.colors.background,
+            scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed),
+            appBar = {
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            BackdropScaffold(
-                backLayerBackgroundColor = Color.White,
-                scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed),
-                appBar = {
+            },
+            frontLayerScrimColor = Color.Unspecified,
+            backLayerContent = {
+                PlaceBanner(
+                    TrinidadAssets.getAssetFullPath(
+                        currentPlace.header_images[0],
+                        TrinidadAssets.jpg
+                    ),
+                    Modifier
+                        .fillMaxWidth()
+                        .height(230.dp),
+                )
 
-                },
-                frontLayerScrimColor = Color.Unspecified,
-                backLayerContent = {
-                    PlaceBanner(
-                        TrinidadAssets.getAssetFullPath(
-                            currentPlace.header_images[0],
-                            TrinidadAssets.jpg
-                        ),
-                        Modifier
-                            .fillMaxWidth()
-                            .height(230.dp),
-                    )
+            },
+            frontLayerContent = {
+                PlaceSections(
+                    context,
+                    modifier = Modifier.fillMaxSize(),
+                    currentPlace,
+                    placesData
+                )
+            })
 
-                },
-                frontLayerContent = {
-                    PlaceSections(
-                        context,
-                        modifier = Modifier.fillMaxSize(),
-                        currentPlace,
-                        placesData
-                    )
-                })
-
-        }
     }
 
-
+    @ExperimentalAnimationApi
     @Composable
     fun PlaceSections(
         context: FragmentActivity,
@@ -144,7 +203,9 @@ class PlaceContainerDetailsFragment : Fragment() {
         placesData: List<Place>,
     ) {
         Surface(
-            modifier = modifier.fillMaxSize(), color = Color.White, shape = RoundedCornerShape(
+            modifier = modifier.fillMaxSize(),
+            color = MaterialTheme.colors.surface,
+            shape = RoundedCornerShape(
                 topStart = 20.dp,
                 topEnd = 20.dp,
                 bottomStart = 0.dp,
@@ -157,7 +218,10 @@ class PlaceContainerDetailsFragment : Fragment() {
                 ) {
 
                     item {
-                        PlacesDescription(currentPlace.place_name, currentPlace.place_description)
+                        PlacesDescription(
+                            currentPlace.place_name,
+                            currentPlace.place_description
+                        )
                     }
 
                     if (currentPlace.pano[0].isNotEmpty()) {
@@ -261,10 +325,14 @@ class PlaceContainerDetailsFragment : Fragment() {
     private fun PlacesVideo(videoPromo: String) {
         Card(
             modifier = Modifier
-                .height(100.dp)
+                .height(200.dp)
                 .fillMaxWidth()
         ) {
-            Text(text = "Places Video", textAlign = TextAlign.Center)
+            Column(modifier = Modifier.fillMaxSize()) {
+                Text(text = "Video", textAlign = TextAlign.Start)
+                VideoPlayer(videoPromo = videoPromo)
+            }
+
         }
     }
 
@@ -278,36 +346,73 @@ class PlaceContainerDetailsFragment : Fragment() {
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Text(
+                    modifier = Modifier.padding(4.dp),
                     text = stringResource(R.string.imagen360),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
+                Spacer(Modifier.height(20.dp))
                 ComposePanoView(
                     context,
                     panoUri = imageUrl,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(shape = RoundedCornerShape(20.dp))
                 )
             }
         }
     }
 
+    @ExperimentalAnimationApi
     @Composable
     private fun PlacesDescription(placeName: String, placeDescription: String) {
         Card(
             modifier = Modifier
-                .height(210.dp)
                 .fillMaxWidth()
                 .padding(start = 0.dp, end = 0.dp, bottom = 8.dp)
         ) {
-            val verticalScrollDescriptionState = rememberScrollState(0)
-            Column(modifier = Modifier.padding(10.dp)) {
-                Text(text = placeName, textAlign = TextAlign.Left)
-                Spacer(modifier = Modifier.padding(8.dp))
+            var expanded by remember { mutableStateOf(false) }
+            Column(horizontalAlignment = Alignment.End, modifier = Modifier.padding(10.dp)) {
                 Text(
-                    text = placeDescription,
-                    textAlign = TextAlign.Justify,
-                    modifier = Modifier.verticalScroll(verticalScrollDescriptionState)
+                    modifier = Modifier.fillMaxWidth(),
+                    text = placeName,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Left
                 )
+                Spacer(modifier = Modifier.padding(8.dp))
+                AnimatedContent(
+                    targetState = expanded,
+                    transitionSpec = {
+                        // Compare the incoming number with the previous number.
+                        if (expanded) {
+                            // If the target number is larger, it slides up and fades in
+                            // while the initial (smaller) number slides up and fades out.
+                            fadeIn() with
+                                    fadeOut()
+                        } else {
+                            // If the target number is smaller, it slides down and fades in
+                            // while the initial number slides down and fades out.
+                            fadeIn() with
+                                    fadeOut()
+                        }.using(
+                            // Disable clipping since the faded slide-in/out should
+                            // be displayed out of bounds.
+                            SizeTransform(clip = false)
+                        )
+                    }
+                ) { targetExpanded ->
+                    Text(
+                        text = if (targetExpanded) placeDescription else placeDescription.smartTruncate(),
+                        textAlign = TextAlign.Justify,
+                    )
+                }
+
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        if (!expanded) Icons.Filled.Add else Icons.Filled.Remove,
+                        contentDescription = ""
+                    )
+                }
             }
         }
     }
@@ -318,9 +423,8 @@ class PlaceContainerDetailsFragment : Fragment() {
         Card(
             modifier = Modifier
                 .height(80.dp)
-                .fillMaxWidth(),
-            elevation = 4.dp,
-            shape = RoundedCornerShape(3.dp)
+                .fillMaxWidth(), elevation = 4.dp,
+            shape = RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -410,87 +514,63 @@ class PlaceContainerDetailsFragment : Fragment() {
         }
     }
 
+    @Composable
+    fun VideoPlayer(videoPromo: String) {
+        val context = LocalContext.current
+        simpleExoPlayer = SimpleExoPlayer.Builder(context).build()
+        val playerView = PlayerView(context)
+        val playWhenReady by remember {
+            mutableStateOf(true)
+        }
 
-    private fun subscribeObservers() {
-        trinidadDataViewModel.allPlaces.observe(viewLifecycleOwner, { allPlaces ->
-            val fragmentList = mutableListOf<PlaceDetailsFragment>()
-            allPlaces.indices.forEach { index ->
-                val currentPlace = allPlaces[index]
-                if (safeArgs.placeID == currentPlace.place_id) {
-                    //Agregamos el lugar elejido por el usuario como primero en la lista
-                    fragmentList.add(0, PlaceDetailsFragment(currentPlace))
-                } else {
-                    fragmentList.add(PlaceDetailsFragment(currentPlace))
-                }
-            }
+        playYoutubeUrl(videoPromo)
+
+        playerView.player = simpleExoPlayer
+        LaunchedEffect(simpleExoPlayer) {
+            simpleExoPlayer.prepare()
+            simpleExoPlayer.playWhenReady = playWhenReady
+        }
+        AndroidView(modifier = Modifier.fillMaxSize().padding(8.dp), factory = {
+            playerView
         })
     }
 
+    private fun playYoutubeUrl(videoPromo: String) {
+        object : YouTubeExtractor(requireContext()) {
+            override fun onExtractionComplete(
+                ytFiles: SparseArray<YtFile>?,
+                videoMeta: VideoMeta?,
+            ) {
+                if (ytFiles != null) {
+                    val videoTag = 137 //Tag 1080
+                    val audioTag = 140 //Tag 1080
+                    val audioSource: MediaSource =
+                        ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
+                            .createMediaSource(MediaItem.fromUri(ytFiles.get(audioTag).url))
+                    val videoSource: MediaSource =
+                        ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
+                            .createMediaSource(MediaItem.fromUri(ytFiles.get(videoTag).url))
 
-/*
-
-    @OptIn(ExperimentalCoilApi::class)
-    @Composable
-    private fun ExploreItem(
-        modifier: Modifier = Modifier,
-        item: ExploreModel,
-        onItemClicked: OnExploreItemClicked,
-    ) {
-        Row(
-            modifier = modifier
-                .clickable { onItemClicked(item) }
-                .padding(top = 12.dp, bottom = 12.dp)
-        ) {
-            ExploreImageContainer {
-                Box {
-                    val painter = rememberImagePainter(
-                        data = item.imageUrl,
-                        builder = {
-                            crossfade(true)
-                        }
+                    simpleExoPlayer.setMediaSource(
+                        MergingMediaSource(
+                            true,
+                            videoSource,
+                            audioSource
+                        ),
+                        true
                     )
-                    Image(
-                        painter = painter,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize(),
-                    )
+                    simpleExoPlayer.prepare()
+                    simpleExoPlayer.playWhenReady = false
+                    simpleExoPlayer.seekTo(currentWindows, playbackPosition)
 
-                    if (painter.state is Loading) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_crane_logo),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .align(Alignment.Center),
-                        )
-                    }
                 }
             }
-            Spacer(Modifier.width(24.dp))
-            Column {
-                Text(
-                    text = item.city.nameToDisplay,
-                    style = MaterialTheme.typography.h6
-                )
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    text = item.description,
-                    style = MaterialTheme.typography.caption.copy(color = crane_caption)
-                )
-            }
-        }
-    }
 
-    @Composable
-    private fun ExploreImageContainer(content: @Composable () -> Unit) {
-        Surface(Modifier.size(width = 60.dp, height = 60.dp), RoundedCornerShape(4.dp)) {
-            content()
-        }
+        }.extract(videoPromo)
     }
-*/
-
 
 }
+
+
 
 

@@ -2,7 +2,7 @@ package com.inmersoft.trinidadpatrimonial.ui.loader.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+
+val orangePrimary = Color(0xFFFF9515)
+val orangePrimaryVariant = Color(0xFFDD871E)
+

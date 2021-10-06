@@ -38,7 +38,7 @@ fun Context.developAreaMessageExt() {
 }
 
 
-fun String.smartTruncate(max: Int, suffix: String = "..."): String {
+fun String.smartTruncate(max: Int = 120, suffix: String = "..."): String {
     return if (this.length < max) {
         this
     } else {
