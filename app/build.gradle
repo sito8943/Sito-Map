@@ -101,7 +101,7 @@ dependencies {
     implementation "com.mapbox.navigation:android:2.0.0-rc.1"
 
     //Material Icons for compose
-    api "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
 
     //Accompanist
