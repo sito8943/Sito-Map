@@ -4,7 +4,6 @@ import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -120,6 +119,12 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
         findNavController().navigate(action)
     }
 
+    private fun goToOtherPlace(placeId: Int) {
+        val action =
+            PlaceContainerDetailsFragmentDirections.actionPlaceContainerDetailsFragmentSelf(placeID = placeId)
+        findNavController().navigate(action)
+    }
+
 
     @ExperimentalMaterialApi
     override fun onCreateView(
@@ -143,12 +148,9 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
         val placesData by placesLiveData.observeAsState(initial = emptyList())
         val userSelectPlaceId = safeArgs.placeID
         val place = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
-        val currentPlace =
-            remember { mutableStateOf<Place?>(null) }
         if (place != null) {
-            currentPlace.value = place
-            currentGlobalPlace = currentPlace.value
-            PlaceDetailsContent(context, placesData, currentPlace = currentPlace)
+            currentGlobalPlace = place
+            PlaceDetailsContent(context, placesData, currentPlace = place)
         } else {
             ShowPlaceHolder()
         }
@@ -156,49 +158,17 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     @Composable
     private fun ShowPlaceHolder() {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .height(250.dp)
-                    .fillMaxWidth()
-                    .placeholder(
-                        color = Color.LightGray,
-                        visible = true,
-                        highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
-                    )
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            Box(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillMaxWidth()
-                    .placeholder(
-                        color = MaterialTheme.colors.background,
-                        visible = true,
-                        highlight = PlaceholderHighlight.shimmer(highlightColor = MaterialTheme.colors.surface)
-                    )
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            LazyRow(modifier = Modifier.fillMaxWidth()) {
-                items(5) {
-                    Box(
-                        modifier = Modifier
-                            .width(100.dp)
-                            .fillMaxHeight()
-                            .placeholder(
-                                color = MaterialTheme.colors.background,
-                                visible = true,
-                                highlight = PlaceholderHighlight.shimmer(highlightColor = MaterialTheme.colors.surface)
-                            )
-                            .padding(10.dp)
-                    )
-                }
-            }
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
         }
     }
 
     @Composable
-    fun TopBar(currentPlace: MutableState<Place?>) {
+    fun TopBar(currentPlace: Place?) {
         TopAppBar(
             elevation = 0.dp,
             backgroundColor = Color.Transparent,
@@ -217,7 +187,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                 )
             }
             Spacer(modifier = Modifier.width(20.dp))
-            currentPlace.value?.let {
+            currentPlace?.let {
                 Text(
                     text = it.place_name,
                     color = MaterialTheme.colors.onBackground
@@ -231,7 +201,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     fun PlaceDetailsContent(
         context: FragmentActivity,
         placesData: List<Place>,
-        currentPlace: MutableState<Place?>
+        currentPlace: Place?
     ) {
         val scaffoldState = rememberBackdropScaffoldState(BackdropValue.Revealed)
         BackdropScaffold(
@@ -246,7 +216,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
             },
             frontLayerScrimColor = Color.Unspecified,
             backLayerContent = {
-                currentPlace.value?.let {
+                currentPlace?.let {
                     Box(
                         Modifier
                             .fillMaxWidth()
@@ -279,7 +249,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     fun PlaceSections(
         context: FragmentActivity,
         modifier: Modifier = Modifier,
-        currentPlace: MutableState<Place?>,
+        currentPlace: Place?,
         placesData: List<Place>,
     ) {
         Surface(
@@ -293,7 +263,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
             )
         ) {
             Column(modifier = Modifier.padding(top = 20.dp)) {
-                currentPlace.value?.let { innerPlace ->
+                currentPlace?.let { innerPlace ->
                     LazyColumn(
                         modifier = Modifier.weight(1f),
                     ) {
@@ -335,10 +305,12 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
 
     @Composable
-    fun OtherPlaces(placesList: List<Place>, currentPlace: MutableState<Place?>) {
-        Card(elevation = 1.dp, modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 8.dp)) {
+    fun OtherPlaces(placesList: List<Place>, currentPlace: Place?) {
+        Card(
+            elevation = 1.dp, modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 8.dp)
+        ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 PlaceText(
                     text = stringResource(R.string.others_places)
@@ -351,8 +323,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                         OtherPlaceItem(
                             place
                         ) {
-                            currentPlace.value = it
-                            Log.d("TAG-CLICKED", it.place_name)
+                            goToOtherPlace(place.place_id)
                         }
                     }
                 }
@@ -743,6 +714,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     override fun onStop() {
         releasePlayer()
+        simpleExoPlayer.release()
         textToSpeechEngine.stop()
         super.onStop()
 
@@ -852,14 +824,13 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     override fun onPause() {
         textToSpeechEngine.stop()
-
         releasePlayer()
         super.onPause()
     }
 
     override fun onDestroy() {
         textToSpeechEngine.stop()
-
+        releasePlayer()
         super.onDestroy()
     }
 
