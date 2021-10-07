@@ -39,7 +39,7 @@
             android:text="@string/onboarding_start_button"
             android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/trinidadMainBackground"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:transitionName="onboarding_start_button"
             app:cornerRadius="20dp"

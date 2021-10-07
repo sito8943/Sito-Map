@@ -173,9 +173,9 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     .height(100.dp)
                     .fillMaxWidth()
                     .placeholder(
-                        color = Color.LightGray,
+                        color = MaterialTheme.colors.background,
                         visible = true,
-                        highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
+                        highlight = PlaceholderHighlight.shimmer(highlightColor = MaterialTheme.colors.surface)
                     )
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -186,9 +186,9 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                             .width(100.dp)
                             .fillMaxHeight()
                             .placeholder(
-                                color = Color.LightGray,
+                                color = MaterialTheme.colors.background,
                                 visible = true,
-                                highlight = PlaceholderHighlight.shimmer(highlightColor = Color.White)
+                                highlight = PlaceholderHighlight.shimmer(highlightColor = MaterialTheme.colors.surface)
                             )
                             .padding(10.dp)
                     )
@@ -336,7 +336,9 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     @Composable
     fun OtherPlaces(placesList: List<Place>, currentPlace: MutableState<Place?>) {
-        Card(elevation = 1.dp,modifier = Modifier.fillMaxSize().padding(vertical = 8.dp)) {
+        Card(elevation = 1.dp, modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 8.dp)) {
             Column(modifier = Modifier.fillMaxSize()) {
                 PlaceText(
                     text = stringResource(R.string.others_places)
