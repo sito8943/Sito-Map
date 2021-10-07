@@ -138,9 +138,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                 }
             }
         }
-
     }
-
 
     @ExperimentalMaterialApi
     @Composable
@@ -163,7 +161,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CircularProgressIndicator()
+            LinearProgressIndicator()
         }
     }
 
@@ -258,8 +256,6 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
             shape = RoundedCornerShape(
                 topStart = 20.dp,
                 topEnd = 20.dp,
-                bottomStart = 0.dp,
-                bottomEnd = 0.dp
             )
         ) {
             Column(modifier = Modifier.padding(top = 20.dp)) {
@@ -267,15 +263,12 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                     LazyColumn(
                         modifier = Modifier.weight(1f),
                     ) {
-
                         item {
-
                             PlacesDescription(
                                 innerPlace.place_name,
                                 innerPlace.place_description
                             )
                         }
-
                         if (innerPlace.pano[0].isNotEmpty()) {
                             item {
                                 val panoUrl = TrinidadAssets.getAssetFullPath(
@@ -292,7 +285,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                             }
                         }
                         item {
-                            OtherPlaces(placesData, currentPlace)
+                            OtherPlaces(placesData)
                         }
                         item {
                             Spacer(modifier = Modifier.padding(20.dp))
@@ -305,7 +298,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
 
     @Composable
-    fun OtherPlaces(placesList: List<Place>, currentPlace: Place?) {
+    fun OtherPlaces(placesList: List<Place>) {
         Card(
             elevation = 1.dp, modifier = Modifier
                 .fillMaxSize()
