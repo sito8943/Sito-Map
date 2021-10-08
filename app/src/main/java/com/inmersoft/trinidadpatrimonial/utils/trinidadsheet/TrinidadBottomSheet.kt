@@ -1,6 +1,7 @@
 package com.inmersoft.trinidadpatrimonial.utils.trinidadsheet
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -67,21 +68,20 @@ class TrinidadBottomSheet(
     }
 
     fun navigateTo(
-        destination: NavDirections
+        destination: Int, args: Bundle?
     ) {
-        binding.bottomSheetHeaderCardview.transitionName = UUID.randomUUID().toString()
-        val extras =
-            FragmentNavigatorExtras(
-                binding.bottomSheetHeaderCardview to "shared_view_container"
-            )
-
+        /*   binding.bottomSheetHeaderCardview.transitionName = UUID.randomUUID().toString()
+           val extras =
+               FragmentNavigatorExtras(
+                   binding.bottomSheetHeaderCardview to "shared_view_container"
+               )
+   */
         binding.seeMoreBottomSheetButton.setOnClickListener {
-            navController.navigate(destination, extras)
+            navController.navigate(destination, args = args)
             hide()
         }
-
         binding.bottomSheetHeaderCardview.setOnClickListener {
-            navController.navigate(destination, extras)
+            navController.navigate(destination, args = args)
             hide()
         }
 

@@ -10,6 +10,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -134,14 +135,16 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
     }
 
     override fun showPlaceDetails(placeId: Int, sharedTransitionView: View) {
+
+        Log.d("NAVEGATION", "PLACE-ID: $placeId")
         val extras =
             FragmentNavigatorExtras(
                 sharedTransitionView to "shared_view_container"
             )
-        val action =
-            HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = placeId)
-        Navigation.findNavController(requireView())
-            .navigate(action, extras)
+        val args = Bundle()
+        args.putInt("placeID", placeId)
+
+        findNavController().navigate(R.id.action_nav_home_to_detailsFragment, args)
     }
 
     override fun showRouteDetails(routeId: Int, sharedTransitionView: View) {
@@ -149,10 +152,14 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
             FragmentNavigatorExtras(
                 sharedTransitionView to "shared_view_container"
             )
-        val action =
+        /*val action =
             HomeFragmentDirections.actionNavHomeToRoutesContainerDetailsFragment(routeId)
+        */
+        val args = Bundle()
+        args.putInt("routeID", routeId)
+
         Navigation.findNavController(requireView())
-            .navigate(action, extras)
+            .navigate(R.id.action_nav_home_to_routesContainerDetailsFragment, args = args)
     }
 }
 

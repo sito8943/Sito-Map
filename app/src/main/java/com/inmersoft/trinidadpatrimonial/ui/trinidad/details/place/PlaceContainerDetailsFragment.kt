@@ -4,6 +4,7 @@ import android.Manifest
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -78,7 +79,7 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCallbacks {
 
-    private val safeArgs: PlaceContainerDetailsFragmentArgs by navArgs()
+    private var safeArgs = 0
     private val trinidadDataViewModel: TrinidadDataViewModel by viewModels()
 
     private var currentLocale = Locale("es", "ES")
@@ -98,6 +99,9 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        safeArgs = arguments?.getInt("placeID") ?: -1
+        Log.d("PLACE_DETAILS", "$safeArgs")
+        simpleExoPlayer = SimpleExoPlayer.Builder(requireContext()).build()
         textToSpeechEngine = TextToSpeech(requireActivity()) { status ->
             if (status == TextToSpeech.SUCCESS) {
                 if (textToSpeechEngine.isLanguageAvailable(
@@ -114,15 +118,17 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
 
     private fun goToMap(placeId: Int) {
-        val action =
-            PlaceContainerDetailsFragmentDirections.actionDetailsFragmentToNavMap(placeID = placeId)
-        findNavController().navigate(action)
+
+        val args = Bundle()
+        args.putInt("placeID", placeId);
+
+        findNavController().navigate(R.id.action_detailsFragment_to_nav_map, args)
     }
 
     private fun goToOtherPlace(placeId: Int) {
-        val action =
-            PlaceContainerDetailsFragmentDirections.actionPlaceContainerDetailsFragmentSelf(placeID = placeId)
-        findNavController().navigate(action)
+        val args = Bundle()
+        args.putInt("placeID", placeId);
+        findNavController().navigate(R.id.action_placeContainerDetailsFragment_self, args)
     }
 
 
@@ -144,13 +150,15 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     @Composable
     fun PlaceDetailScreen(context: FragmentActivity, placesLiveData: LiveData<List<Place>>) {
         val placesData by placesLiveData.observeAsState(initial = emptyList())
-        val userSelectPlaceId = safeArgs.placeID
-        val place = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
-        if (place != null) {
-            currentGlobalPlace = place
-            PlaceDetailsContent(context, placesData, currentPlace = place)
-        } else {
-            ShowPlaceHolder()
+        val userSelectPlaceId = safeArgs
+        if (userSelectPlaceId != -1) {
+            val place = placesData.firstOrNull() { place -> place.place_id == userSelectPlaceId }
+            if (place != null) {
+                currentGlobalPlace = place
+                PlaceDetailsContent(context, placesData, currentPlace = place)
+            } else {
+                ShowPlaceHolder()
+            }
         }
     }
 
@@ -280,6 +288,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
                         }
 
                         if (innerPlace.video_promo.isNotEmpty()) {
+                            Log.d("VIDEO-PROMO", "LOAD_VIDEO: ${innerPlace.video_promo}")
                             item {
                                 PlacesVideo(innerPlace.video_promo)
                             }
@@ -647,7 +656,7 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     @Composable
     fun VideoPlayer(videoPromo: String) {
         val context = LocalContext.current
-        simpleExoPlayer = SimpleExoPlayer.Builder(context).build()
+
         playerView = PlayerView(context).apply {
             resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
 
@@ -671,34 +680,56 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
         })
     }
 
+    /*
+    *
+    * 171 webm audio only DASH audio 115k , audio@128k (44100Hz), 2.59MiB (worst)
+    140 m4a audio only DASH audio 129k , audio@128k (44100Hz), 3.02MiB
+    141 m4a audio only DASH audio 255k , audio@256k (44100Hz), 5.99MiB
+    160 mp4 256x144 DASH video 111k , 12fps, video only, 2.56MiB
+    247 webm 1280x720 DASH video 1807k , 1fps, video only, 23.48MiB
+    136 mp4 1280x720 DASH video 2236k , 24fps, video only, 27.73MiB
+    248 webm 1920x1080 DASH video 3993k , 1fps, video only, 42.04MiB
+    137 mp4 1920x1080 DASH video 4141k , 24fps, video only, 60.28MiB
+    43 webm 640x360
+    18 mp4 640x360
+    22 mp4 1280x720 (best)
+    * */
     private fun playYoutubeUrl(videoPromo: String) {
         object : YouTubeExtractor(requireContext()) {
             override fun onExtractionComplete(
                 ytFiles: SparseArray<YtFile>?,
                 videoMeta: VideoMeta?,
             ) {
-                if (ytFiles != null) {
-                    val videoTag = 137 //Tag 1080
-                    val audioTag = 140 //Tag 1080
-                    val audioSource: MediaSource =
-                        ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
-                            .createMediaSource(MediaItem.fromUri(ytFiles.get(audioTag).url))
-                    val videoSource: MediaSource =
-                        ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
-                            .createMediaSource(MediaItem.fromUri(ytFiles.get(videoTag).url))
+                try {
 
-                    simpleExoPlayer.setMediaSource(
-                        MergingMediaSource(
-                            true,
-                            videoSource,
-                            audioSource
-                        ),
-                        true
-                    )
-                    simpleExoPlayer.prepare()
-                    simpleExoPlayer.playWhenReady = false
-                    simpleExoPlayer.seekTo(currentWindows, playbackPosition)
+                    if (ytFiles != null) {
+                        val videoTag = 18 //Tag 1080
+                        val audioTag = 140 //Tag 1080
 
+                        Log.d("VIDEO-SOURCE", "VIDEO: ${ytFiles.get(videoTag).url}")
+
+                        val audioSource: MediaSource =
+                            ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
+                                .createMediaSource(MediaItem.fromUri(ytFiles.get(audioTag).url))
+                        val videoSource: MediaSource =
+                            ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
+                                .createMediaSource(MediaItem.fromUri(ytFiles.get(videoTag).url))
+
+                        simpleExoPlayer.setMediaSource(
+                            MergingMediaSource(
+                                true,
+                                videoSource,
+                                audioSource
+                            ),
+                            true
+                        )
+                        simpleExoPlayer.prepare()
+                        simpleExoPlayer.playWhenReady = false
+                        simpleExoPlayer.seekTo(currentWindows, playbackPosition)
+
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
 
@@ -707,7 +738,6 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
 
     override fun onStop() {
         releasePlayer()
-        simpleExoPlayer.release()
         textToSpeechEngine.stop()
         super.onStop()
 
@@ -725,11 +755,13 @@ class PlaceContainerDetailsFragment : Fragment(), EasyPermissions.PermissionCall
     }
 
     private fun releasePlayer() {
-        if (playerView != null) {
+        try {
             playWhenReady = simpleExoPlayer.playWhenReady
             playbackPosition = simpleExoPlayer.currentPosition
             currentWindows = simpleExoPlayer.currentWindowIndex
             simpleExoPlayer.release()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

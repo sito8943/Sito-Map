@@ -125,13 +125,12 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
                     Log.d(TAG, "setupBottomSheet: PARENT IS CORRECT ")
                     if (currentPlace != null) {
                         Log.d(TAG, "setupBottomSheet: CURRENTPLACE IS NOT NULL")
-                        val nav = QrScannerFragmentDirections.actionNavQrToDetailsFragment(
-                            currentPlace.place_id
-                        )
-                        Log.d(TAG,
-                            "setupBottomSheet: CALLING showTrinidadBottomSheetPlaceInfo function")
+
+                        val args = Bundle()
+                        args.putInt("placeID", currentPlace.place_id)
+                        val nav = R.id.action_nav_map_to_detailsFragment
                         showTrinidadBottomSheetPlaceInfo(
-                            place = currentPlace, navDirections = nav
+                            currentPlace, navDirections = nav, args = args
                         )
                     }
                 } else {
@@ -267,8 +266,10 @@ class QrScannerFragment : BaseFragment(), View.OnClickListener,
             val placeID = trinidadQR.getPlaceID()
             if (placeID >= 0) {
                 Log.d(TAG, "processBarcodeValue: SEND DATA TO BOTTOMSHEET")
-                trinidadDataViewModel.onBottomSheetSetInfo(placeId = placeID, _parent =
-                TAG)
+                trinidadDataViewModel.onBottomSheetSetInfo(
+                    placeId = placeID, _parent =
+                    TAG
+                )
             }
         } else {
             Log.d(TAG, "processBarcodeValue: QR IS NOT VALID")

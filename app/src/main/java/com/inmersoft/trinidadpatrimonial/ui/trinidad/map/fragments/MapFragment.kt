@@ -45,7 +45,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private val safeArgs: MapFragmentArgs by navArgs()
+    private var safeArgs = -1
 
     private val placesTypeAdapter: MapPlaceTypeAdapter by lazy {
         MapPlaceTypeAdapter(this@MapFragment)
@@ -68,7 +68,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
 
     private val listOfMapPoint = mutableListOf<MapPoint>()
 
-    private val showBottomSheetOnStart: Boolean by lazy { safeArgs.placeID != -1 }
+    private val showBottomSheetOnStart: Boolean by lazy { safeArgs != -1 }
 
     private val autoCompletePlacesNameAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter<String>(
@@ -84,6 +84,8 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
+
+        safeArgs = arguments?.getInt("placeID") ?: -1
 
 
         return binding.root
@@ -155,11 +157,11 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
             { currentPlace ->
                 if (trinidadDataViewModel.isParent(this.javaClass.toString())) {
                     if (currentPlace != null) {
-                        val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
-                            currentPlace.place_id
-                        )
+                        val args = Bundle()
+                        args.putInt("placeID", currentPlace.place_id)
+                        val nav = R.id.action_nav_map_to_detailsFragment
                         showTrinidadBottomSheetPlaceInfo(
-                            place = currentPlace, navDirections = nav
+                            currentPlace, navDirections = nav, args = args
                         )
                     }
                 } else {
@@ -193,7 +195,7 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
     }
 
     private fun showPlacesInMap(places: List<Place>) {
-        val placeIdArgs = safeArgs.placeID
+        val placeIdArgs = safeArgs
         var flagSafeArgs = false
 
         listOfMapPoint.clear()
@@ -209,11 +211,12 @@ class MapFragment : BaseFragment(), OnPointAnnotationClickListener, MapPlaceType
                 )
             if (place.place_id == placeIdArgs) {
                 flagSafeArgs = true
-                val nav = MapFragmentDirections.actionNavMapToDetailsFragment(
-                    place.place_id
-                )
+
+                val args = Bundle()
+                args.putInt("placeID", place.place_id)
+                val nav = R.id.action_nav_map_to_detailsFragment
                 showTrinidadBottomSheetPlaceInfo(
-                    place, navDirections = nav
+                    place, navDirections = nav, args = args
                 )
                 mapFlyTo(Point.fromLngLat(mapPoint.longitude, mapPoint.latitude), 17.0)
             }
