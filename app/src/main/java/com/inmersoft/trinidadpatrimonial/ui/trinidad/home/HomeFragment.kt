@@ -1,15 +1,19 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
+import com.inmersoft.ecommerce.presentation.EcommerceActivity
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
@@ -23,6 +27,8 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.routes.HomeRo
 import dagger.hilt.android.AndroidEntryPoint
 
 
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
     HomeRouteListAdapter.RouteItemOnClick {
@@ -54,6 +60,13 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
         binding.toolbar.menu.findItem(R.id.action_search)
             .setOnMenuItemClickListener {
                 Log.d("TAG", "onCreateView: CLICKED")
+                true
+            }
+
+        binding.toolbar.menu.findItem(R.id.action_ecommerce)
+            .setOnMenuItemClickListener {
+                val ecomerce = Intent(requireContext(), EcommerceActivity::class.java)
+                startActivity(ecomerce)
                 true
             }
         binding.toolbar.setNavigationOnClickListener {

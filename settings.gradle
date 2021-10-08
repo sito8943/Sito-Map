@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 rootProject.name = "Trinidad Patrimonial"
 include ':app'
 include ':database'
+include ':Printfull_API'
+include ':ecommerce'

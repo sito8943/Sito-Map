@@ -58,6 +58,7 @@ android {
 dependencies {
 
     implementation project(":database")
+    implementation project(":ecommerce")
 
 //COMPOSE
     implementation "androidx.compose.ui:ui:$compose_version"
@@ -130,7 +131,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-rc01"
 
 
-    //Easy Permisions
+    //Easy Permissions
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
     // Google MLKit Barcode Scanning
