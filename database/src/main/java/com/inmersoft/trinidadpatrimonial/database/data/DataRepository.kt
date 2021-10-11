@@ -14,7 +14,6 @@ class DataRepository @Inject constructor(
     private val placeDao: PlaceDao,
     private val routesDao: RoutesDao,
     private val placeTypeDao: PlaceTypeDao
-
 ) {
 
     val allPlacesName: LiveData<List<String>> = placeDao.getAllPlacesName()

@@ -5,15 +5,22 @@ buildscript {
         compileSdk = 31
         minSdk = 21
         targetSdk = 31
-        versionCode = 50
+        versionCode = 52
         versionName = "1.1.$versionCode"
         compose_version = '1.1.0-alpha05'
     }
+
+
 
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
         maven {
             url 'https://api.mapbox.com/downloads/v2/releases/maven'
             authentication {
@@ -31,6 +38,12 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.37"
+
+
+        //Encripta todos los String que esten dentro de la app en tiempo de compilacion
+        classpath 'com.android.tools.build:gradle:3.5.4'
+        // Add the Enigma classpath
+        classpath 'gradle.plugin.chrisney:enigma:1.0.0.8'
     }
 }
 
