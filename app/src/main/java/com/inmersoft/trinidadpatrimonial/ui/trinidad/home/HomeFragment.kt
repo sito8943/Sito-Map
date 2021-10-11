@@ -1,15 +1,20 @@
 package com.inmersoft.trinidadpatrimonial.ui.trinidad.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
+import com.inmersoft.ecommerce.presentation.EcommerceActivity
 import com.inmersoft.trinidadpatrimonial.R
 import com.inmersoft.trinidadpatrimonial.databinding.FragmentHomeBinding
 import com.inmersoft.trinidadpatrimonial.extensions.fadeTransitionExt
@@ -23,6 +28,8 @@ import com.inmersoft.trinidadpatrimonial.ui.trinidad.home.adapters.routes.HomeRo
 import dagger.hilt.android.AndroidEntryPoint
 
 
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
     HomeRouteListAdapter.RouteItemOnClick {
@@ -54,6 +61,13 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
         binding.toolbar.menu.findItem(R.id.action_search)
             .setOnMenuItemClickListener {
                 Log.d("TAG", "onCreateView: CLICKED")
+                true
+            }
+
+        binding.toolbar.menu.findItem(R.id.action_ecommerce)
+            .setOnMenuItemClickListener {
+                val ecomerce = Intent(requireContext(), EcommerceActivity::class.java)
+                startActivity(ecomerce)
                 true
             }
         binding.toolbar.setNavigationOnClickListener {
@@ -121,14 +135,16 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
     }
 
     override fun showPlaceDetails(placeId: Int, sharedTransitionView: View) {
+
+        Log.d("NAVEGATION", "PLACE-ID: $placeId")
         val extras =
             FragmentNavigatorExtras(
                 sharedTransitionView to "shared_view_container"
             )
-        val action =
-            HomeFragmentDirections.actionNavHomeToDetailsFragment(placeID = placeId)
-        Navigation.findNavController(requireView())
-            .navigate(action, extras)
+        val args = Bundle()
+        args.putInt("placeID", placeId)
+
+        findNavController().navigate(R.id.action_nav_home_to_detailsFragment, args)
     }
 
     override fun showRouteDetails(routeId: Int, sharedTransitionView: View) {
@@ -136,10 +152,14 @@ class HomeFragment : BaseFragment(), InnerPlaceSubListAdapter.PlaceItemOnClick,
             FragmentNavigatorExtras(
                 sharedTransitionView to "shared_view_container"
             )
-        val action =
+        /*val action =
             HomeFragmentDirections.actionNavHomeToRoutesContainerDetailsFragment(routeId)
+        */
+        val args = Bundle()
+        args.putInt("routeID", routeId)
+
         Navigation.findNavController(requireView())
-            .navigate(action, extras)
+            .navigate(R.id.action_nav_home_to_routesContainerDetailsFragment, args = args)
     }
 }
 

@@ -1,0 +1,22 @@
+<resources>
+    <string name="title_activity_ecommerce">EcommerceActivity</string>
+    <string name="go_web">Abrir la pagina web de la tienda</string>
+    <string name="go_cart">Abrir su carrito de compras</string>
+    <string name="add_to_cart">Agregar al carrito</string>
+    <string name="add_to_cart_dialog_title">Agregar al carrito</string>
+    <string name="add_to_cart_dialog_message">Deseas agregar este producto a tu carrito?.</string>
+    <string name="yes">si</string>
+    <string name="no">no</string>
+    <string name="added_in_cart">Este producto ya esta agregado al carrito.</string>
+    <string name="product_in_store">Este producto ya esta en tu carrito, si deseas mas productos como este puedes aumentar la cantidad dento de tu carrito.</string>
+    <string name="product_in_store_title">Agregar al carrito</string>
+    <string name="ok">Aceptar</string>
+    <string name="search_text">Buscar</string>
+    <string name="cart_title">Carrito de Compras</string>
+    <string name="delete_product_cart_icon">Eliminar este producto del carrito</string>
+    <string name="delete_product_cart_title">Eliminar producto</string>
+    <string name="delete_product_in_cart_dialog_message">Desea eliminar este producto del carrito</string>
+    <string name="snack_item_delete_message">ha sido eliminado</string>
+    <string name="cancel_action">Cancelar</string>
+    <string name="create_order">Crear Orden</string>
+</resources>

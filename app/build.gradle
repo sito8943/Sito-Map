@@ -2,9 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.secrets_gradle_plugin' version '0.6'
+    id "com.chrisney.enigma"  // Este modulo encripta todos los string
 }
 
 android {
@@ -15,9 +14,9 @@ android {
         compose true
     }
 
+
     composeOptions {
-        kotlinCompilerExtensionVersion '1.0.1'
-        kotlinCompilerVersion '1.5.21'
+        kotlinCompilerExtensionVersion "$compose_version"
     }
     packagingOptions {
         resources {
@@ -51,25 +50,40 @@ android {
         jvmTarget = '1.8'
         useIR = true
     }
+    ndkVersion '23.0.7599858'
+    buildToolsVersion '31.0.0'
+    compileSdkVersion 31
 }
+
+
+// Set Enigma options:
+enigma.enabled = true
+enigma.injectFakeKeys = true
+//enigma.ignoredClasses = ["com.ondev..MainActivity.java"]
+
 
 dependencies {
 
     implementation project(":database")
+    implementation project(":ecommerce")
 
 //COMPOSE
-    implementation "androidx.compose.ui:ui:1.0.1"
-    implementation "androidx.compose.material:material:1.0.1"
-    implementation "androidx.compose.ui:ui-tooling-preview:1.0.1"
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:1.0.1"
-    debugImplementation "androidx.compose.ui:ui-tooling:1.0.1"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.activity:activity-compose:1.3.1"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
+
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.5.31'
 
     implementation "androidx.core:core-ktx:1.6.0"
     implementation "androidx.appcompat:appcompat:1.3.1"
     implementation "com.google.android.material:material:1.4.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.1"
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 
     // Fragment
@@ -79,30 +93,40 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
-    // Google Maps SDK
-    implementation "com.google.android.gms:play-services-maps:17.0.1"
-    implementation 'com.google.maps.android:maps-ktx:3.1.0'
+    // Mapbox (Maps)
+    implementation 'com.mapbox.maps:android:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-annotation:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-locationcomponent:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-gestures:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-compass:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-animation:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-scalebar:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-logo:10.0.0-rc.8'
+    implementation 'com.mapbox.plugin:maps-attribution:10.0.0-rc.8'
+    implementation "com.mapbox.navigation:android:2.0.0-rc.1"
+
+
 
     // CameraX
-    implementation "androidx.camera:camera-core:1.0.1"
-    implementation "androidx.camera:camera-camera2:1.1.0-alpha07"
-    implementation "androidx.camera:camera-lifecycle:1.1.0-alpha07"
-    implementation 'androidx.camera:camera-view:1.0.0-alpha27'
+    implementation "androidx.camera:camera-core:1.0.2"
+    implementation 'androidx.camera:camera-camera2:1.1.0-alpha09'
+    implementation 'androidx.camera:camera-lifecycle:1.1.0-alpha09'
+    implementation 'androidx.camera:camera-view:1.0.0-alpha29'
 
     //Preferences
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.1"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
     implementation "androidx.lifecycle:lifecycle-process:2.3.1"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-rc01"
 
 
-    //Easy Permisions
+    //Easy Permissions
     implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
 
     // Google MLKit Barcode Scanning
@@ -110,9 +134,9 @@ dependencies {
 
     // Hilt (Dependency Injection) add id 'dagger.hilt.android.plugin' and  id 'kotlin-kapt'
     //ADD IN PROJECT GRADLE classpath "com.google.dagger:hilt-android-gradle-plugin:2.35.1"
-    implementation 'com.google.dagger:hilt-android:2.37'
+    implementation 'com.google.dagger:hilt-android:2.38.1'
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
-    kapt 'com.google.dagger:hilt-android-compiler:2.37'
+    kapt 'com.google.dagger:hilt-android-compiler:2.38.1'
 
     // Google VR SDK
     implementation "com.google.vr:sdk-base:1.180.0"
@@ -122,14 +146,11 @@ dependencies {
     implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
 
     // Exoplayer (Video)
-    implementation "com.google.android.exoplayer:exoplayer:2.15.0"
+    implementation "com.google.android.exoplayer:exoplayer:2.15.1"
 
     //PlayCore
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
-
-    //Custom Chrome Tabs
-    implementation "androidx.browser:browser:1.3.0"
 
     // Glide: Image loading and caching
     implementation "com.github.bumptech.glide:glide:4.12.0"

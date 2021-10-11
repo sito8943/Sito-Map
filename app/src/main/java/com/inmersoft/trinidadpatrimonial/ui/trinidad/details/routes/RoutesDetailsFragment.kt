@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
@@ -225,7 +224,7 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
         binding.headerImage.loadImageCenterCropExt(Uri.parse(
             TrinidadAssets.getAssetFullPath(
                 headerImages[0],
-                TrinidadAssets.FILE_JPG_EXTENSION
+                TrinidadAssets.jpg
             )
         ))
     }
@@ -248,7 +247,7 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
             requireContext(), Uri.parse(
                 TrinidadAssets.getAssetFullPath(
                     routeData.header_images[0],
-                    TrinidadAssets.FILE_JPG_EXTENSION
+                    TrinidadAssets.jpg
                 )
             ), routeData.route_name, resources.getString(R.string.app_name)
         )
@@ -292,7 +291,7 @@ class RoutesDetailsFragment(private val routeData: Route) : Fragment(),
     private fun loadPano360(panoAssetName: List<String>) {
         val panoAssetUrl = TrinidadAssets.getAssetFullPath(
             panoAssetName[0],
-            TrinidadAssets.FILE_WEBP_EXTENSION
+            TrinidadAssets.webp
         )
 
         binding.placePanoView.loadPano360WithGlideExt(Uri.parse(panoAssetUrl),

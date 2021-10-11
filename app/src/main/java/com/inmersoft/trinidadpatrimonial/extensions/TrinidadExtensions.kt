@@ -5,10 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.compose.runtime.MutableState
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -36,7 +38,7 @@ fun Context.developAreaMessageExt() {
 }
 
 
-fun String.smartTruncate(max: Int, suffix: String = "..."): String {
+fun String.smartTruncate(max: Int = 120, suffix: String = "..."): String {
     return if (this.length < max) {
         this
     } else {
@@ -51,12 +53,7 @@ val placeholderError =
         R.drawable.placeholder_3,
         R.drawable.placeholder_4,
         R.drawable.placeholder_5,
-        R.drawable.placeholder_6,
-        R.drawable.placeholder_7,
-        R.drawable.placeholder_8,
-        R.drawable.placeholder_9,
-        R.drawable.placeholder_10,
-        R.drawable.placeholder_11)
+    )
 
 fun ImageView.loadImageCenterInsideExt(imageUri: Uri) {
 
@@ -99,6 +96,17 @@ fun ImageView.loadImageCenterCropExt(imageUri: Uri) {
         .into(this)
 }
 
+fun ImageView.loadImageCenterCropWithTransitionExt(imageUri: Uri) {
+    Glide.with(this)
+        .load(imageUri)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .error(placeholderError[Random.nextInt(placeholderError.size)])
+        .placeholder(placeholderError[Random.nextInt(placeholderError.size)])
+        .centerCrop()
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(this)
+}
+
 fun ImageView.loadImageCenterCropExt(imageResource: Int) {
     Glide.with(this)
         .load(imageResource)
@@ -109,8 +117,44 @@ fun ImageView.loadImageCenterCropExt(imageResource: Int) {
         .into(this)
 }
 
+
+fun VrPanoramaView.loadPano360WithGlideInComposeExt(uriPanoResource: Uri) {
+    val vrPanoContext = this
+    Log.e(
+        "PANOVIEW EXT",
+        "loadPano360WithGlideExt: WHEN ALL SYSTEM STATY IN COMPOSE PLEASE CHANGE THIS METHOD"
+    )
+    Glide.with(this)
+        .asBitmap()
+        .load(uriPanoResource)
+        .into(object : CustomTarget<Bitmap>() {
+            override fun onResourceReady(
+                resource: Bitmap,
+                transition: Transition<in Bitmap>?,
+            ) {
+                val options = VrPanoramaView.Options()
+                options.inputType = VrPanoramaView.Options.TYPE_MONO
+                vrPanoContext.setInfoButtonEnabled(false)
+                vrPanoContext.setFullscreenButtonEnabled(true)
+                vrPanoContext.setStereoModeButtonEnabled(true)
+                vrPanoContext.setTouchTrackingEnabled(true)
+                vrPanoContext.loadImageFromBitmap(resource, options)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+                // Add other icon
+            }
+        })
+
+}
+
+
 fun VrPanoramaView.loadPano360WithGlideExt(uriPanoResource: Uri, container: List<View>) {
     val vrPanoContext = this
+    Log.e(
+        "PANOVIEW EXT",
+        "loadPano360WithGlideExt: WHEN ALL SYSTEM STATY IN COMPOSE PLEASE CHANGE THIS METHOD"
+    )
     if (uriPanoResource.toString().isNotEmpty()) {
         Glide.with(this)
             .asBitmap()

@@ -4,8 +4,13 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_24"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
         android:title="@string/search_text"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_ecommerce"
+        android:icon="@drawable/store_icon"
+        android:title="@string/store"
         app:showAsAction="ifRoom" />
     <item
         android:icon="@drawable/ic_menu_utils_vert_24"

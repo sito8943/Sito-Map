@@ -32,12 +32,16 @@ abstract class BaseFragment : Fragment() {
         sharedElementReturnTransition = sharedTransitionReturnEffect
     }
 
-    protected fun showTrinidadBottomSheetPlaceInfo(place: Place, navDirections: NavDirections) {
+    protected fun showTrinidadBottomSheetPlaceInfo(
+        place: Place,
+        navDirections: Int,
+        args: Bundle?
+    ) {
         Log.d("BaseFragment", "showTrinidadBottomSheetPlaceInfo: Called this function")
         val uriImage = Uri.parse(
             TrinidadAssets.getAssetFullPath(
                 place.header_images[0],
-                TrinidadAssets.FILE_JPG_EXTENSION
+                TrinidadAssets.jpg
             )
         )
         val webURI = Uri.parse(place.web)
@@ -51,7 +55,7 @@ abstract class BaseFragment : Fragment() {
             )
 
         trinidadBottomSheet.navigateTo(
-            navDirections
+            navDirections, args
         )
         trinidadBottomSheet.bindData(data)
         trinidadBottomSheet.show()

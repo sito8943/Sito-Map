@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.Ecommerce" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:colorPrimary">#ff00ff</item>
+        <item name="android:colorAccent">#ff00ff</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

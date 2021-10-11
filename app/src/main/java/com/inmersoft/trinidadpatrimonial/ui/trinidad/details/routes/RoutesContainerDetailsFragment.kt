@@ -17,7 +17,7 @@ class RoutesContainerDetailsFragment : BaseFragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private val safeArgs: RoutesContainerDetailsFragmentArgs by navArgs()
+    private val safeArgs = arguments?.getInt("routeId") ?: -1
     private val viewPagerAdapter: ViewPagerDetailAdapter by lazy {
         ViewPagerDetailAdapter(
             childFragmentManager,
@@ -53,12 +53,12 @@ class RoutesContainerDetailsFragment : BaseFragment() {
             val fragmentList = mutableListOf<RoutesDetailsFragment>()
             allRoutes.indices.forEach { index ->
                 val currentRoute = allRoutes[index]
-                if (safeArgs.routeID == currentRoute.route_id) {
-                    //Agregamos la ruta elejida por el usuario com la primera en la lista
-                    fragmentList.add(0, RoutesDetailsFragment(currentRoute))
-                } else {
-                    fragmentList.add(RoutesDetailsFragment(currentRoute))
-                }
+                if (safeArgs == currentRoute.route_id) {
+                //Agregamos la ruta elejida por el usuario com la primera en la lista
+                fragmentList.add(0, RoutesDetailsFragment(currentRoute))
+            } else {
+                fragmentList.add(RoutesDetailsFragment(currentRoute))
+            }
             }
             viewPagerAdapter.setFragments(fragmentList)
         })

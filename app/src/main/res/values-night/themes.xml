@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/trinidadColorPrimary</item>
         <item name="colorPrimaryVariant">@color/trinidadColorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/trinidadColorOnPrimary</item>
+
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/trinidadColorSecondary</item>
         <item name="colorSecondaryVariant">@color/trinidadColorSecondaryVariant</item>

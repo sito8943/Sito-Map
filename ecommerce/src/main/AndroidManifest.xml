@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.inmersoft.ecommerce">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        >
+        <activity
+            android:name=".presentation.EcommerceActivity"
+            android:exported="false"
+            android:label="@string/title_activity_ecommerce"
+            android:theme="@style/Theme.Ecommerce" />
+    </application>
+</manifest>

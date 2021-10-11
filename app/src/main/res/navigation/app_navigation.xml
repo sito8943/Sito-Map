@@ -53,6 +53,9 @@
             app:destination="@id/nav_map"
             app:popUpTo="@id/placeContainerDetailsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_placeContainerDetailsFragment_self"
+            app:destination="@id/placeContainerDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/routesContainerDetailsFragment"

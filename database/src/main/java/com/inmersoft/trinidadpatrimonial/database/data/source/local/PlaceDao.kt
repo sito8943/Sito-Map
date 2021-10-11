@@ -38,3 +38,4 @@ interface PlaceDao {
     @Query("SELECT * FROM places")
     suspend fun getPlaceWithRoutes(): List<PlacesWithRoutes>
 }
+
