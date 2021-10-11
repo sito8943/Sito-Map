@@ -79,7 +79,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-rc01"
 
     // navigation compose
-    implementation "androidx.navigation:navigation-compose:2.3.5"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha10"
 
 
     // Coroutine Lifecycle Scopes
