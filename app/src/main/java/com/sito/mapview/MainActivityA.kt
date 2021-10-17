@@ -31,8 +31,7 @@ import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource
 import com.mapbox.maps.extension.style.sources.generated.geoJsonSource
 import com.mapbox.maps.extension.style.sources.getSourceAs
 import com.mapbox.maps.plugin.annotation.annotations
-import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions
-import com.mapbox.maps.plugin.annotation.generated.createPointAnnotationManager
+import com.mapbox.maps.plugin.annotation.generated.*
 
 var points = arrayOf<SPoint>(
     SPoint(18.06, 59.31, "Mi Casa"),
@@ -46,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
     private var markerSelected = false
+    private var consumeClickEvent = false
     private var markerAnimator = ValueAnimator()
     private var firstTime = true
     //private lateinit var binding: ActivityLocationLayerBasicPulsingCircleBinding
@@ -69,86 +69,19 @@ class MainActivity : AppCompatActivity() {
         locationPermissionHelper = LocationPermissionHelper(this)
         locationPermissionHelper.checkPermissions {
             mapboxMap.loadStyleUri(
-                Style.DARK
-                        + geoJsonSource("marker-source") {
-                    featureCollection(
-                        FeatureCollection.fromFeatures(markerCoordinates.map {
-                            Feature.fromGeometry(
-                                it
-                            )
-                        })
-                    )
-                }
-                        // Add the marker image to map
-                        + image("my-marker-image") {
-                    bitmap(BitmapFactory.decodeResource(resources, R.drawable.red_marker))
-                }
-                        // Adding an offset so that the bottom of the blue icon gets fixed to the coordinate, rather than the
-                        // middle of the icon being fixed to the coordinate point.
-                        + symbolLayer("marker-layer", "marker-source") {
-                    iconImage("my-marker-image")
-                    iconAllowOverlap(true)
-                    iconOffset(listOf(0.0, -9.0))
-                }
-                        // Add the selected marker source and layer
-                        + geoJsonSource("selected-marker") {
-                    geometry(Point.fromLngLat(0.0, 0.0))
-                }
-                        // Adding an offset so that the bottom of the blue icon gets fixed to the coordinate, rather than the
-                        // middle of the icon being fixed to the coordinate point.
-                        + symbolLayer("selected-marker-layer", "selected-marker") {
-                    iconImage("my-marker-image")
-                    iconAllowOverlap(true)
-                    iconOffset(listOf(0.0, -9.0))
-                }
-            ) /*{ addAnnotationToMap(points) }*/
+                Style.MAPBOX_STREETS
+            ) { addAnnotationToMap(points) }
             mapView.gestures.addOnMapClickListener { point ->
-                mapboxMap.getStyle {
-                    val selectedMarkerSymbolLayer =
-                        it.getLayer("selected-marker-layer") as SymbolLayer
-                    val pixel = mapboxMap.pixelForCoordinate(point)
-                    mapboxMap.queryRenderedFeatures(
-                        screenBoxFromPixel(pixel),
-                        RenderedQueryOptions(listOf("selected-marker-layer"), null)
-                    ) { expected ->
-                        if (expected.value!!.isNotEmpty() && markerSelected) {
-                            return@queryRenderedFeatures
-                        }
-
-                        mapboxMap.queryRenderedFeatures(
-                            screenBoxFromPixel(pixel),
-                            RenderedQueryOptions(listOf("marker-layer"), null)
-                        ) InnerRenderedQueryOptions@{ expectedFeatures ->
-                            val queriedFeatures = expectedFeatures.value!!
-                            if (queriedFeatures.isEmpty()) {
-                                if (markerSelected) {
-                                    updateMarker(selectedMarkerSymbolLayer, false)
-                                }
-                                return@InnerRenderedQueryOptions
-                            }
-
-                            it.getSourceAs<GeoJsonSource>("selected-marker")!!.apply {
-                                queriedFeatures[0].feature.geometry()?.let { value ->
-                                    geometry(value)
-                                }
-                            }
-
-                            if (markerSelected) {
-                                updateMarker(selectedMarkerSymbolLayer, false)
-                            }
-                            if (queriedFeatures.isNotEmpty()) {
-                                updateMarker(selectedMarkerSymbolLayer, true)
-                            }
-                        }
-                    }
-                }
-                /*mapView.location
+                mapView.location
                     .isLocatedAt(point) { isPuckLocatedAtPoint ->
                         if (isPuckLocatedAtPoint) {
                             Toast.makeText(this, "Clicked on location puck", Toast.LENGTH_SHORT)
                                 .show()
+                        } else if (Casa(point)) {
+                            Toast.makeText(this, point.toString(), Toast.LENGTH_SHORT)
+                                .show()
                         }
-                    }*/
+                    }
                 true
             }
             mapView.gestures.addOnMapLongClickListener { point ->
@@ -165,6 +98,16 @@ class MainActivity : AppCompatActivity() {
                 true
             }
         }
+    }
+
+    private fun Casa(point: Point): Boolean {
+        Toast.makeText(this, points[0].toString(), Toast.LENGTH_SHORT)
+            .show()
+        for (mPoint in points) {
+            if (mPoint.lat == point.latitude() && mPoint.lon == point.longitude())
+                return true
+        }
+        return false
     }
 
     private fun screenBoxFromPixel(pixel: ScreenCoordinate) = ScreenBox(
@@ -193,12 +136,70 @@ class MainActivity : AppCompatActivity() {
     private fun addAnnotationToMap(Points: Array<SPoint>) {
         for (sPoint in Points) {
             // Create an instance of the Annotation API and get the PointAnnotationManager.
+            val annotationApi = mapView.annotations
+            val pointAnnotationManager = annotationApi.createPointAnnotationManager(mapView).apply {
+                addClickListener(
+                    OnPointAnnotationClickListener {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Clicked on location puck",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        true
+                    }
+                )
+                addClickListener(
+                    OnPointAnnotationClickListener {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Clicked on location puck",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        true
+                    }
+                )
+                addLongClickListener(
+                    OnPointAnnotationLongClickListener {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Long-clicked on location puck",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        true
+                    }
+                )
+                addLongClickListener(
+                    OnPointAnnotationLongClickListener {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Long-clicked on location puck",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        true
+                    }
+                )
+                addInteractionListener(object: OnPointAnnotationInteractionListener {
+                    override fun onDeselectAnnotation(annotation: PointAnnotation) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Deselected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    override fun onSelectAnnotation(annotation: PointAnnotation) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Selected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
+            }
             bitmapFromDrawableRes(
                 this@MainActivity,
                 R.drawable.red_marker
             )?.let {
-                val annotationApi = mapView.annotations
-                val pointAnnotationManager = annotationApi.createPointAnnotationManager(mapView)
                 // Set options for the resulting symbol layer.
                 val pointAnnotationOptions: PointAnnotationOptions = PointAnnotationOptions()
                     // Define a geographic coordinate.
@@ -207,6 +208,7 @@ class MainActivity : AppCompatActivity() {
                     // The bitmap will be added to map style automatically.
                     .withTextField(sPoint.name)
                     .withIconImage(it)
+                    .withDraggable(true)
                 // Add the resulting pointAnnotation to the map.
                 pointAnnotationManager.create(pointAnnotationOptions)
             }
@@ -271,11 +273,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val markerCoordinates = arrayListOf<Point>(
-            Point.fromLngLat(-71.065634, 42.354950), // Boston Common Park
-            Point.fromLngLat(-71.097293, 42.346645), // Fenway Park
-            Point.fromLngLat(-71.053694, 42.363725) // The Paul Revere House
-        )
+        private const val SOURCE_URI = "mapbox://examples.ciuz0vpc"
+        private const val SOURCE_LAYER_ID = "Yosemite_POI-38jhes"
+        private const val RESTROOMS = "restrooms"
+        private const val TRAIL_HEAD = "trailhead"
+        private const val PICNIC_AREA = "picnic-area"
+        private const val KEY_PICNIC_AREA = "Picnic Area"
+        private const val KEY_RESTROOMS = "Restroom"
+        private const val KEY_TRAIL_HEAD = "Trailhead"
+        private const val SOURCE_ID = "source_id"
+        private const val LAYER_ID = "layer_id"
+        private const val ICON_KEY = "POITYPE"
     }
 
 }
