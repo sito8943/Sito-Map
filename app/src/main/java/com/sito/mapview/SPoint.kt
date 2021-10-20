@@ -1,5 +1,9 @@
 package com.sito.mapview
 
-data class SPoint(val lon: Double, val lat: Double, val name: String) {
+import com.mapbox.geojson.Point
 
+data class SPoint(val lon: Double, val lat: Double, val name: String) {
+    fun getAsPoint(): Point {
+        return Point.fromLngLat(lon,lat)
+    }
 }

@@ -6,13 +6,19 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.FutureTarget
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
@@ -30,8 +36,13 @@ import com.mapbox.maps.extension.style.layers.properties.generated.IconAnchor
 import com.mapbox.maps.extension.style.sources.generated.GeoJsonSource
 import com.mapbox.maps.extension.style.sources.generated.geoJsonSource
 import com.mapbox.maps.extension.style.sources.getSourceAs
+import com.mapbox.maps.plugin.animation.MapAnimationOptions
+import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 var points = arrayOf<SPoint>(
     SPoint(18.06, 59.31, "Mi Casa"),
@@ -40,10 +51,11 @@ var points = arrayOf<SPoint>(
     SPoint(21.06, 62.31, "Mi Casa3")
 )
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnPointAnnotationClickListener {
 
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
+    private lateinit var pointAnnotationManager: PointAnnotationManager
     private var markerSelected = false
     private var consumeClickEvent = false
     private var markerAnimator = ValueAnimator()
@@ -70,8 +82,17 @@ class MainActivity : AppCompatActivity() {
         locationPermissionHelper.checkPermissions {
             mapboxMap.loadStyleUri(
                 Style.MAPBOX_STREETS
-            ) { addAnnotationToMap(points) }
-            mapView.gestures.addOnMapClickListener { point ->
+            ) {
+                if (!::pointAnnotationManager.isInitialized) {
+                    pointAnnotationManager =
+                        mapView.annotations.createPointAnnotationManager(mapView)
+                }
+                addAnnotationToMap(points)
+            }
+            if (::pointAnnotationManager.isInitialized) {
+                pointAnnotationManager.addClickListener(this@MainActivity)
+            }
+            /*mapView.gestures.addOnMapClickListener { point ->
                 mapView.location
                     .isLocatedAt(point) { isPuckLocatedAtPoint ->
                         if (isPuckLocatedAtPoint) {
@@ -83,8 +104,8 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 true
-            }
-            mapView.gestures.addOnMapLongClickListener { point ->
+            }*/
+            /*mapView.gestures.addOnMapLongClickListener { point ->
                 mapView.location
                     .isLocatedAt(point) { isPuckLocatedAtPoint ->
                         if (isPuckLocatedAtPoint) {
@@ -96,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 true
-            }
+            }*/
         }
     }
 
@@ -134,7 +155,48 @@ class MainActivity : AppCompatActivity() {
 
     //function to add markers to map
     private fun addAnnotationToMap(Points: Array<SPoint>) {
-        for (sPoint in Points) {
+        if (::pointAnnotationManager.isInitialized) {
+            var countPoints = 100.0
+            lifecycleScope.launch(Dispatchers.IO) {
+                val pointsAnnotationOptions = Points.map { point ->
+
+                    countPoints *= 10.0
+
+                    val futureTarget: FutureTarget<Bitmap> = Glide.with(this@MainActivity)
+                        .asBitmap()
+                        .load(R.drawable.red_marker)
+                        .submit(300, 300)
+                    var bitmap = futureTarget.get()
+                    bitmapFromDrawableRes(
+                        this@MainActivity,
+                        R.drawable.red_marker
+                    )?.let {
+                        bitmap = it
+                    }
+                    PointAnnotationOptions().apply {
+                        withPoint(
+                            com.mapbox.geojson.Point.fromLngLat(
+                                point.lon,
+                                point.lat
+                            )
+                        )
+                        withIconImage(bitmap)
+                        withIconSize(1.4)
+                        withTextOffset(listOf(0.0, 2.0))
+                        withTextSize(20.0)
+                        withTextField(point.name)
+                        withTextColor(Color.BLACK)
+                        withTextHaloWidth(0.8)
+                        withTextHaloColor(Color.WHITE)
+                        withSymbolSortKey(countPoints)
+                    }
+                }
+                withContext(Dispatchers.Main) {
+                    pointAnnotationManager.create(pointsAnnotationOptions)
+                }
+            }
+        }
+        /*for (sPoint in Points) {
             // Create an instance of the Annotation API and get the PointAnnotationManager.
             val annotationApi = mapView.annotations
             val pointAnnotationManager = annotationApi.createPointAnnotationManager(mapView).apply {
@@ -178,7 +240,7 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                 )
-                addInteractionListener(object: OnPointAnnotationInteractionListener {
+                addInteractionListener(object : OnPointAnnotationInteractionListener {
                     override fun onDeselectAnnotation(annotation: PointAnnotation) {
                         Toast.makeText(
                             this@MainActivity,
@@ -212,7 +274,7 @@ class MainActivity : AppCompatActivity() {
                 // Add the resulting pointAnnotation to the map.
                 pointAnnotationManager.create(pointAnnotationOptions)
             }
-        }
+        }*/
     }
 
     private fun bitmapFromDrawableRes(context: Context, @DrawableRes resourceId: Int) =
@@ -284,6 +346,25 @@ class MainActivity : AppCompatActivity() {
         private const val SOURCE_ID = "source_id"
         private const val LAYER_ID = "layer_id"
         private const val ICON_KEY = "POITYPE"
+    }
+
+    override fun onAnnotationClick(annotation: PointAnnotation): Boolean {
+        val pointName = annotation.textField
+        if (!pointName.isNullOrEmpty()) {
+            Log.d(
+                "T1",
+                pointName
+            )
+            points.forEach {
+                if (it.name == pointName) {
+                    mapboxMap.flyTo(
+                        CameraOptions.Builder().center(it.getAsPoint()).zoom(19.0).build(),
+                        MapAnimationOptions.mapAnimationOptions { duration(1000L) })
+                    return@forEach
+                }
+            }
+        }
+        return true
     }
 
 }
